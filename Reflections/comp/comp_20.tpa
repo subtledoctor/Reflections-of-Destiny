@@ -27,15 +27,6 @@ DEFINE_ACTION_FUNCTION kill_thalantyr BEGIN
 
 <<<<<<<< d5/area3202.baf
 IF
-	Global("thalantyr_global","GLOBAL",0)
-THEN
-	RESPONSE #100
-		ActionOverride("thalantyr",MakeGlobal())
-		SetGlobal("thalantyr_global","GLOBAL",1)
-END
-// ...is that ^ necessary?
-
-IF
 	GlobalGT("CHAPTER","GLOBAL",6)
 	Global("thalantyr_dead","GLOBAL",0)
 THEN
