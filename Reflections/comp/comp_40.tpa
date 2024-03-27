@@ -1,0 +1,36 @@
+
+DEFINE_ACTION_FUNCTION introduce_korlasz BEGIN
+
+/*
+- plan: add korlasz' crypt to bg1 ch. 7
+
+- add the entrance to the crypt (non-working?)
+ -- ...see EBG1 for deets
+- have Jenks or whoever meet you there (with a handful of FF soldiers)
+ -- ...and his dialogue trigger entering and starting the quest
+ -- ...see EBG1 for deets
+ -- ..."I'm afraid they saw us mustering outside - one of my men heard them raise an alarm and they retreated into the crypt. We have entered the antechamber and it runs out, there is a rather large cave complex underneath it. Either there is another way out, or they are fortifying and making ready for a tough fight. I don't know which possibility I prefer..."
+
+- once the crypt is entered, enable the entrance so you can go in and out
+
+- change dialogues in the crypt to remove mentions of 1) the sword, and 2) S being dead
+ -- ...korlasz
+ -- ...
+ -- ...
+
+- after korlasz defeat, have her drop a letter from S mentioning the maze and the undercity
+
+- have someone mention you ought to report back to Belt?
+
+*/
+
+/*
+
+*/
+
+//___________________________________________________________________________________
+//
+
+
+
+END	//	end define function

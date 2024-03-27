@@ -1,0 +1,29 @@
+
+DEFINE_ACTION_FUNCTION entar_accuse BEGIN
+
+/*
+- plan: have entar accuse you of his murder
+
+- add a state to Belt's dialogue (and Eltan's? and Liia's?) saying the undercity was sealed off long ago, but mention rumors that an entrance once existed in the thieves guild. for what purpose, none can say, and it is unknown whether it still exists. but worth investigating.
+
+- have entar appear and rave about how you murdered him
+ -- ...everyone is like "no, you're not caught up, it was doppelganger's see?"
+ -- ...entar, reasonably, is not quick to calm down
+
+- set ("DukeThanks","GLOBAL",1) to unlock the entrance
+
+- move the entrance to the maze?
+
+
+*/
+
+/*
+
+*/
+
+//___________________________________________________________________________________
+//
+
+
+
+END	//	end define function

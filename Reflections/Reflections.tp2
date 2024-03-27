@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.1.2~
+VERSION ~0.1.3~
 
 ALWAYS
   ACTION_IF (GAME_IS ~eet~) BEGIN
@@ -22,26 +22,28 @@ LANGUAGE
 PLAN FOR PART 1:
 3)
  - change Belt's dialogue after doppel attack - no teleport, dunno location
- - put block on entrance to maze
  - maybe move entrance to maze...?
+ - add DD officer to direct you to korlasz
 4)
  - place korlasz' crypt
- - script messenger to tell you where it is; put some FF outside it
+ - put some FF outside it
  - FF captain dialogue into Korlasz crypt
  - change korlasz dialogue(s) mentioning sarevok dead
- - end of korlasz takes you back to the surface - see EBG1
+ - etc.
 5)
  - report to Belt; script Entar to enter and accuse you
- - Belt give wardstone
-6)
+ - dlg sets variable to unlock maze
  - allow entrance to maze; script some FF to die near traps
+6)
  - maybe change sarevok fight?
  - no game end after sarevok; see EBG1
 7)
- - write dialogues for after: people pissed there is no body, no way to confirm your story
+ - write dialogues for after: people are pissed there is no body, necromancy doesn't work, there is no way to prove your story
+ - entar is still salty, says this looks an awful lot like you just wanted to remove Sarevok and be called the "Hero of Baldur's Gate" - I mean, nobody ever heard of you until the iron crisis began. coincidence?
  - BREAK POINT: if continue to SoD, have them tell you you can prove your self by helping the city against the crusade, it is more important than figuring out yet another doppelganger situation
  - OR:.......if jump to BG2, say in no uncertain terms that the crusade is not your concern, the military can handle it; you need to get to the bottom of this clone thing. They say if that's your choice, the FF will march north without you.
  - ...if you want to investigate the clone, have Entar say the assassin is already in custody
+
 8a)
  - if skip SoD, cut scene to cells, spawn clone in cell
  - put brightly glowing bracers on clone
@@ -51,15 +53,15 @@ PLAN FOR PART 1:
 9a)
  - fade out/in, run SoD escape sequence
  - change dialogues where needed
- - ...i.e. imoen saying you attacked her, but it wasn't you, or something.
+ - ...i.e. imoen saying you attacked her, but it wasn't you, or something. are you the real you? how can she trust you?
 
 8b)
- - if go to SoD, put a pin in the clone investigation
+ - if go to SoD, put a pin in the clone investigation (we've already established it was doppelgangers, Sarevok apparently loved doppelgangers, let's move on!)
  - later in SoD, have Skie sent back to BG by the FF
  - keep the cut-scene where she dies, but place it in the city instead of in Dragonspear
  - when you return, Entar is out of his mind, accuses you of persecuting his family
  - ...notes that Eddard's death coincided with your leaving Candlekeep; coincidence???
- - then notes that the asssassin is already in custody; appears to be a doppelganger or something, which matches the methods Sarevok was using... looks very bad
+ - then notes that the assassin is already in custody; appears to be a doppelganger or something, which matches the methods Sarevok was using... looks very bad
  - then confront the clone
  - scripted tomestop, teleport, party removal
 9b)
@@ -84,6 +86,15 @@ REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 INCLUDE ~Reflections/comp/comp_20.tpa~
 
 LAF kill_thalantyr END
+
+//___________________________________________________________________________________
+//
+BEGIN @30	//	slow Belt's roll
+REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
+
+INCLUDE ~Reflections/comp/comp_30.tpa~
+
+LAF delay_maze END
 
 //___________________________________________________________________________________
 //

@@ -2,8 +2,9 @@
 @6   = ~...~
 //
 //
-@10   = ~Reflections of Destiny Part 1: the Mirror Shard~
+@10   = ~Reflections of Destiny Part 1: The Mirror Shard~
 @20   = ~Reflections of Destiny Part 2: Death on Feathered Wings~
+@30   = ~Reflections of Destiny Part 3: Belt Tightening~
 //
 //
 @10001  = ~Mirror Shard~
@@ -27,5 +28,45 @@ This shard is a piece of an immensely powerful Mirror of Opposition, now broken.
 @20012  = ~You are welcome.~
 @20013  = ~You are welcome. May we peruse your inventory of magical items?~
 @20014  = ~I hope those halflings appreciate the effort I put into this...~
+@20015  = ~Yes, yes, boy, now be quiet a moment. Ah ha, here they are. Now to make certain these will not fall into the hands of some other unfortunate fool. I will store them securely, this time. Tell me, Melicamp, do you quite feel yourself again?~
+//
+//
+@30001  = ~Well. I suppose we must thank you for your timely intervention. Though, if I am being honest, the timing of your arrival does seem quite convenient. Who did you say you are?~
+@30002  = ~I am <CHARNAME>. We have been investigating the Iron Throne's involvement with the iron crisis and the push for war with Amn. We have spoken to Scar about it.~
+@30003  = ~Yes, well, unfortunately Scar is dead, and won't be coming back. So we cannot ask him about it.~
+@30004  = ~At any rate, Sarevok is gone, and there is no way to track where they went. That was a Dimension Door, not a teleport spell. But the range is limited, so he cannot have gone far. He is surely still in the city. I will order all entrances to be monitored and have mages checking for magical passage. He will not easily escape.~
+@30005  = ~You assume he *wants* to escape...~
+@30006  = ~He will wish he could escape. I will hunt him down!~
+@30007  = ~Yes, he did say he would come after you right before leaving, did he not? That is worrying. With all the power he amassed through the Iron Throne, he no doubt still has significant resources close at hand.~
+@30008  = ~I admire your enthusiasm. It is clear to me that Sarevok is an enemy who meant to cause - who did cause - grave harm. But you might consider whether, in your zeal to pursue him, you are playing into his hands. With all the power he amassed through the Iron Throne, he no doubt still has significant resources close at hand.~
+@30009  = ~We must find him. I think the best course of action is to inquire with the Flaming Fist. Sarevok's stooge, Angelo, is gone and his goons will have been run out. But maybe someone gleaned some information from him in the short time he was running the place.~
+@30010  = ~Good idea. I will go talk to an officer in the Flaming Fist.~
+@30011  = ~I do not really see eye to eye with the Flaming Fist. I suppose I could talk to them... if I feel like it. We'll see.~
+@30012  = ~I urge you to find Sarevok and bring him to justice. It would be a boon for the city... and it would go a long way toward shoring up your own credibility and reputation.~
+@30013  = ~Right. I am on it.~
+@30014  = ~I do what I want to do, you aren't my boss.~
+@30015  = ~Can I help you? I'm afraid we don't have the time for civilian inquiries at the moment.~
+@30016  = ~Say, I know you. You're that troublemaker that Angelo wanted us to arrest!~
+@30017  = ~Heh heh. Well, an enemy of Angelo's is a friend of mine. That guy was no good for the Fist. What can I do for you?~
+@30018  = ~I am trying to track down Sarevok Anchev. He was working with Angelo and I need to put a stop to their scheming, once and for all. Do you have any information about where they might be?~
+@30019  = ~Nothing right now. I have to do some things, then maybe I will be back.~
+@30020  = ~I can't say that I do. I'm sorry. However... Sarevok and Angelo didn't exactly hide their activities. Why should they? A grand duke and the leader of the Flaming fist!~
+@30021  = ~When Sarevok was angling to become a duke, he was courting favor with most of the city's noble families. Some were more eager than others to work with him. One in particular, name of Korlasz, seemed unusually eager to get involved. Well, I asked around a bit - quiet, like - and rumor has it she is into some dark magicks.~
+@30022  = ~Do you think Korlasz might have information on where Sarevok and Angelo are now? Where is her estate?~
+@30023  = ~Funny thing, that. I already sent some men 'round to her house. But nobody was home. And nobody has come or gone in some time. But, here's where it gets interesting. There was one time, when Angelo met with this Korlasz, and he ordered a squad of Fist men to accompany him for protection. But they didn't go to her house. See, Korlasz also has a big fancy crypt for her family, right in the middle of the city. And that's where the meet took place.~
+@30024  = ~Now, I have to ask myself: why would they want to hold a meeting in a bleedin' mausoleum? It's a head-scratcher, hey? But I tell you what: I would like to see this mausoleum. I would like that very much. Who knows? Maybe we will find Angelo there. I would quite like to see him strapped to a hard chair in the basement, and answer some questions for me.~
+@30025  = ~I would like that as well. Can you tell me where this crypt is? It's all I have to go on.~
+@30026  = ~Tell me where the crypt is. You stay here - you will only get in my way.~
+@30027  = ~It is right near the center of the city, north of the harbor near the steps to the entrance in the old walls. I am already gathering a force to go there and get inside, by force if necessary. We are heading there soon; if you want to join, you can meet me there. I won't lie, I wouldn't mind having someone with your capabilities along with my men.~
+@30028  = ~Sounds good.~
+@30029  = ~I've got some things to do first. I will meet you there afterward.~
+@30030  = ~Sorry friend, but I'm not sitting this one out. If you want in, you can meet me there. The crypt is right near the center of the city, north of the harbor near the steps to the entrance in the old walls. I won't lie, I wouldn't mind having someone with your... capabilities... along with my men. If things get violent, though, you make sure those weapons of yours are pointed in the right direction. Understand?~
+@30031  = ~Fine, I will meet you there. But your men better not slow me down.~
+@30032  = ~No promises.~
+@30033  = ~Alright then, I will see you there.~
+@30034  = ~The Hunt for Sarevok
+I spoke with Captain Gregson of the Flaming Fist. He did not know where Sarevok and Angelo may be, but he mentioned a member of the noble class, Korlasz, who had some suspicious dealings with Angelo at her family's crypt in the center of the city. Captain Gregson intends to enter the crypt and look for clues. It is as good a place to start as any. The entrance to the crypt is near the gate in the inner city walls, just north of the harbor. Captain Gregson will meet me there with a company of Flaming Fist soldiers.~
+@30035  = ~The Hunt for Sarevok
+Sarevok's coronation as a grand duke was interrupted, but he escaped to an unknown location. The dukes have suggested that an officer of the Flaming Fist who may have worked with Angelo might have information that can help. Angelo was installed, however briefly, at the Flaming Fist headquarters ion the southwest quadrant of the city. That is the best place to start.~
 //
 //
