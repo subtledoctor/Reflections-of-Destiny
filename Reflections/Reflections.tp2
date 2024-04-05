@@ -1,9 +1,10 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.1.3~
+VERSION ~0.1.4~
 
 ALWAYS
+  OUTER_SPRINT newline ~%WNL%%LNL%%MNL%%TAB% ~
   ACTION_IF (GAME_IS ~eet~) BEGIN
     OUTER_SPRINT bg1_area_prefix ~BG~
   END
@@ -18,12 +19,18 @@ LANGUAGE
   ~Reflections/lang/en_US/setup.tra~
 
 /*
+This should be installed after EBG1
+If so, can skip the specific stuff making game over after sarevok fight
+But this should hijack the dialogues after that, and use mine for the campaign transition, instead of EBG1's
+And if "KD in BG1" is installed, can maybe just skip some stuff adding the dungeon here
+But still need to change the dialogues about the sword and S's death etc.
+Maybe it can work...
+
+// ***** Fix beginning of SoD: now begins in Ducal Palace with Imoen attack
+// ...probably have to deal with the possibility that Imoen is nowhere to be found...!
+// ...in step 7
 
 PLAN FOR PART 1:
-3)
- - change Belt's dialogue after doppel attack - no teleport, dunno location
- - maybe move entrance to maze...?
- - add DD officer to direct you to korlasz
 4)
  - place korlasz' crypt
  - put some FF outside it
@@ -35,15 +42,14 @@ PLAN FOR PART 1:
  - dlg sets variable to unlock maze
  - allow entrance to maze; script some FF to die near traps
 6)
- - maybe change sarevok fight?
  - no game end after sarevok; see EBG1
+ - maybe change sarevok fight?
 7)
  - write dialogues for after: people are pissed there is no body, necromancy doesn't work, there is no way to prove your story
  - entar is still salty, says this looks an awful lot like you just wanted to remove Sarevok and be called the "Hero of Baldur's Gate" - I mean, nobody ever heard of you until the iron crisis began. coincidence?
  - BREAK POINT: if continue to SoD, have them tell you you can prove your self by helping the city against the crusade, it is more important than figuring out yet another doppelganger situation
  - OR:.......if jump to BG2, say in no uncertain terms that the crusade is not your concern, the military can handle it; you need to get to the bottom of this clone thing. They say if that's your choice, the FF will march north without you.
  - ...if you want to investigate the clone, have Entar say the assassin is already in custody
-
 8a)
  - if skip SoD, cut scene to cells, spawn clone in cell
  - put brightly glowing bracers on clone
@@ -64,6 +70,8 @@ PLAN FOR PART 1:
  - then notes that the assassin is already in custody; appears to be a doppelganger or something, which matches the methods Sarevok was using... looks very bad
  - then confront the clone
  - scripted tomestop, teleport, party removal
+ 
+ - ***** might need to add some dialogue (from Belt/Liia/Eltan) with, "the people want a hero; whether or not that's really what you are, you did stop Sarevok and Sarevok did turn out to be a threat. The whispers about you have already started; it would be prudent to make sure the less kind ones do not become dominant.
 9b)
  - then modded escape scene as above
 
@@ -74,7 +82,7 @@ PLAN FOR PART 1:
 BEGIN @10	//	add mirror shards
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 
-INCLUDE ~Reflections/comp/comp_10.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_10.tpa~
 
 LAF mirror_shards END
 
@@ -83,7 +91,7 @@ LAF mirror_shards END
 BEGIN @20	//	...deal with Thalantyr
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 
-INCLUDE ~Reflections/comp/comp_20.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_20.tpa~
 
 LAF kill_thalantyr END
 
@@ -92,11 +100,25 @@ LAF kill_thalantyr END
 BEGIN @30	//	slow Belt's roll
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 
-INCLUDE ~Reflections/comp/comp_30.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_30.tpa~
 
 LAF delay_maze END
 
 //___________________________________________________________________________________
 //
 
+BEGIN @40	//	meeting Korlasz
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_40.tpa~
+
+LAF early_korlasz END
+
+//___________________________________________________________________________________
+//
+
+BEGIN @50	//	enter entar
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_50.tpa~
+
+LAF entar_accuse END
 

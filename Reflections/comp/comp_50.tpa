@@ -2,28 +2,319 @@
 DEFINE_ACTION_FUNCTION entar_accuse BEGIN
 
 /*
-- plan: have entar accuse you of his murder
-
-- add a state to Belt's dialogue (and Eltan's? and Liia's?) saying the undercity was sealed off long ago, but mention rumors that an entrance once existed in the thieves guild. for what purpose, none can say, and it is unknown whether it still exists. but worth investigating.
+- plan: add to Belt's dialogue (and Eltan's? and Liia's?) saying the undercity was sealed off long ago, but mention rumors that an entrance once existed in the thieves guild. for what purpose, none can say, and it is unknown whether it still exists. but worth investigating.
 
 - have entar appear and rave about how you murdered him
  -- ...everyone is like "no, you're not caught up, it was doppelganger's see?"
  -- ...entar, reasonably, is not quick to calm down
 
-- set ("DukeThanks","GLOBAL",1) to unlock the entrance
+- ***** change the trigger to unlock the maze entrance from  ("DukeThanks","GLOBAL",1) to something else
 
-- move the entrance to the maze?
+- ***** add a thief to the guild to talk about the stairs
+ -- ...or use an existing one. Denkod?
+ -- ...and probably then have to disable the trigger that creates him after Sarevok is dead.
 
+- ***** bring Imoen back at this time. creates complications tho.
+ -- ...only if not in party
+ -- ...need to check when she was last in party
+ -- ...and check if she is dead
+ -- ...and give dialogue appropriate for each ("I had such an adventure! Been hearing a lot about you too, though.")
+ -- ...and another cut scene to introduce her
+ -- ...and some comments by Liia ("best to keep any of your associates from Candlekeep in protective custody here until the threat of Sarevok is truly passed.")
+ -- ...don't let her join the party in this case...?
 
 */
 
+<<<<<<<< d5/area0108.baf
+IF
+	Global("D5EntarCut","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5EntarCut","GLOBAL",2)
+		CreateCreature("ENTAR",[520.615],E)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5ENCUT1")
+END
+
+IF
+	Global("D5EntarCut","GLOBAL",4)
+THEN
+	RESPONSE #100
+		SetGlobal("D5EntarCut","GLOBAL",5)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5ENCUT2")
+END
+>>>>>>>>
+COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+END
+
+<<<<<<<< d5/d5encut1.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId("ENTAR")
+		DisplayStringHead(Myself,@50019)
+		MoveToPoint([705.560])
+		SmallWait(1)
+		SetGlobal("D5EntarCut","GLOBAL",3)
+		EndCutSceneMode()
+		ActionOverride("ENTAR",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5encut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5encut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5encut1.baf~
+
+<<<<<<<< d5/d5encut2.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId("ENTAR")
+		DisplayStringHead(Myself,@50030)
+		MoveToPoint([520.615])
+		SetGlobal("D5EntarCut","GLOBAL",6)
+		EscapeArea()
+		EndCutSceneMode()
+END
+>>>>>>>>
+COPY ~d5/d5encut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5encut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5encut1.baf~
+
+<<<<<<<< d5/belt+.baf
+IF
+	!See([ENEMY])
+	CombatCounter(0)
+	Global("D5EntarCut","GLOBAL",6)
+THEN
+	RESPONSE #100
+		Dialogue([PC])
+END
+>>>>>>>>
+COPY ~d5/belt+.baf~ ~weidu_external/%MOD_FOLDER%/compile/belt+.baf~
+EXTEND_TOP ~BELT.BCS~ ~weidu_external/%MOD_FOLDER%/compile/belt+.baf~
+
+<<<<<<<< d5/palace+.d
+APPEND BELT
+
+IF ~Global("D5KorlaszDone","GLOBAL",1) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5beltkd_0
+  SAY @50001
+  IF ~Dead("BDKORLAS")~ GOTO d5beltkd_2
+  IF ~!Dead("BDKORLAS")~ GOTO d5beltkd_3
+END
+
+IF ~Global("D5KorlaszDone","GLOBAL",2) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5beltkd_1
+  SAY @50004
+  IF ~!PartyHasItem("D5SCRLSK",1)~ REPLY @50005 GOTO d5beltkd_5
+  IF ~PartyHasItem("D5SCRLSK",1)~ REPLY @50006 GOTO d5beltkd_6
+END
+
+IF ~~ BEGIN d5beltkd_2
+  SAY @50002
+  IF ~~ GOTO d5beltkd_4
+END
+
+IF ~~ BEGIN d5beltkd_3
+  SAY @50003
+  IF ~~ GOTO d5beltkd_4
+END
+
+IF ~~ BEGIN d5beltkd_4
+  SAY @50004
+  IF ~!PartyHasItem("D5SCRLSK",1)~ REPLY @50005 GOTO d5beltkd_5
+  IF ~PartyHasItem("D5SCRLSK",1)~ REPLY @50006 GOTO d5beltkd_6
+END
+
+IF ~~ BEGIN d5beltkd_5
+  SAY @50007
+  IF ~~ DO ~SetGlobal("D5KorlaszDone","GLOBAL",2)~ EXIT
+END
+
+IF ~~ BEGIN d5beltkd_6
+  SAY @50008
+  IF ~~ EXTERN LIIA d5liiakd_6
+END
+
+IF ~Global("D5EntarCut","GLOBAL",6)~ BEGIN d5beltkd_7
+  SAY @500031
+  IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",7)~ GOTO d5beltkd_8
+END
+
+IF ~~ BEGIN d5beltkd_8
+  SAY @50032
+  IF ~~ JOURNAL @50035 EXIT
+END
+
+IF ~Global("D5EntarCut","GLOBAL",7)~ BEGIN d5beltkd_9
+  SAY @50033
+  IF ~~ EXIT
+END
+
+END
+
+APPEND LIIA
+
+IF ~Global("D5KorlaszDone","GLOBAL",1) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5liiakd_0
+  SAY @50001
+  IF ~Dead("BDKORLAS")~ GOTO d5liiakd_2
+  IF ~!Dead("BDKORLAS")~ GOTO d5liiakd_3
+END
+
+IF ~Global("D5KorlaszDone","GLOBAL",2) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5liiakd_1
+  SAY @50004
+  IF ~!PartyHasItem("D5SCRLSK",1)~ REPLY @50005 GOTO d5liiakd_5
+  IF ~PartyHasItem("D5SCRLSK",1)~ REPLY @50006 GOTO d5liiakd_6
+END
+
+IF ~~ BEGIN d5liiakd_2
+  SAY @50002
+  IF ~~ GOTO d5liiakd_4
+END
+
+IF ~~ BEGIN d5liiakd_3
+  SAY @50003
+  IF ~~ GOTO d5liiakd_4
+END
+
+IF ~~ BEGIN d5liiakd_4
+  SAY @50004
+  IF ~!PartyHasItem("D5SCRLSK",1)~ REPLY @50005 GOTO d5liiakd_5
+  IF ~PartyHasItem("D5SCRLSK",1)~ REPLY @50006 GOTO d5liiakd_6
+END
+
+IF ~~ BEGIN d5liiakd_5
+  SAY @50007
+  IF ~~ DO ~SetGlobal("D5KorlaszDone","GLOBAL",2)~ EXIT
+END
+
+IF ~~ BEGIN d5liiakd_6
+  SAY @50009
+  IF ~~ GOTO d5liiakd_7
+END
+
+IF ~~ BEGIN d5liiakd_7
+  SAY @500010
+  IF ~~ GOTO d5liiakd_8
+END
+
+IF ~~ BEGIN d5liiakd_8
+  SAY @500011
+  IF ~~ GOTO d5liiakd_9
+END
+
+IF ~~ BEGIN d5liiakd_9
+  SAY @500012
+  IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",1)~ EXIT
+END
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5liiakd_10
+  SAY @50021
+  IF ~~ EXTERN BDENTAR d5entarkd_1
+END
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5liiakd_11
+  SAY @50023
+  IF ~~ EXTERN BDENTAR d5entarkd_2
+END
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5liiakd_12
+  SAY @50025
+  IF ~~ EXTERN BDENTAR d5entarkd_3
+END
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5liiakd_13
+  SAY @50027
+  IF ~~ EXTERN BDENTAR d5entarkd_4
+END
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5liiakd_14
+  SAY @50029
+  IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",4)~ JOURNAL @50034 EXIT
+END
+
+IF ~Global("D5EntarCut","GLOBAL",7)~ BEGIN d5liiakd_15
+  SAY @50033
+  IF ~~ EXIT
+END
+
+END
+
+APPEND BDENTAR
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5entarkd_0
+  SAY @50020
+  IF ~~ EXTERN LIIA d5liiakd_10
+END
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5entarkd_1
+  SAY @50022
+  IF ~~ EXTERN LIIA d5liiakd_11
+END
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5entarkd_2
+  SAY @50024
+  IF ~~ EXTERN LIIA d5liiakd_12
+END
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5entarkd_3
+  SAY @50026
+  IF ~~ EXTERN LIIA d5liiakd_13
+END
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5entarkd_4
+  SAY @50028
+  IF ~~ EXTERN LIIA d5liiakd_14
+END
+
+END
+>>>>>>>> 
+COPY ~d5/palace+.d~ ~weidu_external/%MOD_FOLDER%/compile/palace+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/palace+.d~
+
+
+/* try just doing them all together
+<<<<<<<< d5/liiakd+.d
+APPEND LIIA
+
+END
+>>>>>>>> 
+COPY ~d5/liiakd+.d~ ~weidu_external/%MOD_FOLDER%/compile/liiakd+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/liiakd+.d~
+*/
+
 /*
+
+Have someone talk at the guild
+
+"Might sound weird, but is there an area of the guild that you cannot access?
+
+"Well. That is a very specific question. And an odd one, because in truth I think there might be such a place.
+
+"Sometimes, when I have a Potion of Perception in my, out of the corner of my eye, I have the most fleeting idea that I saw a staircase over there. But then I look, and of course there is nothing. It is passing odd, I tell you."
+
+"What, you mean like that staircase?"
+
+"What staircase?"
+
+"That Staircase." 
+
+Etc.
+
+remove the girl from outside the maze.
 
 */
 
 //___________________________________________________________________________________
 //
-
 
 
 END	//	end define function

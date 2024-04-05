@@ -46,13 +46,13 @@ ACTION_IF !(FILE_EXISTS_IN_GAME ~D5SIMUL9.SPL~) BEGIN
 
 END
 
-COPY ~%MOD_FOLDER%/data/d5mshard.bam~ ~override~
+COPY ~%MOD_FOLDER%/data/mirror_shard/d5mshard.bam~ ~override~
 
-COPY ~%MOD_FOLDER%/data/d5shard3.itm~ ~override~
+COPY ~%MOD_FOLDER%/data/mirror_shard/d5shard3.itm~ ~override~
 	SAY NAME1 @10001
 	SAY UNIDENTIFIED_DESC @10002
 
-COPY ~%MOD_FOLDER%/data/d5shard1.itm~ ~override~
+COPY ~%MOD_FOLDER%/data/mirror_shard/d5shard1.itm~ ~override~
 	SAY NAME1 @10001
 	SAY UNIDENTIFIED_DESC @10002
 
@@ -74,8 +74,8 @@ THEN
 		Attack("D5MICAMB")
 END
 >>>>>>>>
-COPY ~d5/d5irecam.baf~ ~weidu_external/reflections/compile/d5irecam.baf~
-COMPILE ~weidu_external/reflections/compile/d5irecam.baf~
+COPY ~d5/d5irecam.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5irecam.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5irecam.baf~
 
 <<<<<<<< d5/d5mircam.baf
 IF
@@ -99,8 +99,8 @@ THEN
 		Attack("D5CAMBIO")
 END
 >>>>>>>>
-COPY ~d5/d5mircam.baf~ ~weidu_external/reflections/compile/d5mircam.baf~
-COMPILE ~weidu_external/reflections/compile/d5mircam.baf~
+COPY ~d5/d5mircam.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5mircam.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5mircam.baf~
 
 COPY_EXISTING ~idemon02.cre~ ~override/d5idem01.cre~
 	WRITE_ASCII 0x248 ~D5MIRCAM~ #8

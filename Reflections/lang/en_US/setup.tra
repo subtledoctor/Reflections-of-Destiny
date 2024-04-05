@@ -5,6 +5,8 @@
 @10   = ~Reflections of Destiny Part 1: The Mirror Shard~
 @20   = ~Reflections of Destiny Part 2: Death on Feathered Wings~
 @30   = ~Reflections of Destiny Part 3: Belt Tightening~
+@40   = ~Reflections of Destiny Part 4: Fight the Future~
+@50   = ~Reflections of Destiny Part 5: The Boy Who Lived~
 //
 //
 @10001  = ~Mirror Shard~
@@ -57,10 +59,10 @@ This shard is a piece of an immensely powerful Mirror of Opposition, now broken.
 @30024  = ~Now, I have to ask myself: why would they want to hold a meeting in a bleedin' mausoleum? It's a head-scratcher, hey? But I tell you what: I would like to see this mausoleum. I would like that very much. Who knows? Maybe we will find Angelo there. I would quite like to see him strapped to a hard chair in the basement, and answer some questions for me.~
 @30025  = ~I would like that as well. Can you tell me where this crypt is? It's all I have to go on.~
 @30026  = ~Tell me where the crypt is. You stay here - you will only get in my way.~
-@30027  = ~It is right near the center of the city, north of the harbor near the steps to the entrance in the old walls. I am already gathering a force to go there and get inside, by force if necessary. We are heading there soon; if you want to join, you can meet me there. I won't lie, I wouldn't mind having someone with your capabilities along with my men.~
+@30027  = ~It is right near the center of the city, north of the harbor near the steps to the entrance in the old walls. I am already gathering a force to go there and get inside, by force if necessary. I was there that night and I saw how to bypass the wards at the entrance. My men are heading there soon; if you want to join, you can meet me there. I won't lie, I wouldn't mind having someone with your capabilities along with my men.~
 @30028  = ~Sounds good.~
 @30029  = ~I've got some things to do first. I will meet you there afterward.~
-@30030  = ~Sorry friend, but I'm not sitting this one out. If you want in, you can meet me there. The crypt is right near the center of the city, north of the harbor near the steps to the entrance in the old walls. I won't lie, I wouldn't mind having someone with your... capabilities... along with my men. If things get violent, though, you make sure those weapons of yours are pointed in the right direction. Understand?~
+@30030  = ~Sorry friend, but I'm not sitting this one out. Anyway, you can't get past the wards without me. So if you want in, you can meet me there. The crypt is right near the center of the city, north of the harbor near the steps to the entrance in the old walls. I won't lie, I wouldn't mind having someone with your... capabilities... along with my men. If things get violent, though, you make sure those weapons of yours are pointed in the right direction. Understand?~
 @30031  = ~Fine, I will meet you there. But your men better not slow me down.~
 @30032  = ~No promises.~
 @30033  = ~Alright then, I will see you there.~
@@ -68,5 +70,78 @@ This shard is a piece of an immensely powerful Mirror of Opposition, now broken.
 I spoke with Captain Gregson of the Flaming Fist. He did not know where Sarevok and Angelo may be, but he mentioned a member of the noble class, Korlasz, who had some suspicious dealings with Angelo at her family's crypt in the center of the city. Captain Gregson intends to enter the crypt and look for clues. It is as good a place to start as any. The entrance to the crypt is near the gate in the inner city walls, just north of the harbor. Captain Gregson will meet me there with a company of Flaming Fist soldiers.~
 @30035  = ~The Hunt for Sarevok
 Sarevok's coronation as a grand duke was interrupted, but he escaped to an unknown location. The dukes have suggested that an officer of the Flaming Fist who may have worked with Angelo might have information that can help. Angelo was installed, however briefly, at the Flaming Fist headquarters ion the southwest quadrant of the city. That is the best place to start.~
+//
+//
+@40001  = ~It's good you are here! My scouts tell me that Korlasz is inside the crypt right now! We do not know whether Sarevok or Angelo is with her, however.~
+@40002  = ~The bad news is, I'm afraid they saw us mustering outside - one of my men heard them raise an alarm and they retreated further into the crypt. We have entered the antechamber, and apparently it opens into a rather large cave complex. We do not know how large, or where it leads. My guess is, either there is another way out, or they are fortifying and making ready for a tough fight. I don't know which possibility I prefer...~
+@40003  = ~We may be facing a tough fight in there. Let me know when you are ready to proceed.~
+@40004  = ~I need to take care of a couple things first. I will return when I am prepared to go after Korlasz.~
+@40005  = ~I am ready now. Let's go in.~
+@40006  = ~Alright, my men will guard the entrance until you are ready to go in. We will make sure no one gets in or out.~
+@40007  = ~You are back. Are you ready to go into the crypt to pursue Korlasz?~
+@40008  = ~A small force of Sarevok's followers are further in - mostly mercenaries and former Iron Throne die-hards. They are presumably with Korlasz. Careful with her, she is a necromancer. Expect resistance, and expect traps. And above all, expect undead. I will stay here and secure the exit. Good luck.~
+@40009  = ~Is everything going okay? There is a Flaming Fist healer inside the crypt if you need assistance. We should make sure Korlasz does not have a chance to get away.~
+@40010  = ~Great work in there. I need to get back to the Flaming Fist to get started on the paperwork. But you are the hero of the hour. You should return to the Ducal Palace and report our success here.~
+@40011  = ~Everything's a mess. We should have gotten out of the city days ago.~
+@40012  = ~This chamber is secure. We can proceed when you're ready.~
+@40013  = ~You're too late. They've already gone.~
+@40014  = ~Aren't you here for... I thought...~
+@40015  = ~Sarevok paid us well, but something tells me he is not long for this world, and I am in no rush to die. Everyone, lay down your arms.~
+@40016  = ~But you do, <CHARNAME>. Destroy <PRO_HIMHER>!~
+@40017  = ~I... am defeated.~
+@40020  = ~[Message from Sarevok to Korlasz]Korlasz, as you have no doubt heard, my coronation as grand duke was interrupted. We must regroup - all is not yet lost. I may have been denied my war, but with proper preparations the death of <CHARNAME> will still empower me. <PRO_HESHE> will no doubt be coming to confront me - <PRO_HESHE> cannot afford not to. But we will be ready. Collect what resources you can and meet me at the temple in the Undercity.
+
+Sarevok~
+@40021  = ~The Hunt for Sarevok
+Korlasz is dead. She refused to surrender, fighting to the end for Sarevok. I should search for any clues to his whereabouts.~
+@40022  = ~The Hunt for Sarevok
+Korlasz has surrendered to the Flaming Fist. Whether she will willingly betray Sarevok is another question, however. I should search the area for any clues to his whereabouts.~
+@40023  = ~The Hunt for Sarevok
+I discovered a letter from Sarevok among Korlasz' things. It appears to have been hastily written, and mentions that he is calling for his supporters and allies to meet him in the Undercity. He appears to be preparing for a final confrontation. Dukes Belt and Liia will likely have an idea of how to find the Undercity.~
+@40024  = ~The name craftfully caved into ornamented flagstones identifies this as the Korlasz family crypt entrance. It is well closed and magically protected.~
+//
+//
+@50001  = ~You have returned! A Flaming Fist messenger has informed us of your success.~
+@50002  = ~It is a shame that Korlasz felt she had to die. I wonder that a knave like Sarevok can engender such stubborn loyalty...~
+@50003  = ~Korlasz is in custody. She is, for now, refusing to tell us anything about Sarevok. I wonder that a knave like Sarevok can engender such stubborn loyalty...~
+@50004  = ~Tell me, did you find any information about Sarevok or his whereabouts?~
+@50005  = ~We have found nothing useful.~
+@50006  = ~We found this letter from Sarevok to Korlasz. It mentions an Undercity? A place inside Baldur's Gate? Do you know what he is talking about?~
+@50007  = ~Well, you should make sure you scour the crypt, it is our best lead at the moment. Korlasz is an important ally of Sarevok, she is sure to have some information.~
+@50008  = ~Liia is the history expert here, I will defer to her on this.~
+@50009  = ~Ah yes. The city's history is quite old. older than the bricks of these buildings, older than Balduran. there have been rumors the the decaying remains of the original city still lie somewhere beneath us, and that passage through it can allow unseen travel to different areas above. Smugglers have always been interested in finding it.~
+@50010  = ~Of course the rumors also say the old city is exceedingly dangerous. Who knows what evils might be buried down there? I suppose it is a question of effort versus reward: why risk that when we have a perfectly good sewer system for secret travel? And so over time, most knowledge of the Undercity has faded away for being useless. But not, it seems, useless to Sarevok. I can only guess that he has found some source of power there - that could explain his extraordinary success in his schemes.~
+@50011  = ~The truth is, as dukes of the city we have a responsibility to protect our citizens from dangers below. So, we were told that our predecessors magically warded any known passages. And, being unusable, they were mostly forgotten. I don't know what passage Sarevok found, or how he bypassed the wards. Maybe he found a route nobody ever knew about. The only rumors I have heard of such things in my lifetime is of a blocked-off area in the thieves' guild, inaccessible even to its own members. That certainly conforms to the stories of those ancient warrens.~
+@50012  = ~We and our agents, of course, are not particularly welcome in the guild. But independent agents like yourself might investigate. I will apply a magical rune on your hand. Sort of a 'key to the city.' If you can find a way to the Undercity, this tattoo will allow you to traverse it.~
+@50013  = ~~
+@50014  = ~~
+@50015  = ~~
+@50016  = ~~
+@50017  = ~What? Daddy no! You don't understand - Charname is my friend. HESHE has been with me. There's no way HESHE could have killed you we were nowhere near the estate.~
+@50018  = ~Is... is this true? Did you murder my dad? Wait, when could that even have happened?~
+@50019  = ~What is going on here??~
+@50020  = ~What in the Abyss is going on here?? Do you know who you are talking to?~
+@50021  = ~Duke Silvershield! You're back! How are you feeling?~
+@50022  = ~Never mind that! I want to know what this person is doing here in the palace, unguarded!~
+@50023  = ~<CHARNAME>? <PRO_HESHE> just returned from a mission for us- ~
+@50024  = ~A mission?! For you? How are you letting this happen? Don't you understand - Charname murdered me!~
+@50025  = ~Entar, you have been... er, away, these recent days. You are not aware of the threat: doppelgangers, posing as citizens, were infiltrating parts of the city. It was all part of Sarevok's plan. The iron crisis, the bandit raids, the Seven Suns and the Iron Throne - it was Sarevok all along.~
+@50026  = ~Nonsense! Do you think a slimy hissing doppelganger could kill me?~
+@50027  = ~Entar... they killed a lot of people. Listen, you are not fully caught up on the situation. Resurrection takes a lot out of you. And this isn't your first. You need rest. The situation here is in hand. We have a lead on Sarevok's whereabouts. Charname is going to find him, and report back to use so we can send the Flaming Fist to bring him to justice. Once he is in our custody, all will be made clear. Now please, go rest.~
+@50028  = ~Yes, indeed, all will be made very clear. I tell you, that was no doppelganger. I know what I saw. This is not over!~
+@50029  = ~Entar, please. You are back with us. Duke Eltan is on the mend. Emissaries have already been dispatched to sue for peace with Amn. The threat to the city has been eliminated - thanks in no small part to Charname. Now please, get some rest.~
+@50030  = ~This is not over!~
+@50031  = ~I apologize for that outburst. Do not worry, he will come around. While his accusation is disturbing, I am sure our explanation is the correct one. What else would it be? For now, please focus on the task at hand: it is imperative that Sarevok be found, and brought to justice. Do not confront him if you can help it. Let us know his location and we can arrange for a squadron of Flaming Fist soldiers to accompany you to detain him. We want him back here alive, if possible. But, even if dead, we can work with that. Just be sure to bring his body back here, so we can resurrect him, or in the worst case just commune with his spirit.~
+@50032  = ~Now go. You can prove Entar wrong, and show your loyalty to the city, by getting this task done.~
+@50033  = ~Please do not delay in finding Sarevok, and if you cannot avoid a fight, remember to bring his body back here.~
+@50034  = ~Duke Silvershield's Accusation
+Stuff.~
+@50035  = ~The Hunt for Sarevok
+Stuff.~
+@50036  = ~~
+@50037  = ~~
+@50038  = ~~
+@50039  = ~~
+@50040  = ~~
 //
 //

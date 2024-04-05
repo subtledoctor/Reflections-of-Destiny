@@ -35,14 +35,14 @@ THEN
 		SetGlobal("D5ThalantyrDead","GLOBAL",1)
 END
 >>>>>>>>
-COPY ~d5/area3202.baf~ ~weidu_external/reflections/compile/%bg1_area_prefix%3202.baf~
+COPY ~d5/area3202.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%3202.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%3202.BCS~ ~weidu_external/reflections/compile/%bg1_area_prefix%3202.baf~
+  EXTEND_TOP ~%bg1_area_prefix%3202.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
 END
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%3202.bcs~) BEGIN
-  COMPILE ~weidu_external/reflections/compile/%bg1_area_prefix%3202.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
 END
 
 // ***** add dialogue options to melicamp if Global("D5ThalantyrDead","GLOBAL",1) (melica.dlg)
@@ -52,40 +52,40 @@ REPLACE_STATE_TRIGGER MELICA 26 ~Global("D5ThalantyrDead","GLOBAL",0)~
 
 APPEND MELICA
 
-IF ~GlobalGT("D5ThalantyrDead","GLOBAL",1)~ THEN BEGIN d5melica_0 
+IF ~GlobalGT("D5ThalantyrDead","GLOBAL",1)~ BEGIN d5melica_0 
   SAY @20001
-  IF ~Global("D5ThalantyrDead","GLOBAL",1)~ THEN REPLY @20002 DO ~SetGlobal("D5ThalantyrDead","GLOBAL",2)~ GOTO d5melica_1
-  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ THEN REPLY @20007 GOTO d5melica_4
-  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ THEN REPLY @20010 EXIT
+  IF ~Global("D5ThalantyrDead","GLOBAL",1)~ REPLY @20002 DO ~SetGlobal("D5ThalantyrDead","GLOBAL",2)~ GOTO d5melica_1
+  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @20007 GOTO d5melica_4
+  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @20010 EXIT
 END
 
-IF ~~ THEN BEGIN d5melica_1
+IF ~~ BEGIN d5melica_1
   SAY @20003
-  IF ~Global("D5BracersHere","GLOBAL",1)~ THEN REPLY ~~ GOTO d5melica_2
-  IF ~GlobalGT("CDBracerQuest","GLOBAL",18)~ THEN REPLY ~~ GOTO d5melica_2
-  IF ~GlobalLT("CDBracerQuest","GLOBAL",19) Global("D5BracersHere","GLOBAL",0)~ THEN REPLY @20005 GOTO d5melica_3
+  IF ~Global("D5BracersHere","GLOBAL",1)~ REPLY ~~ GOTO d5melica_2
+  IF ~GlobalGT("CDBracerQuest","GLOBAL",18)~ REPLY ~~ GOTO d5melica_2
+  IF ~GlobalLT("CDBracerQuest","GLOBAL",19) Global("D5BracersHere","GLOBAL",0)~ REPLY @20005 GOTO d5melica_3
 END
 
-IF ~~ THEN BEGIN d5melica_2
+IF ~~ BEGIN d5melica_2
   SAY @20004
-  IF ~~ THEN REPLY @20005 GOTO d5melica_3
+  IF ~~ REPLY @20005 GOTO d5melica_3
 END
 
-IF ~~ THEN BEGIN d5melica_3
+IF ~~ BEGIN d5melica_3
   SAY @20006
-  IF ~~ THEN REPLY @20007 GOTO d5melica_4
-  IF ~~ THEN REPLY @20010 EXIT
+  IF ~~ REPLY @20007 GOTO d5melica_4
+  IF ~~ REPLY @20010 EXIT
 END
 
-IF ~~ THEN BEGIN d5melica_4
+IF ~~ BEGIN d5melica_4
   SAY @20008
-  IF ~~ THEN REPLY @20009 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
+  IF ~~ REPLY @20009 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
 END
 
 END
 >>>>>>>> 
-COPY ~d5/melica+.d~ ~weidu_external/reflections/compile/melica+.d~
-COMPILE ~weidu_external/reflections/compile/melica+.d~
+COPY ~d5/melica+.d~ ~weidu_external/%MOD_FOLDER%/compile/melica+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/melica+.d~
 
 // ***** make sure the bracers don't disappear
 
@@ -94,27 +94,27 @@ ACTION_IF !(MOD_IS_INSTALLED ~thecalling.tp2~ ~0~) BEGIN
 <<<<<<<< d5/thalan+.d
 APPEND THALAN
 
-IF ~~ THEN BEGIN d5thalan_0 
+IF ~~ BEGIN d5thalan_0 
   SAY @20015
-  IF ~~ THEN DO ~SetGlobal("D5BracersHere","GLOBAL",1)~ EXTERN ~MELICA~ 24
+  IF ~~ DO ~SetGlobal("D5BracersHere","GLOBAL",1)~ EXTERN ~MELICA~ 24
 END
 
 END
 >>>>>>>>
-COPY ~d5/thalan+.d~ ~weidu_external/reflections/compile/thalan+.d~
-COMPILE ~weidu_external/reflections/compile/thalan+.d~
+COPY ~d5/thalan+.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
 
 OUTER_SET thalan_20015 = STATE_WHICH_SAYS @20015 FROM ~THALAN~
 
 <<<<<<<< d5/melica#.d
 EXTEND_BOTTOM MELICA 23
 
-IF ~~ THEN REPLY ~~ EXTERN ~THALAN~ %thalan_20015% 
+IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_20015% 
 
 END
 >>>>>>>>
-COPY ~d5/melica#.d~ ~weidu_external/reflections/compile/melica#.d~
-COMPILE EVAL ~weidu_external/reflections/compile/melica#.d~
+COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
+COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
 
 END	//	end thecalling not installed
 
@@ -129,29 +129,29 @@ PRINT ~the state we want is # %melica_thecalling_1285%~
 <<<<<<<< d5/thalan+.d
 APPEND THALAN
 
-IF ~~ THEN BEGIN d5thalan_0 
+IF ~~ BEGIN d5thalan_0 
   SAY @20011
-  IF ~~ THEN REPLY @20012 EXIT
-  IF ~~ THEN REPLY @20013 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
-  IF ~~ THEN REPLY @20014 EXIT
+  IF ~~ REPLY @20012 EXIT
+  IF ~~ REPLY @20013 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
+  IF ~~ REPLY @20014 EXIT
 END
 
 END
 >>>>>>>>
-COPY ~d5/thalan+.d~ ~weidu_external/reflections/compile/thalan+.d~
-COMPILE ~weidu_external/reflections/compile/thalan+.d~
+COPY ~d5/thalan+.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
 
 OUTER_SET thalan_20011 = STATE_WHICH_SAYS @20011 FROM ~THALAN~
 
 <<<<<<<< d5/melica#.d
 EXTEND_BOTTOM MELICA %melica_thecalling_1285%
 
-IF ~~ THEN REPLY ~~ EXTERN ~THALAN~ %thalan_20011% 
+IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_20011% 
 
 END
 >>>>>>>>
-COPY ~d5/melica#.d~ ~weidu_external/reflections/compile/melica#.d~
-COMPILE EVAL ~weidu_external/reflections/compile/melica#.d~
+COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
+COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
 
 // ***** also need to 
 

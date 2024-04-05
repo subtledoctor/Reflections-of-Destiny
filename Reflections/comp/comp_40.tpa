@@ -1,36 +1,1075 @@
 
-DEFINE_ACTION_FUNCTION introduce_korlasz BEGIN
+DEFINE_ACTION_FUNCTION early_korlasz BEGIN
 
 /*
 - plan: add korlasz' crypt to bg1 ch. 7
 
-- add the entrance to the crypt (non-working?)
- -- ...see EBG1 for deets
-- have Jenks or whoever meet you there (with a handful of FF soldiers)
- -- ...and his dialogue trigger entering and starting the quest
- -- ...see EBG1 for deets
- -- ..."I'm afraid they saw us mustering outside - one of my men heard them raise an alarm and they retreated into the crypt. We have entered the antechamber and it runs out, there is a rather large cave complex underneath it. Either there is another way out, or they are fortifying and making ready for a tough fight. I don't know which possibility I prefer..."
-
+- add the entrance to the crypt 
 - once the crypt is entered, enable the entrance so you can go in and out
+
+- make sure any .BAF/.D files borrowed from EBG1 have their variables handled here
+
+- have Gregson meet you there (with a handful of FF soldiers)
+ -- ...and his dialogue trigger entering and starting the quest
 
 - change dialogues in the crypt to remove mentions of 1) the sword, and 2) S being dead
  -- ...korlasz
- -- ...
- -- ...
+ -- ...porios
+ -- ***** ...some random follower's DisplayString
 
-- after korlasz defeat, have her drop a letter from S mentioning the maze and the undercity
+- ***** imoen doesn't appear when starting SoD campaign on its own!
 
-- have someone mention you ought to report back to Belt?
-
-*/
-
-/*
+- ***** need some journal entries
 
 */
+
+ACTION_IF GAME_IS ~eet~ THEN BEGIN
+  INCLUDE ~EET/other/cpmvars/eet_cpmvars.tpa~
+END
+
+INCLUDE ~%MOD_FOLDER%/lib/get_response_strrefs.tph~
+
+// ADJUSTMENTS to KORLASZ' DUNGEON BORROWED FROM ENDLESSBG1:
+
+ACTION_IF (GAME_IS ~bgee~) BEGIN
+  OUTER_SPRINT ~bgee_only~ ~False()~
+  OUTER_SPRINT ~sod~ ~~
+  OUTER_SPRINT ~eet_only~ ~False()~
+  OUTER_SPRINT ~start_bg1end_sod_cutscene~ ~ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("c#st2sod")~
+  OUTER_SPRINT ~move_to_bg2~ ~~
+  OUTER_SPRINT ~bdresurr~ ~bdresurr~
+  OUTER_SPRINT ~bddispel~ ~bddispel~
+  OUTER_SPRINT ~clearcld~ ~clearcld~
+  OUTER_SPRINT ~BELT~ ~BELT~
+  OUTER_SET BGTIMOENPState0 = 0 
+  OUTER_SET BGTIMOENPState4 = 4
+  OUTER_SPRINT ~eet_2~ ~~
+  OUTER_SPRINT ~eet_0~ ~~
+  OUTER_SET eet_200000 = GAME_IS ~eet~ ? 200000 : 0
+  OUTER_SPRINT CentralBaldursGate ~AR0700~
+END
+
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  OUTER_SPRINT ~bgee_only~ ~False()~
+  OUTER_SPRINT ~sod~ ~~
+  OUTER_SPRINT ~eet_only~ ~~
+  OUTER_SPRINT ~start_bg1end_sod_cutscene~ ~ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("c#st2sod")~
+  OUTER_SPRINT ~bdresurr~ ~bdresurr~
+  OUTER_SPRINT ~bddispel~ ~bddispel~
+  OUTER_SPRINT ~clearcld~ ~clearcld~
+  OUTER_SPRINT ~BELT~ ~BELT~
+  OUTER_SET BGTIMOENPState0 = 0 
+  OUTER_SET BGTIMOENPState4 = 4
+  OUTER_SPRINT ~eet_2~ ~2~
+  OUTER_SPRINT ~eet_0~ ~0~
+  OUTER_SET eet_200000 = GAME_IS ~eet~ ? 200000 : 0
+  OUTER_SPRINT CentralBaldursGate ~BG0700~
+END
+
+// Add Entrance to Korlasz Dungeon to BG city: ar0700.are 
+COPY_EXISTING ~%bg1_area_prefix%0700.are~ ~override~
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 2    //travel
+    fj_box_left     = 1005  //kleinstes x
+    fj_box_top      = 3172  //kleinstes y
+    fj_box_right    = 1150  //grˆﬂtes x
+    fj_box_bottom   = 3300   //grˆﬂtes y
+    fj_cursor_idx   = 28 //stairs
+    fj_vertex_0     = 1005 + (3300 << 16)   //kleinstes x +  kleinstes y
+    fj_vertex_1     = 1150 + (3299 << 16)   //grˆﬂtes x + kleinstes y
+    fj_vertex_2     = 1142 + (3172 << 16)   //grˆﬂtes x + grˆﬂtes y
+    fj_vertex_3     = 1017 + (3176 << 16)   //kleinstes x + grˆﬂtes y
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = C#EBG1_TranBD0120
+    fj_destination_area = EVAL ~bd0120~
+    fj_destination_name = EVAL ~C#EBG1_Exit0700~ 
+  END
+// add info trigger for closed entrance 
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 1    //trigger
+    fj_box_left     = 1005  //kleinstes x
+    fj_box_top      = 3172  //kleinstes y
+    fj_box_right    = 1150  //grˆﬂtes x
+    fj_box_bottom   = 3300   //grˆﬂtes y
+    fj_cursor_idx   = 22 //question mark
+    fj_vertex_0     = 1005 + (3300 << 16)   //kleinstes x +  kleinstes y
+    fj_vertex_1     = 1150 + (3299 << 16)   //grˆﬂtes x + kleinstes y
+    fj_vertex_2     = 1142 + (3172 << 16)   //grˆﬂtes x + grˆﬂtes y
+    fj_vertex_3     = 1017 + (3176 << 16)   //kleinstes x + grˆﬂtes y
+    fj_info_point_strref = RESOLVE_STR_REF (@40024)
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = c#ebg1korlasz
+//    fj_reg_script   = c#ebg1ko
+  END
+BUT_ONLY
+
+// Add Entrance to Korlasz Dungeon to BG Docks: ar1200.are 
+COPY_EXISTING ~%bg1_area_prefix%1200.are~ ~override~
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 2    //travel
+    fj_box_left     = 1019  //kleinstes x
+    fj_box_top      = 74  //kleinstes y
+    fj_box_right    = 1154  //grˆﬂtes x
+    fj_box_bottom   = 189   //grˆﬂtes y
+    fj_cursor_idx   = 28 //stairs
+    fj_vertex_0     = 1030 + (186 << 16)   //kleinstes x +  kleinstes y
+    fj_vertex_1     = 1154 + (189 << 16)   //grˆﬂtes x + kleinstes y
+    fj_vertex_2     = 1152 + (78 << 16)   //grˆﬂtes x + grˆﬂtes y
+    fj_vertex_3     = 1019 + (74 << 16)   //kleinstes x + grˆﬂtes y
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = C#EBG1_TranBD0120
+    fj_destination_area = EVAL ~bd0120~
+    fj_destination_name = EVAL ~C#EBG1_Exit0700~ 
+  END
+// add info trigger for closed entrance 
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 1    //trigger
+    fj_box_left     = 1019  //kleinstes x
+    fj_box_top      = 74  //kleinstes y
+    fj_box_right    = 1154  //grˆﬂtes x
+    fj_box_bottom   = 189   //grˆﬂtes y
+    fj_cursor_idx   = 22 //question mark
+    fj_vertex_0     = 1030 + (186 << 16)   //kleinstes x +  kleinstes y
+    fj_vertex_1     = 1154 + (189 << 16)   //grˆﬂtes x + kleinstes y
+    fj_vertex_2     = 1152 + (78 << 16)   //grˆﬂtes x + grˆﬂtes y
+    fj_vertex_3     = 1019 + (74 << 16)   //kleinstes x + grˆﬂtes y
+    fj_info_point_strref = RESOLVE_STR_REF (@40024)
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = c#ebg1korlasz
+//    fj_reg_script   = c#ebg1ko
+  END
+
+// Korlasz crypt bd0120 
+// patch bdrope.bcs so it doesn't initiate Imoen's dialogue
+COPY_EXISTING ~bdrope.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+// cases for Imoen in party 
+		SPRINT textToReplace ~\(See("imoen2?")\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY CASE_INSENSITIVE ~%textToReplace%~ ~\1 Global("C#EBG1_KorlaszQuest","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+
+<<<<<<<< d5/bdrope-et.baf
+// patch bdrope.bcs so it teleports the group out
+IF
+	Clicked([ANYONE])
+	NearLocation(LastTrigger,790,1660,12)
+	Global("C#EBG1_ChangeRopeTrigger","MYAREA",2) 
+THEN
+	RESPONSE #100
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutSceneEx("c#st2bc",TRUE)
+END
+>>>>>>>>
+COPY ~d5/bdrope-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdrope-et.baf~
+EXTEND_TOP ~bdrope.bcs~ ~d5/bdrope-et.baf~ EVALUATE_BUFFER
+
+/* Add Travel points and Entrance point to Koralsz' Crypt bd0120.are */
+COPY_EXISTING ~bd0120.are~ ~override~
+/* travel region to SoD-area bd0050 - EDIT don't need this in Reflections
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 2    //travel
+    fj_box_left     = 750  //kleinstes x
+    fj_box_top      = 1528  //kleinstes y
+    fj_box_right    = 810  //grˆﬂtes x
+    fj_box_bottom   = 1683   //grˆﬂtes y
+    fj_cursor_idx   = 28 //stairs
+    fj_vertex_0     = 756 + (1683 << 16)   //kleinstes x +  kleinstes y
+    fj_vertex_1     = 810 + (1681 << 16)   //grˆﬂtes x + kleinstes y
+    fj_vertex_2     = 804 + (1532 << 16)   //grˆﬂtes x + grˆﬂtes y
+    fj_vertex_3     = 750 + (1528 << 16)   //kleinstes x + grˆﬂtes y
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = C#EBG1_TranBD0050
+    fj_destination_area = EVAL ~bd0050~
+    fj_destination_name = EVAL ~C#EBG1_Exit0120~ 
+  END
+*/
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_loc_x       = 920    //x
+    fj_loc_y       = 1601   //y
+    fj_orientation = 13
+    STR_VAR
+    fj_structure_type = entrance
+    fj_name           = C#EBG1_Exit0700
+  END
+BUT_ONLY
+
+// cutscene out of Korlasz dungeon in bdrope.bcs 
+COMPILE ~%MOD_FOLDER%/data/korlasz_dungeon/c#st2bc.baf~ EVALUATE_BUFFER
+
+COMPILE ~%MOD_FOLDER%/data/korlasz_dungeon/c#st2kd.baf~
+
+// Inside Korlasz' Dungeon: disable all instances that make no sense for Imoen in party, but do it non-destructively. Thank you argent77 for the code! 
+INCLUDE ~%MOD_FOLDER%/data/korlasz_dungeon/add_trans_trigger_imoen_in_kd_ebg1.tpa~
+
+// change dialogue of the FF soldiers at crypt exit, and prevent them to transition to bdimoen: BDFF1000.dlg 
+// #69736 /* ~Thank you. I'm ready to return to the Ducal Palace now.~ */
+// List of all potential response strrefs to check
+ACTION_DEFINE_ASSOCIATIVE_ARRAY response_strrefs BEGIN
+  ~%eet_2%69736~ => 1
+END
+  
+COPY_EXISTING ~BDFF1000.dlg~ ~override~
+  // scanning listed dialog states
+  PATCH_FOR_EACH state IN 0 BEGIN
+    LPF GET_RESPONSE_STRREFS INT_VAR state RET strrefs RET_ARRAY strrefs END
+    TEXT_SPRINT indices ~~  // a temporary variable for building the index list
+    FOR (i = 0; i < strrefs; ++i) BEGIN
+      SET value = $strrefs(~%i%~)
+      // Include index only if strref is listed in the response_strrefs array
+      PATCH_IF (VARIABLE_IS_SET $response_strrefs(~%value%~)) BEGIN
+        TEXT_SPRINT indices ~%indices% %i%~ // building list of indices
+      END
+    END
+    // prevent adding a trigger if index list is empty
+    PATCH_IF (~%indices%~ STR_EQ ~~) BEGIN
+      TEXT_SPRINT indices %IF ~False()~%
+    END
+    // initialize variables responses_39, responses_40, ...
+    // EVAL is used to create the variable name dynamically
+    TEXT_SPRINT EVAL ~responses_BDFF1000_%state%~ ~%indices%~
+    PATCH_PRINT ~Variable %state%: %indices%~
+  END
+BUT_ONLY
+
+// change dialogue of the FF soldiers at crypt exit, and prevent them to transition to bdimoen: BDFF1001.dlg 
+// #69732 /* ~I'm ready to return to the Ducal Palace now and report our success.~ */ 
+// List of all potential response strrefs to check
+ACTION_DEFINE_ASSOCIATIVE_ARRAY response_strrefs BEGIN
+  ~%eet_2%69732~ => 1
+END
+  
+COPY_EXISTING ~BDFF1001.dlg~ ~override~
+  // scanning listed dialog states
+  PATCH_FOR_EACH state IN 0 BEGIN
+    LPF GET_RESPONSE_STRREFS INT_VAR state RET strrefs RET_ARRAY strrefs END
+    TEXT_SPRINT indices ~~  // a temporary variable for building the index list
+    FOR (i = 0; i < strrefs; ++i) BEGIN
+      SET value = $strrefs(~%i%~)
+      // Include index only if strref is listed in the response_strrefs array
+      PATCH_IF (VARIABLE_IS_SET $response_strrefs(~%value%~)) BEGIN
+        TEXT_SPRINT indices ~%indices% %i%~ // building list of indices
+      END
+    END
+    // prevent adding a trigger if index list is empty
+    PATCH_IF (~%indices%~ STR_EQ ~~) BEGIN
+      TEXT_SPRINT indices %IF ~False()~%
+    END
+    // initialize variables responses_39, responses_40, ...
+    // EVAL is used to create the variable name dynamically
+    TEXT_SPRINT EVAL ~responses_BDFF1001_%state%~ ~%indices%~
+    PATCH_PRINT ~Variable %state%: %indices%~
+  END
+BUT_ONLY
+
+// change dialogue of the FF soldiers at crypt exit, and prevent them to transition to bdimoen: BDFF1002.dlg 
+// #69732 /* ~I'm ready to return to the Ducal Palace now and report our success.~ */ 
+// List of all potential response strrefs to check
+ACTION_DEFINE_ASSOCIATIVE_ARRAY response_strrefs BEGIN
+  ~%eet_2%69732~ => 1
+END
+  
+COPY_EXISTING ~BDFF1002.dlg~ ~override~
+  // scanning listed dialog states
+  PATCH_FOR_EACH state IN 0 BEGIN
+    LPF GET_RESPONSE_STRREFS INT_VAR state RET strrefs RET_ARRAY strrefs END
+    TEXT_SPRINT indices ~~  // a temporary variable for building the index list
+    FOR (i = 0; i < strrefs; ++i) BEGIN
+      SET value = $strrefs(~%i%~)
+      // Include index only if strref is listed in the response_strrefs array
+      PATCH_IF (VARIABLE_IS_SET $response_strrefs(~%value%~)) BEGIN
+        TEXT_SPRINT indices ~%indices% %i%~ // building list of indices
+      END
+    END
+    // prevent adding a trigger if index list is empty
+    PATCH_IF (~%indices%~ STR_EQ ~~) BEGIN
+      TEXT_SPRINT indices %IF ~False()~%
+    END
+    // initialize variables responses_39, responses_40, ...
+    // EVAL is used to create the variable name dynamically
+    TEXT_SPRINT EVAL ~responses_BDFF1002_%state%~ ~%indices%~
+    PATCH_PRINT ~Variable %state%: %indices%~
+  END
+BUT_ONLY
+
+WITH_TRA ~%MOD_FOLDER%/lang/en_US/IMOEN_IN_GROUP_KD_EBG1.TRA~ BEGIN
+  COMPILE ~%MOD_FOLDER%/data/korlasz_dungeon/Imoen_in_group_kd_ebg1.d~ EVALUATE_BUFFER
+END
+EXTEND_BOTTOM ~bdimoen.bcs~ ~%MOD_FOLDER%/data/korlasz_dungeon/c#ebg1im.baf~ EVALUATE_BUFFER
+
+//bd0120.BCS
+COPY_EXISTING ~bd0120.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+// cases for Imoen in party 
+		SPRINT textToReplace ~\(InPartyAllowDead("imoen2?")\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY CASE_INSENSITIVE ~%textToReplace%~ ~\1 Global("C#st_ImoenInGroupKD","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(!InMyArea("imoen2?")\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 !Global("C#st_ImoenInGroupKD","GLOBAL",1)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ActionOverride("imoen2?",JumpToPoint(\[1770\.1520\]))[%newline%]*ActionOverride("imoen2?",Face(N))\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~SetGlobal("C#EBG1_ImoenMoveInCrypt","GLOBAL",1)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ActionOverride("imoen2?",JumpToPoint(\[1545\.700\]))[%newline%]*ActionOverride("imoen2?",Face(NE))\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~SetGlobal("C#EBG1_ImoenMoveInCrypt","GLOBAL",2)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+// Other patch stuff to prevent to do SoD scriptings 
+		SPRINT textToReplace ~\(Global("BD0120_START","GLOBAL",0)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~False()~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+
+ACTION_IF GAME_IS ~eet~ BEGIN
+// more patching if it's EET 
+  COPY_EXISTING ~bd0120.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(Global("K#NewGame","BD0120",0)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 !Global("SOD_fromimport","GLOBAL",2)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+  BUT_ONLY
+END
+
+EXTEND_TOP ~bd0120.BCS~ ~%MOD_FOLDER%/data/korlasz_dungeon/c#ebg1_kd_bg1_bd0120.baf~ EVALUATE_BUFFER
+
+<<<<<<<< .../bd0120-et.baf
+IF
+	GlobalGT("C#EBG1_KorlaszQuest","GLOBAL",2)
+	GlobalLT("C#EBG1_KorlaszQuest","GLOBAL",99)
+	Global("C#EBG1_ClearCresKD","MYAREA",0)
+THEN
+	RESPONSE #100
+		ActionOverride("BDFF1000",DestroySelf())
+		ActionOverride("BDFF1001",DestroySelf())
+		ActionOverride("BDFF1002",DestroySelf())
+		ActionOverride("BDKORLAS",DestroySelf())
+		SetGlobal("C#EBG1_ClearCresKD","MYAREA",1)
+END
+
+IF
+	InPartyAllowDead("%IMOEN_DV%")
+	Global("C#st_ImoenInGroupKD","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("C#st_ImoenInGroupKD","GLOBAL",1)
+		ApplySpellRES("bdresurr","%IMOEN_DV%")  
+		SmallWait(1)
+	    ApplySpellRES("bdrejuve","%IMOEN_DV%")  
+	  	SmallWait(1)
+END
+
+IF
+	Global("bd_plot","GLOBAL",2) 
+	InMyArea("%IMOEN_DV%")
+	!Dead("%IMOEN_DV%")
+	!StateCheck("%IMOEN_DV%",CD_STATE_NOTVALID)
+THEN
+	RESPONSE #100
+		ActionOverride("%IMOEN_DV%",StartDialogOverride("bdimoen",Player1))
+END
+
+IF
+	Global("bd_plot","GLOBAL",2) 
+	OR(3) 
+		!InMyArea("%IMOEN_DV%") 
+		Dead("%IMOEN_DV%")
+		StateCheck("%IMOEN_DV%",CD_STATE_NOTVALID)
+THEN
+	RESPONSE #100
+		SetGlobal("bd_plot","GLOBAL",10)
+		SetGlobal("BDSH_Imoen_Floor","GLOBAL",1)
+END
+
+IF
+	GlobalLT("bd_plot","GLOBAL",40)
+	OR(2)
+		Dead("BDKORLAS")
+		Global("BD_KORLASZ_SURRENDER","GLOBAL",1)
+	!InMyArea("%IMOEN_DV%")
+	InMyArea(Player1)
+THEN
+	RESPONSE #100
+		SetInterrupt(FALSE)
+		SetGlobal("bd_plot","GLOBAL",40)
+		SetGlobal("bd_Imoen_farewell","bd0120",2)
+		SetGlobal("C#EBG1_KorlaszQuest","GLOBAL",2)
+		AddJournalEntry(%eet_2%69028,QUEST_DONE)
+		SetInterrupt(TRUE)
+END
+
+// exit to AR0700.are 
+IF
+	GlobalGT("C#EBG1_KorlaszQuest","GLOBAL",0)
+/*	GlobalGT("bd_plot","GLOBAL",2) */
+	GlobalLT("bd_plot","GLOBAL",50)
+	GlobalLT("C#EBG1_ChangeRopeTrigger","MYAREA",2)
+THEN
+	RESPONSE #100
+		DisplayStringHead("C#EBG1_TranBD0050",%eet_2%59576)  // A sturdy rope hanging down into the tomb offers the only viable exit from the house of the dead.
+		SetGlobal("C#EBG1_ChangeRopeTrigger","MYAREA",2)
+END
+
+>>>>>>>>
+
+EXTEND_TOP ~bd0120.BCS~ ~.../bd0120-et.baf~ EVALUATE_BUFFER
+
+/* Korlasz should no longer be in Korlasz crypt if it's done */
+<<<<<<<< .../bdshkorl-et.baf
+IF
+	GlobalGT("C#EBG1_KorlaszQuest","GLOBAL",2)
+	GlobalLT("C#EBG1_KorlaszQuest","GLOBAL",99)
+	Global("BD_KORLASZ_SURRENDER","GLOBAL",1)
+	AreaCheck("bd0120")	
+	Global("C#EBG1_ClearKorlaszKD","MYAREA",0)
+THEN
+	RESPONSE #100
+		SetGlobal("C#EBG1_ClearKorlaszKD","MYAREA",1)
+		DestroySelf()
+END
+>>>>>>>>
+EXTEND_TOP ~bdshkorl.BCS~ ~.../bdshkorl-et.baf~ EVALUATE_BUFFER
+
+// Imoen should no longer be in Korlasz crypt if it's done 
+<<<<<<<< .../bdshimoe-et.baf
+IF
+	GlobalGT("C#EBG1_KorlaszQuest","GLOBAL",2)
+	GlobalLT("C#EBG1_KorlaszQuest","GLOBAL",99)
+	GlobalGT("C#EBG1_ImoenIsInKD","GLOBAL",0)
+	AreaCheck("bd0120")	
+	Global("C#EBG1_ClearImoenKD","MYAREA",0)
+THEN
+	RESPONSE #100
+		SetGlobal("C#EBG1_ClearImoenKD","MYAREA",1)
+		DestroySelf()
+END
+>>>>>>>>
+EXTEND_TOP ~bdshimoe.BCS~ ~.../bdshimoe-et.baf~ EVALUATE_BUFFER
+
+//bdintro.BCS
+COPY_EXISTING ~bdintro.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(CreateCreature("bdshimoe",\[881\.1652\],NE)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ActionOverride("IMOEN2?",StartDialogNoSet(Player1))\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(SetGlobal("bd_npc_camp_chapter","GLOBAL",0)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(SetGlobal("sprite_is_deadsafana","GLOBAL",0)[%newline%]*SetGlobal("sprite_is_deaddynaheir","GLOBAL",0)[%newline%]*SetGlobal("sprite_is_deadminsc","GLOBAL",0)[%newline%]*SetGlobal("sprite_is_deadrasaad","GLOBAL",0)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ChangeAIScript("bdplayer",OVERRIDE)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+
+<<<<<<<< .../bdintro-et.baf
+IF
+	Global("C#st_ImoenInGroupKD","GLOBAL",0) 
+	Global("C#EBG1_ImoenIsInKD","GLOBAL",0) 
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("C#EBG1_ImoenIsInKD","GLOBAL",1)
+		CreateCreature("bdshimoe",[881.1652],NE)
+		Continue()
+END
+
+IF
+	Global("SoD_fromimport","GLOBAL",0)
+	Global("C#EBG1_ThingsForNewGame","MYAREA",0) 
+
+THEN
+	RESPONSE #100
+		SetGlobal("bd_npc_camp_chapter","GLOBAL",0)
+		ChangeAIScript("bdplayer",OVERRIDE)
+		SetGlobal("sprite_is_deadsafana","GLOBAL",0)
+		SetGlobal("sprite_is_deaddynaheir","GLOBAL",0)
+		SetGlobal("sprite_is_deadminsc","GLOBAL",0)
+		SetGlobal("sprite_is_deadrasaad","GLOBAL",0)
+		SetGlobal("C#EBG1_ThingsForNewGame","MYAREA",1)
+		Continue()
+END
+>>>>>>>>
+
+EXTEND_TOP ~bdintro.BCS~ ~.../bdintro-et.baf~ EVALUATE_BUFFER
+
+//cutskip.bcs
+COPY_EXISTING ~cutskip.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(OpenDoor("door07")[%newline%]*SmallWait(11)[%newline%]*FadeFromColor(\[10\.0\],0)[%newline%]*ActionOverride("IMOEN2?",StartDialogNoSet(Player1))\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~
+		OpenDoor("door07")
+		SmallWait(11)
+		FadeFromColor([10.0],0)
+		EndCutSceneMode()~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+
+//bdshcut0.BCS
+COPY_EXISTING ~bdshcut0.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(Global("BDSH_Spawn_Imoen","GLOBAL",0)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("C#st_ImoenInGroupKD","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+
+
+//bd0130.BCS
+COPY_EXISTING ~bd0130.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(ActionOverride("imoen2?",JumpToPoint(\[1955\.1075\]))[%newline%]*ActionOverride("imoen2?",Face(S))\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~SetGlobal("C#EBG1_ImoenMoveInCrypt","GLOBAL",3)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ActionOverride("imoen2?",JumpToPoint(\[3015\.1890\]))[%newline%]*ActionOverride("imoen2?",Face(SE))\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~SetGlobal("C#EBG1_ImoenMoveInCrypt","GLOBAL",4)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ActionOverride("imoen2?",JumpToPoint(\[1830\.2390\]))[%newline%]*ActionOverride("imoen2?",Face(SE))\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~SetGlobal("C#EBG1_ImoenMoveInCrypt","GLOBAL",5)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ActionOverride("imoen2?",JumpToPoint(\[970\.1435\]))[%newline%]*ActionOverride("imoen2?",Face(N))\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~SetGlobal("C#EBG1_ImoenMoveInCrypt","GLOBAL",6)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ActionOverride("imoen2?",JumpToPoint(\[1000\.1060\]))[%newline%]*ActionOverride("imoen2?",Face(N))\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~SetGlobal("C#EBG1_ImoenMoveInCrypt","GLOBAL",7)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+
+EXTEND_TOP ~bd0130.BCS~ ~%MOD_FOLDER%/data/korlasz_dungeon/c#ebg1_imo_bd0130.baf~ EVALUATE_BUFFER
+
+// my stuff: add Gregson and some enforcers around the dungeon entrance
+
+<<<<<<<< d5/area0700.baf
+IF
+	Global("D5GregsonCrypt","GLOBAL",1)
+THEN
+	RESPONSE #100
+		CreateCreature("d5gregs",[1115.3045],14)
+		CreateCreature("BDFF1002",[1290.3040],14)
+		CreateCreature("BDFF1002",[1420.3200],14)
+		CreateCreature("BDFF1002",[960.3100],14)
+		CreateCreature("BDFF1002",[850.3265],14)
+		SetGlobal("D5GregsonCrypt","GLOBAL",2)
+END
+
+IF
+	GlobalLT("D5GregsonCrypt","GLOBAL",5)
+	GlobalLT("D5KDOpen","GLOBAL",2)
+THEN
+	RESPONSE #100
+		TriggerActivation("C#EBG1_TranBD0120",FALSE)
+		SetGlobal("D5KDOpen","GLOBAL",2)
+END
+
+IF
+	GlobalGT("D5GregsonCrypt","GLOBAL",5)
+	!Global("D5KDOpen","GLOBAL",1)
+THEN
+	RESPONSE #100
+		TriggerActivation("C#EBG1_TranBD0120",TRUE)
+		SetGlobal("D5KDOpen","GLOBAL",1)
+END
+>>>>>>>>
+COPY ~d5/area0700.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0700.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0700.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%0700.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0700.baf~
+END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0700.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0700.baf~
+END
+
+<<<<<<<< d5/bdintro+.baf
+IF
+	Global("D5GregsonExist","GLOBAL",0)
+	Global("D5NoReflection","GLOBAL",0)
+THEN
+	RESPONSE #100
+		CreateCreature("BDSHIMOE",[959.1622],NE)  // Imoen
+		SetGlobal("D5NoReflection","GLOBAL",1)
+END
+
+>>>>>>>>
+COPY ~d5/bdintro+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdintro+.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bdintro.bcs~) BEGIN
+  EXTEND_TOP ~bdintro.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bdintro+.baf~
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bdshcut0.bcs~) BEGIN
+  COPY_EXISTING ~bdshcut0.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(Global("BDSH_Spawn_Imoen","GLOBAL",0)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+    END
+  IF_EXISTS BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bd0120.bcs~) BEGIN
+  COPY_EXISTING ~bd0120.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(!Global("C#st_ImoenInGroupKD","GLOBAL",1)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(GlobalLT("bd_plot","GLOBAL",40)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+  BUT_ONLY
+END
+
+// put Gregson into the crypt as well, in place of Imoen
+
+<<<<<<<< d5/arebd120.baf
+IF
+	Global("D5GregsonCrypt","GLOBAL",4)
+THEN
+	RESPONSE #100
+		CreateCreature("d5gregs",[765.1790],14)
+		SetGlobal("D5GregsonCrypt","GLOBAL",5)
+END
+
+IF
+	GlobalGT("D5GregsonCrypt","GLOBAL",3)
+	GlobalLT("D5GregsonCrypt","GLOBAL",7)
+	!Dead("bdff1000")
+	!InMyArea("bdff1000")
+THEN
+	RESPONSE #100
+		CreateCreature("bdff1000",[869.1738],NE)
+		Continue()
+END
+
+IF
+	GlobalGT("D5GregsonCrypt","GLOBAL",3)
+	GlobalLT("D5GregsonCrypt","GLOBAL",7)
+	!Dead("bdff1001")
+	!InMyArea("bdff1001")
+THEN
+	RESPONSE #100
+		CreateCreature("bdff1001",[866.1543],SE)
+		Continue()
+END
+
+IF
+	GlobalGT("D5GregsonCrypt","GLOBAL",3)
+	GlobalLT("D5GregsonCrypt","GLOBAL",7)
+	!Dead("bdff1002")
+	!InMyArea("bdff1002")
+THEN
+	RESPONSE #100
+		CreateCreature("bdff1002",[919.1545],S)
+		Continue()
+END
+
+IF
+	Global("D5KorlaszDone","GLOBAL",0)
+	OR(2)
+		Dead("BDKORLAS")
+		Global("BD_KORLASZ_SURRENDER","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5KorlaszDone","GLOBAL",1)
+		SetGlobal("D5GregsonCrypt","GLOBAL",9)
+END
+
+>>>>>>>>
+COPY ~d5/arebd120.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd0120.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bd0120.bcs~) BEGIN
+  EXTEND_TOP ~bd0120.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bd0120.baf~
+END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~bd0120.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/bd0120.baf~
+END
+
+<<<<<<<< d5/d5gregs+.d
+APPEND ~D5GREGS~
+
+IF ~Global("D5GregsonCrypt","GLOBAL",2)~ BEGIN d5gregskd_0
+  SAY @40001
+  IF ~~ GOTO d5gregskd_1
+END
+
+IF ~~ BEGIN d5gregskd_1
+  SAY @40002
+  IF ~~ GOTO d5gregskd_2
+END
+
+IF ~~ BEGIN d5gregskd_2
+  SAY @40003
+  IF ~~ REPLY @40004 DO ~SetGlobal("D5GregsonCrypt","GLOBAL",3)~ GOTO d5gregskd_3
+  IF ~~ REPLY @40005 DO ~SetGlobal("C#EBG1_KorlaszQuest","GLOBAL",1)
+			SetGlobal("C#EBG1_KorlaszDungeon_BG1","GLOBAL",1)
+			SetGlobal("D5GregsonCrypt","GLOBAL",4)
+			SetGlobal("BDSH_Imoen_Floor","GLOBAL",99)
+			ClearAllActions()
+			StartCutSceneMode()
+			StartCutSceneEx("c#st2kd",FALSE)~ EXIT
+END
+
+IF ~~ BEGIN d5gregskd_3
+  SAY @40006
+  IF ~~ EXIT
+END
+
+IF ~Global("D5GregsonCrypt","GLOBAL",3)~ BEGIN d5gregskd_4
+  SAY @40007
+  IF ~~ REPLY @40004 GOTO d5gregskd_3
+  IF ~~ REPLY @40005 DO ~SetGlobal("C#EBG1_KorlaszQuest","GLOBAL",1)
+			SetGlobal("C#EBG1_KorlaszDungeon_BG1","GLOBAL",1)
+			SetGlobal("D5GregsonCrypt","GLOBAL",4)
+			SetGlobal("BDSH_Imoen_Floor","GLOBAL",99)
+			ClearAllActions()
+			StartCutSceneMode()
+			StartCutSceneEx("c#st2kd",FALSE)~ EXIT
+END
+
+IF ~Global("D5GregsonCrypt","GLOBAL",5)~ BEGIN d5gregskd_5
+  SAY @40008
+  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",6)~ EXIT
+END
+
+IF ~Global("D5GregsonCrypt","GLOBAL",6) /*GlobalLT("bd_plot","GLOBAL",25)*/~ BEGIN d5gregskd_6
+  SAY @40009
+  IF ~~ EXIT
+END
+
+IF ~ GlobalGT("D5GregsonCrypt","GLOBAL",8) /*GlobalGT("bd_plot","GLOBAL",24)*/~ BEGIN d5gregskd_7
+  SAY @40010
+  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",9)~ DO ~EscapeArea()~ EXIT
+END
+
+END
+>>>>>>>> 
+COPY ~d5/d5gregs+.d~ ~weidu_external/%MOD_FOLDER%/compile/d5gregs+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5gregs+.d~
+
+// change dialogue in intro cut scene
+
+OUTER_SET new_follower_string = RESOLVE_STR_REF(@40011)
+OUTER_SET new_flamingfist_string = RESOLVE_STR_REF(@40012)
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bdintro.bcs~) BEGIN
+  COPY_EXISTING ~bdintro.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(DisplayStringWait("intro_follower1",%eet_2%66857)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~DisplayStringWait("intro_follower1",%new_follower_string%)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(Global("SOD_fromimport","global",0)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(CreateCreature("bdshimoe"\).+$~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ActionOverride("IMOEN2"\).+$~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(DisplayStringWait("IMOEN2"\).+$~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(DisplayStringHead("BDFF1001"\).+$~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~DisplayStringHead("BDFF1001",%new_flamingfist_string%)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+    END
+  IF_EXISTS BUT_ONLY
+END
+
+/* maybe not necessary!
+// delete proximity trigger for cross-chasm Porios dialogue
+COPY_EXISTING ~bd0120.are~ ~override~
+  LPF FJ_ARE_STRUCTURE 
+    INT_VAR fj_delete_mode = 17
+    STR_VAR fj_structure_type = ~region~
+  END
+IF_EXISTS BUT_ONLY
+*/
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bdporios.bcs~) BEGIN
+  COPY_EXISTING ~bdporios.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(Global("BD_SPEAKER_THREAT","BD0120",1)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+    END
+  BUT_ONLY
+END
+
+// change porios.dlg: 
+// states 0 and 12 should only be valid if starting from a new SoD campaign
+
+<<<<<<<< d5/d5porios+.d
+ADD_STATE_TRIGGER BDPORIOS 0 ~Global("D5GregsonExist","GLOBAL",0)~
+
+REPLACE_SAY BDPORIOS 8 @40015
+
+ADD_STATE_TRIGGER BDPORIOS 12 ~Global("D5GregsonExist","GLOBAL",0)~
+>>>>>>>> 
+COPY ~d5/d5porios+.d~ ~weidu_external/%MOD_FOLDER%/compile/d5porios+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5porios+.d~
+
+// change bdkorlas.dlg
+// change the text of states 3, 7
+// add an unattainable trigger to response 3 ("sarevok himself fell before me")
+
+<<<<<<<< d5/d5korlas+.d
+REPLACE_SAY BDKORLAS 3 @40016
+
+REPLACE_SAY BDKORLAS 7 @40017
+
+ADD_TRANS_TRIGGER BDKORLAS 1 ~Global("D5GregsonExist","GLOBAL",0)~ DO 2
+>>>>>>>> 
+COPY ~d5/d5korlas+.d~ ~weidu_external/%MOD_FOLDER%/compile/d5korlas+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5korlas+.d~
+
+// create letter identifying the Undercity
+COPY_EXISTING ~scrl2n.itm~ ~override/d5scrlsk.itm~
+  SAY 0x50 @40020
+
+COPY_EXISTING ~bdshkfam.cre~ ~override~
+	ADD_CRE_ITEM ~D5SCRLSK~ #1 #0 #0 ~IDENTIFIED~ ~INV~
+IF_EXISTS BUT_ONLY
+
+// manage journal entries
+
+COPY_EXISTING ~bd0130.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+	// ***** add triggers for any existing journal additions
+		SPRINT textToReplace ~\(!Global("BD_Korlasz_Fight","BD0130",2)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(Global("bd_korlasz_dead_journal","BD0130",0)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+IF_EXISTS BUT_ONLY
+
+<<<<<<<< d5/arebd130.baf
+IF
+	Global("D5GregsonExist","GLOBAL",1)
+	Dead("BDKORLAS")
+	Global("D5KorlaszDeadJournal","GLOBAL",0)
+THEN
+	RESPONSE #100
+		AddJournalEntry(@40021,QUEST)
+		SetGlobal("D5KorlaszDeadJournal","GLOBAL",1)
+END
+
+IF
+	Global("D5GregsonExist","GLOBAL",1)
+	Global("BD_KORLASZ_SURRENDER","GLOBAL",1)
+	Global("D5KorlaszSurrenderJournal","GLOBAL",0)
+THEN
+	RESPONSE #100
+		AddJournalEntry(@40022,QUEST)
+		SetGlobal("D5KorlaszSurrenderJournal","GLOBAL",1)
+END
+
+IF
+	Global("D5GregsonExist","GLOBAL",1)
+	PartyHasItem("D5SCRLSK",1)
+	Global("D5SarevokFoundJournal","GLOBAL",0)
+THEN
+	RESPONSE #100
+		AddJournalEntry(@40023,QUEST)
+		SetGlobal("D5SarevokFoundJournal","GLOBAL",1)
+END
+>>>>>>>>
+COPY ~d5/arebd130.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd0130.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bd0130.bcs~) BEGIN
+  EXTEND_TOP ~bd0130.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bd0130.baf~
+END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~bd0130.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/bd0130.baf~
+END
+
 
 //___________________________________________________________________________________
 //
-
 
 
 END	//	end define function

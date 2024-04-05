@@ -18,6 +18,8 @@ DEFINE_ACTION_FUNCTION delay_maze BEGIN
 - set a variable that will be used later
  -- (later you will meet him at the entrance to Korlasz' crypt; the area script will create him there based on this variable)
 
+// ***** need to make more journal entries
+
 */
 
 <<<<<<<< d5/belt+.d
@@ -25,96 +27,96 @@ REPLACE_STATE_TRIGGER BELT 11 ~Global("SarevokBehavior","GLOBAL",99)~
 
 APPEND BELT
 
-IF ~Global("SarevokBehavior","GLOBAL",1) Global("D5PostCoronation","GLOBAL",0)~ THEN BEGIN d5belt_0
+IF ~Global("SarevokBehavior","GLOBAL",1) Global("D5PostCoronation","GLOBAL",0)~ BEGIN d5belt_0
   SAY @30001
-  IF ~~ THEN REPLY @30002 GOTO d5belt_1
+  IF ~~ REPLY @30002 GOTO d5belt_1
 END
 
-IF ~~ THEN BEGIN d5belt_1
+IF ~~ BEGIN d5belt_1
   SAY @30003
-  IF ~~ THEN GOTO d5belt_1
+  IF ~~ GOTO d5belt_2
 END
 
-IF ~~ THEN BEGIN d5belt_2
+IF ~~ BEGIN d5belt_2
   SAY @30004
-  IF ~~ THEN REPLY @30005 GOTO d5belt_3
-  IF ~~ THEN REPLY @30006 GOTO d5belt_4
+  IF ~~ REPLY @30005 GOTO d5belt_3
+  IF ~~ REPLY @30006 GOTO d5belt_4
 END
 
-IF ~~ THEN BEGIN d5belt_3
+IF ~~ BEGIN d5belt_3
   SAY @30007
-  IF ~~ THEN GOTO d5belt_5
+  IF ~~ GOTO d5belt_5
 END
 
-IF ~~ THEN BEGIN d5belt_4
+IF ~~ BEGIN d5belt_4
   SAY @30008
-  IF ~~ THEN GOTO d5belt_5
+  IF ~~ GOTO d5belt_5
 END
 
-IF ~~ THEN BEGIN d5belt_5
+IF ~~ BEGIN d5belt_5
   SAY @30009
-  IF ~~ THEN REPLY @30010 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ JOURNAL @30035 EXIT
-  IF ~~ THEN REPLY @30011 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ JOURNAL @30035 EXIT
+  IF ~~ REPLY @30010 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ JOURNAL @30035 EXIT
+  IF ~~ REPLY @30011 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ JOURNAL @30035 EXIT
 END
 
-IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0)~ THEN BEGIN d5belt_6
+IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0) Global("D5KorlaszDone","GLOBAL",0)~ BEGIN d5belt_6
   SAY @30012
-  IF ~~ THEN REPLY @30013 EXIT
-  IF ~~ THEN REPLY @30014 EXIT
+  IF ~~ REPLY @30013 EXIT
+  IF ~~ REPLY @30014 EXIT
 END
 
 END
 >>>>>>>> 
-COPY ~d5/belt+.d~ ~weidu_external/reflections/compile/belt+.d~
-COMPILE ~weidu_external/reflections/compile/belt+.d~
+COPY ~d5/belt+.d~ ~weidu_external/%MOD_FOLDER%/compile/belt+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/belt+.d~
 
 <<<<<<<< d5/liia+.d
 REPLACE_STATE_TRIGGER LIIA 8 ~Global("SarevokBehavior","GLOBAL",99)~
 
 APPEND LIIA
 
-IF ~Global("SarevokBehavior","GLOBAL",1) Global("D5PostCoronation","GLOBAL",0)~ THEN BEGIN d5liia_0
+IF ~Global("SarevokBehavior","GLOBAL",1) Global("D5PostCoronation","GLOBAL",0)~ BEGIN d5liia_0
   SAY @30001
-  IF ~~ THEN REPLY @30002 GOTO d5liia_1
+  IF ~~ REPLY @30002 GOTO d5liia_1
 END
 
-IF ~~ THEN BEGIN d5liia_1
+IF ~~ BEGIN d5liia_1
   SAY @30003
-  IF ~~ THEN GOTO d5liia_1
+  IF ~~ GOTO d5liia_2
 END
 
-IF ~~ THEN BEGIN d5liia_2
+IF ~~ BEGIN d5liia_2
   SAY @30004
-  IF ~~ THEN REPLY @30005 GOTO d5liia_3
-  IF ~~ THEN REPLY @30006 GOTO d5liia_4
+  IF ~~ REPLY @30005 GOTO d5liia_3
+  IF ~~ REPLY @30006 GOTO d5liia_4
 END
 
-IF ~~ THEN BEGIN d5liia_3
+IF ~~ BEGIN d5liia_3
   SAY @30007
-  IF ~~ THEN GOTO d5liia_5
+  IF ~~ GOTO d5liia_5
 END
 
-IF ~~ THEN BEGIN d5liia_4
+IF ~~ BEGIN d5liia_4
   SAY @30008
-  IF ~~ THEN GOTO d5liia_5
+  IF ~~ GOTO d5liia_5
 END
 
-IF ~~ THEN BEGIN d5liia_5
+IF ~~ BEGIN d5liia_5
   SAY @30009
-  IF ~~ THEN REPLY @30010 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ JOURNAL @30035 EXIT
-  IF ~~ THEN REPLY @30011 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ JOURNAL @30035 EXIT
+  IF ~~ REPLY @30010 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ JOURNAL @30035 EXIT
+  IF ~~ REPLY @30011 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ JOURNAL @30035 EXIT
 END
 
-IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0)~ THEN BEGIN d5liia_6
+IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0) Global("D5KorlaszDone","GLOBAL",0)~ BEGIN d5liia_6
   SAY @30012
-  IF ~~ THEN REPLY @30013 EXIT
-  IF ~~ THEN REPLY @30014 EXIT
+  IF ~~ REPLY @30013 EXIT
+  IF ~~ REPLY @30014 EXIT
 END
 
 END
 >>>>>>>> 
-COPY ~d5/belt+.d~ ~weidu_external/reflections/compile/liia+.d~
-COMPILE ~weidu_external/reflections/compile/liia+.d~
+COPY ~d5/liia+.d~ ~weidu_external/%MOD_FOLDER%/compile/liia+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/liia+.d~
 
 // reset reputation after the confrontation, if necessary
 
@@ -129,14 +131,14 @@ THEN
 		SetGlobal("D5DukesRepReset","GLOBAL",1)
 END
 >>>>>>>>
-COPY ~d5/area0108.baf~ ~weidu_external/reflections/compile/%bg1_area_prefix%0108.baf~
+COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/reflections/compile/%bg1_area_prefix%0108.baf~
+  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
 END
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
-  COMPILE ~weidu_external/reflections/compile/%bg1_area_prefix%0108.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
 END
 
 // set area script at FF headquarters to spawn Officer Jenks
@@ -158,14 +160,14 @@ THEN
 		SetGlobal("D5GregsonExist","GLOBAL",1)
 END
 >>>>>>>>
-COPY ~d5/area0607.baf~ ~weidu_external/reflections/compile/%bg1_area_prefix%0607.baf~
+COPY ~d5/area0607.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0607.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0607.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0607.BCS~ ~weidu_external/reflections/compile/%bg1_area_prefix%0607.baf~
+  EXTEND_TOP ~%bg1_area_prefix%0607.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0607.baf~
 END
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0607.bcs~) BEGIN
-  COMPILE ~weidu_external/reflections/compile/%bg1_area_prefix%0607.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0607.baf~
 END
 
 // add dialogue to Gregson
@@ -173,70 +175,86 @@ END
 <<<<<<<< d5/d5gregs.d
 BEGIN ~D5GREGS~
 
-IF ~Global("D5GregsonCrypt","GLOBAL",0)~ THEN BEGIN d5gregs_0
+IF ~Global("D5GregsonCrypt","GLOBAL",0)~ BEGIN d5gregs_0
   SAY @30015
-  IF ~~ THEN GOTO d5gregs_1
+  IF ~~ GOTO d5gregs_1
 END
 
-IF ~~ THEN BEGIN d5gregs_1
+IF ~~ BEGIN d5gregs_1
   SAY @30016
-  IF ~~ THEN GOTO d5gregs_2
+  IF ~~ GOTO d5gregs_2
 END
 
-IF ~~ THEN BEGIN d5gregs_2
+IF ~~ BEGIN d5gregs_2
   SAY @30017
-  IF ~~ THEN REPLY @30018 GOTO d5gregs_3
-  IF ~~ THEN REPLY @30019 EXIT
+  IF ~~ REPLY @30018 GOTO d5gregs_3
+  IF ~~ REPLY @30019 EXIT
 END
 
-IF ~~ THEN BEGIN d5gregs_3
+IF ~~ BEGIN d5gregs_3
   SAY @30020
-  IF ~~ THEN GOTO d5gregs_4
+  IF ~~ GOTO d5gregs_4
 END
 
-IF ~~ THEN BEGIN d5gregs_4
+IF ~~ BEGIN d5gregs_4
   SAY @30021
-  IF ~~ THEN REPLY @30022 GOTO d5gregs_5
+  IF ~~ REPLY @30022 GOTO d5gregs_5
 END
 
-IF ~~ THEN BEGIN d5gregs_5
+IF ~~ BEGIN d5gregs_5
   SAY @30023
-  IF ~~ THEN GOTO d5gregs_6
+  IF ~~ GOTO d5gregs_6
 END
 
-IF ~~ THEN BEGIN d5gregs_6
+IF ~~ BEGIN d5gregs_6
   SAY @30024
-  IF ~~ THEN REPLY @30025 GOTO d5gregs_7
-  IF ~~ THEN REPLY @30026 DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1)~ GOTO d5gregs_8
+  IF ~~ REPLY @30025 GOTO d5gregs_7
+  IF ~~ REPLY @30026 DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1)~ GOTO d5gregs_8
 END
 
-IF ~~ THEN BEGIN d5gregs_7
+IF ~~ BEGIN d5gregs_7
   SAY @30027
-  IF ~~ THEN REPLY @30028 JOURNAL @30034 GOTO d5gregs_9
-  IF ~~ THEN REPLY @30029 JOURNAL @30034 GOTO d5gregs_9
+  IF ~~ REPLY @30028 JOURNAL @30034 GOTO d5gregs_9
+  IF ~~ REPLY @30029 JOURNAL @30034 GOTO d5gregs_9
 END
 
-IF ~~ THEN BEGIN d5gregs_8
+IF ~~ BEGIN d5gregs_8
   SAY @30030
-  IF ~~ THEN REPLY @30031 JOURNAL @30034 GOTO d5gregs_9
-  IF ~~ THEN REPLY @30032 JOURNAL @30034 GOTO d5gregs_9
+  IF ~~ REPLY @30031 JOURNAL @30034 GOTO d5gregs_9
+  IF ~~ REPLY @30032 JOURNAL @30034 GOTO d5gregs_9
 END
 
-IF ~~ THEN BEGIN d5gregs_9
+IF ~~ BEGIN d5gregs_9
   SAY @30033
-  IF ~~ THEN DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1)~ DO ~EscapeArea()~ EXIT
+  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1)~ DO ~EscapeArea()~ EXIT
 END
 >>>>>>>> 
-COPY ~d5/d5gregs.d~ ~weidu_external/reflections/compile/d5gregs.d~
-COMPILE ~weidu_external/reflections/compile/d5gregs.d~
+COPY ~d5/d5gregs.d~ ~weidu_external/%MOD_FOLDER%/compile/d5gregs.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5gregs.d~
 
-// ***** need to have Gregson walk away afterward
+// kill bill
 
-// ***** also need to make a journal entry
+<<<<<<<< d5/area0200.baf
+IF
+	InMyArea("BILL")
+	Global("D5PostCoronation","GLOBAL",1)
+THEN
+	RESPONSE #100
+		ActionOverride("BILL",DestroySelf())
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/area0200.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0200.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0200.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%0200.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0200.baf~
+END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0200.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0200.baf~
+END
 
 //___________________________________________________________________________________
 //
-
-
 
 END	//	end define function
