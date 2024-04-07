@@ -70,6 +70,7 @@ This shard is a piece of an immensely powerful Mirror of Opposition, now broken.
 I spoke with Captain Gregson of the Flaming Fist. He did not know where Sarevok and Angelo may be, but he mentioned a member of the noble class, Korlasz, who had some suspicious dealings with Angelo at her family's crypt in the center of the city. Captain Gregson intends to enter the crypt and look for clues. It is as good a place to start as any. The entrance to the crypt is near the gate in the inner city walls, just north of the harbor. Captain Gregson will meet me there with a company of Flaming Fist soldiers.~
 @30035  = ~The Hunt for Sarevok
 Sarevok's coronation as a grand duke was interrupted, but he escaped to an unknown location. The dukes have suggested that an officer of the Flaming Fist who may have worked with Angelo might have information that can help. Angelo was installed, however briefly, at the Flaming Fist headquarters ion the southwest quadrant of the city. That is the best place to start.~
+@30036  = ~The Hunt for Sarevok~
 //
 //
 @40001  = ~It's good you are here! My scouts tell me that Korlasz is inside the crypt right now! We do not know whether Sarevok or Angelo is with her, however.~
@@ -109,10 +110,10 @@ I discovered a letter from Sarevok among Korlasz' things. It appears to have bee
 @50006  = ~We found this letter from Sarevok to Korlasz. It mentions an Undercity? A place inside Baldur's Gate? Do you know what he is talking about?~
 @50007  = ~Well, you should make sure you scour the crypt, it is our best lead at the moment. Korlasz is an important ally of Sarevok, she is sure to have some information.~
 @50008  = ~Liia is the history expert here, I will defer to her on this.~
-@50009  = ~Ah yes. The city's history is quite old. older than the bricks of these buildings, older than Balduran. there have been rumors the the decaying remains of the original city still lie somewhere beneath us, and that passage through it can allow unseen travel to different areas above. Smugglers have always been interested in finding it.~
-@50010  = ~Of course the rumors also say the old city is exceedingly dangerous. Who knows what evils might be buried down there? I suppose it is a question of effort versus reward: why risk that when we have a perfectly good sewer system for secret travel? And so over time, most knowledge of the Undercity has faded away for being useless. But not, it seems, useless to Sarevok. I can only guess that he has found some source of power there - that could explain his extraordinary success in his schemes.~
-@50011  = ~The truth is, as dukes of the city we have a responsibility to protect our citizens from dangers below. So, we were told that our predecessors magically warded any known passages. And, being unusable, they were mostly forgotten. I don't know what passage Sarevok found, or how he bypassed the wards. Maybe he found a route nobody ever knew about. The only rumors I have heard of such things in my lifetime is of a blocked-off area in the thieves' guild, inaccessible even to its own members. That certainly conforms to the stories of those ancient warrens.~
-@50012  = ~We and our agents, of course, are not particularly welcome in the guild. But independent agents like yourself might investigate. I will apply a magical rune on your hand. Sort of a 'key to the city.' If you can find a way to the Undercity, this tattoo will allow you to traverse it.~
+@50009  = ~Ah yes. The city's history is quite old. Older than the bricks of these buildings, older than Balduran. There have been rumors that the decaying remains of the original city still lie somewhere beneath us.~
+@50010  = ~Of course the rumors also say the old city is exceedingly dangerous. Who knows what evils might be buried down there? The truth is, as dukes of the city we have a responsibility to protect our citizens from dangers below. So, we were told that our predecessors magically warded any known passages. And, being unusable, they were mostly forgotten.~
+@50011  = ~I don't know what passage Sarevok found, or how he bypassed the wards. Maybe he found a route nobody ever knew about. I can only guess that he has found some source of power there - that could explain his extraordinary success in his schemes. In my lifetime, the only rumors I have heard of such things is of a blocked-off area in the thieves' guild, inaccessible even to its own members. That certainly conforms to the stories of those ancient warrens.~
+@50012  = ~We dare not send troops in force - Angelo was quite cruel in dealing with the guild, and it has created a volatile situation. I fear reprisals if we were to send Flaming Fist soldiers into the heart of their domain. Especially given the rumors from the north, it is important to promote unity and normalcy, not risk further strife. Better that an independent agent investigate the rumored passage. Here, I will apply a magical rune on your hand. Sort of a 'key to the city.' If you can find a way to the Undercity, this tattoo will allow you to traverse it.~
 @50013  = ~~
 @50014  = ~~
 @50015  = ~~
@@ -127,21 +128,62 @@ I discovered a letter from Sarevok among Korlasz' things. It appears to have bee
 @50024  = ~A mission?! For you? How are you letting this happen? Don't you understand - Charname murdered me!~
 @50025  = ~Entar, you have been... er, away, these recent days. You are not aware of the threat: doppelgangers, posing as citizens, were infiltrating parts of the city. It was all part of Sarevok's plan. The iron crisis, the bandit raids, the Seven Suns and the Iron Throne - it was Sarevok all along.~
 @50026  = ~Nonsense! Do you think a slimy hissing doppelganger could kill me?~
-@50027  = ~Entar... they killed a lot of people. Listen, you are not fully caught up on the situation. Resurrection takes a lot out of you. And this isn't your first. You need rest. The situation here is in hand. We have a lead on Sarevok's whereabouts. Charname is going to find him, and report back to use so we can send the Flaming Fist to bring him to justice. Once he is in our custody, all will be made clear. Now please, go rest.~
+@50027  = ~Entar... they killed a lot of people. Listen, you are not fully caught up on the situation. Resurrection takes a lot out of you. And this isn't your first. You need rest. The situation here is in hand. We have a lead on Sarevok's whereabouts. <CHARNAME> is going to find him, and report back to use so we can send the Flaming Fist to bring him to justice. Once he is in our custody, all will be made clear. Now please, go rest.~
 @50028  = ~Yes, indeed, all will be made very clear. I tell you, that was no doppelganger. I know what I saw. This is not over!~
 @50029  = ~Entar, please. You are back with us. Duke Eltan is on the mend. Emissaries have already been dispatched to sue for peace with Amn. The threat to the city has been eliminated - thanks in no small part to Charname. Now please, get some rest.~
 @50030  = ~This is not over!~
 @50031  = ~I apologize for that outburst. Do not worry, he will come around. While his accusation is disturbing, I am sure our explanation is the correct one. What else would it be? For now, please focus on the task at hand: it is imperative that Sarevok be found, and brought to justice. Do not confront him if you can help it. Let us know his location and we can arrange for a squadron of Flaming Fist soldiers to accompany you to detain him. We want him back here alive, if possible. But, even if dead, we can work with that. Just be sure to bring his body back here, so we can resurrect him, or in the worst case just commune with his spirit.~
-@50032  = ~Now go. You can prove Entar wrong, and show your loyalty to the city, by getting this task done.~
+@50032  = ~You can prove Entar wrong, and show your loyalty to the city, by getting this task done.~
 @50033  = ~Please do not delay in finding Sarevok, and if you cannot avoid a fight, remember to bring his body back here.~
 @50034  = ~Duke Silvershield's Accusation
-Stuff.~
+Duke Entar Silvershield was resurrected and has returned to the Ducal Palace after having been murdered by agents of Sarevok. He appeared quite out of sorts, making angry accusations that *I* had murdered him. That of course is not possible, and the doppelganger situation was explained to him. Still, he seems adamant that his attacker was no doppelganger. I cannot say why he is so sure. Maybe after he has rested and fully recovered, he will see reason.~
 @50035  = ~The Hunt for Sarevok
-Stuff.~
+Duke Liia Jannath has given me a clue to where to look for the Undercity. She mentioned passages underground which were specially warded long ago, but apparently the dukes have the power to bypass those wards. She inscribed a rune on my hand, in case I find such a passage. I have been directed to investigate the rumor of an old disused passage to the Undercity inside the Baldur's Gate Thieves' Guild. The dukes asked that I not confront Sarevok, directly, but only find his location and report back so they can send reinforcements. The situation still seems volatile...~
 @50036  = ~~
 @50037  = ~~
 @50038  = ~~
-@50039  = ~~
-@50040  = ~~
+@50039  = ~Imoen's Return
+I have not seen Imoen in some time, but she has apparently made her own way to the Ducal Palace and befriended Duke Liia Jannath. Duke Liia seems interested in helping Imoen discover her full potential. While I search out Sarevok to put an end to his schemes at last, Imoen will stay at the palace under the dukes' protection.~
+@50040  = ~Heya! It's me, Imoen!~
+@50041  = ~Before you go, <CHARNAME>, a small surprise. An old companion of yours would like to say hello.~
+@50042  = ~Heya <CHARNAME>! It's been a while. I hear you've been having lots of adventures, without me. That's fine. Really! They sound like amazing fun. Anyway, I've had a bit of a journey myself. I was back at Candlekeep, you know, and there was some real creepy stuff going on there. People changing faces. Most of the monks are so clueless, they had no idea. But I did! Only, I didn't really know what to do about it. And then I heard you were back! But you got arrested before I could see you. That wasn't very smart of you!~
+@50043  = ~Heya <CHARNAME>! It's been a while. I hear you've been having lots of adventures, without me. That's fine. Really! I hung around Beregost and the Friendly Arm Inn for a while - Bentley has some really great stories, from when he was an adventurer. Only, I got bored pretty quick, you know? So, once news reached us of the murders at Candlekeep, I figured you probably got yourself into trouble and needed me to come help! It wasn't hard to see that the Iron Throne was probably at the heart of everything that was going on, so you would probably come to the city.~
+@50044  = ~Heya <CHARNAME>! Have you taken down Sarevok yet, or what? Heh, just jokin'. I've been, you know, hanging around the city. Got kind of bored, to be honest. But then I met this halfling, and she can get into all kinds of places, and - er, maybe we shouldn't talk about that here. I'll tell you more about it later, I guess.~
+@50045  = ~Heya <CHARNAME>! It's me! I was dead. I mean, mostly dead? I'm not *exactly* sure what happened, but I remember this nice cleric was talking to me, said he was a miracle worker (I think that means cleric) and he said there's a big difference between mostly dead and all dead, and I guess I was just mostly dead. It sounds a bit weird to me, but, here I am!~
+@50046  = ~~
+@50047  = ~Anyway, I eventually heard about the doppelganger attack at the coronation, and tracked you down here! And that's how I met Duke Liia - she's super nice!~
+@50048  = ~Imoen here is a very interesting young woman. It has been enjoyable getting to know her. She told me all about how you both came to be raised in Candlekeep. I believe that beyond her childlike exuberance is an unusually sharp mind.~
+@50049  = ~Duke Liia says she thinks I can do magic! I mean, not just do it, but that I could be really good at it!~
+@50050  = ~We shall see. There is certainly a depth of... potential in you that most cannot see. I think I would very much like to explore that together. In the meantime, I think it is best that close associates of <CHARNAME> stay here with us, under the watch of our guards. Until the machinations of Sarevok are well and truly ended, we would do well to keep Imoen secure.~
+@50051  = ~We are going after Sarevok now. Imoen, why don't you join me, and help me take him down for good?~
+@50052  = ~Thank makes sense.~
+@50053  = ~Whatever. Imoen is not my concern.~
+@50054  = ~Aw, I really want to! I would love to give him a good smack when he's not looking. But Liia thinks it would be a bad idea. Something about 'not committing all one's resources in times of chaos.' I dunno, it made sense at the time. Anyway, she's teaching me magic, and Liia is, like, the BEST at magic. Just think how much stronger I'll be once I'm properly instructed!~
+@50055  = ~There are many moving parts here. You have your mission, and Imoen has hers. Once you know Sarevok's location, we can discuss the matter further. Now go with haste, please. It would not do well to allow Sarevok to spend too much time fortifying whatever hole he has fled to.~
+@50056  = ~Heya. Do you believe this place? Liia gave me a room of my own. It's WAY nicer than anything in Candlekeep. The food's a lot better too. ...I really wanted to be traveling with you these past days. But, it's okay, I don't hold it against you. Liia says I've got to walk my own path for a while, and I think I agree with her. Good luck with Sarevok!~
+@50057  = ~Thanks Imoen. I'm glad you are okay. Don't get into too much trouble here in the palace, okay?~
+@50058  = ~Oh, don't worry, I'll get into just the right amount of trouble. I'm an expert.~
+@50059  = ~I can't believe you aren't coming along to help.~
+@50060  = ~Didn't you hear me, ya bufflehead? Not everything is about you!~
+@50061  = ~You got him! Great job! Now maybe things can get back to normal.~
+@50062  = ~~
+@50063  = ~Here now, who are you?? I warn you we have very little tolerance for trespassers at the moment!~
+@50064  = ~Well, I have little tolerance for thieves who get in my way. [enemy()]~
+@50065  = ~Don't worry, we are not here to attack you. This might sound odd but, is there are area here that you cannot access?~
+@50066  = ~Well. That is an odd question. And I have an odder answer, because I think there might be such a place.~
+@50067  = ~Sometimes, especially when I have a Potion of Perception in my system, out of the corner of my eye, I have the most fleeting idea that I saw something over there. A staircase, maybe? But then I look, and of course there is nothing. Just a trick of the light, for sure.~
+@50068  = ~What, you mean that staircase?~
+@50069  = ~What staircase.~
+@50070  = ~That staircase right there.~
+@50071  = ~Friend, I have no idea what you are talking... wait. Are you telling me you see a staircase there?~
+@50072  = ~Yes, right there, a staircase going down into the basement.~
+@50073  = ~Well this is getting odder and odder, friend, because this building has no basement. There is naught beneath our feet but earth. The sewers don't even reach this corner of the city.~
+@50074  = ~I plainly see stairs going down. And if it is all the same to you, I am going to go down there.~
+@50075  = ~Go down... you know what, you are acting very weird, and I just don't have time for it right now. If you don't start making sense then I am going to insist you leave.~
+@50076  = ~By Helm's bollocks! Where were you off to just then?? I saw you here with me, and then you were nowhere at all. But no trace of teleporting or dimension-dooring! And you weren't invisible neither - I felt all around for you! Mask perserve us, that's a neat trick! I don't... eh... don't suppose you can teach it to me, could you?~
+@50077  = ~~
+@50078  = ~~
+@50079  = ~The Hunt for Sarevok
+I have discovered a staircase inside the Thieves' Guild which leads underground. The Past it is an old maze. From the corridors I can hear the sounds of shuffling bones and shifting slimes. I should be on guard - wherever this path leads, it is clearly not meant to be easy to reach.~
 //
 //

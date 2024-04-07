@@ -19,12 +19,18 @@ DEFINE_ACTION_FUNCTION early_korlasz BEGIN
 
 - ***** imoen doesn't appear when starting SoD campaign on its own!
 
-- ***** need some journal entries
-
 */
 
+// prep journal entries
+
+ADD_JOURNAL TITLE (@30036) @40021 @40022 @40023
+
 ACTION_IF GAME_IS ~eet~ THEN BEGIN
-  INCLUDE ~EET/other/cpmvars/eet_cpmvars.tpa~
+  INCLUDE ~%MOD_FOLDER%/lib/cpmvars/eet_cpmvars.tpa~
+END
+
+ACTION_IF GAME_IS ~bgee~ THEN BEGIN
+  INCLUDE ~%MOD_FOLDER%/lib/cpmvars/liam_bgee_vars.tpa~
 END
 
 INCLUDE ~%MOD_FOLDER%/lib/get_response_strrefs.tph~
@@ -750,6 +756,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bd0120.bcs~) BEGIN
 		END ELSE BEGIN
 			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
+		SPRINT textToReplace ~\(GlobalLT("bd_plot","GLOBAL",40)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
 	END
   BUT_ONLY
 END
@@ -1049,7 +1063,7 @@ END
 
 IF
 	Global("D5GregsonExist","GLOBAL",1)
-	PartyHasItem("D5SCRLSK",1)
+	PartyHasItem("D5SCRLSK")
 	Global("D5SarevokFoundJournal","GLOBAL",0)
 THEN
 	RESPONSE #100

@@ -8,13 +8,15 @@ DEFINE_ACTION_FUNCTION entar_accuse BEGIN
  -- ...everyone is like "no, you're not caught up, it was doppelganger's see?"
  -- ...entar, reasonably, is not quick to calm down
 
-- ***** change the trigger to unlock the maze entrance from  ("DukeThanks","GLOBAL",1) to something else
+- add Skie interjections
+
+- change the trigger to unlock the maze entrance from  ("DukeThanks","GLOBAL",1) to something else
 
 - ***** add a thief to the guild to talk about the stairs
  -- ...or use an existing one. Denkod?
  -- ...and probably then have to disable the trigger that creates him after Sarevok is dead.
 
-- ***** bring Imoen back at this time. creates complications tho.
+- bring Imoen back at this time. creates complications tho.
  -- ...only if not in party
  -- ...need to check when she was last in party
  -- ...and check if she is dead
@@ -25,13 +27,87 @@ DEFINE_ACTION_FUNCTION entar_accuse BEGIN
 
 */
 
-<<<<<<<< d5/area0108.baf
+// prep journal entries
+
+ADD_JOURNAL TITLE (@30036) @50035 @50079
+
+// add a game check to record the last time Imoen is in the party
+
+<<<<<<<< d5/baldur+.baf
+IF
+	Global("CHAPTER","GLOBAL",1)
+	InParty("IMOEN")
+	GlobalLT("D5ImoenChap","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenChap","GLOBAL",1)
+END
+
+IF
+	Global("CHAPTER","GLOBAL",2)
+	InParty("IMOEN")
+	GlobalLT("D5ImoenChap","GLOBAL",2)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenChap","GLOBAL",2)
+END
+
+IF
+	Global("CHAPTER","GLOBAL",3)
+	InParty("IMOEN")
+	GlobalLT("D5ImoenChap","GLOBAL",3)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenChap","GLOBAL",3)
+END
+
+IF
+	Global("CHAPTER","GLOBAL",4)
+	InParty("IMOEN")
+	GlobalLT("D5ImoenChap","GLOBAL",4)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenChap","GLOBAL",4)
+END
+
+IF
+	Global("CHAPTER","GLOBAL",5)
+	InParty("IMOEN")
+	GlobalLT("D5ImoenChap","GLOBAL",5)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenChap","GLOBAL",5)
+END
+
+IF
+	Global("CHAPTER","GLOBAL",6)
+	InParty("IMOEN")
+	GlobalLT("D5ImoenChap","GLOBAL",6)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenChap","GLOBAL",6)
+END
+
+IF
+	Global("CHAPTER","GLOBAL",7)
+	InParty("IMOEN")
+	GlobalLT("D5ImoenChap","GLOBAL",7)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenChap","GLOBAL",7)
+END
+>>>>>>>>
+COPY ~d5/baldur+.baf~ ~weidu_external/%MOD_FOLDER%/compile/baldur+.baf~
+EXTEND_TOP ~baldur.BCS~ ~weidu_external/%MOD_FOLDER%/compile/baldur+.baf~
+
+
+<<<<<<<< d5/ar108+5.baf
 IF
 	Global("D5EntarCut","GLOBAL",1)
 THEN
 	RESPONSE #100
 		SetGlobal("D5EntarCut","GLOBAL",2)
-		CreateCreature("ENTAR",[520.615],E)
+		CreateCreature("BDENTAR",[520.615],E)
 		ClearAllActions()
 		StartCutSceneMode()
 		StartCutScene("D5ENCUT1")
@@ -46,15 +122,24 @@ THEN
 		StartCutSceneMode()
 		StartCutScene("D5ENCUT2")
 END
+
+IF
+	Global("D5MazeOpen","GLOBAL",1)
+	Global("D5ImoenPalace","GLOBAL",0)
+	!InParty("%IMOEN_DV%")
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",1)
+		CreateCreature("BDIMOEN",[230.380],SE)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5IMCUT1")
+END
 >>>>>>>>
-COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+COPY ~d5/ar108+5.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+5.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
-END
-
-ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+5.baf~ EVALUATE_BUFFER
 END
 
 <<<<<<<< d5/d5encut1.baf
@@ -62,13 +147,14 @@ IF
 	True()
 THEN
 	RESPONSE #100
-		CutSceneId("ENTAR")
+		CutSceneId("BDENTAR")
 		DisplayStringHead(Myself,@50019)
 		MoveToPoint([705.560])
 		SmallWait(1)
 		SetGlobal("D5EntarCut","GLOBAL",3)
+		SmallWait(2)
 		EndCutSceneMode()
-		ActionOverride("ENTAR",StartDialogueNoSet(Player1))
+		ActionOverride("BDENTAR",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
 COPY ~d5/d5encut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5encut1.baf~
@@ -79,16 +165,19 @@ IF
 	True()
 THEN
 	RESPONSE #100
-		CutSceneId("ENTAR")
+		CutSceneId("BDENTAR")
 		DisplayStringHead(Myself,@50030)
 		MoveToPoint([520.615])
 		SetGlobal("D5EntarCut","GLOBAL",6)
-		EscapeArea()
+		SmallWait(1)
 		EndCutSceneMode()
+		ActionOverride("BDENTAR",EscapeArea())
+/*		ActionOverride("BELT",StartDialogueNoSet(Player1)) */
 END
+
 >>>>>>>>
-COPY ~d5/d5encut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5encut1.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5encut1.baf~
+COPY ~d5/d5encut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5encut2.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5encut2.baf~
 
 <<<<<<<< d5/belt+.baf
 IF
@@ -103,10 +192,28 @@ END
 COPY ~d5/belt+.baf~ ~weidu_external/%MOD_FOLDER%/compile/belt+.baf~
 EXTEND_TOP ~BELT.BCS~ ~weidu_external/%MOD_FOLDER%/compile/belt+.baf~
 
+<<<<<<<< d5/d5imcut1.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId("%IMOEN_DV%")
+		DisplayStringHead(Myself,@50040)
+		MoveToPoint([530.360])
+		SmallWait(1)
+		SetGlobal("D5ImoenPalace","GLOBAL",2)
+		SmallWait(2)
+		EndCutSceneMode()
+		ActionOverride("LIIA",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5imcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5imcut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5imcut1.baf~ EVALUATE_BUFFER
+
 <<<<<<<< d5/palace+.d
 APPEND BELT
 
-IF ~Global("D5KorlaszDone","GLOBAL",1) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5beltkd_0
+IF ~Global("D5KorlaszDone","GLOBAL",1) Global("D5MazeOpen","GLOBAL",0) Global("D5EntarCut","GLOBAL",0)~ BEGIN d5beltkd_0
   SAY @50001
   IF ~Dead("BDKORLAS")~ GOTO d5beltkd_2
   IF ~!Dead("BDKORLAS")~ GOTO d5beltkd_3
@@ -114,8 +221,8 @@ END
 
 IF ~Global("D5KorlaszDone","GLOBAL",2) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5beltkd_1
   SAY @50004
-  IF ~!PartyHasItem("D5SCRLSK",1)~ REPLY @50005 GOTO d5beltkd_5
-  IF ~PartyHasItem("D5SCRLSK",1)~ REPLY @50006 GOTO d5beltkd_6
+  IF ~!PartyHasItem("D5SCRLSK")~ REPLY @50005 GOTO d5beltkd_5
+  IF ~PartyHasItem("D5SCRLSK")~ REPLY @50006 GOTO d5beltkd_6
 END
 
 IF ~~ BEGIN d5beltkd_2
@@ -130,8 +237,8 @@ END
 
 IF ~~ BEGIN d5beltkd_4
   SAY @50004
-  IF ~!PartyHasItem("D5SCRLSK",1)~ REPLY @50005 GOTO d5beltkd_5
-  IF ~PartyHasItem("D5SCRLSK",1)~ REPLY @50006 GOTO d5beltkd_6
+  IF ~!PartyHasItem("D5SCRLSK")~ REPLY @50005 GOTO d5beltkd_5
+  IF ~PartyHasItem("D5SCRLSK")~ REPLY @50006 GOTO d5beltkd_6
 END
 
 IF ~~ BEGIN d5beltkd_5
@@ -145,13 +252,13 @@ IF ~~ BEGIN d5beltkd_6
 END
 
 IF ~Global("D5EntarCut","GLOBAL",6)~ BEGIN d5beltkd_7
-  SAY @500031
+  SAY @50031
   IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",7)~ GOTO d5beltkd_8
 END
 
 IF ~~ BEGIN d5beltkd_8
   SAY @50032
-  IF ~~ JOURNAL @50035 EXIT
+  IF ~~ DO ~SetGlobal("D5MazeOpen","GLOBAL",1)~ DO ~AddJournalEntry(@50035,QUEST)~ EXIT
 END
 
 IF ~Global("D5EntarCut","GLOBAL",7)~ BEGIN d5beltkd_9
@@ -163,7 +270,7 @@ END
 
 APPEND LIIA
 
-IF ~Global("D5KorlaszDone","GLOBAL",1) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5liiakd_0
+IF ~Global("D5KorlaszDone","GLOBAL",1) Global("D5MazeOpen","GLOBAL",0) Global("D5EntarCut","GLOBAL",0)~ BEGIN d5liiakd_0
   SAY @50001
   IF ~Dead("BDKORLAS")~ GOTO d5liiakd_2
   IF ~!Dead("BDKORLAS")~ GOTO d5liiakd_3
@@ -171,8 +278,8 @@ END
 
 IF ~Global("D5KorlaszDone","GLOBAL",2) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5liiakd_1
   SAY @50004
-  IF ~!PartyHasItem("D5SCRLSK",1)~ REPLY @50005 GOTO d5liiakd_5
-  IF ~PartyHasItem("D5SCRLSK",1)~ REPLY @50006 GOTO d5liiakd_6
+  IF ~!PartyHasItem("D5SCRLSK")~ REPLY @50005 GOTO d5liiakd_5
+  IF ~PartyHasItem("D5SCRLSK")~ REPLY @50006 GOTO d5liiakd_6
 END
 
 IF ~~ BEGIN d5liiakd_2
@@ -187,8 +294,8 @@ END
 
 IF ~~ BEGIN d5liiakd_4
   SAY @50004
-  IF ~!PartyHasItem("D5SCRLSK",1)~ REPLY @50005 GOTO d5liiakd_5
-  IF ~PartyHasItem("D5SCRLSK",1)~ REPLY @50006 GOTO d5liiakd_6
+  IF ~!PartyHasItem("D5SCRLSK")~ REPLY @50005 GOTO d5liiakd_5
+  IF ~PartyHasItem("D5SCRLSK")~ REPLY @50006 GOTO d5liiakd_6
 END
 
 IF ~~ BEGIN d5liiakd_5
@@ -202,17 +309,17 @@ IF ~~ BEGIN d5liiakd_6
 END
 
 IF ~~ BEGIN d5liiakd_7
-  SAY @500010
+  SAY @50010
   IF ~~ GOTO d5liiakd_8
 END
 
 IF ~~ BEGIN d5liiakd_8
-  SAY @500011
+  SAY @50011
   IF ~~ GOTO d5liiakd_9
 END
 
 IF ~~ BEGIN d5liiakd_9
-  SAY @500012
+  SAY @50012
   IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",1)~ EXIT
 END
 
@@ -241,9 +348,34 @@ IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5liiakd_14
   IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",4)~ JOURNAL @50034 EXIT
 END
 
-IF ~Global("D5EntarCut","GLOBAL",7)~ BEGIN d5liiakd_15
+IF ~Global("D5EntarCut","GLOBAL",7) !Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_15
   SAY @50033
   IF ~~ EXIT
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_16
+  SAY @50041
+  IF ~!Dead("IMOEN") GlobalLT("D5ImoenChap","GLOBAL",2)~ EXTERN BDIMOEN d5imoenkd_0
+  IF ~!Dead("IMOEN") GlobalGT("D5ImoenChap","GLOBAL",1) GlobalLT("D5ImoenChap","GLOBAL",5)~ EXTERN BDIMOEN d5imoenkd_1
+  IF ~!Dead("IMOEN") GlobalGT("D5ImoenChap","GLOBAL",4)~ EXTERN BDIMOEN d5imoenkd_2
+  IF ~Dead("IMOEN")~ EXTERN BDIMOEN d5imoenkd_3
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_17
+  SAY @50048
+  IF ~~ EXTERN BDIMOEN d5imoenkd_5
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_18
+  SAY @50050
+  IF ~~ REPLY @50051 EXTERN BDIMOEN d5imoenkd_6
+  IF ~~ REPLY @50052 GOTO d5liiakd_19
+  IF ~~ REPLY @50053 GOTO d5liiakd_19
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_19
+  SAY @50055
+  IF ~~ DO ~SetGlobal("D5ImoenPalace","GLOBAL",3)~ JOURNAL @50039 EXIT
 END
 
 END
@@ -262,7 +394,10 @@ END
 
 IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5entarkd_2
   SAY @50024
-  IF ~~ EXTERN LIIA d5liiakd_12
+  IF ~!IsValidForPartyDialogue("SKIE")~ EXTERN LIIA d5liiakd_12
+  IF ~IsValidForPartyDialogue("SKIE") Alignment(Player1,MASK_GOOD)~ EXTERN SKIE d5skiekd_0
+  IF ~IsValidForPartyDialogue("SKIE") Alignment(Player1,MASK_GENEUTRAL)~ EXTERN SKIE d5skiekd_0
+  IF ~IsValidForPartyDialogue("SKIE") Alignment(Player1,MASK_EVIL)~ EXTERN SKIE d5skiekd_1
 END
 
 IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5entarkd_3
@@ -276,42 +411,238 @@ IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5entarkd_4
 END
 
 END
+
+APPEND SKIE
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5skiekd_0
+  SAY @50017
+  IF ~~ EXTERN LIIA d5liiakd_12
+END
+
+IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5skiekd_1
+  SAY @50018
+  IF ~~ EXTERN LIIA d5liiakd_12
+END
+
+END
+
+APPEND BDIMOEN
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5imoenkd_0
+  SAY @50042
+  IF ~~ GOTO d5imoenkd_4
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5imoenkd_1
+  SAY @50043
+  IF ~~ GOTO d5imoenkd_4
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5imoenkd_2
+  SAY @50044
+  IF ~~ GOTO d5imoenkd_4
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5imoenkd_3
+  SAY @50045
+  IF ~~ GOTO d5imoenkd_4
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5imoenkd_4
+  SAY @50047
+  IF ~~ EXTERN LIIA d5liiakd_17
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5imoenkd_5
+  SAY @50049
+  IF ~~ EXTERN LIIA d5liiakd_18
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5imoenkd_6
+  SAY @50054
+  IF ~~ EXTERN LIIA d5liiakd_19
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",3) !Dead("SAREVOK")~ BEGIN d5imoenkd_7
+  SAY @50056
+  IF ~~ REPLY @50057 GOTO d5imoenkd_8
+  IF ~~ REPLY @50059 GOTO d5imoenkd_9
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",3) !Dead("SAREVOK")~ BEGIN d5imoenkd_8
+  SAY @50058
+  IF ~~ EXIT
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",3) !Dead("SAREVOK")~ BEGIN d5imoenkd_9
+  SAY @50060
+  IF ~~ EXIT
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",3) Dead("SAREVOK")~ BEGIN d5imoenkd_10
+  SAY @50061
+  IF ~~ EXIT
+END
+
+END
+
+REPLACE_STATE_TRIGGER DENKOD 0 ~Global("D5MazeOpen","GLOBAL",99)~
+
+APPEND DENKOD
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_0
+  SAY @50063
+  IF ~~ REPLY @50064 DO ~Enemy()~ DO ~SetGlobal("AttackedThieves","GLOBAL",1)~ EXIT
+  IF ~~ REPLY @50065 GOTO d5denkod_1
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_1
+  SAY @50066
+  IF ~~ GOTO d5denkod_2
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_2
+  SAY @50067
+  IF ~~ REPLY @50068 GOTO d5denkod_3
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_3
+  SAY @50069
+  IF ~~ REPLY @50070 GOTO d5denkod_4
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_4
+  SAY @50071
+  IF ~~ REPLY @50072 GOTO d5denkod_5
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_5
+  SAY @50073
+  IF ~~ REPLY @50074 GOTO d5denkod_6
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_6
+  SAY @50075
+  IF ~~ DO ~AddJournalEntry(@50079,QUEST)~ EXIT
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",2)~ BEGIN d5denkod_7
+  SAY @50076
+  IF ~~ EXIT
+END
+
+END
 >>>>>>>> 
 COPY ~d5/palace+.d~ ~weidu_external/%MOD_FOLDER%/compile/palace+.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/palace+.d~
 
+//modify trigger to activate entrance to maze
 
-/* try just doing them all together
-<<<<<<<< d5/liiakd+.d
-APPEND LIIA
-
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0153.bcs~) BEGIN
+  COPY_EXISTING ~%bg1_area_prefix%0153.bcs~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(Global("DukeThanks","GLOBAL",1)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~Global("D5MazeOpen","GLOBAL",1)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(Global("DukeThanks","GLOBAL",0)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~Global("D5MazeOpen","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(!Exists("DENKOD")\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~!InMyArea("DENKOD")~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(!Dead("DENKOD")\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ApplySpellRES("ohdest","Rogue_\).+$~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+  BUT_ONLY
 END
->>>>>>>> 
-COPY ~d5/liiakd+.d~ ~weidu_external/%MOD_FOLDER%/compile/liiakd+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/liiakd+.d~
-*/
 
-/*
+<<<<<<<< d5/area0153.baf
+IF
+	Allegiance("DENKOD",[EVILCUTOFF])
+THEN
+	RESPONSE #100
+		SetGlobal("AttackedThieves","GLOBAL",1)
+END
+>>>>>>>>
+COPY ~d5/area0153.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0153.baf~
 
-Have someone talk at the guild
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0153.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%0153.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0153.baf~
+END
 
-"Might sound weird, but is there an area of the guild that you cannot access?
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0146.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0153.baf~
+END
 
-"Well. That is a very specific question. And an odd one, because in truth I think there might be such a place.
+// remove voleta stiletto
 
-"Sometimes, when I have a Potion of Perception in my, out of the corner of my eye, I have the most fleeting idea that I saw a staircase over there. But then I look, and of course there is nothing. It is passing odd, I tell you."
+COPY_EXISTING ~voleta.cre~ ~override~
+	WRITE_ASCII 0x280 ~VOLETA~ #20
+IF_EXISTS BUT_ONLY
 
-"What, you mean like that staircase?"
+<<<<<<<< d5/area0146.baf
+IF
+	GlobalGT("D5MazeOpen","GLOBAL",0)
+	Global("D5VoletaGone","GLOBAL",0)
+THEN
+	RESPONSE #100
+		ActionOverride("VOLETA",DestroySelf())		
+		SetGlobal("D5VoletaGone","GLOBAL",1)
+END
 
-"What staircase?"
+IF
+	GlobalGT("D5MazeOpen","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5MazeOpen","GLOBAL",2)
+END
+>>>>>>>>
+COPY ~d5/area0146.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~
 
-"That Staircase." 
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0146.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%0146.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~
+END
 
-Etc.
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0146.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~
+END
 
-remove the girl from outside the maze.
+// keep some thieves in the guild
 
-*/
+// script them all to attack if Denkod goes red
+
+// ? ***** add an invisicre to AR0146 at the entrance, and DisplayStringHead some alarmed shouting from Denkod
+
+// ***** write out journal entries (34, 35, 39, 79)
 
 //___________________________________________________________________________________
 //

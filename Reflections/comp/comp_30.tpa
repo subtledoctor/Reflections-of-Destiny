@@ -22,6 +22,12 @@ DEFINE_ACTION_FUNCTION delay_maze BEGIN
 
 */
 
+// prep journal entries
+
+ADD_JOURNAL TITLE (@30036) @30034 @30035
+
+// add to Belt's dialogue
+
 <<<<<<<< d5/belt+.d
 REPLACE_STATE_TRIGGER BELT 11 ~Global("SarevokBehavior","GLOBAL",99)~
 
@@ -55,8 +61,8 @@ END
 
 IF ~~ BEGIN d5belt_5
   SAY @30009
-  IF ~~ REPLY @30010 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ JOURNAL @30035 EXIT
-  IF ~~ REPLY @30011 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ JOURNAL @30035 EXIT
+  IF ~~ REPLY @30010 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ DO ~AddJournalEntry(@30035,QUEST)~ EXIT
+  IF ~~ REPLY @30011 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ DO ~AddJournalEntry(@30035,QUEST)~ EXIT
 END
 
 IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0) Global("D5KorlaszDone","GLOBAL",0)~ BEGIN d5belt_6
@@ -103,8 +109,8 @@ END
 
 IF ~~ BEGIN d5liia_5
   SAY @30009
-  IF ~~ REPLY @30010 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ JOURNAL @30035 EXIT
-  IF ~~ REPLY @30011 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ JOURNAL @30035 EXIT
+  IF ~~ REPLY @30010 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ DO ~AddJournalEntry(@30035,QUEST)~ EXIT
+  IF ~~ REPLY @30011 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ DO ~AddJournalEntry(@30035,QUEST)~ EXIT
 END
 
 IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0) Global("D5KorlaszDone","GLOBAL",0)~ BEGIN d5liia_6
@@ -214,14 +220,14 @@ END
 
 IF ~~ BEGIN d5gregs_7
   SAY @30027
-  IF ~~ REPLY @30028 JOURNAL @30034 GOTO d5gregs_9
-  IF ~~ REPLY @30029 JOURNAL @30034 GOTO d5gregs_9
+  IF ~~ REPLY @30028 DO ~AddJournalEntry(@30034,QUEST)~ GOTO d5gregs_9
+  IF ~~ REPLY @30029 DO ~AddJournalEntry(@30034,QUEST)~ GOTO d5gregs_9
 END
 
 IF ~~ BEGIN d5gregs_8
   SAY @30030
-  IF ~~ REPLY @30031 JOURNAL @30034 GOTO d5gregs_9
-  IF ~~ REPLY @30032 JOURNAL @30034 GOTO d5gregs_9
+  IF ~~ REPLY @30031 DO ~AddJournalEntry(@30034,QUEST)~ GOTO d5gregs_9
+  IF ~~ REPLY @30032 DO ~AddJournalEntry(@30034,QUEST)~ GOTO d5gregs_9
 END
 
 IF ~~ BEGIN d5gregs_9

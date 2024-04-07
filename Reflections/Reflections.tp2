@@ -1,15 +1,17 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.1.4~
+VERSION ~0.1.5~
 
 ALWAYS
   OUTER_SPRINT newline ~%WNL%%LNL%%MNL%%TAB% ~
   ACTION_IF (GAME_IS ~eet~) BEGIN
     OUTER_SPRINT bg1_area_prefix ~BG~
+    OUTER_SPRINT "IMOEN_DV" "imoen2"
   END
   ELSE BEGIN
     OUTER_SPRINT bg1_area_prefix ~AR~
+    OUTER_SPRINT "IMOEN_DV" "imoen"
   END
 END
 
@@ -30,20 +32,11 @@ Maybe it can work...
 // ...probably have to deal with the possibility that Imoen is nowhere to be found...!
 // ...in step 7
 
-PLAN FOR PART 1:
-4)
- - place korlasz' crypt
- - put some FF outside it
- - FF captain dialogue into Korlasz crypt
- - change korlasz dialogue(s) mentioning sarevok dead
- - etc.
-5)
- - report to Belt; script Entar to enter and accuse you
- - dlg sets variable to unlock maze
- - allow entrance to maze; script some FF to die near traps
+PLAN:
 6)
  - no game end after sarevok; see EBG1
- - maybe change sarevok fight?
+ -- affect the fight itself (play the video but don't end the game; and remove the body)
+ -- if EBG1 installed, prevent FF from showing up
 7)
  - write dialogues for after: people are pissed there is no body, necromancy doesn't work, there is no way to prove your story
  - entar is still salty, says this looks an awful lot like you just wanted to remove Sarevok and be called the "Hero of Baldur's Gate" - I mean, nobody ever heard of you until the iron crisis began. coincidence?
@@ -69,9 +62,10 @@ PLAN FOR PART 1:
  - ...notes that Eddard's death coincided with your leaving Candlekeep; coincidence???
  - then notes that the assassin is already in custody; appears to be a doppelganger or something, which matches the methods Sarevok was using... looks very bad
  - then confront the clone
- - scripted tomestop, teleport, party removal
+ - scripted timestop, teleport, party removal
+ - fade out, fade in, Imoen approaches, says she was attacked, demands you prove you are you. says they are taling about putting you down just to be sure. she is your only way to escape... like her or not, you need her help right now
  
- - ***** might need to add some dialogue (from Belt/Liia/Eltan) with, "the people want a hero; whether or not that's really what you are, you did stop Sarevok and Sarevok did turn out to be a threat. The whispers about you have already started; it would be prudent to make sure the less kind ones do not become dominant.
+ - ***** have some dialogue (from Belt/Liia/Eltan) with, "the people want a hero; whether or not that's really what you are, you did stop Sarevok and Sarevok did turn out to be a threat. The whispers about you have already started; it would be prudent to make sure the less kind ones do not become dominant.
 9b)
  - then modded escape scene as above
 
