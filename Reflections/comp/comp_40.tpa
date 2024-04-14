@@ -25,56 +25,9 @@ DEFINE_ACTION_FUNCTION early_korlasz BEGIN
 
 ADD_JOURNAL TITLE (@30036) @40021 @40022 @40023
 
-ACTION_IF GAME_IS ~eet~ THEN BEGIN
-  INCLUDE ~%MOD_FOLDER%/lib/cpmvars/eet_cpmvars.tpa~
-END
-
-ACTION_IF GAME_IS ~bgee~ THEN BEGIN
-  INCLUDE ~%MOD_FOLDER%/lib/cpmvars/liam_bgee_vars.tpa~
-END
-
 INCLUDE ~%MOD_FOLDER%/lib/get_response_strrefs.tph~
 
 // ADJUSTMENTS to KORLASZ' DUNGEON BORROWED FROM ENDLESSBG1:
-
-ACTION_IF (GAME_IS ~bgee~) BEGIN
-  OUTER_SPRINT ~bgee_only~ ~False()~
-  OUTER_SPRINT ~sod~ ~~
-  OUTER_SPRINT ~eet_only~ ~False()~
-  OUTER_SPRINT ~start_bg1end_sod_cutscene~ ~ClearAllActions()
-		StartCutSceneMode()
-		StartCutScene("c#st2sod")~
-  OUTER_SPRINT ~move_to_bg2~ ~~
-  OUTER_SPRINT ~bdresurr~ ~bdresurr~
-  OUTER_SPRINT ~bddispel~ ~bddispel~
-  OUTER_SPRINT ~clearcld~ ~clearcld~
-  OUTER_SPRINT ~BELT~ ~BELT~
-  OUTER_SET BGTIMOENPState0 = 0 
-  OUTER_SET BGTIMOENPState4 = 4
-  OUTER_SPRINT ~eet_2~ ~~
-  OUTER_SPRINT ~eet_0~ ~~
-  OUTER_SET eet_200000 = GAME_IS ~eet~ ? 200000 : 0
-  OUTER_SPRINT CentralBaldursGate ~AR0700~
-END
-
-ACTION_IF (GAME_IS ~eet~) BEGIN
-  OUTER_SPRINT ~bgee_only~ ~False()~
-  OUTER_SPRINT ~sod~ ~~
-  OUTER_SPRINT ~eet_only~ ~~
-  OUTER_SPRINT ~start_bg1end_sod_cutscene~ ~ClearAllActions()
-		StartCutSceneMode()
-		StartCutScene("c#st2sod")~
-  OUTER_SPRINT ~bdresurr~ ~bdresurr~
-  OUTER_SPRINT ~bddispel~ ~bddispel~
-  OUTER_SPRINT ~clearcld~ ~clearcld~
-  OUTER_SPRINT ~BELT~ ~BELT~
-  OUTER_SET BGTIMOENPState0 = 0 
-  OUTER_SET BGTIMOENPState4 = 4
-  OUTER_SPRINT ~eet_2~ ~2~
-  OUTER_SPRINT ~eet_0~ ~0~
-  OUTER_SET eet_200000 = GAME_IS ~eet~ ? 200000 : 0
-  OUTER_SPRINT CentralBaldursGate ~BG0700~
-END
 
 // Add Entrance to Korlasz Dungeon to BG city: ar0700.are 
 COPY_EXISTING ~%bg1_area_prefix%0700.are~ ~override~
@@ -187,7 +140,7 @@ THEN
 END
 >>>>>>>>
 COPY ~d5/bdrope-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdrope-et.baf~
-EXTEND_TOP ~bdrope.bcs~ ~d5/bdrope-et.baf~ EVALUATE_BUFFER
+EXTEND_TOP ~bdrope.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bdrope-et.baf~ EVALUATE_BUFFER
 
 /* Add Travel points and Entrance point to Koralsz' Crypt bd0120.are */
 COPY_EXISTING ~bd0120.are~ ~override~
@@ -469,8 +422,8 @@ THEN
 END
 
 >>>>>>>>
-
-EXTEND_TOP ~bd0120.BCS~ ~.../bd0120-et.baf~ EVALUATE_BUFFER
+COPY ~.../bd0120-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd0120-et.baf~
+EXTEND_TOP ~bd0120.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bd0120-et.baf~ EVALUATE_BUFFER
 
 /* Korlasz should no longer be in Korlasz crypt if it's done */
 <<<<<<<< .../bdshkorl-et.baf
@@ -486,7 +439,8 @@ THEN
 		DestroySelf()
 END
 >>>>>>>>
-EXTEND_TOP ~bdshkorl.BCS~ ~.../bdshkorl-et.baf~ EVALUATE_BUFFER
+COPY ~.../bdshkorl-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdshkorl-et.baf~
+EXTEND_TOP ~bdshkorl.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bdshkorl-et.baf~ EVALUATE_BUFFER
 
 // Imoen should no longer be in Korlasz crypt if it's done 
 <<<<<<<< .../bdshimoe-et.baf
@@ -502,7 +456,8 @@ THEN
 		DestroySelf()
 END
 >>>>>>>>
-EXTEND_TOP ~bdshimoe.BCS~ ~.../bdshimoe-et.baf~ EVALUATE_BUFFER
+COPY ~.../bdshimoe-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdshimoe-et.baf~
+EXTEND_TOP ~bdshimoe.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bdshimoe-et.baf~ EVALUATE_BUFFER
 
 //bdintro.BCS
 COPY_EXISTING ~bdintro.BCS~ ~override~
@@ -578,8 +533,8 @@ THEN
 		Continue()
 END
 >>>>>>>>
-
-EXTEND_TOP ~bdintro.BCS~ ~.../bdintro-et.baf~ EVALUATE_BUFFER
+COPY ~.../bdintro-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdintro-et.baf~
+EXTEND_TOP ~bdintro.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bdintro-et.baf~ EVALUATE_BUFFER
 
 //cutskip.bcs
 COPY_EXISTING ~cutskip.BCS~ ~override~
@@ -770,7 +725,7 @@ END
 
 // put Gregson into the crypt as well, in place of Imoen
 
-<<<<<<<< d5/arebd120.baf
+<<<<<<<< d5/bd120+4.baf
 IF
 	Global("D5GregsonCrypt","GLOBAL",4)
 THEN
@@ -821,17 +776,14 @@ THEN
 	RESPONSE #100
 		SetGlobal("D5KorlaszDone","GLOBAL",1)
 		SetGlobal("D5GregsonCrypt","GLOBAL",9)
+		SetGlobal("C#EBG1_KorlaszQuest","GLOBAL",99)
 END
 
 >>>>>>>>
-COPY ~d5/arebd120.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd0120.baf~
+COPY ~d5/bd120+4.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd120+4.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bd0120.bcs~) BEGIN
-  EXTEND_TOP ~bd0120.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bd0120.baf~
-END
-
-ACTION_IF !(FILE_EXISTS_IN_GAME ~bd0120.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/bd0120.baf~
+  EXTEND_TOP ~bd0120.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bd120+4.baf~
 END
 
 <<<<<<<< d5/d5gregs+.d

@@ -1,0 +1,138 @@
+
+DEFINE_ACTION_FUNCTION entar_accuse BEGIN
+
+/*
+- plan: jump from palace to FF cells, big cut scene w/ clone
+
+ -- make cut scene and dialogue for Gregson to enter palace and say they have Charname in custody... er... wait
+ 
+ -- make cut scene jumping party, gregson, belt, liia, and entar to jail, and walk to clone's cell, and dialogue
+ 
+ -- make cut scene with old switcheroo, then more dialogue
+ 
+ -- cut scene of everyone leaving
+ 
+ -- cut scene with fade out/fade in, and imoen dialogue
+ 	...model this on the SoD scene
+
+*/
+
+// prep journal entries
+
+ADD_JOURNAL TITLE (@80001) @80002
+
+
+<<<<<<<< d5/ar108+8.baf
+IF
+	Global("D5GregsonPalace","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5GregsonPalace","GLOBAL",2)
+		CreateCreature("D5GREGS",[520.615],E)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5GRCUT1")
+END
+
+IF
+	Global("D5EntarCut","GLOBAL",__)
+THEN
+	RESPONSE #100
+		SetGlobal("D5GregsonPalace","GLOBAL",5)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CLCUT1")
+END
+>>>>>>>>
+COPY ~d5/ar108+8.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+8.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+8.baf~
+END
+
+<<<<<<<< d5/ar607+8.baf
+IF
+	Global("D5GregsonExist","GLOBAL",0)
+	Global("D5PostCoronation","GLOBAL",1)
+THEN
+	RESPONSE #100
+		CreateCreature("d5gregs",[1120.850],14)
+		SetGlobal("D5GregsonExist","GLOBAL",1)
+END
+>>>>>>>>
+COPY ~d5/ar607+8.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar607+8.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0607.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%0607.bcs~ ~weidu_external/%MOD_FOLDER%/compile/ar607+8.baf~
+END
+
+// gregson cut scene in palace
+
+<<<<<<<< d5/d5grcut1.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId("D5GREGS")
+		DisplayStringHead(Myself,@70050)
+		MoveToPoint([705.560])
+		SmallWait(1)
+		SetGlobal("D5EntarCut","GLOBAL",3)
+		SmallWait(2)
+		EndCutSceneMode()
+		ActionOverride("BDENTAR",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5grcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5grcut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5grcut1.baf~
+
+// cut scene to FF cells
+
+<<<<<<<< d5/d5clcut1.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId("D5GREGS")
+		DisplayStringHead(Myself,@70050)
+		MoveToPoint([705.560])
+		SmallWait(1)
+		SetGlobal("D5EntarCut","GLOBAL",3)
+		SmallWait(2)
+		EndCutSceneMode()
+		ActionOverride("BDENTAR",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5clcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut1.baf~
+
+
+// cut scene to secape
+
+<<<<<<<< d5/d5clcut2.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId("D5GREGS")
+		DisplayStringHead(Myself,@70050)
+		MoveToPoint([705.560])
+		SmallWait(1)
+		SetGlobal("D5EntarCut","GLOBAL",3)
+		SmallWait(2)
+		EndCutSceneMode()
+		ActionOverride("BDENTAR",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5clcut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut2.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut2.baf~
+
+
+// *****
+
+
+//___________________________________________________________________________________
+//
+
+
+END	//	end define function

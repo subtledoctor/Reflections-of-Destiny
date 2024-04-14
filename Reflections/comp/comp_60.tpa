@@ -1,0 +1,121 @@
+
+DEFINE_ACTION_FUNCTION keep_playing BEGIN
+
+/*
+- plan: keep the game running after Sarevok dies
+
+- make sure door locks behind PC when enter temple (door0123)
+
+- stop game from ending when S is dead
+ -- ...play the vid, tho
+
+- unlock door when S is dead
+
+- ***** suppress any FF arriving, if EBG1 is installed
+
+*/
+
+// prep journal entries
+
+ADD_JOURNAL TITLE (@30036) @60001
+
+// stuff from EBG1
+
+ACTION_IF GAME_IS ~bgee~ THEN BEGIN
+  COPY_EXISTING ~%Undercity_TempleofBhaal%.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~Dead("Sarevok")[%newline%]*GlobalLT("EndOfBG1","GLOBAL",2)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~False()~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+  BUT_ONLY
+END
+
+ACTION_IF GAME_IS ~eet~ THEN BEGIN
+  COPY_EXISTING ~%Undercity_TempleofBhaal%.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~Dead("Sarevok")[%newline%]*Global("EndOfBG1","GLOBAL",0)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~False()~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+  BUT_ONLY
+END
+
+<<<<<<<< .../ar0125-et.baf
+IF
+	Dead("Sarevok")  // Armored Figure (Sarevok)
+	OR(2)
+		Dead("GALDOR")   //Angelo
+		!Exists("GALDOR")   //Angelo
+	OR(2)
+		Dead("SEMAJ")    // Semaj
+		!Exists("SEMAJ")    // Semaj
+	OR(2)
+		Dead("Tazok")    //Tazok
+		!Exists("Tazok")    //Tazok
+	Global("C#st_BG1End","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetInterrupt(FALSE)
+		SaveGame(0)
+		SmallWait(1)
+		ClearAllActions()
+		StartCutSceneMode()
+		SetGlobal("C#st_BG1End","GLOBAL",1)
+		SetGlobal("SarevokBehavior","GLOBAL",5)
+		TriggerActivation("Door0123",TRUE)
+	/*	AddJournalEntry(@10012,QUEST_DONE)
+		AddJournalEntry(@10013,QUEST_DONE)
+		AddJournalEntry(@10014,QUEST_DONE)
+		AddJournalEntry(@10015,QUEST_DONE)	*/
+		Wait(2)
+		FadeToColor([30.0],0)
+		Wait(2)
+		StartMovie("ENDMOVIE")
+		FadeFromColor([30.0],0)
+		EndCutSceneMode()
+		SetInterrupt(TRUE)
+END
+>>>>>>>>
+COPY ~.../ar0125-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0125-et.baf~
+EXTEND_TOP ~%Undercity_TempleofBhaal%.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar0125-et.baf~ EVALUATE_BUFFER
+
+// EXTEND_TOP ar0125.bcs to lock/unlock door
+
+<<<<<<<< d5/area0125.baf
+IF
+	!Dead("SAREVOK")
+	Global("D5TempleLock","GLOBAL",0)
+THEN
+	RESPONSE #100
+		TriggerActivation("Door0123",FALSE)
+		SetGlobal("D5TempleLock","GLOBAL",1)
+END
+
+IF
+	Dead("SAREVOK")
+	Global("D5TempleLock","GLOBAL",1)
+THEN
+	RESPONSE #100
+		TriggerActivation("Door0123",TRUE)
+		SetGlobal("D5TempleLock","GLOBAL",2)
+		AddJournalEntry(@60001,QUEST)
+END
+>>>>>>>>
+COPY ~d5/area0125.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0125.baf~
+EXTEND_TOP ~%bg1_area_prefix%0125.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0125.baf~
+
+//___________________________________________________________________________________
+//
+
+END	//	end define function

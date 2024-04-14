@@ -136,6 +136,22 @@ THEN
 		ReputationSet(8)
 		SetGlobal("D5DukesRepReset","GLOBAL",1)
 END
+
+IF
+	PartyHasItem("MISC55")
+	Global("C#st_RemoveMisc55","MYAREA",0)
+THEN
+	RESPONSE #100
+		SetGlobal("BD0120_START","GLOBAL",1)
+		SetGlobal("BDAI_RESET_TIMERS","GLOBAL",1)
+		ActionOverride(Player1,DestroyItem("MISC55"))
+		ActionOverride(Player2,DestroyItem("MISC55"))
+		ActionOverride(Player3,DestroyItem("MISC55"))
+		ActionOverride(Player4,DestroyItem("MISC55"))
+		ActionOverride(Player5,DestroyItem("MISC55"))
+		ActionOverride(Player6,DestroyItem("MISC55"))
+		SetGlobal("C#st_RemoveMisc55","MYAREA",1)
+END
 >>>>>>>>
 COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
 
@@ -259,6 +275,12 @@ END
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0200.bcs~) BEGIN
   COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0200.baf~
 END
+
+// cleanup stuff from EBG1
+
+INCLUDE ~%MOD_FOLDER%/lib/sarevok_cleanup.tpa~
+// INCLUDE ~%MOD_FOLDER%/lib/sarevok_cleanup_more.tpa~
+
 
 //___________________________________________________________________________________
 //

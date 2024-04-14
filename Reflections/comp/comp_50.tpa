@@ -102,6 +102,41 @@ EXTEND_TOP ~baldur.BCS~ ~weidu_external/%MOD_FOLDER%/compile/baldur+.baf~
 
 
 <<<<<<<< d5/ar108+5.baf
+/* Palace (ground floor): Duke Belt should be alive */
+/* Palace ground floor. revive Duke Belt and move him in the middle of the room */
+
+IF
+	Dead("BELT")
+	Global("D5KorlaszDone","GLOBAL",1)
+	Global("D5ReviveBelt","MYAREA",0)
+THEN
+	RESPONSE #100
+		SetGlobal("SPRITE_IS_DEADBELT","GLOBAL",0)
+		CreateCreature("BELT",[735.371],S)
+		SmallWait(1)
+		Continue()
+END
+
+IF
+	Global("D5KorlaszDone","GLOBAL",1)
+	Global("D5ReviveBelt","MYAREA",0)
+THEN
+	RESPONSE #100
+		SmallWait(1)
+		ActionOverride("BELT",JumpToPoint([735.371]))
+		ActionOverride("BELT",Face(0))
+		SmallWait(1)
+		Continue()
+END
+
+IF
+	Global("D5KorlaszDone","GLOBAL",1)
+	Global("D5ReviveBelt","MYAREA",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ReviveBelt","MYAREA",1)
+END
+
 IF
 	Global("D5EntarCut","GLOBAL",1)
 THEN
@@ -261,7 +296,7 @@ IF ~~ BEGIN d5beltkd_8
   IF ~~ DO ~SetGlobal("D5MazeOpen","GLOBAL",1)~ DO ~AddJournalEntry(@50035,QUEST)~ EXIT
 END
 
-IF ~Global("D5EntarCut","GLOBAL",7)~ BEGIN d5beltkd_9
+IF ~Global("D5EntarCut","GLOBAL",7) !Dead("SAREVOK")~ BEGIN d5beltkd_9
   SAY @50033
   IF ~~ EXIT
 END
@@ -348,7 +383,7 @@ IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5liiakd_14
   IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",4)~ JOURNAL @50034 EXIT
 END
 
-IF ~Global("D5EntarCut","GLOBAL",7) !Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_15
+IF ~Global("D5EntarCut","GLOBAL",7) !Global("D5ImoenPalace","GLOBAL",2) !Dead("SAREVOK")~ BEGIN d5liiakd_15
   SAY @50033
   IF ~~ EXIT
 END
@@ -485,53 +520,6 @@ IF ~Global("D5ImoenPalace","GLOBAL",3) Dead("SAREVOK")~ BEGIN d5imoenkd_10
 END
 
 END
-
-REPLACE_STATE_TRIGGER DENKOD 0 ~Global("D5MazeOpen","GLOBAL",99)~
-
-APPEND DENKOD
-
-IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_0
-  SAY @50063
-  IF ~~ REPLY @50064 DO ~Enemy()~ DO ~SetGlobal("AttackedThieves","GLOBAL",1)~ EXIT
-  IF ~~ REPLY @50065 GOTO d5denkod_1
-END
-
-IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_1
-  SAY @50066
-  IF ~~ GOTO d5denkod_2
-END
-
-IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_2
-  SAY @50067
-  IF ~~ REPLY @50068 GOTO d5denkod_3
-END
-
-IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_3
-  SAY @50069
-  IF ~~ REPLY @50070 GOTO d5denkod_4
-END
-
-IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_4
-  SAY @50071
-  IF ~~ REPLY @50072 GOTO d5denkod_5
-END
-
-IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_5
-  SAY @50073
-  IF ~~ REPLY @50074 GOTO d5denkod_6
-END
-
-IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_6
-  SAY @50075
-  IF ~~ DO ~AddJournalEntry(@50079,QUEST)~ EXIT
-END
-
-IF ~Global("D5MazeOpen","GLOBAL",2)~ BEGIN d5denkod_7
-  SAY @50076
-  IF ~~ EXIT
-END
-
-END
 >>>>>>>> 
 COPY ~d5/palace+.d~ ~weidu_external/%MOD_FOLDER%/compile/palace+.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/palace+.d~
@@ -602,6 +590,59 @@ END
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0146.bcs~) BEGIN
   COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0153.baf~
 END
+
+// change Denkod's dialogue
+
+<<<<<<<< d5/denkod+.d
+REPLACE_STATE_TRIGGER DENKOD 0 ~Global("D5MazeOpen","GLOBAL",99)~
+
+APPEND DENKOD
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_0
+  SAY @50063
+  IF ~~ REPLY @50064 DO ~Enemy()~ DO ~SetGlobal("AttackedThieves","GLOBAL",1)~ EXIT
+  IF ~~ REPLY @50065 GOTO d5denkod_1
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_1
+  SAY @50066
+  IF ~~ GOTO d5denkod_2
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_2
+  SAY @50067
+  IF ~~ REPLY @50068 GOTO d5denkod_3
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_3
+  SAY @50069
+  IF ~~ REPLY @50070 GOTO d5denkod_4
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_4
+  SAY @50071
+  IF ~~ REPLY @50072 GOTO d5denkod_5
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_5
+  SAY @50073
+  IF ~~ REPLY @50074 GOTO d5denkod_6
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_6
+  SAY @50075
+  IF ~~ DO ~AddJournalEntry(@50079,QUEST)~ EXIT
+END
+
+IF ~Global("D5MazeOpen","GLOBAL",2)~ BEGIN d5denkod_7
+  SAY @50076
+  IF ~~ EXIT
+END
+
+END
+>>>>>>>> 
+COPY ~d5/denkod+.d~ ~weidu_external/%MOD_FOLDER%/compile/denkod+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/denkod+.d~
 
 // remove voleta stiletto
 

@@ -1,17 +1,54 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.1.5~
+VERSION ~0.1.7~
 
 ALWAYS
   OUTER_SPRINT newline ~%WNL%%LNL%%MNL%%TAB% ~
   ACTION_IF (GAME_IS ~eet~) BEGIN
     OUTER_SPRINT bg1_area_prefix ~BG~
-    OUTER_SPRINT "IMOEN_DV" "imoen2"
+    INCLUDE ~%MOD_FOLDER%/lib/cpmvars/eet_cpmvars.tpa~
   END
   ELSE BEGIN
     OUTER_SPRINT bg1_area_prefix ~AR~
-    OUTER_SPRINT "IMOEN_DV" "imoen"
+    INCLUDE ~%MOD_FOLDER%/lib/cpmvars/liam_bgee_vars.tpa~
+  END
+  ACTION_IF (GAME_IS ~bgee~) BEGIN
+    OUTER_SPRINT ~bgee_only~ ~False()~
+    OUTER_SPRINT ~sod~ ~~
+    OUTER_SPRINT ~eet_only~ ~False()~
+    OUTER_SPRINT ~start_bg1end_sod_cutscene~ ~ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("c#st2sod")~
+    OUTER_SPRINT ~move_to_bg2~ ~~
+    OUTER_SPRINT ~bdresurr~ ~bdresurr~
+    OUTER_SPRINT ~bddispel~ ~bddispel~
+    OUTER_SPRINT ~clearcld~ ~clearcld~
+    OUTER_SPRINT ~BELT~ ~BELT~
+    OUTER_SET BGTIMOENPState0 = 0 
+    OUTER_SET BGTIMOENPState4 = 4
+    OUTER_SPRINT ~eet_2~ ~~
+    OUTER_SPRINT ~eet_0~ ~~
+    OUTER_SET eet_200000 = GAME_IS ~eet~ ? 200000 : 0
+    OUTER_SPRINT CentralBaldursGate ~AR0700~
+  END
+  ACTION_IF (GAME_IS ~eet~) BEGIN
+    OUTER_SPRINT ~bgee_only~ ~False()~
+    OUTER_SPRINT ~sod~ ~~
+    OUTER_SPRINT ~eet_only~ ~~
+    OUTER_SPRINT ~start_bg1end_sod_cutscene~ ~ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("c#st2sod")~
+    OUTER_SPRINT ~bdresurr~ ~bdresurr~
+    OUTER_SPRINT ~bddispel~ ~bddispel~
+    OUTER_SPRINT ~clearcld~ ~clearcld~
+    OUTER_SPRINT ~BELT~ ~BELT~
+    OUTER_SET BGTIMOENPState0 = 0 
+    OUTER_SET BGTIMOENPState4 = 4
+    OUTER_SPRINT ~eet_2~ ~2~
+    OUTER_SPRINT ~eet_0~ ~0~
+    OUTER_SET eet_200000 = GAME_IS ~eet~ ? 200000 : 0
+    OUTER_SPRINT CentralBaldursGate ~BG0700~
   END
 END
 
@@ -28,33 +65,22 @@ And if "KD in BG1" is installed, can maybe just skip some stuff adding the dunge
 But still need to change the dialogues about the sword and S's death etc.
 Maybe it can work...
 
-// ***** Fix beginning of SoD: now begins in Ducal Palace with Imoen attack
-// ...probably have to deal with the possibility that Imoen is nowhere to be found...!
-// ...in step 7
 
 PLAN:
-6)
- - no game end after sarevok; see EBG1
- -- affect the fight itself (play the video but don't end the game; and remove the body)
- -- if EBG1 installed, prevent FF from showing up
-7)
- - write dialogues for after: people are pissed there is no body, necromancy doesn't work, there is no way to prove your story
- - entar is still salty, says this looks an awful lot like you just wanted to remove Sarevok and be called the "Hero of Baldur's Gate" - I mean, nobody ever heard of you until the iron crisis began. coincidence?
- - BREAK POINT: if continue to SoD, have them tell you you can prove your self by helping the city against the crusade, it is more important than figuring out yet another doppelganger situation
- - OR:.......if jump to BG2, say in no uncertain terms that the crusade is not your concern, the military can handle it; you need to get to the bottom of this clone thing. They say if that's your choice, the FF will march north without you.
- - ...if you want to investigate the clone, have Entar say the assassin is already in custody
-8a)
+8)
  - if skip SoD, cut scene to cells, spawn clone in cell
  - put brightly glowing bracers on clone
  - dialogue with/about clone
  - script timestop, teleport, party member removal
  - continue dialogue, everyone leaves, lose all inventory
-9a)
  - fade out/in, run SoD escape sequence
  - change dialogues where needed
  - ...i.e. imoen saying you attacked her, but it wasn't you, or something. are you the real you? how can she trust you?
 
-8b)
+9)
+ - bring forward SoD escape sequence
+
+10)
  - if go to SoD, put a pin in the clone investigation (we've already established it was doppelgangers, Sarevok apparently loved doppelgangers, let's move on!)
  - later in SoD, have Skie sent back to BG by the FF
  - keep the cut-scene where she dies, but place it in the city instead of in Dragonspear
@@ -64,10 +90,7 @@ PLAN:
  - then confront the clone
  - scripted timestop, teleport, party removal
  - fade out, fade in, Imoen approaches, says she was attacked, demands you prove you are you. says they are taling about putting you down just to be sure. she is your only way to escape... like her or not, you need her help right now
- 
- - ***** have some dialogue (from Belt/Liia/Eltan) with, "the people want a hero; whether or not that's really what you are, you did stop Sarevok and Sarevok did turn out to be a threat. The whispers about you have already started; it would be prudent to make sure the less kind ones do not become dominant.
-9b)
- - then modded escape scene as above
+  - then modded escape scene as above
 
 */
 
@@ -84,6 +107,9 @@ LAF mirror_shards END
 //
 BEGIN @20	//	...deal with Thalantyr
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
+// FORBID_COMPONENT ~imoen_forever.tp2~ ~10~ @4
+// FORBID_COMPONENT ~EET_end.tp2~ ~0~ @5
+// FORBID_COMPONENT ~EET_end.tp2~ ~1~ @5
 
 INCLUDE ~%MOD_FOLDER%/comp/comp_20.tpa~
 
@@ -115,4 +141,25 @@ BEGIN @50	//	enter entar
 INCLUDE ~%MOD_FOLDER%/comp/comp_50.tpa~
 
 LAF entar_accuse END
+
+//___________________________________________________________________________________
+//
+
+BEGIN @60	//	Sarevok another day
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_60.tpa~
+
+LAF keep_playing END
+
+//___________________________________________________________________________________
+//
+
+BEGIN @70	//	pick a side
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_70.tpa~
+
+LAF campaign_election END
+
+//___________________________________________________________________________________
+//
 
