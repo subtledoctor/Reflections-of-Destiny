@@ -838,9 +838,9 @@ IF ~Global("D5GregsonCrypt","GLOBAL",6) /*GlobalLT("bd_plot","GLOBAL",25)*/~ BEG
   IF ~~ EXIT
 END
 
-IF ~ GlobalGT("D5GregsonCrypt","GLOBAL",8) /*GlobalGT("bd_plot","GLOBAL",24)*/~ BEGIN d5gregskd_7
+IF ~ GlobalGT("D5GregsonCrypt","GLOBAL",8) /*GlobalGT("bd_plot","GLOBAL",24)*/ Global("D5GregsonCut","GLOBAL",0)~ BEGIN d5gregskd_7
   SAY @40010
-  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",9)~ DO ~EscapeArea()~ EXIT
+  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",9)~ DO ~EscapeAreaNoSee()~ EXIT
 END
 
 END

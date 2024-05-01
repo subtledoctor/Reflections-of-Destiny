@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.1.7~
+VERSION ~0.1.8.0~
 
 ALWAYS
   OUTER_SPRINT newline ~%WNL%%LNL%%MNL%%TAB% ~
@@ -67,7 +67,7 @@ Maybe it can work...
 
 
 PLAN:
-8)
+8) "man in the mirror"
  - if skip SoD, cut scene to cells, spawn clone in cell
  - put brightly glowing bracers on clone
  - dialogue with/about clone
@@ -77,10 +77,10 @@ PLAN:
  - change dialogues where needed
  - ...i.e. imoen saying you attacked her, but it wasn't you, or something. are you the real you? how can she trust you?
 
-9)
+9) "the great escape"
  - bring forward SoD escape sequence
 
-10)
+10) "further on down the road"
  - if go to SoD, put a pin in the clone investigation (we've already established it was doppelgangers, Sarevok apparently loved doppelgangers, let's move on!)
  - later in SoD, have Skie sent back to BG by the FF
  - keep the cut-scene where she dies, but place it in the city instead of in Dragonspear
@@ -91,6 +91,8 @@ PLAN:
  - scripted timestop, teleport, party removal
  - fade out, fade in, Imoen approaches, says she was attacked, demands you prove you are you. says they are taling about putting you down just to be sure. she is your only way to escape... like her or not, you need her help right now
   - then modded escape scene as above
+
+11) compatibility concerns
 
 */
 
@@ -154,12 +156,30 @@ LAF keep_playing END
 //___________________________________________________________________________________
 //
 
-BEGIN @70	//	pick a side
+BEGIN @70	//	choose a side
 
 INCLUDE ~%MOD_FOLDER%/comp/comp_70.tpa~
 
 LAF campaign_election END
 
+//___________________________________________________________________________________
+//
+
+BEGIN @80	//	man in the mirror
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_80.tpa~
+
+LAF mirror_man END
+
+//___________________________________________________________________________________
+//
+/*
+BEGIN @90	//	further on down the road
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_90.tpa~
+
+LAF campaign_election END
+*/
 //___________________________________________________________________________________
 //
 

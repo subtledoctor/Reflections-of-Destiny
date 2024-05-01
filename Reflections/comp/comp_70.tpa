@@ -244,7 +244,7 @@ EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar10
 <<<<<<<< d5/transit+.d
 APPEND BELT
 
-IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK")~ BEGIN d5beltsd_0
+IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5CloneCut","GLOBAL",0)~ BEGIN d5beltsd_0
   SAY @70002
   IF ~~ REPLY @70003 GOTO d5beltsd_1
   IF ~~ REPLY @70004 GOTO d5beltsd_1
@@ -362,7 +362,10 @@ END
 
 IF ~~ BEGIN d5beltsd_18
   SAY @70038
-  IF ~~ DO ~SetGlobal("D5GregsonPalace","GLOBAL",1) AddJournalEntry(@70050,QUEST_DONE) ActionOverride("Player1",DisplayStringHead(Myself,@70044))~ EXIT // ... clone cut scene
+  IF ~~ DO ~SetGlobal("D5GregsonPalace","GLOBAL",1) 
+    SetGlobal("D5SkipSoD","GLOBAL",1) 
+    AddJournalEntry(@70050,QUEST_DONE) 
+    ActionOverride("Player1",DisplayStringHead(Myself,@70044))~ EXIT // ... clone cut scene
 END
 
 END
@@ -402,7 +405,7 @@ IF ~~ BEGIN d5liiasd_5
   IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @70024 EXTERN BELT d5beltsd_8 	// go to SoD
   IF ~Alignment(Player1,MASK_EVIL)~ REPLY @70025 EXTERN BELT d5beltsd_9 	// go to SoD
   IF ~~ REPLY @70026 EXTERN BELT d5beltsd_10 								// go to clone cut scene
-  IF ~~ REPLY @70023 EXTERN BDENTAR d5entarsd_4 							// disclose your heritage to dukes
+  IF ~~ REPLY @70023 DO ~SetGlobal("D5heritageRevealed","GLOBAL",1)~ EXTERN BDENTAR d5entarsd_4 							// disclose your heritage to dukes
 END
 
 IF ~~ BEGIN d5liiasd_6

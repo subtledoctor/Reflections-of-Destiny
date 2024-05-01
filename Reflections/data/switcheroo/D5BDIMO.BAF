@@ -1,0 +1,86 @@
+IF
+	GlobalLT("bd_plot","global",621)
+	AreaCheck("d5bd0104")  // Flaming Fist HQ
+	!Range("TranD5BD0105",6)
+THEN
+	RESPONSE #100
+		MoveToObject("TranD5BD0105")
+END
+
+IF
+	GlobalLT("bd_plot","global",621)
+	AreaCheck("d5bd0104")  // Flaming Fist HQ
+	Range("TranD5BD0105",6)
+THEN
+	RESPONSE #100
+		SetGlobal("bd_plot","global",621)
+		OpenDoor("TranD5BD0105")
+END
+
+IF
+	GlobalLT("bd_plot","global",630)
+	AreaCheck("d5bd0105")  // Flaming Fist HQ, Basement
+	!Range("secret01",5)
+THEN
+	RESPONSE #100
+		MoveToObject("secret01")
+END
+
+IF
+	GlobalLT("bd_plot","global",630)
+	AreaCheck("d5bd0105")  // Flaming Fist HQ, Basement
+	Range("secret01",5)
+THEN
+	RESPONSE #100
+		SetGlobal("bd_plot","global",630)
+END
+
+IF
+	Global("bd_plot","global",630)
+//	Global("BD_Secretdoor","d5bd0105",1)  // Flaming Fist HQ, Basement
+THEN
+	RESPONSE #100
+		SetGlobal("bd_plot","global",631)
+		OpenDoor("secret01")
+END
+
+IF
+	Global("bd_plot","global",631)
+	AreaCheck("bd0105")  // Flaming Fist HQ, Basement
+	See(Player1)
+	Range(Player1,15)
+THEN
+	RESPONSE #100
+		StartDialogueNoSet(Player1)
+END
+
+IF
+	Name("d5bdimo",Myself)  // Imoen
+	Global("bd_plot","global",632)
+	AreaCheck("d5bd0105")  // Flaming Fist HQ, Basement
+	!Range("TranD5BD0104",5)
+THEN
+	RESPONSE #100
+		MoveToObject("TranD5BD0104")
+END
+
+IF
+	Name("d5bdimo",Myself)  // Imoen
+	Global("bd_plot","global",632)
+	AreaCheck("d5bd0105")  // Flaming Fist HQ, Basement
+	Range("TranD5BD0104",5)
+THEN
+	RESPONSE #100
+		EscapeArea()
+END
+
+IF
+	Name("d5bdimo",Myself)  // Imoen
+	GlobalLT("bd_plot","global",641)
+	AreaCheck("d5bd6000")  // Abandoned Sewers & Caverns
+	Detect([PC])
+THEN
+	RESPONSE #100
+		StartDialogueNoSet(Player1)
+END
+

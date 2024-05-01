@@ -12,7 +12,8 @@
 @60   = ~Reflections of Destiny Part 6: Not the End of the World~
 @70   = ~Reflections of Destiny Part 7: Pick a Side~
 @80   = ~Reflections of Destiny Part 8: Man in the Mirror~
-@90   = ~Reflections of Destiny Part 9: Further on Down the Road~
+@90   = ~Reflections of Destiny Part 9: The Great Escape~
+@100  = ~Reflections of Destiny Part 10: Further on Down the Road~
 //
 //
 @10001  = ~Mirror Shard~
@@ -252,12 +253,96 @@ Though you are fêted by the rulers of Baldur's Gate, a sense of unease plagues 
 Every day, more refugees driven from their homes by the servants of Caelar Argent arrive at the city gates. Many have stories of the Shining Lady's grace; all have tales of her followers' wrath.
 
 You retire to your chamber in the Ducal Palace, your thoughts troubled. You wonder what effect Caelar's crusade will have on Baldur's Gate, little knowing how close at hand the answer is...~
+@70046  = ~I would like some time to consider this decision. Please, allow me to get my affairs in order and rest. Then I will return and inform you which path I will choose.~
+@70047  = ~Very well, that is reasonable. Do not take too long though, ~
+@70048  = ~~ // ***** journal
+@70049  = ~You have returned. What is your decision?~ // *****
 @70050  = ~The Hunt for Sarevok
 Sarevok and his followers are defeated at long last, his murderous schemes fully unraveled. Your foster father, Gorion, has been avenged. With the exception of your friend Imoen, those who helped you thwart your half-brother's schemes drift away from you, returning to their lives. For the first time since you left Candlekeep, you have the opportunity to reflect on the astonishing turns your life has taken.
-Nevertheless a sense of unease still plagues you. Unuease about deaths that, somehow, you know do not fit with the others you have seen. Somewhere out there, someone walks the city wearing your face. Is it really a remnant of Sarevok's plans? Or something else?
+Nevertheless a sense of unease still plagues you. Unease about deaths that, somehow, you know do not fit with the others you have seen. Somewhere out there, someone walks the city wearing your face. Is it really a remnant of Sarevok's plans? Or something else?
 Refugees driven from their homes by the servants of Caelar Argent are arriving at the city gates each day. Chaos and desperation are rising in Baldur's Gate. But some smal voice is telling you that they are not your concern. You must find out why.~
 //
 //
-@80001  = ~Your honors! Lord Entar! You must come quickly!~
+@80001  = ~~
+@80002  = ~~
+@80005  = ~Lord Entar! You must come quickly! Oh, hello everyone...~
+@80006  = ~Wait - what is <CHARNAME> doing here?? I just saw you...~
+@80007  = ~Calm down, man. Tell us what news is so urgent, and what is confusing you.~ // belt
+@80008  = ~Alright, sir. I rushed here to find Lord Entar, to tell you that someone has confessed to the attack on your person, that, um, killed you. Temporarily, I suppose. But still.~
+@80009  = ~What? Who made that confession? Where is this person now? Out with it, man!~ // entar
+@80010  = ~Well, that's the thing, sir. It... well, it is <CHARNAME>. Walked right into Headquarters, said something about the scheme being undone with Sarevok dead, and <PRO_HESHE> wanted to repent. I put <PRO_HIMHER> into a cell, and came straight here to inform you. Only, now I see <CHARNAME> before me... but how? That cell is warded against magical escape!~
+@80011  = ~<CHARNAME> has been here with us for some time now. And came here after reportedly dispatching Sarevok <PRO_HIMHER>self.~ // belt
+@80012  = ~If we are to trust that report!~ // entar
+@80013  = ~Gentlemen. Rather than wonder and fight, I suggest we all go to the Flaming Fist headquarters and see for ourselves. Surely we will have this mystery solved in short order.~ // liia
+@80014  = ~Agreed. <CHARNAME>, you will accompany us. It would be in your own best interest, as well as ours, to clear this matter up once and for all.~ // belt
+@80015  = ~Very well, we will travel there together.~ // cut1
+@80016  = ~With all due respect, sir, you can see plainly that I am here in front of you and not at the Flaming Fist Headquarters. This is an imposition on my time and person.~
+@80017  = ~I think not. I have had enough of your orders and mistrust. I have better things to do than stay here.~
+@80018  = ~<CHARNAME>, this is not a request. We are the lords of the city and we are ordering you to travel in our custody to determine what has happened here. Refuse to do this voluntarily, and we will have no choice but to use force.~ // belt
+@80019  = ~Very well, I do not want to make enemies of the whole city. I will accompany you and see this sorted out.~ // cut
+@80020  = ~I said I had enough and I meant I had enough! I am leaving now, whether you allow it our not!~ // fight
+// cut scene fade to black, go to jail; fade in; create clone in cell; equip clone with bracers that glow and provide immunity to the pause spell; create 2 FF around cell; have Player1/belt/liia/entar/gregson MoveTo outside the cell, then dialogue
+@80021  = ~~
+@80022  = ~~
+@80023  = ~~
+@80024  = ~~
+@80024  = ~By Helm! Gregson, you were not wrong. There are two of <PRO_HIMHER>!~ // belt
+@80025  = ~What kind of plot is this?? <CHARNAME>, explain yourself! Doppelgangers take faces after killing, they would not risk being caught out in the presence of their live victim.~ // entar
+@80026  = ~I do not know. Whatever this is, it is not of my doing.~
+@80027  = ~Grand Dukes! What are you doing with that pretender! Your lives are in danger! You must believe me, I have voluntarily surrendered myself!~
+@80028  = ~Come now, <CHARNAME> has been dealing with us for some time now and has not indicated any hostility or danger to us. If I heard right, you yourself admitted to quite savagely murdering Lord Silvershield here.~ // belt
+@80029  = ~Hm, most curious. This is indeed quite unlike the typical behavior of doppelgangers. If you gentlemen will indulge me, I have some divinations prepared which may shed light on the matter.~ // liia
+@80030  = ~By all means.~ // belt, set ("D5CloneCut","GLOBAL",4)
+// cut scene with Liia casting two empty Div spells, visual effect on clone; then dialogue
+@80031  = ~This is perplexing indeed. The person in the cell is no shapeshifter, and does not appear illusionary or phantasmal in nature. I sense no magic at all; <PRO_HESHE> appears to be perfectly natural. <CHARNAME>, do you have a twin you never mentioned?~ // liia
+@80032  = ~Definitely not. The closest thing I have to a sibling is Imoen.~
+@80033  = ~Definitely not. The closest thing I have to a sibling is, I suppose, Sarevok.~
+@80034  = ~Hm. Let me try something a bit more involved. The body may give no answers, but I have a more powerful spell that can inspect <PRO_HISHER> aura, giving some indication of <PRO_HISHER> mind and soul. Apologies, whoever you are, this might sting a bit.~
+@80035  = ~Apologies, whoever you are, this might sting a bit.~
+// cut scene with spell cast pausing everyone by charname, and timestop visual, and teleport switch, and remove all party members and equipment; then undo timestop visual, unpause everyone, have liia cast an empty Div spell, and now visual effect over player1
+@80036  = ~I am beginning to be frustrated. All my divinations are telling me that this person IS, fully, <CHARNAME>. Not a mimic of any sort, nor even an identical twin. But of course that cannot be. Belt, we should consult with the priests of Helm, and I can look into whether we have any scrolls of some rarer divination that might penetrate... whatever this is.~ // liia
+@80037  = ~Agreed. This is troubling. But nevertheless the matter seems in hand. We have some time to figure it out. Let us return to the palace. <CHARNAME>, we will give you lodgings there for the time being. We must impose on you to remain in our custody for a short time longer.~ // belt
+@80038  = ~Of course, Lord Belt. I understand completely and I will comply.~ // clone
+@80039  = ~Wait! That is not me! I am here! Something has happened!~
+@80040  = ~And as for that thing, it will stay here for now. The bars are strong, and the magical wards stronger. As <PRO_HESHE> surrendered and confessed, we will not take rash action. Once we know what <PRO_HESHE> is, we will decide <PRO_HISHER> fate.~ // belt
+// cut scene with everyone leaving, fade to black, remove 2 FF, then fade in, then hooded man approaches
+@80041  = ~~
+@80042  = ~~
+@80043  = ~~
+@80044  = ~~
+@80045  = ~Garble garble something about could have plucked you up, but too many important people would have searched. So much better that you leave of your own volition.~
+@80046  = ~~
+@80047  = ~~
+@80048  = ~~
+@80049  = ~~
+// cut scene hooded man leaves, then rest, then Imoen approaches
+@80050  = ~<CHARNAME>! I had to come... I had to see. I - please, tell me, what is going on here? Which one are you?~
+@80051  = ~I am me!~ // if non-evil, 52; if evil, 53
+@80052  = ~That's what the other one said too! But now <PRO_HESHE> is slaughtering the palace guards. It's not like you, it makes no sense! Why attack the dukes now?~
+@80053  = ~That's what the other one said too! But now <PRO_HESHE> is slaughtering the palace guards. You could always be violent, but this makes no sense! Why attack the dukes now?~
+@80054  = ~Imoen, what do you mean? What is happening at the palace? Get me out of here, I can help!~
+@80055  = ~What are you talking about? What is happening at the palace? Help me, I need to get out of here!~
+@80056  = ~I wish I could believe you, really. But how can I be sure? Everything is crazy! Please <CHARNAME>, help me believe you. Tell me something no one else would know! Wait - what's me favorite color? What did I tell you when we were little? Please...~
+@80057  = ~I remember. You told me you love pink, but you also love black. You said you like them together, how deep black will take in the surrounding colors, but it makes the pink next to it brighter, stronger. I always though that was a weird thing for a little kid to say.~
+@80058  = ~ Yeah, well I was a smart kid! Oh <CHARNAME>, it really is you! Thank Tymora! But, huh. How did you get in there in the first place?? Ooooh... did you kill Entar?? Wait, then who killed Sarevok?~
+@80059  = ~I did! I mean, the Sarevok part. Imoen, I don't know what happened. I switched places, somehow, earlier today. I was over there, and I blinked, and I was here. I didn't feel myself teleporting or anything like that. Just, one moment I was there and the next moment the whole world was turned upside-down. What could do that?~
+@80060  = ~Whoa. That's weird. I've read a little about super-strong reality-bending magic. Like, stuff from Netheril. But I've never seen anyone actually use it? As much power as we've attained, we're still not even close to that level of magic.~
+@80061  = ~But listen, we can figure it out later. There are people calling for your head. We need to get out of here, and regroup somewhere safe, then we can clear your name. Just like Candlekeep! You did it once, you can do it again. ~
+@80062  = ~Can you help me escape? These bars are enchanted, they are too strong for me no matter what I do.~
+@80063  = ~ Of course, you old buffle-head! This cell may be locked and magicked, but you know that can't stop me! I'll open the cell, then follow me. There's a secret passage into the sewers, right in this building. It's, well, don't ask me how I found it out. Just follow me. We can talk more after we get away.~ // set unlock variable
+// open cell, have Imoen walk to stairs, basically mimic bdmercz
+@80064  = ~Come on, we have to get to the basement. Hurry up!~
+@80065  = ~Here's the secret passage. Let's go!~
+@80066  = ~Come on, through here!~
+// in sewers, dialogue with Imoen:
+@80067  = ~I'm going to scout ahead. Supposedly we have to go through a waterfall. Or maybe, over a waterfall? Hopefully it's a small one! Anyway, just follow the water and get to the outside. I'll meet you at the exit.~
+// cut scene, Imoen moves a bit away, then casts Invisibility, then leave
+@80068  = ~~
+@80069  = ~~
+@80070  = ~~
 //
 //
+@90008  = ~Alright, sir. I rushed here to find Lord Entar, to tell you that someone has confessed to the attack on your daughter! They are in custody right now! Only...~
+@90010  = ~Well, that's the thing, sir. It... well, it is <CHARNAME>. Walked right into Headquarters, said something about her purpose being fulfilled, and <PRO_HESHE> had no reason to run. I put <PRO_HIMHER> into a cell, and came straight here to inform you. Only, now I see <CHARNAME> before me... but how? That cell is warded against magical escape!~
+@90011  = ~<CHARNAME> has been here with us for some time now. And was brought here directly from Dragonspear Castle after dispatching the Crusade. I assure you <PRO_HESHE> has had no opportunity to make a stop at the Flaming Fist.~ // belt
+@90012  = ~We do not know what <PRO_HESHE> is capable of! I demand that <PRO_HESHE> be incarcerated until we know what <PRO_HESHE> is up to! I will have justice for Skie!~ // entar

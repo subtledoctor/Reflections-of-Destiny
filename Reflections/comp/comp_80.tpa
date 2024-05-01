@@ -1,7 +1,8 @@
 
-DEFINE_ACTION_FUNCTION entar_accuse BEGIN
+DEFINE_ACTION_FUNCTION mirror_man BEGIN
 
 /*
+
 - plan: jump from palace to FF cells, big cut scene w/ clone
 
  -- make cut scene and dialogue for Gregson to enter palace and say they have Charname in custody... er... wait
@@ -14,20 +15,55 @@ DEFINE_ACTION_FUNCTION entar_accuse BEGIN
  
  -- cut scene with fade out/fade in, and imoen dialogue
  	...model this on the SoD scene
+ 	
+ -- then tie into the escape sequence where you go through the cave and meet J/K, M/D
+
+ -- use custom copy of FF HQ/basement
+
+ -- use custom copy of sewers
+
+// ***** check bdcut62 for cleaning up the jail area
 
 */
 
-// prep journal entries
+// prep journal entries ...?
 
-ADD_JOURNAL TITLE (@80001) @80002
+//ADD_JOURNAL TITLE (@80001) @80002
 
+
+// copy in stuff
+
+COPY ~%MOD_FOLDER%/data/switcheroo/d5bd0104.are~ ~override~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5bd0105.are~ ~override~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5bd6000.are~ ~override~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5bdimo.cre~ ~override~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5bracs.itm~ ~override~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5csdiv.spl~ ~override~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5pause.spl~ ~override~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5pausx.spl~ ~override~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5tport.spl~ ~override~
+
+COPY ~%MOD_FOLDER%/data/switcheroo/d5bd0104.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5bd0104.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5bd0104.baf~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5bd0105.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5bd0105.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5bd0105.baf~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5bd6000.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5bd6000.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5bd6000.baf~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5bdimo.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5bdimo.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5bdimo.baf~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5cut64.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5cut64.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5cut64.baf~
+
+
+// gregson cut scene in palace 
 
 <<<<<<<< d5/ar108+8.baf
 IF
+	Global("D5GregsonCut","GLOBAL",0)
 	Global("D5GregsonPalace","GLOBAL",1)
 THEN
 	RESPONSE #100
-		SetGlobal("D5GregsonPalace","GLOBAL",2)
+		SetGlobal("D5GregsonCut","GLOBAL",1)
 		CreateCreature("D5GREGS",[520.615],E)
 		ClearAllActions()
 		StartCutSceneMode()
@@ -35,38 +71,20 @@ THEN
 END
 
 IF
-	Global("D5EntarCut","GLOBAL",__)
+	Global("D5CloneCut","GLOBAL",1)
+	Global("D5GregsonPalace","GLOBAL",1)
 THEN
 	RESPONSE #100
-		SetGlobal("D5GregsonPalace","GLOBAL",5)
+		SetGlobal("D5CloneCut","GLOBAL",2)
 		ClearAllActions()
 		StartCutSceneMode()
 		StartCutScene("D5CLCUT1")
 END
 >>>>>>>>
 COPY ~d5/ar108+8.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+8.baf~
+EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+8.baf~
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+8.baf~
-END
-
-<<<<<<<< d5/ar607+8.baf
-IF
-	Global("D5GregsonExist","GLOBAL",0)
-	Global("D5PostCoronation","GLOBAL",1)
-THEN
-	RESPONSE #100
-		CreateCreature("d5gregs",[1120.850],14)
-		SetGlobal("D5GregsonExist","GLOBAL",1)
-END
->>>>>>>>
-COPY ~d5/ar607+8.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar607+8.baf~
-
-ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0607.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0607.bcs~ ~weidu_external/%MOD_FOLDER%/compile/ar607+8.baf~
-END
-
-// gregson cut scene in palace
+// grcut1 = gregson run in and say charname is in custody
 
 <<<<<<<< d5/d5grcut1.baf
 IF
@@ -74,61 +92,427 @@ IF
 THEN
 	RESPONSE #100
 		CutSceneId("D5GREGS")
-		DisplayStringHead(Myself,@70050)
-		MoveToPoint([705.560])
+		DisplayStringHead(Myself,@80005)
+		MoveToPoint([705.530])
 		SmallWait(1)
-		SetGlobal("D5EntarCut","GLOBAL",3)
+		SetGlobal("D5CloneCut1","GLOBAL",1)
+		SetGlobal("D5GregsonCut","GLOBAL",2)
 		SmallWait(2)
 		EndCutSceneMode()
-		ActionOverride("BDENTAR",StartDialogueNoSet(Player1))
+		ActionOverride("D5GREGS",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
 COPY ~d5/d5grcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5grcut1.baf~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5grcut1.baf~
 
-// cut scene to FF cells
-
+// clcut1 = everyone leave the palace
+ 
 <<<<<<<< d5/d5clcut1.baf
 IF
 	True()
 THEN
 	RESPONSE #100
-		CutSceneId("D5GREGS")
-		DisplayStringHead(Myself,@70050)
-		MoveToPoint([705.560])
-		SmallWait(1)
-		SetGlobal("D5EntarCut","GLOBAL",3)
-		SmallWait(2)
-		EndCutSceneMode()
-		ActionOverride("BDENTAR",StartDialogueNoSet(Player1))
+		CutSceneId(Player1)
+		ActionOverride("D5GREGS",MoveToPoint([415.640]))
+		ActionOverride("BDENTAR",MoveToPoint([450.645]))
+		ActionOverride("BELT",MoveToPoint([425.625]))
+		ActionOverride("LIIA",MoveToPoint([455.615]))
+		MoveToPoint([435.690])
+		FadeToColor([1.0],0)
+		Wait(2)
+		ActionOverride("D5GREGS",LeaveAreaLUA("d5bd0104","",[745.680],W))
+		ActionOverride("BDENTAR",LeaveAreaLUA("d5bd0104","",[775.700],W))
+		ActionOverride("BELT",LeaveAreaLUA("d5bd0104","",[810.720],W))
+		ActionOverride("LIIA",LeaveAreaLUA("d5bd0104","",[855.705],W))
+		ActionOverride(Player2,LeaveAreaLUA("d5bd0104","",[1350.975],W))
+		ActionOverride(Player3,LeaveAreaLUA("d5bd0104","",[1380.985],W))
+		ActionOverride(Player4,LeaveAreaLUA("d5bd0104","",[1410.995],W))
+		ActionOverride(Player5,LeaveAreaLUA("d5bd0104","",[1440.1005],W))
+		ActionOverride(Player6,LeaveAreaLUA("d5bd0104","",[1470.1015],W))
+		LeaveAreaLUAPanic("d5bd0104","",[805.760],0)
+		LeaveAreaLUA("d5bd0104","",[805.760],0)
+//		EndCutSceneMode()
 END
 >>>>>>>>
 COPY ~d5/d5clcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut1.baf~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut1.baf~
 
-
-// cut scene to secape
+// clcut2 = arrive at FF jail, go to cell
 
 <<<<<<<< d5/d5clcut2.baf
 IF
 	True()
 THEN
 	RESPONSE #100
-		CutSceneId("D5GREGS")
-		DisplayStringHead(Myself,@70050)
-		MoveToPoint([705.560])
-		SmallWait(1)
-		SetGlobal("D5EntarCut","GLOBAL",3)
-		SmallWait(2)
+		CutSceneId(Player1)
+		OpenDoor("door03")
+		CreateCreatureCopyPoint("d5chrnam",Player1,[405.345])
+		GiveItemCreate("D5BRACS","D5CHRNAM",1,0,0)
+/*		ActionOverride("D5CHRNAM",EquipItemEx("D5BRACS",EQUIP)) */
+		XEquipItem("D5BRACS","D5CHRNAM",SLOT_GAUNTLETS,EQUIP) 
+		FadeFromColor([1.0],0)
+		Wait(1)
+		ActionOverride("D5GREGS",MoveToPoint([290.420]))
+		ActionOverride("BDENTAR",MoveToPoint([315.430]))
+		ActionOverride("BELT",MoveToPoint([380.445]))
+		ActionOverride("LIIA",MoveToPoint([350.435]))
+		MoveToPoint([320.455])
+		Wait(1)
 		EndCutSceneMode()
-		ActionOverride("BDENTAR",StartDialogueNoSet(Player1))
+		ActionOverride("BELT",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
 COPY ~d5/d5clcut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut2.baf~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut2.baf~
 
+// clcut3 = liia casts a divination spell
 
-// *****
+<<<<<<<< d5/d5clcut3.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SmallWait(3)
+		ActionOverride("LIIA",ForceSpellRES("D5CSDIV","D5CHRNAM"))
+		Wait(1)
+		CreateVisualEffectObject("SPSTRENH","D5CHRNAM")
+		Wait(1)
+		EndCutSceneMode()
+		ActionOverride("BELT",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5clcut3.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut3.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut3.baf~
+
+// clcut4 = timestop and switch places, followed by another liia divination
+
+<<<<<<<< d5/d5clcut4.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SmallWait(5)
+		AddAreaFlag(DREAMAREA)
+		ReallyForceSpellRES("D5PAUSE",Myself) 
+		Wait(1)
+		ActionOverride("D5CHRNAM",ReallyForceSpellPointRES("D5TPORT",[310.465]))
+		ReallyForceSpellPointRES("D5TPORT",[410.340])
+//		DestroyAllEquipment()
+		ActionOverride("Equipment_p1",TakeCreatureItems(Player1,ALL))
+		ActionOverride(Player2,LeaveParty())
+		ActionOverride(Player3,LeaveParty())
+		ActionOverride(Player4,LeaveParty())
+		ActionOverride(Player5,LeaveParty())
+		ActionOverride(Player6,LeaveParty())
+		Wait(1)
+		RemoveAreaFlag(DREAMAREA)
+		ReallyForceSpellRES("D5PAUSX",Myself)
+		Wait(1)
+		ActionOverride("LIIA",DisplayStringHead(Myself,@80035))
+		SmallWait(9)
+		ActionOverride("LIIA",ForceSpellRES("D5CSDIV",Player1))
+		CreateVisualEffectObject("ICGLYPTI",Myself)
+		PlayDead(2)
+		Wait(2)
+		EndCutSceneMode()
+		ActionOverride("LIIA",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5clcut4.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut4.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut4.baf~
+
+// clcut5 = everyone leaves, you are stuck
+
+<<<<<<<< d5/d5clcut5.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SmallWait(3)
+		ActionOverride(Player2,EscapeAreaObject("TranBD0030")
+		ActionOverride(Player3,EscapeAreaObject("TranBD0030")
+		ActionOverride(Player4,EscapeAreaObject("TranBD0030")
+		ActionOverride(Player5,EscapeAreaObject("TranBD0030")
+		ActionOverride(Player6,EscapeAreaObject("TranBD0030")
+		ActionOverride("D5GREGS",EscapeAreaNoSee())
+		ActionOverride("BDENTAR",EscapeAreaNoSee())
+		ActionOverride("BELT",EscapeAreaNoSee())
+		ActionOverride("LIIA",EscapeAreaNoSee())
+		ActionOverride("D5CHRNAM",EscapeAreaNoSee())
+		Wait(1)
+		ActionOverride("witness",DestroySelf())
+		ActionOverride("witness_guard",DestroySelf())
+		ActionOverride("bdbence",DestroySelf())
+		ActionOverride("bence_guard",DestroySelf())
+		ActionOverride("bdeltan",DestroySelf())
+		ActionOverride("Entar Guard 1",DestroySelf())
+		ActionOverride("Entar Guard 2",DestroySelf())
+		ActionOverride("player_guard",MoveToPoint([841.762]))
+		ActionOverride("bdff1697",MoveToPoint([758.714]))
+		ActionOverride("bdbelt",Face(E))
+		PlaySound("AMBDLBOO")
+		Wait(2)
+		MultiPlayerSync()
+		Wait(1)
+		CloseDoor("door01")
+		CloseDoor("door02")
+		CloseDoor("door07")
+		CloseDoor("door08")
+		Lock("door02")
+		Lock("door07")
+		Lock("door08")
+		RemoveMapNote([575.750],67510)  // Tiax's Cell
+		RemoveMapNote([1738.1152],67486)  // Exit
+		TriggerActivation("InfoBDStairs",FALSE)
+		TriggerActivation("Infobdstairs_epilogue",TRUE)
+		AddAreaType(0x80)
+		ReallyForceSpellRES("bdremove",Myself)  // No such index
+		SmallWait(5)
+		CreateCreature("bdrefuge",[344.619],NE)  // Refugee
+		CreateCreature("bdrefgm2",[472.677],NE)  // Refugee
+		CreateCreature("bdclara",[600.738],NE)  // Clara
+		CreateCreature("bdrefgf1",[648.474],SW)  // Refugee
+		CreateCreature("bdrefgf2",[762.545],SW)  // Refugee
+		SetGlobal("bd_plot","global",605)
+		EndCutSceneMode()
+END
+>>>>>>>>
+COPY ~d5/d5clcut5.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut5.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut5.baf~
+
+// imoen in sewer cave
+
+<<<<<<<< d5/d5clcut6.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SmallWait(3)
+		ActionOverride("D5BDIMO",ForceSpellRES("SPWI206",Myself))
+		Wait(1)
+		ActionOverride("D5BDIMO",EscapeAreaNoSee())
+		Wait(1)
+		EndCutSceneMode()
+END
+>>>>>>>>
+COPY ~d5/d5clcut6.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut6.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut6.baf~
+
+
+// dialogues
+
+<<<<<<<< d5/switch+.d
+BEGIN ~D5CHRNAM~
+
+IF ~~ BEGIN d5chrnam_0
+  SAY @80027
+  IF ~~ EXTERN BELT d5beltsw_5
+END
+
+IF ~Global("D5CloneCut","GLOBAL",7)~ BEGIN d5chrnam_1
+  SAY @80038
+  IF ~~ REPLY @80039 EXTERN BELT d5beltsw_8
+END
+
+ADD_STATE_TRIGGER BELT 0 ~Global("D5CloneCut","GLOBAL",0)~
+
+APPEND BELT
+
+IF ~Global("D5GregsonCut","GLOBAL",1) Global("D5CloneCut","GLOBAL",0)~ BEGIN d5beltsw_0
+  SAY @80007
+  IF ~~ EXTERN D5GREGS d5gregsw_2
+END
+
+IF ~~ BEGIN d5beltsw_1
+  SAY @80011
+  IF ~~ EXTERN BDENTAR d5entarsw_1
+END
+
+IF ~~ BEGIN d5beltsw_2
+  SAY @80014
+  IF ~~ REPLY @80015 DO ~SetGlobal("D5CloneCut","GLOBAL",1)~ EXIT
+END
+
+/*
+IF ~~ BEGIN d5beltsw_3
+  SAY @80018
+  IF ~~ REPLY @80019 DO ~SetGlobal("D5CloneCut","GLOBAL",1)~ EXIT
+  IF ~~ REPLY @80020 DO ~SetGlobal("D5AllEnemy","GLOBAL",1)~ EXIT
+END
+*/
+
+IF ~Global("D5CloneCut","GLOBAL",3)~ BEGIN d5beltsw_4
+  SAY @80024
+  IF ~~ EXTERN BDENTAR d5entarsw_2
+END
+
+IF ~~ BEGIN d5beltsw_5
+  SAY @80028
+  IF ~~ EXTERN LIIA d5liiasw_1
+END
+
+IF ~~ BEGIN d5beltsw_6
+  SAY @80030
+  IF ~~ DO ~SetGlobal("D5CloneCut","GLOBAL",4)~ EXIT
+END
+
+IF ~Global("D5CloneCut","GLOBAL",7)~ BEGIN d5beltsw_7
+  SAY @80037
+  IF ~~ EXTERN D5CHRNAM d5chrnam_1
+END
+
+IF ~~ BEGIN d5beltsw_8
+  SAY @80040
+  IF ~~ DO ~SetGlobal("D5CloneCut","GLOBAL",8)~ EXIT
+END
+
+END
+
+APPEND BDENTAR
+
+IF ~Global("D5GregsonCut","GLOBAL",1)~ BEGIN d5entarsw_0
+  SAY @80009
+  IF ~~ EXTERN D5GREGS d5gregsw_3
+END
+
+IF ~~ BEGIN d5entarsw_1
+  SAY @80012
+  IF ~~ EXTERN LIIA d5liiasw_0
+END
+
+IF ~Global("D5CloneCut","GLOBAL",3)~ BEGIN d5entarsw_2
+  SAY @80025
+  IF ~~ REPLY @80026 EXTERN D5CHRNAM d5chrnam_0
+END
+
+END
+
+APPEND LIIA
+
+IF ~Global("D5GregsonCut","GLOBAL",1)~ BEGIN d5liiasw_0
+  SAY @80013
+  IF ~~ EXTERN BELT d5beltsw_2
+END
+
+IF ~Global("D5CloneCut","GLOBAL",3)~ BEGIN d5liiasw_1
+  SAY @80029
+  IF ~~ EXTERN BELT d5beltsw_6
+END
+
+IF ~Global("D5CloneCut","GLOBAL",5)~ BEGIN d5liiasw_2
+  SAY @80031
+  IF ~Global("D5heritageRevealed","GLOBAL",0)~ REPLY @80032 GOTO d5liiasw_3
+  IF ~Global("D5heritageRevealed","GLOBAL",1)~ REPLY @80033 GOTO d5liiasw_3
+END
+
+IF ~~ BEGIN d5liiasw_3
+  SAY @80034
+  IF ~~ DO ~SetGlobal("D5CloneCut","GLOBAL",6)~ EXIT
+END
+
+IF ~Global("D5CloneCut","GLOBAL",7)~ BEGIN d5liiasw_4
+  SAY @80036
+  IF ~~ EXTERN BELT d5beltsw_7
+END
+
+END
+
+APPEND D5GREGS
+
+IF ~Global("D5GregsonCut","GLOBAL",1)~ BEGIN d5gregsw_0
+  SAY @80005
+  IF ~~ GOTO d5gregsw_1
+END
+
+IF ~~ BEGIN d5gregsw_1
+  SAY @80006
+  IF ~~ EXTERN BELT d5beltsw_0
+END
+
+IF ~~ BEGIN d5gregsw_2
+  SAY @80008
+  IF ~~ EXTERN BDENTAR d5entarsw_0
+END
+
+IF ~~ BEGIN d5gregsw_3
+  SAY @80010
+  IF ~~ EXTERN BELT d5beltsw_1
+END
+
+END
+>>>>>>>>
+COPY ~d5/switch+.d~ ~weidu_external/%MOD_FOLDER%/compile/switch+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/switch+.d~
+
+// temp Imoen dialogue
+
+<<<<<<<< d5/d5bdimo.d
+BEGIN ~D5BDIMOE~
+
+IF ~Global("D5CloneCut","GLOBAL",9)~ BEGIN d5imoensw_0
+  SAY @80050
+  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @80051 GOTO d5imoensw_1
+  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @80051 GOTO d5imoensw_1
+  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @80051 GOTO d5imoensw_2
+END
+
+IF ~~ BEGIN d5imoensw_1
+  SAY @80052
+  IF ~~ REPLY @80054 GOTO d5imoensw_3
+END
+
+IF ~~ BEGIN d5imoensw_2
+  SAY @80053
+  IF ~~ REPLY @80055 GOTO d5imoensw_3
+END
+
+IF ~~ BEGIN d5imoensw_3
+  SAY @80056
+  IF ~~ REPLY @80057 GOTO d5imoensw_4
+END
+
+IF ~~ BEGIN d5imoensw_4
+  SAY @80058
+  IF ~~ REPLY @80059 GOTO d5imoensw_5
+END
+
+IF ~~ BEGIN d5imoensw_5
+  SAY @80060
+  IF ~~ GOTO d5imoensw_6
+END
+
+IF ~~ BEGIN d5imoensw_6
+  SAY @80061
+  IF ~~ REPLY @80062 GOTO d5imoensw_7
+END
+
+IF ~~ BEGIN d5imoensw_7
+  SAY @80063
+  IF ~~ DO ~SetGlobal("D5CloneCut","GLOBAL",10)~ EXIT
+END
+
+IF ~GlobalGT("bd_plot","global",619) Global("D5CloneCut","GLOBAL",10) AreaCheck("D5BD0104")~ BEGIN d5imoensw_8
+  SAY @80064
+  IF ~~ EXIT
+END
+
+IF ~Global("bd_plot","global",631) Global("D5CloneCut","GLOBAL",10) AreaCheck("D5BD0105")~ BEGIN d5imoensw_9
+  SAY @80065
+  IF ~~ EXIT
+END
+
+IF ~GlobalGT("bd_plot","global",640) Global("D5CloneCut","GLOBAL",10) AreaCheck("BD6000")~ BEGIN d5imoensw_10
+  SAY @80066
+  IF ~~ DO ~SetGlobal("D5ImoenCaveCut","GLOBAL",1)~ EXIT
+END
+
+>>>>>>>>
+COPY ~d5/d5bdimo.d~ ~weidu_external/%MOD_FOLDER%/compile/d5bdimo.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5bdimo.d~
 
 
 //___________________________________________________________________________________

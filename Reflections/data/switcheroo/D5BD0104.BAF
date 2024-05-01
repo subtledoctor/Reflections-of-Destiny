@@ -1,0 +1,105 @@
+IF
+	Global("D5CloneCut","GLOBAL",2)
+THEN
+	RESPONSE #100
+		SetGlobal("D5CloneCut","GLOBAL",3)
+		CreateCreature("BDFF1002",[250.465],14)
+		CreateCreature("BDFF1002",[350.510],14)
+		OpenDoor("door03")
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CLCUT2")
+END
+
+IF
+	Global("D5CloneCut","GLOBAL",4)
+THEN
+	RESPONSE #100
+		SetGlobal("D5CloneCut","GLOBAL",5)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CLCUT3")
+END
+
+IF
+	Global("D5CloneCut","GLOBAL",6)
+THEN
+	RESPONSE #100
+		SetGlobal("D5CloneCut","GLOBAL",7)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CLCUT4")
+END
+
+IF
+	Global("D5CloneCut","GLOBAL",8)
+THEN
+	RESPONSE #100
+		SetGlobal("D5CloneCut","GLOBAL",9)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CLCUT5")
+END
+
+IF
+	GlobalLT("bd_plot","global",615)
+	Global("D5CloneCut","GLOBAL",9)
+THEN
+	RESPONSE #100
+		StartCutSceneMode()
+		SetGlobal("bd_plot","global",615)
+		SetGlobal("D5CloneCut","global",10)
+		ClearAllActions()
+		StartCutSceneEx("d5cut64",TRUE)
+END
+
+IF
+	GlobalLT("bd_plot","global",620)
+	Global("D5CloneCut","GLOBAL",10)
+THEN
+	RESPONSE #100
+		SetGlobal("bd_plot","global",620) 
+  		Unlock("door04")
+		OpenDoor("door04")
+END
+
+IF
+	Global("bd_player_exiled","global",0)
+	Global("bd_prisontalk","bd0104",0)  // Flaming Fist HQ
+	TriggerOverride("bdclara",See([PC]))
+THEN
+	RESPONSE #100
+		SetGlobal("bd_prisontalk","bd0104",1)  // Flaming Fist HQ
+		DisplayStringHead("bdclara",39559)  // Sure, good, that's just great—run away, leave the rest of us here to rot.
+END
+
+IF
+	Global("bd_player_exiled","global",0)
+	Global("bd_prisontalk1","bd0104",0)  // Flaming Fist HQ
+	TriggerOverride("bdrefuge",See([PC]))
+THEN
+	RESPONSE #100
+		SetGlobal("bd_prisontalk1","bd0104",1)  // Flaming Fist HQ
+		DisplayStringHead("bdrefuge",39556)  // Let me out! Please, I can help you!
+END
+
+IF
+	Global("bd_player_exiled","global",0)
+	Global("bd_prisontalk2","bd0104",0)  // Flaming Fist HQ
+	TriggerOverride("bdrefgm2",See([PC]))
+THEN
+	RESPONSE #100
+		SetGlobal("bd_prisontalk2","bd0104",1)  // Flaming Fist HQ
+		DisplayStringHead("bdrefgm2",39557)  // Guards! Guards! The slayer of Silvershield has escaped!
+END
+
+IF
+	Global("bd_player_exiled","global",0)
+	Global("bd_prisontalk3","bd0104",0)  // Flaming Fist HQ
+	TriggerOverride("bdrefgf1",See([PC]))
+THEN
+	RESPONSE #100
+		SetGlobal("bd_prisontalk3","bd0104",1)  // Flaming Fist HQ
+		DisplayStringHead("bdrefgf1",39558)  // I didn't do it either, hero! Don't leave me here! DON'T LEAVE ME HERE!
+END
+

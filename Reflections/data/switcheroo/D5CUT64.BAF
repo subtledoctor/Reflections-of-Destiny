@@ -1,0 +1,75 @@
+IF
+	Global("bd_player_exiled","global",0)
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		FadeToColor([30.0],0)
+		SmallWait(20)
+		DayNight(MIDNIGHT)
+		SetSequence(SEQ_SLEEP)
+		MoveViewObject(Player1,INSTANT)
+		Rest()
+		StartMovie("restdung")
+		ActionOverride("Sword1",CreateItem("sw1h04",0,0,0))  // Long Sword
+		ActionOverride("Sword2",CreateItem("sw1h04",0,0,0))  // Long Sword
+		ActionOverride("Shield1",CreateItem("shld01",0,0,0))  // Small Shield
+		ActionOverride("Shield2",CreateItem("shld01",0,0,0))  // Small Shield
+		CreateCreatureImpassable("bdffsit2",[855.787],S)  // Flaming Fist Enforcer
+		ActionOverride("bdfistcc",DestroyGold(0))
+		ActionOverride("bdfistce",DestroyGold(0))
+		ActionOverride("bdfistcc",DestroyAllEquipment())
+		ActionOverride("bdfistce",DestroyAllEquipment())
+		ActionOverride("bdfistcc",JumpToPoint([963.673]))
+		ActionOverride("bdfistce",JumpToPoint([753.772]))
+		ActionOverride("bdfistcc",Face(S))
+		ActionOverride("bdfistce",Face(N))
+		ActionOverride("bdff1002",DestroySelf())
+		OpenDoor("door01")
+		Wait(1)
+		Kill("bdfistce")  // Flaming Fist Enforcer
+		Wait(1)
+		Kill("bdfistcc")  // Flaming Fist Enforcer
+		Wait(2)
+		Unlock("door03")
+		OpenDoor("door03")
+		Wait(1)
+END
+
+IF
+	Global("bd_player_exiled","global",0)
+	!Gender(Player1,FEMALE)
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		FadeFromColor([20.0],0)
+		DisplayStringHead(Player1,16197)  // [SLEEPING MAN 3] ZZZZzzzzzz...
+		SmallWait(5)
+END
+
+IF
+	Global("bd_player_exiled","global",0)
+	Gender(Player1,FEMALE)
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		FadeFromColor([20.0],0)
+		DisplayStringHead(Player1,16198)  // [SLEEPING WOMAN 3] ZZZzzzzz...
+		SmallWait(5)
+END
+
+IF
+	True("bd_player_exiled","global",0)
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		CreateCreature("d5bdimo",[540.545],NW)  // Imoen
+		ActionOverride("d5bdimo",MakeGlobal())
+		ActionOverride("d5bdimo",MoveToPoint([345.420]))
+		SmallWait(30)
+		ActionOverride("d5bdimo",Face(NE))
+		SmallWait(5)
+		ActionOverride("d5bdimo",SetSequence(SEQ_CAST))
+		SmallWait(8)
+		SetGlobal("bd_cut64_part2","MYAREA",1)
+		ActionOverride("d5bdimo",StartDialogueNoSet(Player1))
+END

@@ -248,7 +248,7 @@ END
 
 IF ~~ BEGIN d5gregs_9
   SAY @30033
-  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1)~ DO ~EscapeArea()~ EXIT
+  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1)~ DO ~EscapeAreaNoSee()~ EXIT
 END
 >>>>>>>> 
 COPY ~d5/d5gregs.d~ ~weidu_external/%MOD_FOLDER%/compile/d5gregs.d~
