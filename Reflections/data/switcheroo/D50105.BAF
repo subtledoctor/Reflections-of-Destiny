@@ -1,0 +1,17 @@
+IF
+	GlobalLT("bd_plot","global",625)
+	Dead("d5bdimo")  // Imoen
+THEN
+	RESPONSE #100
+		SetGlobal("bd_plot","global",625)
+END
+
+IF
+	GlobalLT("bd_plot","global",625)
+	!Dead("d5bdimo")  // Imoen
+THEN
+	RESPONSE #100
+		SetGlobal("bd_plot","global",625)
+		CreateCreature("d5bdimo",[575.520],S)  // Imoen
+		ActionOverride("d5bdimo",StartDialogueNoSet(Player1))
+END

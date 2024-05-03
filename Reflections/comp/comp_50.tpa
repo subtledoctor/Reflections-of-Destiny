@@ -170,6 +170,15 @@ THEN
 		StartCutSceneMode()
 		StartCutScene("D5IMCUT1")
 END
+
+IF
+	Global("D5MazeOpen","GLOBAL",1)
+	Global("D5ImoenPalace","GLOBAL",0)
+	InParty("%IMOEN_DV%")
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",2)
+END
 >>>>>>>>
 COPY ~d5/ar108+5.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+5.baf~
 
@@ -388,7 +397,7 @@ IF ~Global("D5EntarCut","GLOBAL",7) !Global("D5ImoenPalace","GLOBAL",2) !Dead("S
   IF ~~ EXIT
 END
 
-IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_16
+IF ~Global("D5ImoenPalace","GLOBAL",2) Global("D5CloneCut","GLOBAL",0)~ BEGIN d5liiakd_16
   SAY @50041
   IF ~!Dead("IMOEN") GlobalLT("D5ImoenChap","GLOBAL",2)~ EXTERN BDIMOEN d5imoenkd_0
   IF ~!Dead("IMOEN") GlobalGT("D5ImoenChap","GLOBAL",1) GlobalLT("D5ImoenChap","GLOBAL",5)~ EXTERN BDIMOEN d5imoenkd_1
@@ -396,19 +405,19 @@ IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_16
   IF ~Dead("IMOEN")~ EXTERN BDIMOEN d5imoenkd_3
 END
 
-IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_17
+IF ~Global("D5ImoenPalace","GLOBAL",2) Global("D5CloneCut","GLOBAL",0)~ BEGIN d5liiakd_17
   SAY @50048
   IF ~~ EXTERN BDIMOEN d5imoenkd_5
 END
 
-IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_18
+IF ~Global("D5ImoenPalace","GLOBAL",2) Global("D5CloneCut","GLOBAL",0)~ BEGIN d5liiakd_18
   SAY @50050
   IF ~~ REPLY @50051 EXTERN BDIMOEN d5imoenkd_6
   IF ~~ REPLY @50052 GOTO d5liiakd_19
   IF ~~ REPLY @50053 GOTO d5liiakd_19
 END
 
-IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5liiakd_19
+IF ~Global("D5ImoenPalace","GLOBAL",2) Global("D5CloneCut","GLOBAL",0)~ BEGIN d5liiakd_19
   SAY @50055
   IF ~~ DO ~SetGlobal("D5ImoenPalace","GLOBAL",3)~ JOURNAL @50039 EXIT
 END
@@ -569,6 +578,15 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0153.bcs~) BEGIN
 		END ELSE BEGIN
 			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
+		SPRINT textToReplace ~\(ActionOverride("DENKOD",DestroySelf())\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~SetGlobal("C#st_DenkodTalk","MYAREA",1)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+
 	END
   BUT_ONLY
 END

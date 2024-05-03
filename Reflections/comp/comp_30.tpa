@@ -22,6 +22,8 @@ DEFINE_ACTION_FUNCTION delay_maze BEGIN
 
 */
 
+COPY ~%MOD_FOLDER%/data/d5hpblt.itm~ ~override~
+
 // prep journal entries
 
 ADD_JOURNAL TITLE (@30036) @30034 @30035
@@ -130,11 +132,20 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/liia+.d~
 IF
 	Global("D5DukesRepReset","GLOBAL",0)
 	Global("D5PostCoronation","GLOBAL",1)
-	ReputationLT("Player1",8)
+	ReputationLT(Player1,8)
 THEN
 	RESPONSE #100
 		ReputationSet(8)
 		SetGlobal("D5DukesRepReset","GLOBAL",1)
+END
+
+IF
+	Global("D5DukesImmortal","GLOBAL",0)
+THEN
+	RESPONSE #100
+		XEquipItem("D5HPBLT","BELT",SLOT_BELT,EQUIP)  // Min1HP
+		XEquipItem("D5HPBLT","LIIA",SLOT_BELT,EQUIP)  // Min1HP
+		SetGlobal("D5DukesImmortal","GLOBAL",1)
 END
 
 IF

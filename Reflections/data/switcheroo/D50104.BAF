@@ -1,0 +1,63 @@
+IF
+	GlobalLT("D5CloneCut","GLOBAL",3)
+THEN
+	RESPONSE #100
+		SetGlobal("D5CloneCut","GLOBAL",3)
+		CreateCreature("BDFF1002",[280.430],SE)  // Flaming Fist Mercenary
+		OpenDoor("door03")
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CLCUT2")
+END
+
+IF
+	Global("D5CloneCut","GLOBAL",4)
+THEN
+	RESPONSE #100
+		SetGlobal("D5CloneCut","GLOBAL",5)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CLCUT3")
+END
+
+IF
+	Global("D5CloneCut","GLOBAL",6)
+THEN
+	RESPONSE #100
+		SetGlobal("D5CloneCut","GLOBAL",7)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CLCUT4")
+END
+
+IF
+	Global("D5CloneCut","GLOBAL",8)
+THEN
+	RESPONSE #100
+		SetGlobal("D5CloneCut","GLOBAL",9)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CLCUT5")
+END
+
+IF
+	GlobalLT("bd_plot","global",615)
+	Global("D5CloneCut","GLOBAL",10)
+THEN
+	RESPONSE #100
+		StartCutSceneMode()
+		SetGlobal("bd_plot","global",615)
+		SetGlobal("D5CloneCut","global",11)
+		ClearAllActions()
+		StartCutScene("d5cut64")
+END
+
+IF
+	GlobalLT("bd_plot","global",620)
+	Global("D5CloneCut","GLOBAL",12)
+THEN
+	RESPONSE #100
+		SetGlobal("bd_plot","global",620)
+		Unlock("door04")
+		OpenDoor("door04")
+END

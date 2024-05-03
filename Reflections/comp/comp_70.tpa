@@ -372,7 +372,7 @@ END
 
 APPEND LIIA
 
-IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK")~ BEGIN d5beltsd_0
+IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5CloneCut","GLOBAL",0)~ BEGIN d5beltsd_0
   SAY @70002
   IF ~~ REPLY @70003 EXTERN BELT d5beltsd_1
   IF ~~ REPLY @70004 EXTERN BELT d5beltsd_1

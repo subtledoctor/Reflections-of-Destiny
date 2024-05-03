@@ -329,14 +329,14 @@ Refugees driven from their homes by the servants of Caelar Argent are arriving a
 @80060  = ~Whoa. That's weird. I've read a little about super-strong reality-bending magic. Like, stuff from Netheril. But I've never seen anyone actually use it? As much power as we've attained, we're still not even close to that level of magic.~
 @80061  = ~But listen, we can figure it out later. There are people calling for your head. We need to get out of here, and regroup somewhere safe, then we can clear your name. Just like Candlekeep! You did it once, you can do it again. ~
 @80062  = ~Can you help me escape? These bars are enchanted, they are too strong for me no matter what I do.~
-@80063  = ~ Of course, you old buffle-head! This cell may be locked and magicked, but you know that can't stop me! I'll open the cell, then follow me. There's a secret passage into the sewers, right in this building. It's, well, don't ask me how I found it out. Just follow me. We can talk more after we get away.~ // set unlock variable
+@80063  = ~Of course, you old buffle-head! This cell may be locked and magicked, but you know that can't stop me! I'll open the cell, then follow me. There's a secret passage into the sewers, right in this building. It's, well, don't ask me how I found it out. Just follow me. We can talk more after we get away.~ // set unlock variable
 // open cell, have Imoen walk to stairs, basically mimic bdmercz
 @80064  = ~Come on, we have to get to the basement. Hurry up!~
 @80065  = ~Here's the secret passage. Let's go!~
-@80066  = ~Come on, through here!~
 // in sewers, dialogue with Imoen:
-@80067  = ~I'm going to scout ahead. Supposedly we have to go through a waterfall. Or maybe, over a waterfall? Hopefully it's a small one! Anyway, just follow the water and get to the outside. I'll meet you at the exit.~
+@80066  = ~I'm going to scout ahead. Supposedly we have to go through a waterfall. Or maybe, over a waterfall? Hopefully it's a small one! Anyway, just follow the water and get to the outside. I'll meet you at the exit.~
 // cut scene, Imoen moves a bit away, then casts Invisibility, then leave
+@80067  = ~~
 @80068  = ~~
 @80069  = ~~
 @80070  = ~~

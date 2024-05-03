@@ -1,25 +1,25 @@
 IF
 	GlobalLT("bd_plot","global",621)
-	AreaCheck("d5bd0104")  // Flaming Fist HQ
-	!Range("TranD5BD0105",6)
+	AreaCheck("d50104")
+	!Range("TrD50105",6)
 THEN
 	RESPONSE #100
-		MoveToObject("TranD5BD0105")
+		MoveToObject("TrD50105")
 END
 
 IF
 	GlobalLT("bd_plot","global",621)
-	AreaCheck("d5bd0104")  // Flaming Fist HQ
-	Range("TranD5BD0105",6)
+	AreaCheck("d50104")
+	Range("TrD50105",6)
 THEN
 	RESPONSE #100
 		SetGlobal("bd_plot","global",621)
-		OpenDoor("TranD5BD0105")
+		TriggerActivation("TrD50105",TRUE)
 END
 
 IF
 	GlobalLT("bd_plot","global",630)
-	AreaCheck("d5bd0105")  // Flaming Fist HQ, Basement
+	AreaCheck("d50105")
 	!Range("secret01",5)
 THEN
 	RESPONSE #100
@@ -28,7 +28,7 @@ END
 
 IF
 	GlobalLT("bd_plot","global",630)
-	AreaCheck("d5bd0105")  // Flaming Fist HQ, Basement
+	AreaCheck("d50105")
 	Range("secret01",5)
 THEN
 	RESPONSE #100
@@ -37,50 +37,49 @@ END
 
 IF
 	Global("bd_plot","global",630)
-//	Global("BD_Secretdoor","d5bd0105",1)  // Flaming Fist HQ, Basement
 THEN
 	RESPONSE #100
-		SetGlobal("bd_plot","global",631)
+		SetGlobal("bd_plot","global",632)
 		OpenDoor("secret01")
 END
 
+/*
 IF
 	Global("bd_plot","global",631)
-	AreaCheck("bd0105")  // Flaming Fist HQ, Basement
+	AreaCheck("d50105")  // Flaming Fist HQ  Basement
 	See(Player1)
 	Range(Player1,15)
 THEN
 	RESPONSE #100
 		StartDialogueNoSet(Player1)
 END
+*/
 
 IF
 	Name("d5bdimo",Myself)  // Imoen
 	Global("bd_plot","global",632)
-	AreaCheck("d5bd0105")  // Flaming Fist HQ, Basement
-	!Range("TranD5BD0104",5)
+	AreaCheck("d50105")
+	!Range("TrD56000",5)
 THEN
 	RESPONSE #100
-		MoveToObject("TranD5BD0104")
+		MoveToObject("TrD56000")
 END
 
 IF
 	Name("d5bdimo",Myself)  // Imoen
 	Global("bd_plot","global",632)
-	AreaCheck("d5bd0105")  // Flaming Fist HQ, Basement
-	Range("TranD5BD0104",5)
+	AreaCheck("d50105")
+	Range("TrD56000",5)
 THEN
 	RESPONSE #100
 		EscapeArea()
 END
 
 IF
-	Name("d5bdimo",Myself)  // Imoen
 	GlobalLT("bd_plot","global",641)
-	AreaCheck("d5bd6000")  // Abandoned Sewers & Caverns
-	Detect([PC])
+	AreaCheck("d56000")
+	Detect(Player1)
 THEN
 	RESPONSE #100
 		StartDialogueNoSet(Player1)
 END
-
