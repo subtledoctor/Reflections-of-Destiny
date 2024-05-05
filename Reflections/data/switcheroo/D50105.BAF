@@ -1,4 +1,50 @@
 IF
+	InPartyAllowDead(Player2)
+	Name("None",Player2)
+THEN
+	RESPONSE #100
+		MoveGlobal("D50105",Player2,[510.390])
+		ActionOverride(Player2,MakeUnselectable(1))
+
+END
+
+IF
+	InPartyAllowDead(Player3)
+	Name("None",Player3)
+THEN
+	RESPONSE #100
+		MoveGlobal("D50105",Player3,[550.350])
+		ActionOverride(Player3,MakeUnselectable(1))
+END
+
+IF
+	InPartyAllowDead(Player4)
+	Name("None",Player4)
+THEN
+	RESPONSE #100
+		MoveGlobal("D50105",Player4,[470.355])
+		ActionOverride(Player4,MakeUnselectable(1))
+END
+
+IF
+	InPartyAllowDead(Player5)
+	Name("None",Player5)
+THEN
+	RESPONSE #100
+		MoveGlobal("D50105",Player5,[500.320])
+		ActionOverride(Player5,MakeUnselectable(1))
+END
+
+IF
+	InPartyAllowDead(Player6)
+	Name("None",Player6)
+THEN
+	RESPONSE #100
+		MoveGlobal("D50105",Player6,[435.310])
+		ActionOverride(Player6,MakeUnselectable(1))
+END
+
+IF
 	GlobalLT("bd_plot","global",625)
 	Dead("d5bdimo")  // Imoen
 THEN

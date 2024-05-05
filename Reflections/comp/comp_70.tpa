@@ -291,19 +291,19 @@ END
 
 IF ~~ BEGIN d5beltsd_8 // chose SoD !evil
   SAY @70027
-  IF ~~ REPLY @70040 GOTO d5beltsd_12
+  IF ~~ REPLY @70040 DO ~SetGlobal("ENDOFBG1","GLOBAL",1)~ GOTO d5beltsd_12
   IF ~~ REPLY @70041 GOTO d5beltsd_11
 END
 
 IF ~~ BEGIN d5beltsd_9 // chose SoD evil
   SAY @70027
-  IF ~~ REPLY @70040 GOTO d5beltsd_13
+  IF ~~ REPLY @70040 DO ~SetGlobal("ENDOFBG1","GLOBAL",1)~ GOTO d5beltsd_13
   IF ~~ REPLY @70041 GOTO d5beltsd_11
 END
 
 IF ~~ BEGIN d5beltsd_10 // chose clone
   SAY @70028
-  IF ~~ REPLY @70040 GOTO d5beltsd_18 // go to clone cut scene
+  IF ~~ REPLY @70040 DO ~SetGlobal("ENDOFBG1","GLOBAL",1)~ GOTO d5beltsd_18 // go to clone cut scene
   IF ~~ REPLY @70041 GOTO d5beltsd_11
 END
 
