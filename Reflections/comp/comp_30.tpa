@@ -22,7 +22,14 @@ DEFINE_ACTION_FUNCTION delay_maze BEGIN
 
 */
 
+// make Belt and Liia survive
+
 COPY ~%MOD_FOLDER%/data/d5hpblt.itm~ ~override~
+COPY_EXISTING ~belt.cre~ ~override~
+  ADD_CRE_ITEM ~d5hpblt~ #0 #0 #0 ~IDENTIFIED~ ~BELT~
+COPY_EXISTING ~liia.cre~ ~override~
+  ADD_CRE_ITEM ~d5hpblt~ #0 #0 #0 ~IDENTIFIED~ ~BELT~
+
 
 // prep journal entries
 
@@ -63,8 +70,8 @@ END
 
 IF ~~ BEGIN d5belt_5
   SAY @30009
-  IF ~~ REPLY @30010 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ DO ~AddJournalEntry(@30035,QUEST)~ EXIT
-  IF ~~ REPLY @30011 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ DO ~AddJournalEntry(@30035,QUEST)~ EXIT
+  IF ~~ REPLY @30010 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@30035,QUEST)~ EXIT
+  IF ~~ REPLY @30011 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@30035,QUEST)~ EXIT
 END
 
 IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0) Global("D5KorlaszDone","GLOBAL",0)~ BEGIN d5belt_6
@@ -111,8 +118,8 @@ END
 
 IF ~~ BEGIN d5liia_5
   SAY @30009
-  IF ~~ REPLY @30010 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ DO ~AddJournalEntry(@30035,QUEST)~ EXIT
-  IF ~~ REPLY @30011 DO ~SetGlobal("D5PostCoronation","GLOBAL",1)~ DO ~SetGlobal("DukeThanks","GLOBAL",1)~ DO ~AddJournalEntry(@30035,QUEST)~ EXIT
+  IF ~~ REPLY @30010 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@30035,QUEST)~ EXIT
+  IF ~~ REPLY @30011 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@30035,QUEST)~ EXIT
 END
 
 IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0) Global("D5KorlaszDone","GLOBAL",0)~ BEGIN d5liia_6
@@ -278,7 +285,7 @@ END
 
 IF ~~ BEGIN d5gregs_9
   SAY @30033
-  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1)~ DO ~EscapeAreaNoSee()~ EXIT
+  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1) EscapeAreaNoSee()~ EXIT
 END
 >>>>>>>> 
 COPY ~d5/d5gregs.d~ ~weidu_external/%MOD_FOLDER%/compile/d5gregs.d~

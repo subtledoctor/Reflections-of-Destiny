@@ -38,9 +38,16 @@ DEFINE_ACTION_FUNCTION mirror_man BEGIN
 
 // copy in stuff
 
-COPY ~%MOD_FOLDER%/data/switcheroo/d50104.are~ ~override~
-COPY ~%MOD_FOLDER%/data/switcheroo/d50105.are~ ~override~
-COPY ~%MOD_FOLDER%/data/switcheroo/d56000.are~ ~override~
+ACTION_IF !(GAME_IS ~eet~) BEGIN
+  COPY ~%MOD_FOLDER%/data/switcheroo/d50104.are~ ~override~
+  COPY ~%MOD_FOLDER%/data/switcheroo/d50105.are~ ~override~
+  COPY ~%MOD_FOLDER%/data/switcheroo/d56000.are~ ~override~
+END
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  COPY ~%MOD_FOLDER%/data/switcheroo/d50104_eet.are~ ~override/d50104.are~
+  COPY ~%MOD_FOLDER%/data/switcheroo/d50105_eet.are~ ~override/d50105.are~
+  COPY ~%MOD_FOLDER%/data/switcheroo/d56000_eet.are~ ~override/d56000.are~
+END
 COPY ~%MOD_FOLDER%/data/switcheroo/d5bdimo.cre~ ~override~
 COPY ~%MOD_FOLDER%/data/switcheroo/d5chrnam.cre~ ~override~
 COPY ~%MOD_FOLDER%/data/switcheroo/d5telbgt.cre~ ~override~
@@ -818,17 +825,61 @@ ALTER_TRANS BDIMOEN // file name
   BEGIN "TRIGGER" ~Global("D5SkipSoD","GLOBAL",0)~ END
 >>>>>>>>
 COPY ~d5/switch+.d~ ~weidu_external/%MOD_FOLDER%/compile/switch+.d~
+
+
+// compatibility with EBG1 
+
+ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~0~) BEGIN
+
+ OUTER_SET liia_ebg1_10 = STATE_WHICH_SAYS 10 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~LIIA~
+
+ PRINT ~the state we want NOW is # %liia_ebg1_10%~		//	should be 16
+
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/switch+.d~ ~~~~~
+ ADD_STATE_TRIGGER LIIA %liia_ebg1_10% ~Global("D5GregsonExist","GLOBAL",0)~
+~~~~~
+ 
+END	//	end EBG1 #2
+
+
+//  now compile the dialogues
+
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/switch+.d~
 
-// clean up Imoen's dialogue at ambush
+
+// clean up people's dialogue at ambush
 
 ACTION_IF (GAME_IS ~bgee~) BEGIN
   STRING_SET 39703 @80070
+  STRING_SET 39716 @80071
+  STRING_SET 39706 @80072
 END
 ACTION_IF (GAME_IS ~eet~) BEGIN
   STRING_SET 239703 @80070
+  STRING_SET 239716 @80071
+  STRING_SET 239706 @80072
 END
 
+
+// make sure charname is not overly fatigued in Chateau Irenicus
+
+ACTION_IF (GAME_IS ~eet~) BEGIN
+ <<<<<<<< d5/d5nu602.baf
+ IF
+	CheckStatGT(Player1,30,0)
+	Global("P1RestFix","GLOBAL",0)
+ THEN
+	RESPONSE #100
+		SetGlobal("P1RestFix","GLOBAL",1)
+		ActionOverride(Player1,Rest())
+ END
+ >>>>>>>>
+ COPY ~d5/d5nu602.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5nu602.baf~
+
+ ACTION_IF (FILE_EXISTS_IN_GAME ~ar0602.bcs~) BEGIN
+  EXTEND_TOP ~ar0602.bcs~ ~weidu_external/%MOD_FOLDER%/compile/d5nu602.baf~
+ END
+END
 //___________________________________________________________________________________
 //
 

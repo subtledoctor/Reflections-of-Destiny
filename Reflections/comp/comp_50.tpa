@@ -302,7 +302,7 @@ END
 
 IF ~~ BEGIN d5beltkd_8
   SAY @50032
-  IF ~~ DO ~SetGlobal("D5MazeOpen","GLOBAL",1)~ DO ~AddJournalEntry(@50035,QUEST)~ EXIT
+  IF ~~ DO ~SetGlobal("D5MazeOpen","GLOBAL",1) AddJournalEntry(@50035,QUEST)~ EXIT
 END
 
 IF ~Global("D5EntarCut","GLOBAL",7) !Dead("SAREVOK")~ BEGIN d5beltkd_9

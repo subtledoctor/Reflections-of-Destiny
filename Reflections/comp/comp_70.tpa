@@ -187,44 +187,8 @@ BUT_ONLY
 
 */
 
-// cross-compatibility with component "Sarevok's Sword": we add script to remove Sarevok's Sword to BG1 area, too 
 
-ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~4~) BEGIN
-
-<<<<<<<< .../ar0110_remove_Sarevoks_sword.baf
-/* Sarevok's Sword will be stolen after PC returns from Korlasz' Dungeon */
-IF
-  GlobalGT("bd_plot","GLOBAL",1)
-  Global("C#st_RemoveSwordPCChest","MYAREA",0)
-  HasItem("c#stsrvs","Container1")
-THEN
-  RESPONSE #100
-    ActionOverride("Container1",DestroyItem("c#stsrvs"))
-    SetGlobal("C#st_RemoveSwordPCChest","MYAREA",1)
-END
->>>>>>>>
-COPY ~.../ar0110_remove_Sarevoks_sword.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~
-EXTEND_BOTTOM ~%NBaldursGate_DucalPalace_L3%.bcs~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~ EVALUATE_BUFFER 
-
-END	//	end EBG1 #4
-
-// cross-compatibility with component "Short Hero Tribute Scene": set a variable so the dialogue can trigger the cut scene 
-
-ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~2~) BEGIN
-
-<<<<<<<< d5/hero108.baf
-IF
-	Global("D5HeroSceneInstalled","GLOBAL",0)
-THEN
-	RESPONSE #100
-		SetGlobal("D5HeroSceneInstalled","GLOBAL",1)
-		Continue()
-END
->>>>>>>>
-COPY ~d5/hero108.baf~ ~weidu_external/%MOD_FOLDER%/compile/hero108.baf~
-EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/hero108.baf~
-
-END	//	end EBG1 #2
+// add entar to the palace
 
 <<<<<<<< d5/ar108+7.baf
 IF
@@ -232,19 +196,20 @@ IF
 	!InMyArea("BDENTAR")
 THEN
 	RESPONSE #100
-		CreateCreature("BDENTAR",[810.365],SW)
+		CreateCreature("BDENTAR",[805.360],SW)
 		Continue()
 END
 >>>>>>>>
 COPY ~d5/ar108+7.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+7.baf~
 EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+7.baf~
 
+
 // dialogues in palace
 
 <<<<<<<< d5/transit+.d
 APPEND BELT
 
-IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5CloneCut","GLOBAL",0)~ BEGIN d5beltsd_0
+IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5CloneCut","GLOBAL",0) Global("C#st_HeroCutScene","GLOBAL",0)~ BEGIN d5beltsd_0
   SAY @70002
   IF ~~ REPLY @70003 GOTO d5beltsd_1
   IF ~~ REPLY @70004 GOTO d5beltsd_1
@@ -372,7 +337,7 @@ END
 
 APPEND LIIA
 
-IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5CloneCut","GLOBAL",0)~ BEGIN d5beltsd_0
+IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5CloneCut","GLOBAL",0) Global("C#st_HeroCutScene","GLOBAL",0)~ BEGIN d5beltsd_0
   SAY @70002
   IF ~~ REPLY @70003 EXTERN BELT d5beltsd_1
   IF ~~ REPLY @70004 EXTERN BELT d5beltsd_1
@@ -422,7 +387,7 @@ END
 
 APPEND BDENTAR
 
-IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK")~ BEGIN d5entarsd_0
+IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("C#st_HeroCutScene","GLOBAL",0)~ BEGIN d5entarsd_0
   SAY @70002
   IF ~~ REPLY @70003 EXTERN BELT d5beltsd_1
   IF ~~ REPLY @70004 EXTERN BELT d5beltsd_1
@@ -470,12 +435,77 @@ IF ~~ BEGIN d5skiesd_1
 END
 
 END
+
 >>>>>>>> 
 COPY ~d5/transit+.d~ ~weidu_external/%MOD_FOLDER%/compile/transit+.d~
+
+
+// cross-compatibility with component "Sarevok's Sword": we add script to remove Sarevok's Sword to BG1 area, too 
+
+ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~4~) BEGIN
+
+<<<<<<<< .../ar0110_remove_Sarevoks_sword.baf
+/* Sarevok's Sword will be stolen after PC returns from Korlasz' Dungeon */
+IF
+  GlobalGT("bd_plot","GLOBAL",1)
+  Global("C#st_RemoveSwordPCChest","MYAREA",0)
+  HasItem("c#stsrvs","Container1")
+THEN
+  RESPONSE #100
+    ActionOverride("Container1",DestroyItem("c#stsrvs"))
+    SetGlobal("C#st_RemoveSwordPCChest","MYAREA",1)
+END
+>>>>>>>>
+COPY ~.../ar0110_remove_Sarevoks_sword.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~
+EXTEND_BOTTOM ~%NBaldursGate_DucalPalace_L3%.bcs~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~ EVALUATE_BUFFER 
+
+END	//	end EBG1 #4
+
+
+// cross-compatibility with component "Short Hero Tribute Scene": set a variable so the dialogue can trigger the cut scene 
+
+ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~2~) BEGIN
+
+ <<<<<<<< d5/hero108.baf
+ IF
+	Global("D5HeroSceneInstalled","GLOBAL",0)
+ THEN
+	RESPONSE #100
+		SetGlobal("D5HeroSceneInstalled","GLOBAL",1)
+		Continue()
+ END
+ >>>>>>>>
+ COPY ~d5/hero108.baf~ ~weidu_external/%MOD_FOLDER%/compile/hero108.baf~
+ EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/hero108.baf~
+
+ OUTER_SET belt_ebg1_0 = STATE_WHICH_SAYS 0 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
+ OUTER_SET belt_ebg1_2 = STATE_WHICH_SAYS 2 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
+ OUTER_SET belt_ebg1_113 = STATE_WHICH_SAYS 113 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
+
+ PRINT ~the state we want is # %belt_ebg1_0%~		//	should be 16
+ PRINT ~oh and also # %belt_ebg1_0%~				//	should be 18
+ PRINT ~and there is also # %belt_ebg1_113%~		//	should be 30
+ PRINT ~and finally, # %belt_reflections_70043%~	//	should be 67
+
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ ~~~~~
+ ADD_STATE_TRIGGER BELT %belt_ebg1_0% ~Global("D5GregsonExist","GLOBAL",0)~
+
+ ADD_STATE_TRIGGER BELT %belt_ebg1_2% ~Global("D5GregsonExist","GLOBAL",0)~
+  
+ ALTER_TRANS BELT // file name
+  BEGIN %belt_ebg1_113% END // state number (can be more than one)
+  BEGIN 0 END // transition number (can be more than one)
+  BEGIN "EPILOGUE" ~GOTO d5beltsd_16~ END
+~~~~~
+ 
+END	//	end EBG1 #2
+
+
+// compile the dialogues
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/transit+.d~
 
-//___________________________________________________________________________________
-//
+
+// fix some lines
 
 ACTION_IF (GAME_IS ~bgee~) BEGIN
   STRING_SET 65221 @70045
@@ -485,6 +515,9 @@ ACTION_IF (GAME_IS ~eet~) BEGIN
   STRING_SET 265221 @70045
   STRING_SET 270019 @70045
 END
+
+
+// cleanup stuff...?
 
 <<<<<<<< d5/bd120+7.baf
 IF

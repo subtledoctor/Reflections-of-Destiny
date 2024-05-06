@@ -12,8 +12,8 @@
 @60   = ~Reflections of Destiny Part 6: Not the End of the World~
 @70   = ~Reflections of Destiny Part 7: Pick a Side~
 @80   = ~Reflections of Destiny Part 8: Man in the Mirror~
-@90   = ~Reflections of Destiny Part 9: The Great Escape~
-@100  = ~Reflections of Destiny Part 10: Further on Down the Road~
+@90   = ~Reflections of Destiny Part 9: Further on Down the Road~
+@100  = ~Reflections of Destiny Part 2: The Clone Saga~
 //
 //
 @10001  = ~Mirror Shard~
@@ -340,6 +340,8 @@ Refugees driven from their homes by the servants of Caelar Argent are arriving a
 @80068  = ~~
 @80069  = ~~
 @80070  = ~I'm sorry, <CHARNAME>. I shouldn't have let you get into this kind of trouble. But now we're together again, I'm sure we will clear everything up.~
+@80071  = ~Do not th-think I'm pleased to be here, <CHARNAME>. What I do, I do for Gorion and Imoen.~
+@80072  = ~You make it sound as though I went looking for trouble.~
 //
 //
 @90008  = ~Alright, sir. I rushed here to find Lord Entar, to tell you that someone has confessed to the attack on your daughter! They are in custody right now! Only...~

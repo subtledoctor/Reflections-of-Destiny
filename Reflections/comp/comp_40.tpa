@@ -273,7 +273,7 @@ COPY_EXISTING ~BDFF1002.dlg~ ~override~
   END
 BUT_ONLY
 
-WITH_TRA ~%MOD_FOLDER%/lang/en_US/IMOEN_IN_GROUP_KD_EBG1.TRA~ BEGIN
+WITH_TRA ~%MOD_FOLDER%/lang/%s/IMOEN_IN_GROUP_KD_EBG1.TRA~ BEGIN
   COMPILE ~%MOD_FOLDER%/data/korlasz_dungeon/Imoen_in_group_kd_ebg1.d~ EVALUATE_BUFFER
 END
 EXTEND_BOTTOM ~bdimoen.bcs~ ~%MOD_FOLDER%/data/korlasz_dungeon/c#ebg1im.baf~ EVALUATE_BUFFER
@@ -775,6 +775,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5KorlaszDone","GLOBAL",1)
+		SetGlobal("C#EBG1_KorlaszQuest","GLOBAL",1)
 		SetGlobal("D5GregsonCrypt","GLOBAL",9)
 		SetGlobal("C#EBG1_KorlaszQuest","GLOBAL",99)
 END
@@ -840,7 +841,7 @@ END
 
 IF ~ GlobalGT("D5GregsonCrypt","GLOBAL",8) /*GlobalGT("bd_plot","GLOBAL",24)*/ Global("D5GregsonCut","GLOBAL",0)~ BEGIN d5gregskd_7
   SAY @40010
-  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",9)~ DO ~EscapeAreaNoSee()~ EXIT
+  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",9) EscapeAreaNoSee()~ EXIT
 END
 
 END

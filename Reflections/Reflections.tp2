@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.1.8.3~
+VERSION ~0.1.8.4~
 
 ALWAYS
   OUTER_SPRINT newline ~%WNL%%LNL%%MNL%%TAB% ~
@@ -55,7 +55,7 @@ END
 LANGUAGE
   ~English~
   ~english~
-  ~Reflections/lang/en_US/setup.tra~
+  ~Reflections/lang/english/setup.tra~
 
 /*
 This should be installed after EBG1
@@ -67,20 +67,8 @@ Maybe it can work...
 
 
 PLAN:
-8) "man in the mirror"
- - if skip SoD, cut scene to cells, spawn clone in cell
- - put brightly glowing bracers on clone
- - dialogue with/about clone
- - script timestop, teleport, party member removal
- - continue dialogue, everyone leaves, lose all inventory
- - fade out/in, run SoD escape sequence
- - change dialogues where needed
- - ...i.e. imoen saying you attacked her, but it wasn't you, or something. are you the real you? how can she trust you?
 
-9) "the great escape"
- - bring forward SoD escape sequence
-
-10) "further on down the road"
+9) "further on down the road"
  - if go to SoD, put a pin in the clone investigation (we've already established it was doppelgangers, Sarevok apparently loved doppelgangers, let's move on!)
  - later in SoD, have Skie sent back to BG by the FF
  - keep the cut-scene where she dies, but place it in the city instead of in Dragonspear
@@ -92,7 +80,7 @@ PLAN:
  - fade out, fade in, Imoen approaches, says she was attacked, demands you prove you are you. says they are taling about putting you down just to be sure. she is your only way to escape... like her or not, you need her help right now
   - then modded escape scene as above
 
-11) compatibility concerns
+10) compatibility concerns
 
 */
 
