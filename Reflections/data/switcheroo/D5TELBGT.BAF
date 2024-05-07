@@ -1,0 +1,283 @@
+
+IF
+	Global("D5FrameDelay","LOCALS",0)
+	AreaCheck("%bg1_area_prefix%0108")
+THEN
+	RESPONSE #100
+		DisableAI(Player1,FALSE)
+		DisableAI(Player2,FALSE)
+		DisableAI(Player3,FALSE)
+		DisableAI(Player4,FALSE)
+		DisableAI(Player5,FALSE)
+		DisableAI(Player6,FALSE)
+		SetGlobal("D5FrameDelay","LOCALS",1)
+END
+
+IF
+	Global("D5FrameDelay","LOCALS",1)
+	AreaCheck("%bg1_area_prefix%0108")
+THEN
+	RESPONSE #100
+		ActionOverride(Player2,MakeUnselectable(36000))
+		Continue()
+END
+
+IF
+	Global("D5FrameDelay","LOCALS",1)
+	AreaCheck("%bg1_area_prefix%0108")
+THEN
+	RESPONSE #100
+		ActionOverride(Player3,MakeUnselectable(36000))
+		Continue()
+END
+
+IF
+	Global("D5FrameDelay","LOCALS",1)
+	AreaCheck("%bg1_area_prefix%0108")
+THEN
+	RESPONSE #100
+		ActionOverride(Player4,MakeUnselectable(36000))
+		Continue()
+END
+
+IF
+	Global("D5FrameDelay","LOCALS",1)
+	AreaCheck("%bg1_area_prefix%0108")
+THEN
+	RESPONSE #100
+		ActionOverride(Player5,MakeUnselectable(36000))
+		Continue()
+END
+
+IF
+	Global("D5FrameDelay","LOCALS",1)
+	AreaCheck("%bg1_area_prefix%0108")
+THEN
+	RESPONSE #100
+		ActionOverride(Player6,MakeUnselectable(36000))
+		Continue()
+END
+
+IF
+	AreaCheck("D50104")
+	Global("D5TookPlayer1Stuff","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5TookPlayer1Stuff","GLOBAL",1)
+		ActionOverride("K#ImportContainer",TakeCreatureItems(Player1,ALL))
+		Continue()
+END
+
+IF
+	Global("D5ThisIsEET","GLOBAL",1)
+	AreaCheck("D50104")
+	Global("D5TookOtherPlayerStuff","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5TookOtherPlayerStuff","GLOBAL",1)
+		ActionOverride("K#ImportContainer",TakeCreatureItems(Player2,ALL))
+		ActionOverride("K#ImportContainer",TakeCreatureItems(Player3,ALL))
+		ActionOverride("K#ImportContainer",TakeCreatureItems(Player4,ALL))
+		ActionOverride("K#ImportContainer",TakeCreatureItems(Player5,ALL))
+		ActionOverride("K#ImportContainer",TakeCreatureItems(Player6,ALL))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("JAHEIRA")  // Jaheira
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_jaheira_party_epilogue","global",1)
+		ActionOverride("JAHEIRA",LeaveParty())
+		ActionOverride("JAHEIRA",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("KHALID")  // Khalid
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_khalid_party_epilogue","global",1)
+		ActionOverride("KHALID",LeaveParty())
+		ActionOverride("KHALID",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("MINSC")  // Minsc
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_minsc_party_epilogue","global",1)
+		ActionOverride("MINSC",LeaveParty())
+		ActionOverride("MINSC",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("DYNAHEIR")  // Dynaheir
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_dynaheir_party_epilogue","global",1)
+		ActionOverride("DYNAHEIR",LeaveParty())
+		ActionOverride("DYNAHEIR",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("rasaad")  // Rasaad
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_rasaad_party_epilogue","global",1)
+		ActionOverride("rasaad",LeaveParty())
+		ActionOverride("rasaad",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("baeloth")  // Baeloth
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_baeloth_party_epilogue","global",1)
+		ActionOverride("baeloth",LeaveParty())
+		ActionOverride("baeloth",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("viconia")  // Viconia
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_viconia_party_epilogue","global",1)
+		ActionOverride("viconia",LeaveParty())
+		ActionOverride("viconia",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("edwin")  // Edwin
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_edwin_party_epilogue","global",1)
+		ActionOverride("edwin",LeaveParty())
+		ActionOverride("edwin",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("safana")  // Safana
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_safana_party_epilogue","global",1)
+		ActionOverride("safana",LeaveParty())
+		ActionOverride("safana",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("dorn")  // Dorn
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_dorn_party_epilogue","global",1)
+		ActionOverride("dorn",LeaveParty())
+		ActionOverride("dorn",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead("neera")  // Neera
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		SetGlobal("bd_neera_party_epilogue","global",1)
+		ActionOverride("neera",LeaveParty())
+		ActionOverride("neera",DestroyAllFragileEquipment(ADAMANTINE))
+		Continue()
+END
+
+IF
+	InPartyAllowDead(Player2)
+	!Name("None",Player2)
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		ActionOverride(Player2,DestroyAllFragileEquipment(ADAMANTINE))
+		ActionOverride(Player2,LeaveParty())
+		Continue()
+END
+
+IF
+	InPartyAllowDead(Player3)
+	!Name("None",Player3)
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		ActionOverride(Player3,DestroyAllFragileEquipment(ADAMANTINE))
+		ActionOverride(Player3,LeaveParty())
+		Continue()
+END
+
+IF
+	InPartyAllowDead(Player4)
+	!Name("None",Player4)
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		ActionOverride(Player4,DestroyAllFragileEquipment(ADAMANTINE))
+		ActionOverride(Player4,LeaveParty())
+		Continue()
+END
+
+IF
+	InPartyAllowDead(Player5)
+	!Name("None",Player5)
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		ActionOverride(Player5,DestroyAllFragileEquipment(ADAMANTINE))
+		ActionOverride(Player5,LeaveParty())
+		Continue()
+END
+
+IF
+	InPartyAllowDead(Player6)
+	!Name("None",Player6)
+	AreaCheck("D50104")
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		ActionOverride(Player6,DestroyAllFragileEquipment(ADAMANTINE))
+		ActionOverride(Player6,LeaveParty())
+		Continue()
+END
+
+IF
+	True()
+THEN
+	RESPONSE #100
+		DestroySelf()
+END

@@ -3,7 +3,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5CloneCut","GLOBAL",3)
-		CreateCreature("BDFF1002",[280.430],SE)  // Flaming Fist Mercenary
+		CreateCreature("BDFF1002",[440.450],SE)  // Flaming Fist Mercenary
 		OpenDoor("door03")
 		ClearAllActions()
 		StartCutSceneMode()
@@ -26,8 +26,46 @@ THEN
 	RESPONSE #100
 		SetGlobal("D5CloneCut","GLOBAL",7)
 		ClearAllActions()
-		StartCutSceneMode()
-		StartCutScene("D5CLCUT4")
+		SetCutSceneLite("true")
+		Wait(2)
+		ApplySpellRES("D5PAUSE","BDFF1002") 
+		ApplySpellRES("D5PAUSE","d5gregs") 
+		ApplySpellRES("D5PAUSE","BELT") 
+		ApplySpellRES("D5PAUSE","LIIA") 
+		ApplySpellRES("D5PAUSE","BDENTAR")
+		SmallWait(5)
+		AddAreaFlag(DREAMAREA)
+		ActionOverride(Player2,MakeUnselectable(1))
+		ActionOverride(Player3,MakeUnselectable(1))
+		ActionOverride(Player4,MakeUnselectable(1))
+		ActionOverride(Player5,MakeUnselectable(1))
+		ActionOverride(Player6,MakeUnselectable(1))
+		Wait(3)
+		ActionOverride(Player1,JumpToPoint([420.340]))
+		MoveViewPoint([405.360],INSTANT)
+		ActionOverride("D5CHRNAM",JumpToPoint([320.490]))
+		ActionOverride("K#ImportContainer",TakeCreatureItems(Player1,ALL))
+		Wait(2)
+		RemoveAreaFlag(DREAMAREA)
+		Wait(1)
+		ApplySpellRES("D5PAUSX","BDFF1002") 
+		ApplySpellRES("D5PAUSX","D5GREGS") 
+		ApplySpellRES("D5PAUSX","BELT") 
+		ApplySpellRES("D5PAUSX","LIIA") 
+		ApplySpellRES("D5PAUSX","BDENTAR") 
+		Wait(1)
+		ActionOverride("LIIA",DisplayStringHead(Myself,@80035))  // Apologies, whoever you are, this might sting a bit.
+		Wait(1)
+		ActionOverride("LIIA",ForceSpellRES("D5_DIV",Player1))
+		Wait(2)
+		CreateVisualEffectObject("ICGLYPTI",Myself)
+		Wait(1)
+		PlayDead(15)
+		Wait(1)
+		CreateCreature("D5TELBGT",[445.320],W)
+		SetCutSceneLite("false")
+		Wait(1)
+		ActionOverride("LIIA",StartDialogueNoSet(Player1))
 END
 
 IF

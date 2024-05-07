@@ -482,10 +482,9 @@ ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~2~) BEGIN
  OUTER_SET belt_ebg1_2 = STATE_WHICH_SAYS 2 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
  OUTER_SET belt_ebg1_113 = STATE_WHICH_SAYS 113 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
 
- PRINT ~the state we want is # %belt_ebg1_0%~		//	should be 16
- PRINT ~oh and also # %belt_ebg1_0%~				//	should be 18
- PRINT ~and there is also # %belt_ebg1_113%~		//	should be 30
- PRINT ~and finally, # %belt_reflections_70043%~	//	should be 67
+ PRINT ~the state we want is # %belt_ebg1_0%~
+ PRINT ~oh and also # %belt_ebg1_0%~
+ PRINT ~and there is also # %belt_ebg1_113%~
 
  APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ ~~~~~
  ADD_STATE_TRIGGER BELT %belt_ebg1_0% ~Global("D5GregsonExist","GLOBAL",0)~

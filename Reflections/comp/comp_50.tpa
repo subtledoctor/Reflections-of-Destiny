@@ -660,7 +660,25 @@ END
 END
 >>>>>>>> 
 COPY ~d5/denkod+.d~ ~weidu_external/%MOD_FOLDER%/compile/denkod+.d~
+
+// compatibility with EBG1 
+
+ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~12~) BEGIN
+
+ OUTER_SET denkod_ebg1_140 = STATE_WHICH_SAYS 140 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~DENKOD~
+
+ PRINT ~we're looking at state # %denkod_ebg1_140%~		//	should be 3
+
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/denkod+.d~ ~~~~~
+ ADD_STATE_TRIGGER DENKOD %denkod_ebg1_140% ~Global("D5GregsonExist","GLOBAL",0)~
+~~~~~
+ 
+END	//	end EBG1 #2
+
+// now compile the dialogue
+
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/denkod+.d~
+
 
 // remove voleta stiletto
 
