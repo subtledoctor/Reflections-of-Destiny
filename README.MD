@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>SubtleMods: Reflections</title>
+<title>SubtleMods: Reflections of Destiny</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="style/g3readme_cam.css" type="text/css" />
 <link href="style/g3icon.ico" rel="icon" type="image/bmp" />
 </head>
 <body>
-<h1>SubtleMods: Reflections, improving the last chapter of BG1</h1>
+<h1>SubtleMods: Reflections of Destiny, an SoD remix mod</h1>
 <div class="section">
   <p><strong> Version 0.2 </strong><br />
   <strong> Languages:</strong> English</p>
