@@ -70,46 +70,6 @@ COPY_EXISTING ~%bg1_area_prefix%0700.are~ ~override~
   END
 BUT_ONLY
 
-// Add Entrance to Korlasz Dungeon to BG Docks: ar1200.are 
-COPY_EXISTING ~%bg1_area_prefix%1200.are~ ~override~
-  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
-    INT_VAR
-    fj_type         = 2    //travel
-    fj_box_left     = 1019  //kleinstes x
-    fj_box_top      = 74  //kleinstes y
-    fj_box_right    = 1154  //grˆﬂtes x
-    fj_box_bottom   = 189   //grˆﬂtes y
-    fj_cursor_idx   = 28 //stairs
-    fj_vertex_0     = 1030 + (186 << 16)   //kleinstes x +  kleinstes y
-    fj_vertex_1     = 1154 + (189 << 16)   //grˆﬂtes x + kleinstes y
-    fj_vertex_2     = 1152 + (78 << 16)   //grˆﬂtes x + grˆﬂtes y
-    fj_vertex_3     = 1019 + (74 << 16)   //kleinstes x + grˆﬂtes y
-    STR_VAR
-    fj_structure_type   = region
-    fj_name             = C#EBG1_TranBD0120
-    fj_destination_area = EVAL ~bd0120~
-    fj_destination_name = EVAL ~C#EBG1_Exit0700~ 
-  END
-// add info trigger for closed entrance 
-  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
-    INT_VAR
-    fj_type         = 1    //trigger
-    fj_box_left     = 1019  //kleinstes x
-    fj_box_top      = 74  //kleinstes y
-    fj_box_right    = 1154  //grˆﬂtes x
-    fj_box_bottom   = 189   //grˆﬂtes y
-    fj_cursor_idx   = 22 //question mark
-    fj_vertex_0     = 1030 + (186 << 16)   //kleinstes x +  kleinstes y
-    fj_vertex_1     = 1154 + (189 << 16)   //grˆﬂtes x + kleinstes y
-    fj_vertex_2     = 1152 + (78 << 16)   //grˆﬂtes x + grˆﬂtes y
-    fj_vertex_3     = 1019 + (74 << 16)   //kleinstes x + grˆﬂtes y
-    fj_info_point_strref = RESOLVE_STR_REF (@40024)
-    STR_VAR
-    fj_structure_type   = region
-    fj_name             = c#ebg1korlasz
-//    fj_reg_script   = c#ebg1ko
-  END
-
 // Korlasz crypt bd0120 
 // patch bdrope.bcs so it doesn't initiate Imoen's dialogue
 COPY_EXISTING ~bdrope.BCS~ ~override~
