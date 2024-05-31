@@ -22,6 +22,9 @@ DEFINE_ACTION_FUNCTION delay_maze BEGIN
 
 */
 
+//___________________________________________________________________________________
+//
+
 // make Belt and Liia survive
 
 COPY ~%MOD_FOLDER%/data/d5hpblt.itm~ ~override~
@@ -33,7 +36,7 @@ COPY_EXISTING ~liia.cre~ ~override~
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@30036) @30034 @30035
+ADD_JOURNAL TITLE (@3036) @3034 @3035
 
 // add to Belt's dialogue
 
@@ -43,41 +46,41 @@ REPLACE_STATE_TRIGGER BELT 11 ~Global("SarevokBehavior","GLOBAL",99)~
 APPEND BELT
 
 IF ~Global("SarevokBehavior","GLOBAL",1) Global("D5PostCoronation","GLOBAL",0)~ BEGIN d5belt_0
-  SAY @30001
-  IF ~~ REPLY @30002 GOTO d5belt_1
+  SAY @3001
+  IF ~~ REPLY @3002 GOTO d5belt_1
 END
 
 IF ~~ BEGIN d5belt_1
-  SAY @30003
+  SAY @3003
   IF ~~ GOTO d5belt_2
 END
 
 IF ~~ BEGIN d5belt_2
-  SAY @30004
-  IF ~~ REPLY @30005 GOTO d5belt_3
-  IF ~~ REPLY @30006 GOTO d5belt_4
+  SAY @3004
+  IF ~~ REPLY @3005 GOTO d5belt_3
+  IF ~~ REPLY @3006 GOTO d5belt_4
 END
 
 IF ~~ BEGIN d5belt_3
-  SAY @30007
+  SAY @3007
   IF ~~ GOTO d5belt_5
 END
 
 IF ~~ BEGIN d5belt_4
-  SAY @30008
+  SAY @3008
   IF ~~ GOTO d5belt_5
 END
 
 IF ~~ BEGIN d5belt_5
-  SAY @30009
-  IF ~~ REPLY @30010 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@30035,QUEST)~ EXIT
-  IF ~~ REPLY @30011 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@30035,QUEST)~ EXIT
+  SAY @3009
+  IF ~~ REPLY @3010 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@3035,QUEST)~ EXIT
+  IF ~~ REPLY @3011 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@3035,QUEST)~ EXIT
 END
 
 IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0) Global("D5KorlaszDone","GLOBAL",0)~ BEGIN d5belt_6
-  SAY @30012
-  IF ~~ REPLY @30013 EXIT
-  IF ~~ REPLY @30014 EXIT
+  SAY @3012
+  IF ~~ REPLY @3013 EXIT
+  IF ~~ REPLY @3014 EXIT
 END
 
 END
@@ -91,41 +94,41 @@ REPLACE_STATE_TRIGGER LIIA 8 ~Global("SarevokBehavior","GLOBAL",99)~
 APPEND LIIA
 
 IF ~Global("SarevokBehavior","GLOBAL",1) Global("D5PostCoronation","GLOBAL",0)~ BEGIN d5liia_0
-  SAY @30001
-  IF ~~ REPLY @30002 GOTO d5liia_1
+  SAY @3001
+  IF ~~ REPLY @3002 GOTO d5liia_1
 END
 
 IF ~~ BEGIN d5liia_1
-  SAY @30003
+  SAY @3003
   IF ~~ GOTO d5liia_2
 END
 
 IF ~~ BEGIN d5liia_2
-  SAY @30004
-  IF ~~ REPLY @30005 GOTO d5liia_3
-  IF ~~ REPLY @30006 GOTO d5liia_4
+  SAY @3004
+  IF ~~ REPLY @3005 GOTO d5liia_3
+  IF ~~ REPLY @3006 GOTO d5liia_4
 END
 
 IF ~~ BEGIN d5liia_3
-  SAY @30007
+  SAY @3007
   IF ~~ GOTO d5liia_5
 END
 
 IF ~~ BEGIN d5liia_4
-  SAY @30008
+  SAY @3008
   IF ~~ GOTO d5liia_5
 END
 
 IF ~~ BEGIN d5liia_5
-  SAY @30009
-  IF ~~ REPLY @30010 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@30035,QUEST)~ EXIT
-  IF ~~ REPLY @30011 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@30035,QUEST)~ EXIT
+  SAY @3009
+  IF ~~ REPLY @3010 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@3035,QUEST)~ EXIT
+  IF ~~ REPLY @3011 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@3035,QUEST)~ EXIT
 END
 
 IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0) Global("D5KorlaszDone","GLOBAL",0)~ BEGIN d5liia_6
-  SAY @30012
-  IF ~~ REPLY @30013 EXIT
-  IF ~~ REPLY @30014 EXIT
+  SAY @3012
+  IF ~~ REPLY @3013 EXIT
+  IF ~~ REPLY @3014 EXIT
 END
 
 END
@@ -235,56 +238,56 @@ END
 BEGIN ~D5GREGS~
 
 IF ~Global("D5GregsonCrypt","GLOBAL",0)~ BEGIN d5gregs_0
-  SAY @30015
+  SAY @3015
   IF ~~ GOTO d5gregs_1
 END
 
 IF ~~ BEGIN d5gregs_1
-  SAY @30016
+  SAY @3016
   IF ~~ GOTO d5gregs_2
 END
 
 IF ~~ BEGIN d5gregs_2
-  SAY @30017
-  IF ~~ REPLY @30018 GOTO d5gregs_3
-  IF ~~ REPLY @30019 EXIT
+  SAY @3017
+  IF ~~ REPLY @3018 GOTO d5gregs_3
+  IF ~~ REPLY @3019 EXIT
 END
 
 IF ~~ BEGIN d5gregs_3
-  SAY @30020
+  SAY @3020
   IF ~~ GOTO d5gregs_4
 END
 
 IF ~~ BEGIN d5gregs_4
-  SAY @30021
-  IF ~~ REPLY @30022 GOTO d5gregs_5
+  SAY @3021
+  IF ~~ REPLY @3022 GOTO d5gregs_5
 END
 
 IF ~~ BEGIN d5gregs_5
-  SAY @30023
+  SAY @3023
   IF ~~ GOTO d5gregs_6
 END
 
 IF ~~ BEGIN d5gregs_6
-  SAY @30024
-  IF ~~ REPLY @30025 GOTO d5gregs_7
-  IF ~~ REPLY @30026 DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1)~ GOTO d5gregs_8
+  SAY @3024
+  IF ~~ REPLY @3025 GOTO d5gregs_7
+  IF ~~ REPLY @3026 DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1)~ GOTO d5gregs_8
 END
 
 IF ~~ BEGIN d5gregs_7
-  SAY @30027
-  IF ~~ REPLY @30028 DO ~AddJournalEntry(@30034,QUEST)~ GOTO d5gregs_9
-  IF ~~ REPLY @30029 DO ~AddJournalEntry(@30034,QUEST)~ GOTO d5gregs_9
+  SAY @3027
+  IF ~~ REPLY @3028 DO ~AddJournalEntry(@3034,QUEST)~ GOTO d5gregs_9
+  IF ~~ REPLY @3029 DO ~AddJournalEntry(@3034,QUEST)~ GOTO d5gregs_9
 END
 
 IF ~~ BEGIN d5gregs_8
-  SAY @30030
-  IF ~~ REPLY @30031 DO ~AddJournalEntry(@30034,QUEST)~ GOTO d5gregs_9
-  IF ~~ REPLY @30032 DO ~AddJournalEntry(@30034,QUEST)~ GOTO d5gregs_9
+  SAY @3030
+  IF ~~ REPLY @3031 DO ~AddJournalEntry(@3034,QUEST)~ GOTO d5gregs_9
+  IF ~~ REPLY @3032 DO ~AddJournalEntry(@3034,QUEST)~ GOTO d5gregs_9
 END
 
 IF ~~ BEGIN d5gregs_9
-  SAY @30033
+  SAY @3033
   IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1) EscapeAreaNoSee()~ EXIT
 END
 >>>>>>>> 
@@ -317,7 +320,6 @@ END
 
 INCLUDE ~%MOD_FOLDER%/lib/sarevok_cleanup.tpa~
 // INCLUDE ~%MOD_FOLDER%/lib/sarevok_cleanup_more.tpa~
-
 
 //___________________________________________________________________________________
 //

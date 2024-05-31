@@ -1,0 +1,257 @@
+
+DEFINE_ACTION_FUNCTION feyr_itself BEGIN
+
+/*
+
+- / rewrite elandro's dialogue
+	...add_state_trigger bdelandr 0 so it never fires (Dead("bdfeyr"))
+	...ditto state 10
+	...add a new state w/ new dialogue
+	...check any interjections w/ thirrim
+	
+- / alter_trans bdthirri.dlg so transition 0 of state 0 points to new bdelandr state
+	...and rewrite state 0 aka #46575
+
+- / rewrite #46711
+
+- / rewrite #46718
+
+- / rewrite #61744 (journal)
+
+- / rewrite #61745 (journal)
+
+- / write new cut script for appearance of feyr
+	...elandro should DestroySelf()
+	...in bdelandr.bcs, replace_textually ~RandomWalkContinuous()~ ~DestroySelf()~
+
+- / ooh! ooh! if never talk on the roof, have elandro transform when he enters the fight!
+	...say, once GlobalGT("bd_bridgefort_plot","global",8), and enemy within 15', start a 30-second timer
+	...when timer ends, DestroySelf() and CreateCreature("BDFeyr")
+	...this ^^ in bdelendr.bcs
+
+- / check cut scene on bridge (including modded versions)
+	...if Dead("bdfeyr") then give Player1 innate Cloak of Fear (SPIN203)
+
+*/
+
+
+//___________________________________________________________________________________
+//
+
+// elandro transforms instead of creating the feyr
+
+COPY_EXISTING ~bdelandr.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~RandomWalkContinuous~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~DestroySelf~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+
+
+// modify elandro's override script for battle
+
+<<<<<<<< d5/bdeland+.baf
+IF
+	GlobalGT("bd_bridgefort_plot","global",8)
+	Global("D5ElandroBattle","GLOBAL",0)
+	!Dead("BDFEYR")
+	See([ENEMY])
+THEN
+	RESPONSE #100
+		SetGlobalTimer("D5FeyrTi","GLOBAL",FIVE_ROUNDS)
+		SetGlobal("D5ElandroBattle","GLOBAL",1)
+END
+
+IF
+	GlobalTimerExpired("D5FeyrTi","GLOBAL")
+THEN
+	RESPONSE #100
+		DisplayStringHead(Myself,@40020)
+		Wait(2)
+		CreateCreatureObject("BDFEYR",Myself,0,0,0)
+		DestroySelf()
+END
+>>>>>>>> 
+COPY ~d5/bdeland+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.baf~
+EXTEND_TOP ~bdelandr.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.baf~
+
+
+// modified cut scene for feyr to appear
+
+<<<<<<<< d5/d5c208a.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		ActionOverride("bdelandr",DisplayStringHead(Myself,@40020)
+		Wait(2)
+		ActionOverride("bdelandr",DestroySelf())
+		CreateCreature("bdfeyr",[3210.980],NW)
+		CreateVisualEffectObject("spflesh3","bdfeyr")
+		PlaySound("eff_m10a")
+		SetGlobal("bd_208_status","global",3)
+		ActionOverride("bdthirri",FaceObject("bdfeyr"))
+		Wait(1)
+		EndCutSceneMode()
+END
+>>>>>>>> 
+COPY ~d5/d5c208a.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5c208a.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5c208a.baf~
+
+
+// modify elandro's dialogue
+
+<<<<<<<< d5/bdeland+.d
+ADD_STATE_TRIGGER BDELANDR 0 ~Dead("BDFEYR")~
+ADD_STATE_TRIGGER BDELANDR 10 ~Dead("BDFEYR")~
+
+APPEND BDTHIRRI
+
+IF WEIGHT #-1 ~!Dead("BDELANDR") GlobalLT("bd_bridgefort_plot","global",9)~ BEGIN d5bdthirri_0
+  SAY @40001
+  IF ~~ REPLY @40002 EXTERN BDELANDR d5elandr_0
+  IF ~~ REPLY @40003 EXTERN BDELANDR d5elandr_0
+END
+
+IF ~~ BEGIN d5bdthirri_1
+  SAY @40008
+  IF ~~ EXTERN BDELANDR d5elandr_1
+END
+
+END
+
+APPEND BDELANDR
+
+IF WEIGHT #-1 ~!Dead("BDFEYR") GlobalLT("bd_bridgefort_plot","global",9)~ BEGIN d5elandr_0
+  SAY @40005
+  IF ~~ REPLY @40006 EXTERN BDTHIRRI d5bdthirri_1
+  IF ~~ REPLY @40007 EXTERN BDTHIRRI d5bdthirri_1
+END
+
+IF ~~ BEGIN d5elandr_1
+  SAY @40009
+  IF ~~ REPLY @40010 GOTO d5elandr_2
+END
+
+IF ~~ BEGIN d5elandr_2
+  SAY @40011
+  IF ~~ GOTO d5elandr_3
+END
+
+IF ~~ BEGIN d5elandr_3
+  SAY @40012
+  IF ~~ REPLY @40013 GOTO d5elandr_4
+  IF ~~ REPLY @40014 GOTO d5elandr_4
+END
+
+IF ~~ BEGIN d5elandr_4
+  SAY @40015
+  IF ~~ REPLY @40016 GOTO d5elandr_5
+END
+
+IF ~~ BEGIN d5elandr_5
+  SAY @40017
+  IF ~~ GOTO d5elandr_6
+END
+
+IF ~~ BEGIN d5elandr_6
+  SAY @40018
+  IF ~~ DO ~ClearAllActions()
+			StartCutSceneMode()
+			StartCutSceneEx("d5c208a",FALSE)~ 
+		EXIT
+END
+
+END
+>>>>>>>> 
+COPY ~d5/bdeland+.d~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdeland+.d~
+
+/*
+// area script ...what was I doing here? setting up a cut scene?
+
+<<<<<<<< d5/bd2000+.baf
+IF
+THEN
+	RESPONSE #100
+END
+>>>>>>>>
+COPY ~d5/bd2000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~
+EXTEND_TOP ~BD2000.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~
+*/
+
+
+// *****
+// add innate at bridge
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bdcut28.bcs~) AND !(FILE_EXISTS_IN_GAME ~c#stbb28.bcs~) BEGIN
+  COPY_EXISTING ~bdcut28.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(True()\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Dead("bdfeyr")
+THEN
+	RESPONSE #100
+		CutSceneId("bdcutid")
+		ActionOverride(Player1,AddSpecialAbility("SPIN203"))
+		Continue()
+END
+IF
+	True()~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+    END
+  IF_EXISTS BUT_ONLY
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bdcut28.bcs~) AND (FILE_EXISTS_IN_GAME ~c#stbb28.bcs~) BEGIN
+  COPY_EXISTING ~bdcut28.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(True()\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Dead("bdfeyr")
+THEN
+	RESPONSE #100
+		CutSceneId("bdcutid")
+		ActionOverride(Player1,AddSpecialAbility("SPIN203"))
+		Continue()
+END
+IF
+	True()~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+    END
+  IF_EXISTS BUT_ONLY
+END
+
+
+// rewrite strings
+
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  STRING_SET 246711 @40041
+  STRING_SET 246718 @40042
+  STRING_SET 261744 @40043
+  STRING_SET 261745 @40044
+END
+ELSE BEGIN
+  STRING_SET 46711 @40041
+  STRING_SET 46718 @40042
+  STRING_SET 61744 @40043
+  STRING_SET 61745 @40044
+END
+
+
+END	//	end define function

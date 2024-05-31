@@ -1,8 +1,10 @@
 
 DEFINE_ACTION_FUNCTION mirror_shards BEGIN
 
-//make mirror shards__________________________________________________________________
+//___________________________________________________________________________________
 //
+
+// make mirror shards
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~D5SIMUL9.SPL~) BEGIN
 //...add statchecks
@@ -49,12 +51,12 @@ END
 COPY ~%MOD_FOLDER%/data/mirror_shard/d5mshard.bam~ ~override~
 
 COPY ~%MOD_FOLDER%/data/mirror_shard/d5shard3.itm~ ~override~
-	SAY NAME1 @10001
-	SAY UNIDENTIFIED_DESC @10002
+	SAY NAME1 @1001
+	SAY UNIDENTIFIED_DESC @1002
 
 COPY ~%MOD_FOLDER%/data/mirror_shard/d5shard1.itm~ ~override~
-	SAY NAME1 @10001
-	SAY UNIDENTIFIED_DESC @10002
+	SAY NAME1 @1001
+	SAY UNIDENTIFIED_DESC @1002
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~deathk.cre~) BEGIN
   COPY_EXISTING ~deathk.cre~ ~override~
@@ -129,5 +131,8 @@ EXTEND_TOP ~ar0602.bcs~ ~d5/d5ar602+.baf~
 END	//	end ar0602
 
 END	//	end if idemon02
+
+//___________________________________________________________________________________
+//
 
 END	//	end define function

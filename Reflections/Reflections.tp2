@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.2.1~
+VERSION ~0.2.3~
 
 ALWAYS
   OUTER_SPRINT newline ~%WNL%%LNL%%MNL%%TAB% ~
@@ -57,36 +57,10 @@ LANGUAGE
   ~english~
   ~Reflections/lang/english/setup.tra~
 
-/*
-
-PLAN:
-
-9) "further on down the road"
- - if go to SoD, put a pin in the clone investigation (we've already established it was doppelgangers, Sarevok apparently loved doppelgangers, let's move on!)
- - later in SoD, have Bence Duncan send Skie back
- - keep the cut-scene where she dies, but place it in the Silvershield estate instead of in Dragonspear
- - when you return, Entar is out of his mind, accuses you of persecuting his family
- - ...notes that Eddard's death coincided with your leaving Candlekeep; coincidence???
- - then go to the Gregson place cut scene, a clone has confessed and is in custody
- - then follow the Part 8 method for the transition to BG2
- - just need to change some dialogue options so that the accusation is for Skie's murder instead of Entar's
-
-10) compatibility concerns
- - EndlessBG1
- - Transitions??
- - Part 9 vs. Another Fine Hell...?
-
-11) "nothing to fear but feyr itself"
- - change the encounter on top of Bridgefort to be a bit more... relevant
-
-12) "rewriting history"
- - completely change the caelar argent/SoD story
-
-*/
 
 //___________________________________________________________________________________
 //
-BEGIN @100	//	add mirror shards
+BEGIN @100	//	the mirror shards
 DESIGNATED 100
 LABEL ~D5_REFLECTIONS_MIRROR_SHARD~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
@@ -97,9 +71,9 @@ LAF mirror_shards END
 
 //___________________________________________________________________________________
 //
-BEGIN @200	//	the clone saga
+BEGIN @200	//	back to the future
 DESIGNATED 200
-LABEL ~D5_REFLECTIONS_CLONE_SAGA~
+LABEL ~D5_REFLECTIONS_BACK_FUTURE~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 FORBID_COMPONENT ~imoen_forever.tp2~ ~10~ @4
 FORBID_COMPONENT ~EET_end.tp2~ ~0~ @5
@@ -130,12 +104,39 @@ LAF mirror_man END
 //___________________________________________________________________________________
 //
 /*
-BEGIN @90	//	further on down the road
+BEGIN @300	//	the clone saga
 
 INCLUDE ~%MOD_FOLDER%/comp/comp_90.tpa~
 
-LAF ___ END
+LAF clone_saga END
 */
+
+/*
+//___________________________________________________________________________________
+//
+BEGIN @400	//	nothing to fear but feyr itself
+DESIGNATED 400
+LABEL ~D5_REFLECTIONS_FEYR_ITSELF~
+REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_400.tpa~
+
+LAF feyr_itself END
+*/
+
+//___________________________________________________________________________________
+//
+/*
+BEGIN @500	//	rewriting history
+DESIGNATED 500
+LABEL ~D5_REFLECTIONS_REWRITE_CAELAR~
+REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_500.tpa~
+
+LAF rewrite_caelar END
+*/
+
 //___________________________________________________________________________________
 //
 

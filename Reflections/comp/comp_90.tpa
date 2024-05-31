@@ -1,0 +1,220 @@
+
+DEFINE_ACTION_FUNCTION clone_saga BEGIN
+
+/*
+
+- plan: change the skie killing scene, change Bence's dialogue, jump to the palace, then join the comp 80 scene in the jail
+
+ -- ***** maybe add a cut scene to the scrying pool where you can see Charclone casing the Silvershield estate
+
+ -- ***** add a cut scene where Skie gets sent back to BG
+ 	...after you get back from the parlay (check GVs for that)
+ 	...if the new cut scene already fired, make sure Skie LeaveArea()'s from the Dragonspear map
+
+ -- make a cut scene in a new map where you kill skie (maybe... the player controls skie??)
+ 
+ -- back to Dragonspear castle, wake up and be approached by Bence
+	...says you gotta come with us back to BG right away, we had a sending and apparently *you* were seen to have murdered Skie
+	...(teleport joke here?)
+ 
+ -- jump to custom palace map, talk to the dukes (maybe teleport joke here); trigger d5grcut1.bcs
+ 
+ -- and... that's it
+
+sequence: 
+modify Dragonspear rest action	
+	...bdcut60
+	...change it to have player1 move to the new custom area AFTER it sets DreamArea on bd4100
+add new skie death cut scene
+	...then in bdcut60x, need to change coordinates to work in the new area
+	...then replace bdcut60y: don't let go of cutscene mode, have Player1 change to bdskiedr and attack skie; have skie fight back; then skie dies, change back to normal form, and jump back to bd4100
+	...need to rewrite bdcut60a: lose the ambientactivates, change the coordinates of confrontation, lose bence's StringHead, set a variable
+cut scene to wake up in Dragonspear and modify Bence dialogue
+	...change bdbence's dialogue - new state instead of state 6
+	...replace bdcut61.bcs with one that moves to the palace: start at the door and walk to Belt; have bence walk with you. then set gab variable and have belt talk
+palace dialogue to replace the stuff from comp 70
+	...need to give this a priority WEIGHT to make it jump ahead of the #80 lines. I think.
+	...write the dialogue
+
+OR just have the Dazzo dialogue jump to a rewritten bdcut60a: just rest, and wake up to Bence telling you the news. then jump to the palace
+
+
+***** TO DO for simplified version:
+		- set up cut scene where skie gets sent home by bence
+			...intercept the coalition camp scene where he asks you to go save her
+			...and make sure she 
+		- write BDBENCE dialogue
+		- write palace dialogue
+
+*/
+
+//___________________________________________________________________________________
+//
+
+// prep journal entries ...?
+
+//ADD_JOURNAL TITLE (@9001) @9002
+
+
+// copy in stuff
+
+ACTION_IF !(GAME_IS ~eet~) BEGIN
+  COPY ~%MOD_FOLDER%/data/switcheroo/d50108.are~ ~override~
+  COPY ~%MOD_FOLDER%/data/switcheroo/d5____.are~ ~override~
+END
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  COPY ~%MOD_FOLDER%/data/switcheroo/d50108_eet.are~ ~override/d50104.are~
+  COPY ~%MOD_FOLDER%/data/switcheroo/d5_____eet.are~ ~override/d5____.are~
+END
+
+COPY ~%MOD_FOLDER%/data/switcheroo/d50108.baf~ ~weidu_external/%MOD_FOLDER%/compile/d50108.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d50108.baf~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5____.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5____.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5____.baf~
+
+
+// have Skie leave the Dragonspear map if you don't save her
+
+<<<<<<<< d5/d54000+.baf
+IF 
+	GlobalGT("bd_skie_plot","global",15)
+THEN
+	RESPONSE #100
+		Action_Override("bdskie",EscapeArea())
+END
+>>>>>>>>
+COPY ~d5/d54000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/d54000+.baf~
+EXTEND_TOP ~bd4000.bcs~ ~weidu_external/%MOD_FOLDER%/compile/d50108.baf~
+
+// ***** modify bdbence.dlg to use a new state instead of state 39; 
+// create a cut scene where Skie appears and he sends her home
+
+// VERSION A: simplified
+
+<<<<<<<< d5/bdcut60.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		SetGlobal("D5AltEndSoD","GLOBAL",1)
+		CutSceneId(Player1)
+		ClearAllActions()
+		FadeToColor([30.0],0)
+		Wait(2)
+		DisplayStringPointLog([1945.795],66919)  // The celebrations last long into the night. Between the feasting and the drinking, you hardly have time to shake hands with all those who want to thank the hero of Baldur's Gate and savior of Dragonspear. One by one, the celebrants stagger into the reclaimed castle to find a place to rest. It is the wee hours of the morning when you climb into your own bedroll, falling instantly into a deep sleep.
+		Wait(6)
+		ActionOverride(Player2,LeaveAreaLUA("bd4100","",[1155.720],NW))  // Dragonspear Castle Keep, First Floor
+		ActionOverride(Player3,LeaveAreaLUA("bd4100","",[1080.560],SE))  // Dragonspear Castle Keep, First Floor
+		ActionOverride(Player4,LeaveAreaLUA("bd4100","",[950.625],SE))  // Dragonspear Castle Keep, First Floor
+		ActionOverride(Player5,LeaveAreaLUA("bd4100","",[1320.665],NW))  // Dragonspear Castle Keep, First Floor
+		ActionOverride(Player6,LeaveAreaLUA("bd4100","",[880.690],SE))  // Dragonspear Castle Keep, First Floor
+		LeaveAreaLUAPanic("bd4100","",[1235.685],NW)  // Dragonspear Castle Keep, First Floor
+		LeaveAreaLUA("bd4100","",[1235.685],NW)  // Dragonspear Castle Keep, First Floor
+		MultiPlayerSync()
+		Wait(1)
+		ReallyForceSpellRES("bdremove",Myself)  // No such index
+		ApplySpellRES("bdrejuve",Myself)  // No such index
+		ApplySpellRES("bdrejuve",Player2)  // No such index
+		ApplySpellRES("bdrejuve",Player3)  // No such index
+		ApplySpellRES("bdrejuve",Player4)  // No such index
+		ApplySpellRES("bdrejuve",Player5)  // No such index
+		ApplySpellRES("bdrejuve",Player6)  // No such index
+		SetSequence(SEQ_SLEEP)
+		ActionOverride(Player2,SetSequence(SEQ_SLEEP))
+		ActionOverride(Player3,SetSequence(SEQ_SLEEP))
+		ActionOverride(Player4,SetSequence(SEQ_SLEEP))
+		ActionOverride(Player5,SetSequence(SEQ_SLEEP))
+		ActionOverride(Player6,SetSequence(SEQ_SLEEP))
+		Wait(6)
+		FadeFromColor([0.0],0)
+		CreateCreature("bdbence",[1545.1240],S)  // Bence Duncan
+		ActionOverride("bdbence",MoveToPoint([1100.825]))
+		SmallWait(14)
+		CreateCreature("bdfist30",[1545.1240],S)  // Flaming Fist Mercenary
+		ActionOverride("bdfist30",MoveToPoint([1480.1050]))
+		SmallWait(14)
+		CreateCreature("bdfist31",[1545.1240],S)  // Flaming Fist Healer
+		ActionOverride("bdfist31",MoveToPoint([1290.1145]))
+		SmallWait(14)
+		CreateCreature("bdfistx3",[1545.1240],S)  // Flaming Fist Sergeant
+		ActionOverride("bdfistx3",MoveToPoint([1430.1050]))
+		SmallWait(5)
+		ActionOverride(Player1,SetSequence(SEQ_AWAKE))
+		SmallWait(15)
+		ActionOverride(Player1,FaceObject("bdbence"))  // Bence Duncan
+		SmallWait(5)
+		ActionOverride("bdbence",FaceObject(Player1))
+		SmallWait(20)
+		ActionOverride("bdbence",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/bdcut60.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdcut60.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdcut60.baf~
+
+// ***** add a new series of states to BDBENCE.dlg, which kick out to d5cut61.bcs
+// 		...OR, just create a clone of Bence, and use a dialogue just for that.
+// eh, just APPEND BDBENCE IF WEIGHT #-900 ~Global("D5AltEndSoD","GLOBAL",1)~ SAY ~etc.~
+
+<<<<<<<< d5/d5cut61.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		Wait(1)
+		FadeToColor([30.0],0)
+		Wait(2)
+		ActionOverride(Player2,LeaveAreaLUA("d50108","",[415.615],S))  // Baldur's Gate East
+		ActionOverride(Player3,LeaveAreaLUA("d50108","",[405.675],S))  // Baldur's Gate East
+		ActionOverride(Player4,LeaveAreaLUA("d50108","",[455.705],S))  // Baldur's Gate East
+		ActionOverride(Player5,LeaveAreaLUA("d50108","",[485.735],S))  // Baldur's Gate East
+		ActionOverride(Player6,LeaveAreaLUA("d50108","",[515.765],S))  // Baldur's Gate East
+		LeaveAreaLUAPanic("d50108","",[465.635],SW)  // Baldur's Gate East
+		LeaveAreaLUA("d50108","",[465.635],SW)  // Baldur's Gate East
+		MultiPlayerSync()
+		Wait(1)
+		FadeFromColor([0.0],0)
+		Wait(1)
+		ActionOverride(Player1,MoveToPoint([775.475],NW)) 
+		Wait(1)
+		ActionOverride(Player2,MoveToPoint([830.490],W)) 
+		SmallWait(6)
+		ActionOverride(Player3,MoveToPoint([785.515],W)) 
+		SmallWait(6)
+		ActionOverride(Player4,MoveToPoint([890.485],W)) 
+		SmallWait(6)
+		ActionOverride(Player5,MoveToPoint([840.515],W)) 
+		SmallWait(6)
+		ActionOverride(Player6,MoveToPoint([815.540],W)) 
+		Wait(1)
+		SetGlobal("bd_npc_camp_chapter","global",7)
+		IncrementChapter("chptxt13")
+		SetCursorState(TRUE)
+		EndCutSceneMode()
+END
+>>>>>>>>
+COPY ~d5/d5cut61.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5cut61.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5cut61.baf~
+
+
+// ***** add palace dialogue, ending with belt setting the variable for gregson to appear:
+
+IF ~Global("D5AltEndSoD","GLOBAL",1)~ BEGIN d5beltsd_18
+  SAY @7038													// whaaat is this?
+  IF ~~ DO ~SetGlobal("D5GregsonPalace","GLOBAL",1)~ EXIT 	// ...clone cut scene
+END
+
+
+// if not already installed comp 200
+
+ACTION_IF !(MOD_IS_INSTALLED ~Reflections.tp2~ ~200~) BEGIN
+
+  INCLUDE ~%MOD_FOLDER%/comp/comp_80.tpa~
+  LAF mirror_man END
+
+END	//	end of #200 is not installed
+
+//___________________________________________________________________________________
+//
+
+END	//	end define function

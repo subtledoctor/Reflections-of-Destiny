@@ -15,11 +15,16 @@ DEFINE_ACTION_FUNCTION keep_playing BEGIN
 
 */
 
+//___________________________________________________________________________________
+//
+
 // prep journal entries
 
-ADD_JOURNAL TITLE (@30036) @60001
+ADD_JOURNAL TITLE (@3036) @6001
 
 // stuff from EBG1
+
+ACTION_IF !(MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~0~) BEGIN
 
 ACTION_IF GAME_IS ~bgee~ THEN BEGIN
   COPY_EXISTING ~%Undercity_TempleofBhaal%.BCS~ ~override~
@@ -30,7 +35,7 @@ ACTION_IF GAME_IS ~bgee~ THEN BEGIN
 			REPLACE_TEXTUALLY ~%textToReplace%~ ~False()~
 			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
 		END ELSE BEGIN
-			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
 	END
   BUT_ONLY
@@ -39,13 +44,13 @@ END
 ACTION_IF GAME_IS ~eet~ THEN BEGIN
   COPY_EXISTING ~%Undercity_TempleofBhaal%.BCS~ ~override~
 	DECOMPILE_AND_PATCH BEGIN
-		SPRINT textToReplace ~Dead("Sarevok")[%newline%]*Global("EndOfBG1","GLOBAL",0)~
+		SPRINT textToReplace ~\(Dead("Sarevok")[%newline%]*Global("EndOfBG1","GLOBAL",0)\)~
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
 		PATCH_IF (num_matches > 0) BEGIN
 			REPLACE_TEXTUALLY ~%textToReplace%~ ~False()~
 			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
 		END ELSE BEGIN
-			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
 	END
   BUT_ONLY
@@ -90,6 +95,8 @@ END
 COPY ~.../ar0125-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0125-et.baf~
 EXTEND_TOP ~%Undercity_TempleofBhaal%.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar0125-et.baf~ EVALUATE_BUFFER
 
+END	//	end if EBG1 not installed
+
 // EXTEND_TOP ar0125.bcs to lock/unlock door
 
 <<<<<<<< d5/area0125.baf
@@ -109,7 +116,7 @@ THEN
 	RESPONSE #100
 		TriggerActivation("Door0123",TRUE)
 		SetGlobal("D5TempleLock","GLOBAL",2)
-		AddJournalEntry(@60001,QUEST)
+		AddJournalEntry(@6001,QUEST)
 END
 >>>>>>>>
 COPY ~d5/area0125.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0125.baf~
