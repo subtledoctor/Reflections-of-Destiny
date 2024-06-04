@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.2.3~
+VERSION ~0.3~
 
 ALWAYS
   OUTER_SPRINT newline ~%WNL%%LNL%%MNL%%TAB% ~
@@ -65,7 +65,7 @@ DESIGNATED 100
 LABEL ~D5_REFLECTIONS_MIRROR_SHARD~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_10.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_110.tpa~
 
 LAF mirror_shards END
 
@@ -79,25 +79,25 @@ FORBID_COMPONENT ~imoen_forever.tp2~ ~10~ @4
 FORBID_COMPONENT ~EET_end.tp2~ ~0~ @5
 FORBID_COMPONENT ~EET_end.tp2~ ~1~ @5
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_20.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_220.tpa~
 LAF kill_thalantyr END
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_30.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_230.tpa~
 LAF delay_maze END
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_40.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_240.tpa~
 LAF early_korlasz END
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_50.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_250.tpa~
 LAF entar_accuse END
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_60.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_260.tpa~
 LAF keep_playing END
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_70.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_270.tpa~
 LAF campaign_election END
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_80.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_280.tpa~
 LAF mirror_man END
 
 
@@ -105,13 +105,15 @@ LAF mirror_man END
 //
 /*
 BEGIN @300	//	the clone saga
+DESIGNATED 300
+LABEL ~D5_REFLECTIONS_CLONE_SAGA~
+REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_90.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_300.tpa~
 
 LAF clone_saga END
 */
 
-/*
 //___________________________________________________________________________________
 //
 BEGIN @400	//	nothing to fear but feyr itself
@@ -122,7 +124,6 @@ REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 INCLUDE ~%MOD_FOLDER%/comp/comp_400.tpa~
 
 LAF feyr_itself END
-*/
 
 //___________________________________________________________________________________
 //

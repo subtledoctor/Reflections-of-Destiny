@@ -1,0 +1,54 @@
+IF
+	Global("D5_SpawnDukes","MYAREA",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5_SpawnDukes","MYAREA",1)
+		CreateCreature("LIIA",[680.355],S)  	// Liia Jannath
+		CreateCreature("BELT",[735.375],S)  	// Belt
+		CreateCreature("BDENTAR",[805.360],S)	//	Entar Silvershield
+		Continue()
+END
+
+IF
+	Exists("C#STELTA")
+	Global("D5_SpawnEltan","MYAREA",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5_SpawnEltan","MYAREA",1)
+		CreateCreature("C#STELTA",[810.400],S)  // Duke Eltan
+		Continue()
+END
+
+IF
+	Global("D5StartGabbing","D50108",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5StartGabbing","D50108",1)
+		Wait(1)
+		ActionOverride("Belt",StartDialogNoSet(Player1))
+END
+
+IF
+	Global("D5GregsonCut","GLOBAL",0)
+	Global("D5GregsonPalace","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5GregsonCut","GLOBAL",1)
+		CreateCreature("D5GREGS",[520.615],E)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5GRCUT1")
+END
+
+IF
+	Global("D5CloneCut","GLOBAL",1)
+	Global("D5GregsonPalace","GLOBAL",1)
+THEN
+	RESPONSE #100
+		CreateCreature("D5TELBGT",[670.465],W)
+		SetGlobal("D5CloneCut","GLOBAL",2)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CLCUT1")
+END
+

@@ -12,8 +12,7 @@ DEFINE_ACTION_FUNCTION entar_accuse BEGIN
 
 - change the trigger to unlock the maze entrance from  ("DukeThanks","GLOBAL",1) to something else
 
-- ***** add a thief to the guild to talk about the stairs
- -- ...or use an existing one. Denkod?
+- have Denkod talk about the stairs
  -- ...and probably then have to disable the trigger that creates him after Sarevok is dead.
 
 - bring Imoen back at this time. creates complications tho.

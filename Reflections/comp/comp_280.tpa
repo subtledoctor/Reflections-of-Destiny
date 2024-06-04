@@ -1,26 +1,9 @@
 
 DEFINE_ACTION_FUNCTION mirror_man BEGIN
 
-/*
+/*  
 
-- plan: jump from palace to FF cells, big cut scene w/ clone
-
- -- make cut scene and dialogue for Gregson to enter palace and say they have Charname in custody... er... wait
- 
- -- make cut scene jumping party, gregson, belt, liia, and entar to jail, and walk to clone's cell, and dialogue
- 
- -- make cut scene with old switcheroo, then more dialogue
- 
- -- cut scene of everyone leaving
- 
- -- cut scene with fade out/fade in, and imoen dialogue
- 	...model this on the SoD scene
- 	
- -- then tie into the escape sequence where you go through the cave and meet J/K, M/D
-
- -- use custom copy of FF HQ/basement
-
- -- use custom copy of sewers
+TO DO:
 
 // *****
 	- make everyone unselectable in AR0108 ...via CRE

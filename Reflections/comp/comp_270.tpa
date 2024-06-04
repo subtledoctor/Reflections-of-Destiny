@@ -2,7 +2,8 @@
 DEFINE_ACTION_FUNCTION campaign_election BEGIN
 
 /*
-- plan: 
+
+TO DO: 
 
 - belt & liia are not happy that you confronted sarevok, and that you don't have his body
  -- doesn't help your credibility, at all
