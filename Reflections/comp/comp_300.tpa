@@ -5,17 +5,17 @@ DEFINE_ACTION_FUNCTION clone_saga BEGIN
 
 plan: change the skie killing scene, change Bence's dialogue, jump to the palace, then join the comp 80 scene in the jail
 
-/ - remove scene where bence asks you to save skie at dragonspear
+/ - add new scene where Skie is told she must go back to BG
+  
+/ - and write the dialogue for it
+
+/ - remove skie and bdcrum30 peeps from bd4000 if necessary
  
- - ***** add new cut scene where Skie is told she needs to report back to BG City, at same place ^^
- 
-/ - remove skie and bdcrum30 peeps from bd4000
- 
-/ - remove skie from bd4100
+/ - remove skie from bd4100 if necessary
  
 / - have Dazzos' dialogue shoot you to a rewritten bdcut60
  
- - ***** new dialogue with bence - someone got sending saying skie was killed (joke about teleporting bhaalspawn)
+/ - new dialogue with bence - someone got sending saying skie was killed (joke about teleporting bhaalspawn)
  
 / - that triggers rewritten bdcut61, starting at door of palace and walking to belt
  
@@ -25,14 +25,20 @@ plan: change the skie killing scene, change Bence's dialogue, jump to the palace
  
 / - install #80 if not already done
 
+ - ***** add journal entries!!!
 
- -- ***** journal entries!!!
  
+Later on, maybe add more:
 
  -- ***** maybe add a cut scene to the scrying pool where you can see Charclone casing the Silvershield estate
 
+ -- ***** add new cut scene for skie's death
+ 		...dream version of the silvershield estate
+ 			...OR, out in public in the street
+ 		...charname approaches skie, some talking via DisplayStringHead
+ 		...then charname transforms into creature, and kills her.
 
-sequence if add new skie death scene: 
+sequence with new skie death scene: 
 
 modify Dragonspear rest action	
 	...bdcut60
@@ -100,7 +106,61 @@ COPY ~d5/d5crum+.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5crum+.baf~
 EXTEND_BOTTOM ~bdcrum30.bcs~ ~weidu_external/%MOD_FOLDER%/compile/d5crum+.baf~
 
 
-// ***** create a cut scene where Skie appears and he sends her home
+// insert skie leaving scene 
+/*
+COPY_EXISTING ~BD3000.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(RemoveMapNote([1950.1565]\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~CreateCreature("bdbence",[1350.230],NE) CreateCreature("bdskie",[1330.210],NE) Wait(1) ActionOverride("BDBENCE",StartDialogueNoSet(Player1)) RemoveMapNote([1950.1565]~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+*/
+<<<<<<<< d5/d53000+.baf
+IF
+	Global("bd_skie_plot","global",99)
+THEN
+	RESPONSE #100
+		ActionOverride("BDSKIE",EscapeArea())
+END
+
+IF
+	Global("bd_plot","global",385)
+	GlobalLT("bd_skie_plot","global",16)
+	InMyArea(Player1)
+THEN
+	RESPONSE #100
+		SetGlobal("bd_skie_plot","global",16)
+		CreateCreature("bdbence",[1350.230],NE)
+		CreateCreature("bdskie",[1330.210],NE)
+		Wait(1) 
+		ActionOverride("BDBENCE",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d53000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/d53000+.baf~
+EXTEND_TOP ~BD3000.bcs~ ~weidu_external/%MOD_FOLDER%/compile/d53000+.baf~
+
+
+// delay being told about the parlay
+
+<<<<<<<< d5/d5trust2.baf
+IF
+	Global("bd_skie_plot","global",99)
+	NumberOfTimesTalkedTo(0)
+	Range([PC],25)
+THEN
+	RESPONSE #100
+		Wait(2)
+		StartDialogueNoSet(Player1)
+END
+>>>>>>>>
+COPY ~d5/d5trust2.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdtrust2.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdtrust2.baf~
 
 
 // VERSION A: simplified ending sequence
@@ -110,12 +170,12 @@ IF
 	True()
 THEN
 	RESPONSE #100
-		SetGlobal("D5AltEndSoD","GLOBAL",1)
 		CutSceneId(Player1)
 		ClearAllActions()
+		SetGlobal("D5AltEndSoD","GLOBAL",1)
 		FadeToColor([30.0],0)
 		Wait(2)
-		DisplayStringPointLog([1945.795],66919)  // The celebrations last long into the night. Between the feasting and the drinking, you hardly have time to shake hands with all those who want to thank the hero of Baldur's Gate and savior of Dragonspear. One by one, the celebrants stagger into the reclaimed castle to find a place to rest. It is the wee hours of the morning when you climb into your own bedroll, falling instantly into a deep sleep.
+		DisplayStringPointLog([1945.795],%eet_2%66919)  // The celebrations last long into the night. Between the feasting and the drinking, you hardly have time to shake hands with all those who want to thank the hero of Baldur's Gate and savior of Dragonspear. One by one, the celebrants stagger into the reclaimed castle to find a place to rest. It is the wee hours of the morning when you climb into your own bedroll, falling instantly into a deep sleep.
 		Wait(6)
 		ActionOverride(Player2,LeaveAreaLUA("bd4100","",[1155.720],NW))  // Dragonspear Castle Keep, First Floor
 		ActionOverride(Player3,LeaveAreaLUA("bd4100","",[1080.560],SE))  // Dragonspear Castle Keep, First Floor
@@ -139,37 +199,24 @@ THEN
 		ActionOverride(Player4,SetSequence(SEQ_SLEEP))
 		ActionOverride(Player5,SetSequence(SEQ_SLEEP))
 		ActionOverride(Player6,SetSequence(SEQ_SLEEP))
-		Wait(6)
-		FadeFromColor([0.0],0)
-		CreateCreature("bdbence",[1545.1240],S)  // Bence Duncan
-		ActionOverride("bdbence",MoveToPoint([1100.825]))
-		SmallWait(14)
-		CreateCreature("bdfist30",[1545.1240],S)  // Flaming Fist Mercenary
-		ActionOverride("bdfist30",MoveToPoint([1480.1050]))
-		SmallWait(14)
-		CreateCreature("bdfist31",[1545.1240],S)  // Flaming Fist Healer
-		ActionOverride("bdfist31",MoveToPoint([1290.1145]))
-		SmallWait(14)
-		CreateCreature("bdfistx3",[1545.1240],S)  // Flaming Fist Sergeant
-		ActionOverride("bdfistx3",MoveToPoint([1430.1050]))
+		Wait(4)
+		FadeFromColor([30.0],0)
+		CreateCreature("bdbence",[1300.910],S)  // Bence Duncan
+		ActionOverride("BDBENCE",MoveToPoint([1100.825]))
+		Wait(4)
+		ActionOverride("BDBENCE",FaceObject(Player1))
+		SetSequence(SEQ_AWAKE)
 		SmallWait(5)
-		ActionOverride(Player1,SetSequence(SEQ_AWAKE))
-		SmallWait(15)
-		ActionOverride(Player1,FaceObject("bdbence"))  // Bence Duncan
-		SmallWait(5)
-		ActionOverride("bdbence",FaceObject(Player1))
-		SmallWait(20)
-		ActionOverride("bdbence",StartDialogueNoSet(Player1))
+		FaceObject("bdbence")  // Bence Duncan
+		Wait(1)
+		EndCutSceneMode()
+		ActionOverride("BDBENCE",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
 COPY ~d5/bdcut60.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdcut60.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdcut60.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdcut60.baf~ EVALUATE_BUFFER
 
-// ***** add a new series of states to BDBENCE.dlg, which kick out to d5cut61.bcs
-// 		...OR, just create a clone of Bence, and use a dialogue just for that.
-// 		...eh, just APPEND BDBENCE IF WEIGHT #-1 ~Global("D5AltEndSoD","GLOBAL",1)~ SAY ~etc.~
-
-<<<<<<<< d5/d5cut61.baf
+<<<<<<<< d5/d5cut61t.baf
 IF
 	True()
 THEN
@@ -178,75 +225,230 @@ THEN
 		Wait(1)
 		FadeToColor([30.0],0)
 		Wait(2)
-		ActionOverride(Player2,LeaveAreaLUA("d50108","",[415.615],S))  // Baldur's Gate East
-		ActionOverride(Player3,LeaveAreaLUA("d50108","",[405.675],S))  // Baldur's Gate East
-		ActionOverride(Player4,LeaveAreaLUA("d50108","",[455.705],S))  // Baldur's Gate East
-		ActionOverride(Player5,LeaveAreaLUA("d50108","",[485.735],S))  // Baldur's Gate East
-		ActionOverride(Player6,LeaveAreaLUA("d50108","",[515.765],S))  // Baldur's Gate East
+		ActionOverride("bdimoitm",MoveBetweenAreas("d50108",[875.560],S))
+		ActionOverride(Player2,LeaveAreaLUA("d50108","",[830.490],S)) 
+		ActionOverride(Player3,LeaveAreaLUA("d50108","",[785.515],S)) 
+		ActionOverride(Player4,LeaveAreaLUA("d50108","",[890.485],S)) 
+		ActionOverride(Player5,LeaveAreaLUA("d50108","",[840.515],S)) 
+		ActionOverride(Player6,LeaveAreaLUA("d50108","",[815.540],S)) 
+		LeaveAreaLUAPanic("d50108","",[775.475],SW)  // palace
+		LeaveAreaLUA("d50108","",[775.475],SW)  // palace
+/*		ActionOverride(Player2,LeaveAreaLUA("d50108","",[415.615],S)) 
+		ActionOverride(Player3,LeaveAreaLUA("d50108","",[405.675],S)) 
+		ActionOverride(Player4,LeaveAreaLUA("d50108","",[455.705],S)) 
+		ActionOverride(Player5,LeaveAreaLUA("d50108","",[485.735],S)) 
+		ActionOverride(Player6,LeaveAreaLUA("d50108","",[515.765],S)) 
 		LeaveAreaLUAPanic("d50108","",[465.635],SW)  // palace
 		LeaveAreaLUA("d50108","",[465.635],SW)  // palace
-		MultiPlayerSync()
+*/		MultiPlayerSync()
 		Wait(1)
-		FadeFromColor([0.0],0)
+		FadeFromColor([30.0],0)
+/*		MoveViewPoint([775.475],VERY_FAST)
 		Wait(1)
-		ActionOverride(Player1,MoveToPoint([775.475],NW)) 
+		MoveToPoint([775.475])
 		Wait(1)
-		ActionOverride(Player2,MoveToPoint([830.490],W)) 
+		ActionOverride(Player2,MoveToPoint([830.490])) 
 		SmallWait(6)
-		ActionOverride(Player3,MoveToPoint([785.515],W)) 
+		ActionOverride(Player3,MoveToPoint([785.515])) 
 		SmallWait(6)
-		ActionOverride(Player4,MoveToPoint([890.485],W)) 
+		ActionOverride(Player4,MoveToPoint([890.485])) 
 		SmallWait(6)
-		ActionOverride(Player5,MoveToPoint([840.515],W)) 
+		ActionOverride(Player5,MoveToPoint([840.515])) 
 		SmallWait(6)
-		ActionOverride(Player6,MoveToPoint([815.540],W)) 
-		Wait(1)
-		SetGlobal("bd_npc_camp_chapter","global",7)
+		ActionOverride(Player6,MoveToPoint([815.540])) 
+*/		Wait(5)
+	//	SetGlobal("bd_npc_camp_chapter","global",7)
 	// might need to set other variables
-		IncrementChapter("chptxt13")
+	//	IncrementChapter("chptxt13")
 		SetCursorState(TRUE)
 		EndCutSceneMode()
+		ActionOverride("Belt",StartDialogNoSet(Player1))
 END
 >>>>>>>>
-COPY ~d5/d5cut61.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5cut61.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5cut61.baf~
+COPY ~d5/d5cut61t.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdcut61t.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdcut61t.baf~
 
 
 // dialogue changes: bence in camp, bence in dragonspear, belt in palace
 
 // ***** add palace dialogue, ending with belt setting the variable for gregson to appear:
 
-/*
-IF ~Global("D5AltEndSoD","GLOBAL",1)~ BEGIN d5beltsd_18
-  SAY @7038													
-// whaaat is this? - wait, I think it is supposed to be an initial dialogue in the palace in *this* chapter, which will insert the situation into the mirror man sequence
-  IF ~~ DO ~SetGlobal("D5GregsonPalace","GLOBAL",1)~ EXIT 	// ...clone cut scene
-END
-
-// ***** need to make sure that ^^ works both with and without comp 200
-
-when skie gets sent home:
-  IF ~~ DO ~SetGlobal("bd_skie_plot","global",99)~
-*/
-
-// ***** add this to BD3000.bcs: IF Global("bd_plot","global",310) Global("bd_skie_plot","global",0) BEGIN
-// 		...and make a cut scene for Skie and Bence to walk up, and Skie gets sent home
 
 <<<<<<<< d5/sodfinal+.d
-ADD_STATE_TRIGGER BDBENCE 6 ~Global("SomeVariable","GLOBAL",0)~	//	set variable to avoid this
-
+/*
 ADD_STATE_TRIGGER BDBENCE 33 ~Global("SomeVariable","GLOBAL",0)~	//	set variable to avoid this
 
 ADD_STATE_TRIGGER BDBENCE 39 ~Global("SomeVariable","GLOBAL",0)~	//	set variable to avoid this
+*/
+
+ADD_STATE_TRIGGER BDBENCE 6 ~GlobalLT("bd_skie_plot","global",16)~	//	set variable to avoid this
 
 APPEND BDBENCE
 
-IF WEIGHT #4 ~Global("bd_plot","global",310) Global("bd_skie_plot","global",0) AreaCheck("bd3000")~ BEGIN d5bence_0
-  SAY @
-  IF ~~
+IF WEIGHT #-1 ~GlobalGT("bd_plot","global",349) GlobalLT("bd_plot","global",388) GlobalLT("bd_skie_plot","global",99) AreaCheck("BD3000")~ BEGIN d5bdbence_0
+  SAY @30001
+  IF ~~ EXTERN BDSKIE d5bdskie_0
+END
 
-...
+IF ~~ BEGIN d5bdbence_1
+  SAY @30003
+  IF ~~ EXTERN BDSKIE d5bdskie_1
+END
 
+IF ~~ BEGIN d5bdbence_2
+  SAY @30005
+  IF ~~ EXTERN BDSKIE d5bdskie_2
+END
+
+IF ~~ BEGIN d5bdbence_3
+  SAY @30007
+  IF ~~ EXTERN BDSKIE d5bdskie_3
+END
+
+IF ~~ BEGIN d5bdbence_4
+  SAY @30011
+  IF ~~ GOTO d5bdbence_5
+END
+
+IF ~~ BEGIN d5bdbence_5
+  SAY @30012
+  IF ~~ DO ~SetGlobal("bd_skie_plot","global",99) ActionOverride("BDSKIE",EscapeArea()) ActionOverride("BDBENCE",EscapeAreaNoSee())~ EXIT
+END
+
+IF WEIGHT #-1 ~GlobalGT("bd_skie_plot","global",15) AreaCheck("BD4100")~ BEGIN d5bdbence_6
+  SAY @30021
+  IF ~~ REPLY @30022 GOTO d5bdbence_7
+END
+
+IF ~~ BEGIN d5bdbence_7
+  SAY @30023
+  IF ~~ REPLY @30024 GOTO d5bdbence_8
+  IF ~~ REPLY @30025 GOTO d5bdbence_8
+END
+
+IF ~~ BEGIN d5bdbence_8
+  SAY @30026
+  IF ~~ REPLY @30027 GOTO d5bdbence_9
+END
+
+IF ~~ BEGIN d5bdbence_9
+  SAY @30028
+  IF ~~ REPLY @30029 GOTO d5bdbence_10
+END
+
+IF ~~ BEGIN d5bdbence_10
+  SAY @30030
+  IF ~~ GOTO d5bdbence_11
+END
+
+IF ~~ BEGIN d5bdbence_11
+  SAY @30031
+  IF ~~ REPLY @30032 GOTO d5bdbence_12
+END
+
+IF ~~ BEGIN d5bdbence_12
+  SAY @30033
+  IF ~~ DO ~StartCutSceneMode() StartCutSceneEx("bdcut61",TRUE)~ EXIT
+END
+
+END
+
+ALTER_TRANS BDBENCE // file name
+  BEGIN 65 END // state number (can be more than one)
+  BEGIN 0 END // transition number (can be more than one)
+  BEGIN "EPILOGUE" ~EXIT~ END
+
+APPEND BDSKIE
+
+IF ~~ BEGIN d5bdskie_0
+  SAY @30002
+  IF ~~ EXTERN BDBENCE d5bdbence_1
+END
+
+IF ~~ BEGIN d5bdskie_1
+  SAY @30004
+  IF ~~ EXTERN BDBENCE d5bdbence_2
+END
+
+IF ~~ BEGIN d5bdskie_2
+  SAY @30006
+  IF ~~ EXTERN BDBENCE d5bdbence_3
+END
+
+IF ~~ BEGIN d5bdskie_3
+  SAY @30008
+  IF ~~ REPLY @30009 EXTERN BDBENCE d5bdbence_4
+  IF ~~ REPLY @30010 EXTERN BDBENCE d5bdbence_4
+END
+
+END
+
+ADD_STATE_TRIGGER BELT 0 ~GlobalLT("bd_skie_plot","global",16)~	//	set variable to avoid this
+
+APPEND BELT
+
+IF WEIGHT #-1 ~Global("D5AltEndSoD","GLOBAL",1) AreaCheck("D50108") Global("D5GregsonPalace","GLOBAL",0)~ BEGIN d5beltfin_0
+  SAY @30041
+  IF ~~ GOTO d5beltfin_1
+END
+
+IF ~~ BEGIN d5beltfin_1
+  SAY @30042
+  IF ~~ EXTERN BDENTAR d5entarfin_0
+END
+
+IF ~~ BEGIN d5beltfin_2
+  SAY @30056
+  IF ~~ REPLY @30057 DO ~SetGlobal("D5GregsonPalace","GLOBAL",1)~ EXIT
+  IF ~~ REPLY @30058 DO ~SetGlobal("D5GregsonPalace","GLOBAL",1)~ EXIT
+END
+
+END
+
+APPEND LIIA
+
+IF ~~ BEGIN d5liiafin_0
+  SAY @30044
+  IF ~~ REPLY @30045 EXTERN BDENTAR d5entarfin_1
+  IF ~Global("D5PartyHadShard","GLOBAL",1)~ REPLY @30046 GOTO d5liiafin_1
+  IF ~Global("D5PartyHadSoultaker","GLOBAL",2)~ REPLY @30047 GOTO d5liiafin_2
+END
+
+IF ~~ BEGIN d5liiafin_1
+  SAY @30050
+  IF ~~ EXTERN BDENTAR d5entarfin_1
+END
+
+IF ~~ BEGIN d5liiafin_2
+  SAY @30051
+  IF ~~ GOTO d5liiafin_3
+END
+
+IF ~~ BEGIN d5liiafin_3
+  SAY @30053
+  IF ~~ EXTERN BDENTAR d5entarfin_1
+END
+
+END
+
+APPEND BDENTAR
+
+IF ~~ BEGIN d5entarfin_0
+  SAY @30043
+  IF ~~ EXTERN LIIA d5liiafin_0
+END
+
+IF ~~ BEGIN d5entarfin_1
+  SAY @30054
+  IF ~~ GOTO d5entarfin_2
+END
+
+IF ~~ BEGIN d5entarfin_2
+  SAY @30055
+  IF ~~ REPLY @30059 EXTERN BELT d5beltfin_2
+END
+
+END
 >>>>>>>> 
 COPY ~d5/sodfinal+.d~ ~weidu_external/%MOD_FOLDER%/compile/sodfinal+.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/sodfinal+.d~
@@ -260,7 +462,7 @@ ACTION_IF !(MOD_IS_INSTALLED ~Reflections.tp2~ ~200~) BEGIN
   INCLUDE ~%MOD_FOLDER%/comp/comp_80.tpa~
   LAF mirror_man END
 
-END	//	end of #200 is not installed
+END	//	end if #200 is not installed
 
 //___________________________________________________________________________________
 //

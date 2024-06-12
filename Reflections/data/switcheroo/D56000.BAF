@@ -1,5 +1,5 @@
 IF
-	Global("D5SkipSoD","GLOBAL",1)
+//	Global("D5SkipSoD","GLOBAL",1)
 	GlobalLT("BD_DISCOVERED","D56000",99)
 THEN
 	RESPONSE #100

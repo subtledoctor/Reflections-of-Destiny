@@ -54,33 +54,33 @@ REPLACE_STATE_TRIGGER MELICA 26 ~Global("D5ThalantyrDead","GLOBAL",0)~
 APPEND MELICA
 
 IF ~GlobalGT("D5ThalantyrDead","GLOBAL",1)~ BEGIN d5melica_0 
-  SAY @2001
-  IF ~Global("D5ThalantyrDead","GLOBAL",1)~ REPLY @2002 DO ~SetGlobal("D5ThalantyrDead","GLOBAL",2)~ GOTO d5melica_1
-  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @2007 GOTO d5melica_4
-  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @2010 EXIT
+  SAY @22001
+  IF ~Global("D5ThalantyrDead","GLOBAL",1)~ REPLY @22002 DO ~SetGlobal("D5ThalantyrDead","GLOBAL",2)~ GOTO d5melica_1
+  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @22007 GOTO d5melica_4
+  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @22010 EXIT
 END
 
 IF ~~ BEGIN d5melica_1
-  SAY @2003
+  SAY @22003
   IF ~Global("D5BracersHere","GLOBAL",1)~ REPLY ~~ GOTO d5melica_2
   IF ~GlobalGT("CDBracerQuest","GLOBAL",18)~ REPLY ~~ GOTO d5melica_2
-  IF ~GlobalLT("CDBracerQuest","GLOBAL",19) Global("D5BracersHere","GLOBAL",0)~ REPLY @2005 GOTO d5melica_3
+  IF ~GlobalLT("CDBracerQuest","GLOBAL",19) Global("D5BracersHere","GLOBAL",0)~ REPLY @22005 GOTO d5melica_3
 END
 
 IF ~~ BEGIN d5melica_2
-  SAY @2004
-  IF ~~ REPLY @2005 GOTO d5melica_3
+  SAY @22004
+  IF ~~ REPLY @22005 GOTO d5melica_3
 END
 
 IF ~~ BEGIN d5melica_3
-  SAY @2006
-  IF ~~ REPLY @2007 GOTO d5melica_4
-  IF ~~ REPLY @2010 EXIT
+  SAY @22006
+  IF ~~ REPLY @22007 GOTO d5melica_4
+  IF ~~ REPLY @22010 EXIT
 END
 
 IF ~~ BEGIN d5melica_4
-  SAY @2008
-  IF ~~ REPLY @2009 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
+  SAY @22008
+  IF ~~ REPLY @22009 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
 END
 
 END
@@ -96,7 +96,7 @@ ACTION_IF !(MOD_IS_INSTALLED ~thecalling.tp2~ ~0~) BEGIN
 APPEND THALAN
 
 IF ~~ BEGIN d5thalan_0 
-  SAY @2015
+  SAY @22015
   IF ~~ DO ~SetGlobal("D5BracersHere","GLOBAL",1)~ EXTERN ~MELICA~ 24
 END
 
@@ -105,7 +105,7 @@ END
 COPY ~d5/thalan+.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
 
-OUTER_SET thalan_20015 = STATE_WHICH_SAYS @2015 FROM ~THALAN~
+OUTER_SET thalan_20015 = STATE_WHICH_SAYS @22015 FROM ~THALAN~
 
 <<<<<<<< d5/melica#.d
 EXTEND_BOTTOM MELICA 23
@@ -131,10 +131,10 @@ PRINT ~the state we want is # %melica_thecalling_1285%~
 APPEND THALAN
 
 IF ~~ BEGIN d5thalan_0 
-  SAY @2011
-  IF ~~ REPLY @2012 EXIT
-  IF ~~ REPLY @2013 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
-  IF ~~ REPLY @2014 EXIT
+  SAY @22011
+  IF ~~ REPLY @22012 EXIT
+  IF ~~ REPLY @22013 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
+  IF ~~ REPLY @22014 EXIT
 END
 
 END
@@ -142,7 +142,7 @@ END
 COPY ~d5/thalan+.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
 
-OUTER_SET thalan_20011 = STATE_WHICH_SAYS @2011 FROM ~THALAN~
+OUTER_SET thalan_20011 = STATE_WHICH_SAYS @22011 FROM ~THALAN~
 
 <<<<<<<< d5/melica#.d
 EXTEND_BOTTOM MELICA %melica_thecalling_1285%

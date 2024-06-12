@@ -19,7 +19,7 @@ TO DO:
 
 // prep journal entries ...?
 
-//ADD_JOURNAL TITLE (@8001) @8002
+//ADD_JOURNAL TITLE (@28001) @28002
 
 
 // copy in stuff
@@ -96,7 +96,7 @@ IF
 THEN
 	RESPONSE #100
 		CutSceneId("D5GREGS")  // Captain Gregson
-		DisplayStringHead(Myself,@8005)  // Lord Entar! You must come quickly! Oh, hello everyone...
+		DisplayStringHead(Myself,@28005)  // Lord Entar! You must come quickly! Oh, hello everyone...
 		MoveToPoint([640.465])
 		Wait(1)
 		SetGlobal("D5CloneCut","GLOBAL",1)
@@ -146,7 +146,7 @@ THEN
 		CreateCreature("LIIA",[810.720],W) 
 //		GiveItemCreate("D5BRACS","D5CHRNAM",1,0,0) 
 //		XEquipItem("D5BRACS","D5CHRNAM",SLOT_GAUNTLETS,EQUIP) 
-		FadeFromColor([20.0],0)
+		FadeFromColor([30.0],0)
 //		MoveViewPoint([805.760],INSTANT)
 		SmallWait(9)
 		MoveViewPoint([345.450],VERY_FAST)
@@ -220,7 +220,7 @@ THEN
 		ApplySpellRES("D5PAUSX","LIIA") 
 		ApplySpellRES("D5PAUSX","BDENTAR") 
 		Wait(1)
-		ActionOverride("LIIA",DisplayStringHead(Myself,@8035))  // Apologies, whoever you are, this might sting a bit.
+		ActionOverride("LIIA",DisplayStringHead(Myself,@28035))  // Apologies, whoever you are, this might sting a bit.
 		Wait(1)
 		ActionOverride("LIIA",ForceSpellRES("D5_DIV",Player1))
 		Wait(2)
@@ -317,57 +317,57 @@ ADD_STATE_TRIGGER BELT 0 ~Global("D5CloneCut","GLOBAL",0)~
 
 APPEND BELT
 
-IF ~GlobalGT("D5GregsonCut","GLOBAL",0) Global("D5CloneCut","GLOBAL",0) Global("D5GregsonPalace","GLOBAL",1)~ BEGIN d5beltsw_0
-  SAY @8007
+IF ~~ BEGIN d5beltsw_0
+  SAY @28007
   IF ~Global("D5AltEndSoD","GLOBAL",0)~ EXTERN D5GREGS d5gregsw_2
   IF ~Global("D5AltEndSoD","GLOBAL",1)~ EXTERN D5GREGS d5gregsw_4
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1)~ BEGIN d5beltsw_1
-  SAY @8011
+IF ~~ BEGIN d5beltsw_1
+  SAY @28011
   IF ~~ EXTERN BDENTAR d5entarsw_1
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1)~ BEGIN d5beltsw_2
-  SAY @8014
-  IF ~~ REPLY @8015 DO ~SetGlobal("D5CloneCut","GLOBAL",1)~ EXIT
+IF ~~ BEGIN d5beltsw_2
+  SAY @28014
+  IF ~~ REPLY @28015 DO ~SetGlobal("D5CloneCut","GLOBAL",1)~ EXIT
 END
 
 /*
-IF ~Global("D5GregsonPalace","GLOBAL",1)~ BEGIN d5beltsw_3
-  SAY @8018
-  IF ~~ REPLY @8019 DO ~SetGlobal("D5CloneCut","GLOBAL",1)~ EXIT
-  IF ~~ REPLY @8020 DO ~SetGlobal("D5AllEnemy","GLOBAL",1)~ EXIT
+IF ~~ BEGIN d5beltsw_3
+  SAY @28018
+  IF ~~ REPLY @28019 DO ~SetGlobal("D5CloneCut","GLOBAL",1)~ EXIT
+  IF ~~ REPLY @28020 DO ~SetGlobal("D5AllEnemy","GLOBAL",1)~ EXIT
 END
 */
 
-IF ~Global("D5GregsonPalace","GLOBAL",1) Global("D5CloneCut","GLOBAL",3)~ BEGIN d5beltsw_4
-  SAY @8024
+IF ~Global("D5GregsonPalace","GLOBAL",1) Global("D5CloneCut","GLOBAL",3) AreaCheck("D50104")~ BEGIN d5beltsw_4
+  SAY @28024
   IF ~~ EXTERN BDENTAR d5entarsw_2
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1)~ BEGIN d5beltsw_5
-  SAY @8028
+IF ~~ BEGIN d5beltsw_5
+  SAY @28028
   IF ~~ EXTERN LIIA d5liiasw_1
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1)~ BEGIN d5beltsw_6
-  SAY @8030
+IF ~~ BEGIN d5beltsw_6
+  SAY @28030
   IF ~~ DO ~SetGlobal("D5CloneCut","GLOBAL",4)~ EXIT
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1)Global("D5CloneCut","GLOBAL",7)~ BEGIN d5beltsw_7
-  SAY @8037
+IF ~~ BEGIN d5beltsw_7
+  SAY @28037
   IF ~~ EXTERN D5CHRNAM d5chrnam_1
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1)~ BEGIN d5beltsw_8
-  SAY @8040
+IF ~~ BEGIN d5beltsw_8
+  SAY @28040
   IF ~~ DO ~SetGlobal("D5CloneCut","GLOBAL",8)~ EXIT
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1)~ BEGIN d5beltsw_9
-  SAY @9811
+IF ~~ BEGIN d5beltsw_9
+  SAY @38011
   IF ~~ EXTERN BDENTAR d5entarsw_3
 END
 
@@ -375,55 +375,54 @@ END
 
 APPEND BDENTAR
 
-IF ~Global("D5GregsonPalace","GLOBAL",1) Global("D5GregsonCut","GLOBAL",1)~ BEGIN d5entarsw_0
-  SAY @8009
+IF ~~ BEGIN d5entarsw_0
+  SAY @28009
   IF ~Global("D5AltEndSoD","GLOBAL",0)~ EXTERN D5GREGS d5gregsw_3
   IF ~Global("D5AltEndSoD","GLOBAL",1)~ EXTERN D5GREGS d5gregsw_5
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1)~ BEGIN d5entarsw_1
-  SAY @8012
+IF ~~ BEGIN d5entarsw_1
+  SAY @28012
   IF ~~ EXTERN LIIA d5liiasw_0
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1) Global("D5CloneCut","GLOBAL",3)~ BEGIN d5entarsw_2
-  SAY @8025
-  IF ~~ REPLY @8026 EXTERN D5CHRNAM d5chrnam_0
+IF ~~ BEGIN d5entarsw_2
+  SAY @28025
+  IF ~~ REPLY @28026 EXTERN D5CHRNAM d5chrnam_0
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1)~ BEGIN d5entarsw_3
-  SAY @9812
+IF ~~ BEGIN d5entarsw_3
+  SAY @38012
   IF ~~ EXTERN LIIA d5liiasw_0
 END
-
 
 END
 
 APPEND LIIA
 
-IF WEIGHT #-1 ~Global("D5GregsonPalace","GLOBAL",1) Global("D5GregsonCut","GLOBAL",1) GlobalLT("D5CloneCut","GLOBAL",3)~ BEGIN d5liiasw_0
-  SAY @8013
+IF ~~ BEGIN d5liiasw_0
+  SAY @28013
   IF ~~ EXTERN BELT d5beltsw_2
 END
 
-IF WEIGHT #-1 ~Global("D5GregsonPalace","GLOBAL",1) Global("D5CloneCut","GLOBAL",3)~ BEGIN d5liiasw_1
-  SAY @8029
+IF ~~ BEGIN d5liiasw_1
+  SAY @28029
   IF ~~ EXTERN BELT d5beltsw_6
 END
 
-IF WEIGHT #-1 ~Global("D5GregsonPalace","GLOBAL",1) Global("D5CloneCut","GLOBAL",5)~ BEGIN d5liiasw_2
-  SAY @8031
-  IF ~Global("D5heritageRevealed","GLOBAL",0)~ REPLY @8032 GOTO d5liiasw_3
-  IF ~Global("D5heritageRevealed","GLOBAL",1)~ REPLY @8033 GOTO d5liiasw_3
+IF WEIGHT #-1 ~AreaCheck("D50104") Global("D5CloneCut","GLOBAL",5)~ BEGIN d5liiasw_2
+  SAY @28031
+  IF ~Global("D5heritageRevealed","GLOBAL",0)~ REPLY @28032 GOTO d5liiasw_3
+  IF ~Global("D5heritageRevealed","GLOBAL",1)~ REPLY @28033 GOTO d5liiasw_3
 END
 
 IF ~~ BEGIN d5liiasw_3
-  SAY @8034
+  SAY @28034
   IF ~~ DO ~SetGlobal("D5CloneCut","GLOBAL",6)~ EXIT
 END
 
-IF ~Global("D5GregsonPalace","GLOBAL",1) Global("D5CloneCut","GLOBAL",7)~ BEGIN d5liiasw_4
-  SAY @8036
+IF WEIGHT #-1 ~AreaCheck("D50104") Global("D5CloneCut","GLOBAL",7)~ BEGIN d5liiasw_4
+  SAY @28036
   IF ~~ EXTERN BELT d5beltsw_7
 END
 
@@ -432,32 +431,32 @@ END
 APPEND D5GREGS
 
 IF ~Global("D5GregsonCut","GLOBAL",1)~ BEGIN d5gregsw_0
-  SAY @8005
+  SAY @28005
   IF ~~ GOTO d5gregsw_1
 END
 
 IF ~~ BEGIN d5gregsw_1
-  SAY @8006
+  SAY @28006
   IF ~~ EXTERN BELT d5beltsw_0
 END
 
 IF ~~ BEGIN d5gregsw_2
-  SAY @8008
+  SAY @28008
   IF ~~ EXTERN BDENTAR d5entarsw_0
 END
 
 IF ~~ BEGIN d5gregsw_3
-  SAY @8010
+  SAY @28010
   IF ~~ EXTERN BELT d5beltsw_1
 END
 
 IF ~~ BEGIN d5gregsw_4
-  SAY @9808
+  SAY @38008
   IF ~~ EXTERN BDENTAR d5entarsw_0
 END
 
 IF ~~ BEGIN d5gregsw_5
-  SAY @9810
+  SAY @38010
   IF ~~ EXTERN BELT d5beltsw_9
 END
 
@@ -466,80 +465,81 @@ END
 BEGIN ~D5CHRNAM~
 
 IF ~~ BEGIN d5chrnam_0
-  SAY @8027
+  SAY @28027
   IF ~~ EXTERN BELT d5beltsw_5
 END
 
-IF ~Global("D5CloneCut","GLOBAL",7)~ BEGIN d5chrnam_1
-  SAY @8038
-  IF ~~ REPLY @8039 EXTERN BELT d5beltsw_8
+IF ~~ BEGIN d5chrnam_1
+  SAY @28038
+  IF ~~ REPLY @28039 EXTERN BELT d5beltsw_8
 END
 
 BEGIN ~D5BDIMO~
 
 IF ~Global("D5CloneCut","GLOBAL",11)~ BEGIN d5imoensw_0
-  SAY @8050
-  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @8051 GOTO d5imoensw_1
-  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @8051 GOTO d5imoensw_1
-  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @8051 GOTO d5imoensw_2
+  SAY @28050
+  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @28051 GOTO d5imoensw_1
+  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @28051 GOTO d5imoensw_1
+  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @28051 GOTO d5imoensw_2
 END
 
 IF ~~ BEGIN d5imoensw_1
-  SAY @8052
-  IF ~~ REPLY @8054 GOTO d5imoensw_3
+  SAY @28052
+  IF ~~ REPLY @28054 GOTO d5imoensw_3
 END
 
 IF ~~ BEGIN d5imoensw_2
-  SAY @8053
-  IF ~~ REPLY @8055 GOTO d5imoensw_3
+  SAY @28053
+  IF ~~ REPLY @28055 GOTO d5imoensw_3
 END
 
 IF ~~ BEGIN d5imoensw_3
-  SAY @8056
-  IF ~Global("D5AltEndSoD","GLOBAL",0)~ REPLY @8057 GOTO d5imoensw_4
-  IF ~Global("D5AltEndSoD","GLOBAL",1)~ REPLY @8057 GOTO d5imoensw_4
+  SAY @28056
+  IF ~Global("D5AltEndSoD","GLOBAL",0)~ REPLY @28057 GOTO d5imoensw_4
+  IF ~Global("D5AltEndSoD","GLOBAL",1)~ REPLY @28057 GOTO d5imoensw_4
 END
 
 IF ~~ BEGIN d5imoensw_4
-  SAY @8058
-  IF ~~ REPLY @8059 GOTO d5imoensw_6
+  SAY @28058
+  IF ~~ REPLY @28059 GOTO d5imoensw_6
 END
 
 IF ~~ BEGIN d5imoensw_5
-  SAY @9858
-  IF ~~ REPLY @9859 GOTO d5imoensw_6
+  SAY @38058
+  IF ~~ REPLY @38059 GOTO d5imoensw_6
 END
 
 IF ~~ BEGIN d5imoensw_6
-  SAY @8060
+  SAY @28060
   IF ~~ GOTO d5imoensw_7
 END
 
 IF ~~ BEGIN d5imoensw_7
-  SAY @8061
-  IF ~~ REPLY @8062 GOTO d5imoensw_8
+  SAY @28061
+  IF ~~ REPLY @28062 GOTO d5imoensw_8
 END
 
 IF ~~ BEGIN d5imoensw_8
-  SAY @8063
+  SAY @28063
   IF ~~ DO ~OpenDoor("Door04") SetGlobal("D5CloneCut","GLOBAL",12)~ EXIT
 END
 
 IF ~Global("D5CloneCut","GLOBAL",12) AreaCheck("d50104")~ BEGIN d5imoensw_9
-  SAY @8064
+  SAY @28064
   IF ~~ EXIT
 END
 
 IF ~GlobalLT("bd_plot","global",625) Global("D5CloneCut","GLOBAL",12) AreaCheck("d50105")~ BEGIN d5imoensw_10
-  SAY @8065
+  SAY @28065
   IF ~~ EXIT
 END
 
 IF ~GlobalLT("bd_plot","global",641) Global("D5CloneCut","GLOBAL",12) AreaCheck("d56000")~ BEGIN d5imoensw_11
-  SAY @8066
+  SAY @28066
   IF ~~ DO ~SetGlobal("D5ImoenCaveCut","GLOBAL",1)~ EXIT
 END
 
+/* do this a different way
 ALTER_TRANS BDIMOEN // file name
   BEGIN 92 END // state number (can be more than one)
   BEGIN 3 END // transition number (can be more than one)
@@ -548,7 +548,13 @@ ALTER_TRANS BDIMOEN // file name
 ALTER_TRANS BDIMOEN // file name
   BEGIN 100 END // state number (can be more than one)
   BEGIN 0 1 2 3 4 END // transition number (can be more than one)
-  BEGIN "TRIGGER" ~Global("D5SkipSoD","GLOBAL",0)~ END
+  BEGIN "TRIGGER" ~Global("D5SkipSoD","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0)~ END
+*/
+
+ADD_TRANS_TRIGGER BDIMOEN 92 ~Global("D5SkipSoD","GLOBAL",0)~ DO 3
+
+ADD_TRANS_TRIGGER BDIMOEN 100 ~Global("D5SkipSoD","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0)~ DO 0 1 2 3 4
+
 >>>>>>>>
 COPY ~d5/switch+8.d~ ~weidu_external/%MOD_FOLDER%/compile/switch+8.d~
 
@@ -576,14 +582,14 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/switch+8.d~
 // clean up people's dialogue at ambush
 
 ACTION_IF (GAME_IS ~bgee~) BEGIN
-  STRING_SET 39703 @8070
-  STRING_SET 39716 @8071
-  STRING_SET 39706 @8072
+  STRING_SET 39703 @28070
+  STRING_SET 39716 @28071
+  STRING_SET 39706 @28072
 END
 ACTION_IF (GAME_IS ~eet~) BEGIN
-  STRING_SET 239703 @8070
-  STRING_SET 239716 @8071
-  STRING_SET 239706 @8072
+  STRING_SET 239703 @28070
+  STRING_SET 239716 @28071
+  STRING_SET 239706 @28072
 END
 
 

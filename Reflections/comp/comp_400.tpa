@@ -64,7 +64,7 @@ IF
 	See([ENEMY])
 THEN
 	RESPONSE #100
-		SetGlobalTimer("D5FeyrTi","GLOBAL",FIVE_ROUNDS)
+		SetGlobalTimer("D5FeyrTi","GLOBAL",FOUR_ROUNDS)
 		SetGlobal("D5ElandroBattle","GLOBAL",1)
 END
 
@@ -76,6 +76,7 @@ THEN
 		Wait(2)
 		CreateCreatureObject("BDFEYR",Myself,0,0,0)
 		DestroySelf()
+		ActionOverride(Player1,ForceSpellRES("SPIN103",Myself))
 END
 >>>>>>>> 
 COPY ~d5/bdeland+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.baf~
@@ -96,6 +97,7 @@ THEN
 		CreateCreature("bdfeyr",[3210.980],NW)
 		CreateVisualEffectObject("spflesh3","bdfeyr")
 		PlaySound("eff_m10a")
+		ActionOverride(Player1,ForceSpellRES("SPIN103",Myself))
 		SetGlobal("bd_208_status","global",3)
 		ActionOverride("bdthirri",FaceObject("bdfeyr"))
 		Wait(1)
@@ -174,23 +176,11 @@ END
 COPY ~d5/bdeland+.d~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdeland+.d~
 
-/*
-// area script ...what was I doing here? setting up a cut scene?
-
-<<<<<<<< d5/bd2000+.baf
-IF
-THEN
-	RESPONSE #100
-END
->>>>>>>>
-COPY ~d5/bd2000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~
-EXTEND_TOP ~BD2000.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~
-*/
-
 
 // *****
 // add innate at bridge
 
+/* figure out a better way to do this... like, read a GV from that cut scene and use it in the area script
 ACTION_IF (FILE_EXISTS_IN_GAME ~bdcut28.bcs~) AND !(FILE_EXISTS_IN_GAME ~c#stbb28.bcs~) BEGIN
   COPY_EXISTING ~bdcut28.bcs~ ~override~
     DECOMPILE_AND_PATCH BEGIN
@@ -236,6 +226,21 @@ IF
     END
   IF_EXISTS BUT_ONLY
 END
+*/
+
+<<<<<<<< d5/bd2000+.baf
+IF
+	Global("D5CharnameIsScary","bd2000",0)
+	GlobalGT("bd_mdd420_ot","bd2000",1)
+	Dead("bdfeyr")
+THEN
+	RESPONSE #100
+		SetGlobal("D5CharnameIsScary","bd2000",1)
+		ActionOverride(Player1,AddSpecialAbility("SPIN203"))
+END
+>>>>>>>>
+COPY ~d5/bd2000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~
+EXTEND_TOP ~BD2000.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~
 
 
 // rewrite strings

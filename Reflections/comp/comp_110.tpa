@@ -51,12 +51,12 @@ END
 COPY ~%MOD_FOLDER%/data/mirror_shard/d5mshard.bam~ ~override~
 
 COPY ~%MOD_FOLDER%/data/mirror_shard/d5shard3.itm~ ~override~
-	SAY NAME1 @1001
-	SAY UNIDENTIFIED_DESC @1002
+	SAY NAME1 @11001
+	SAY UNIDENTIFIED_DESC @11002
 
 COPY ~%MOD_FOLDER%/data/mirror_shard/d5shard1.itm~ ~override~
-	SAY NAME1 @1001
-	SAY UNIDENTIFIED_DESC @1002
+	SAY NAME1 @11001
+	SAY UNIDENTIFIED_DESC @11002
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~deathk.cre~) BEGIN
   COPY_EXISTING ~deathk.cre~ ~override~
@@ -131,6 +131,47 @@ EXTEND_TOP ~ar0602.bcs~ ~d5/d5ar602+.baf~
 END	//	end ar0602
 
 END	//	end if idemon02
+
+
+// set variables for later
+<<<<<<<< d5/ar516+1.baf
+IF
+	Global("D5PartyHadShard","GLOBAL",0)
+	PartyHasItem("D5SHARD3")
+THEN
+	RESPONSE #100
+		SetGlobal("D5PartyHadShard","GLOBAL",1)
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/ar516+1.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar516+1.baf~
+EXTEND_TOP ~%bg1_area_prefix%0516.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar516+1.baf~
+
+<<<<<<<< d5/ar500+1.baf
+IF
+	Global("D5PartyHadSoultaker","GLOBAL",0)
+	PartyHasItem("DAGG10")
+THEN
+	RESPONSE #100
+		SetGlobal("D5PartyHadSoultaker","GLOBAL",1)
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/ar500+1.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar500+1.baf~
+EXTEND_TOP ~%bg1_area_prefix%0500.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar500+1.baf~
+
+<<<<<<<< d5/ar1002+1.baf
+IF
+	Global("D5PartyHadSoultaker","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5PartyHadSoultaker","GLOBAL",2)
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/ar1002+1.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar1002+1.baf~
+EXTEND_TOP ~%bg1_area_prefix%1002.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar1002+1.baf~
+
 
 //___________________________________________________________________________________
 //

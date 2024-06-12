@@ -13,6 +13,8 @@ DEFINE_ACTION_FUNCTION keep_playing BEGIN
 
 - ***** suppress any FF arriving, if EBG1 is installed
 
+- ***** add dialogue from Sarevok? Something about having tagged you in a way that attuned your soul to the temple of Bhaal... no resurrection for the likes of you and me, no afterlife and no second chances. your death can only fuel my ascension.
+
 */
 
 //___________________________________________________________________________________
@@ -20,7 +22,7 @@ DEFINE_ACTION_FUNCTION keep_playing BEGIN
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@3036) @6001
+ADD_JOURNAL TITLE (@23036) @26001
 
 // stuff from EBG1
 
@@ -79,10 +81,6 @@ THEN
 		SetGlobal("C#st_BG1End","GLOBAL",1)
 		SetGlobal("SarevokBehavior","GLOBAL",5)
 		TriggerActivation("Door0123",TRUE)
-	/*	AddJournalEntry(@10012,QUEST_DONE)
-		AddJournalEntry(@10013,QUEST_DONE)
-		AddJournalEntry(@10014,QUEST_DONE)
-		AddJournalEntry(@10015,QUEST_DONE)	*/
 		Wait(2)
 		FadeToColor([30.0],0)
 		Wait(2)
@@ -116,7 +114,7 @@ THEN
 	RESPONSE #100
 		TriggerActivation("Door0123",TRUE)
 		SetGlobal("D5TempleLock","GLOBAL",2)
-		AddJournalEntry(@6001,QUEST)
+		AddJournalEntry(@26001,QUEST)
 END
 >>>>>>>>
 COPY ~d5/area0125.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0125.baf~

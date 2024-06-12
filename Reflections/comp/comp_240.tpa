@@ -26,7 +26,7 @@ DEFINE_ACTION_FUNCTION early_korlasz BEGIN
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@3036) @4021 @4022 @4023
+ADD_JOURNAL TITLE (@23036) @24021 @24022 @24023
 
 INCLUDE ~%MOD_FOLDER%/lib/get_response_strrefs.tph~
 
@@ -65,7 +65,7 @@ COPY_EXISTING ~%bg1_area_prefix%0700.are~ ~override~
     fj_vertex_1     = 1150 + (3299 << 16)   //grˆﬂtes x + kleinstes y
     fj_vertex_2     = 1142 + (3172 << 16)   //grˆﬂtes x + grˆﬂtes y
     fj_vertex_3     = 1017 + (3176 << 16)   //kleinstes x + grˆﬂtes y
-    fj_info_point_strref = RESOLVE_STR_REF (@4024)
+    fj_info_point_strref = RESOLVE_STR_REF (@24024)
     STR_VAR
     fj_structure_type   = region
     fj_name             = c#ebg1korlasz
@@ -754,19 +754,19 @@ END
 APPEND ~D5GREGS~
 
 IF ~Global("D5GregsonCrypt","GLOBAL",2)~ BEGIN d5gregskd_0
-  SAY @4001
+  SAY @24001
   IF ~~ GOTO d5gregskd_1
 END
 
 IF ~~ BEGIN d5gregskd_1
-  SAY @4002
+  SAY @24002
   IF ~~ GOTO d5gregskd_2
 END
 
 IF ~~ BEGIN d5gregskd_2
-  SAY @4003
-  IF ~~ REPLY @4004 DO ~SetGlobal("D5GregsonCrypt","GLOBAL",3)~ GOTO d5gregskd_3
-  IF ~~ REPLY @4005 DO ~SetGlobal("C#EBG1_KorlaszQuest","GLOBAL",1)
+  SAY @24003
+  IF ~~ REPLY @24004 DO ~SetGlobal("D5GregsonCrypt","GLOBAL",3)~ GOTO d5gregskd_3
+  IF ~~ REPLY @24005 DO ~SetGlobal("C#EBG1_KorlaszQuest","GLOBAL",1)
 			SetGlobal("C#EBG1_KorlaszDungeon_BG1","GLOBAL",1)
 			SetGlobal("D5GregsonCrypt","GLOBAL",4)
 			SetGlobal("BDSH_Imoen_Floor","GLOBAL",99)
@@ -776,14 +776,14 @@ IF ~~ BEGIN d5gregskd_2
 END
 
 IF ~~ BEGIN d5gregskd_3
-  SAY @4006
+  SAY @24006
   IF ~~ EXIT
 END
 
 IF ~Global("D5GregsonCrypt","GLOBAL",3)~ BEGIN d5gregskd_4
-  SAY @4007
-  IF ~~ REPLY @4004 GOTO d5gregskd_3
-  IF ~~ REPLY @4005 DO ~SetGlobal("C#EBG1_KorlaszQuest","GLOBAL",1)
+  SAY @24007
+  IF ~~ REPLY @24004 GOTO d5gregskd_3
+  IF ~~ REPLY @24005 DO ~SetGlobal("C#EBG1_KorlaszQuest","GLOBAL",1)
 			SetGlobal("C#EBG1_KorlaszDungeon_BG1","GLOBAL",1)
 			SetGlobal("D5GregsonCrypt","GLOBAL",4)
 			SetGlobal("BDSH_Imoen_Floor","GLOBAL",99)
@@ -793,17 +793,17 @@ IF ~Global("D5GregsonCrypt","GLOBAL",3)~ BEGIN d5gregskd_4
 END
 
 IF ~Global("D5GregsonCrypt","GLOBAL",5)~ BEGIN d5gregskd_5
-  SAY @4008
+  SAY @24008
   IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",6)~ EXIT
 END
 
 IF ~Global("D5GregsonCrypt","GLOBAL",6) /*GlobalLT("bd_plot","GLOBAL",25)*/~ BEGIN d5gregskd_6
-  SAY @4009
+  SAY @24009
   IF ~~ EXIT
 END
 
 IF ~ GlobalGT("D5GregsonCrypt","GLOBAL",8) /*GlobalGT("bd_plot","GLOBAL",24)*/ Global("D5GregsonCut","GLOBAL",0)~ BEGIN d5gregskd_7
-  SAY @4010
+  SAY @24010
   IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",9) EscapeAreaNoSee()~ EXIT
 END
 
@@ -814,8 +814,8 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5gregs+.d~
 
 // change dialogue in intro cut scene
 
-OUTER_SET new_follower_string = RESOLVE_STR_REF(@4011)
-OUTER_SET new_flamingfist_string = RESOLVE_STR_REF(@4012)
+OUTER_SET new_follower_string = RESOLVE_STR_REF(@24011)
+OUTER_SET new_flamingfist_string = RESOLVE_STR_REF(@24012)
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bdintro.bcs~) BEGIN
   COPY_EXISTING ~bdintro.bcs~ ~override~
@@ -903,7 +903,7 @@ END
 <<<<<<<< d5/d5porios+.d
 ADD_STATE_TRIGGER BDPORIOS 0 ~Global("D5GregsonExist","GLOBAL",0)~
 
-REPLACE_SAY BDPORIOS 8 @4015
+REPLACE_SAY BDPORIOS 8 @24015
 
 ADD_STATE_TRIGGER BDPORIOS 12 ~Global("D5GregsonExist","GLOBAL",0)~
 >>>>>>>> 
@@ -915,9 +915,9 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5porios+.d~
 // add an unattainable trigger to response 3 ("sarevok himself fell before me")
 
 <<<<<<<< d5/d5korlas+.d
-REPLACE_SAY BDKORLAS 3 @4016
+REPLACE_SAY BDKORLAS 3 @24016
 
-REPLACE_SAY BDKORLAS 7 @4017
+REPLACE_SAY BDKORLAS 7 @24017
 
 ADD_TRANS_TRIGGER BDKORLAS 1 ~Global("D5GregsonExist","GLOBAL",0)~ DO 2
 >>>>>>>> 
@@ -926,7 +926,7 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5korlas+.d~
 
 // create letter identifying the Undercity
 COPY_EXISTING ~scrl2n.itm~ ~override/d5scrlsk.itm~
-  SAY 0x50 @4020
+  SAY 0x50 @24020
 
 COPY_EXISTING ~bdshkfam.cre~ ~override~
 	ADD_CRE_ITEM ~D5SCRLSK~ #1 #0 #0 ~IDENTIFIED~ ~INV~
@@ -963,7 +963,7 @@ IF
 	Global("D5KorlaszDeadJournal","GLOBAL",0)
 THEN
 	RESPONSE #100
-		AddJournalEntry(@4021,QUEST)
+		AddJournalEntry(@24021,QUEST)
 		SetGlobal("D5KorlaszDeadJournal","GLOBAL",1)
 END
 
@@ -973,7 +973,7 @@ IF
 	Global("D5KorlaszSurrenderJournal","GLOBAL",0)
 THEN
 	RESPONSE #100
-		AddJournalEntry(@4022,QUEST)
+		AddJournalEntry(@24022,QUEST)
 		SetGlobal("D5KorlaszSurrenderJournal","GLOBAL",1)
 END
 
@@ -983,7 +983,7 @@ IF
 	Global("D5SarevokFoundJournal","GLOBAL",0)
 THEN
 	RESPONSE #100
-		AddJournalEntry(@4023,QUEST)
+		AddJournalEntry(@24023,QUEST)
 		SetGlobal("D5SarevokFoundJournal","GLOBAL",1)
 END
 >>>>>>>>

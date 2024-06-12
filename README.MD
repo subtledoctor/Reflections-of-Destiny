@@ -41,7 +41,7 @@
   	<li><b>Transitions:</b> This mod has not been tested with Transitions, and is almost certainly incompatible in many ways. Do not install them together.</li>
   </ul>
   <p><strong>Load Order:</strong><br />
-    This mod should be installed fairly early. It should definitely be installed <b>after</b> EET and EndlessBG1. And it should be installed <b>before</b> EET_end.</p>
+    This mod should be installed fairly early. It should definitely be installed <b>after</b> EET, EndlessBG1, and The Calling. And it should be installed <b>before</b> EET_end.</p>
 </div>
 <h2>Contents</h2>
 <div class="section">
