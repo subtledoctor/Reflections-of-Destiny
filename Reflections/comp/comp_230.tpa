@@ -206,8 +206,8 @@ END
 // set area script at FF headquarters to spawn Officer Jenks
 
 COPY_EXISTING ~bdjenks.cre~ ~override/d5gregs.cre~
-  SAY 0x08 ~Captain Gregson~
-  SAY 0x0c ~Captain Gregson~
+  SAY 0x08 @23000
+  SAY 0x0c @23000
   WRITE_ASCII 0x280 ~d5gregs~ #20
   WRITE_ASCII 0x2cc ~d5gregs~ #8
 IF_EXISTS
