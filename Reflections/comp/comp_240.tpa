@@ -241,11 +241,6 @@ COPY_EXISTING ~BDFF1002.dlg~ ~override~
   END
 BUT_ONLY
 
-WITH_TRA ~%MOD_FOLDER%/lang/%s/IMOEN_IN_GROUP_KD_EBG1.TRA~ BEGIN
-  COMPILE ~%MOD_FOLDER%/data/korlasz_dungeon/Imoen_in_group_kd_ebg1.d~ EVALUATE_BUFFER
-END
-EXTEND_BOTTOM ~bdimoen.bcs~ ~%MOD_FOLDER%/data/korlasz_dungeon/c#ebg1im.baf~ EVALUATE_BUFFER
-
 //bd0120.BCS
 COPY_EXISTING ~bd0120.BCS~ ~override~
 	DECOMPILE_AND_PATCH BEGIN
@@ -446,6 +441,7 @@ EXTEND_TOP ~bdshimoe.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bdshimoe-et.baf~ 
 //bdintro.BCS
 COPY_EXISTING ~bdintro.BCS~ ~override~
 	DECOMPILE_AND_PATCH BEGIN
+/*
 		SPRINT textToReplace ~\(CreateCreature("bdshimoe",\[881\.1652\],NE)\)~
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
 		PATCH_IF (num_matches > 0) BEGIN
@@ -454,6 +450,7 @@ COPY_EXISTING ~bdintro.BCS~ ~override~
 		END ELSE BEGIN
 			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
+*/
 		SPRINT textToReplace ~\(ActionOverride("IMOEN2?",StartDialogNoSet(Player1))\)~
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
 		PATCH_IF (num_matches > 0) BEGIN
@@ -485,22 +482,11 @@ COPY_EXISTING ~bdintro.BCS~ ~override~
 			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
 		END ELSE BEGIN
 			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
-		END
+		END		
 	END
 BUT_ONLY
 
 <<<<<<<< .../bdintro-et.baf
-IF
-	Global("C#st_ImoenInGroupKD","GLOBAL",0) 
-	Global("C#EBG1_ImoenIsInKD","GLOBAL",0) 
-THEN
-	RESPONSE #100
-		CutSceneId(Player1)
-		SetGlobal("C#EBG1_ImoenIsInKD","GLOBAL",1)
-		CreateCreature("bdshimoe",[881.1652],NE)
-		Continue()
-END
-
 IF
 	Global("SoD_fromimport","GLOBAL",0)
 	Global("C#EBG1_ThingsForNewGame","MYAREA",0) 
@@ -642,23 +628,6 @@ END
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0700.bcs~) BEGIN
   COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0700.baf~
-END
-
-<<<<<<<< d5/bdintro+.baf
-IF
-	Global("D5GregsonExist","GLOBAL",0)
-	Global("D5NoReflection","GLOBAL",0)
-THEN
-	RESPONSE #100
-		CreateCreature("BDSHIMOE",[959.1622],NE)  // Imoen
-		SetGlobal("D5NoReflection","GLOBAL",1)
-END
-
->>>>>>>>
-COPY ~d5/bdintro+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdintro+.baf~
-
-ACTION_IF (FILE_EXISTS_IN_GAME ~bdintro.bcs~) BEGIN
-  EXTEND_TOP ~bdintro.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bdintro+.baf~
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bdshcut0.bcs~) BEGIN
@@ -892,6 +861,24 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bdintro.bcs~) BEGIN
   IF_EXISTS BUT_ONLY
 END
 
+<<<<<<<< d5/bdintro+.baf
+IF
+	AreaCheck("BD0120")
+	Global("D5GregsonExist","GLOBAL",0)
+	Global("D5NoReflection","GLOBAL",0)
+THEN
+	RESPONSE #100
+		CreateCreature("BDSHIMOE",[959.1622],NE)  // Imoen
+		SetGlobal("D5NoReflection","GLOBAL",1)
+END
+
+>>>>>>>>
+COPY ~d5/bdintro+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdintro+.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bdintro.bcs~) BEGIN
+  EXTEND_TOP ~bdintro.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bdintro+.baf~
+END
+
 /* maybe not necessary!
 // delete proximity trigger for cross-chasm Porios dialogue
 COPY_EXISTING ~bd0120.are~ ~override~
@@ -956,6 +943,14 @@ IF_EXISTS BUT_ONLY
 
 COPY_EXISTING ~bd0130.BCS~ ~override~
 	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(Global("BDSH_Imoen_Floor","GLOBAL",1)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
 	// ***** add triggers for any existing journal additions
 		SPRINT textToReplace ~\(!Global("BD_Korlasz_Fight","BD0130",2)\)~
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches

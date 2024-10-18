@@ -30,6 +30,7 @@ DEFINE_ACTION_FUNCTION kill_thalantyr BEGIN
 IF
 	GlobalGT("CHAPTER","GLOBAL",6)
 	Global("D5ThalantyrDead","GLOBAL",0)
+	Dead("SLYTHE")
 THEN
 	RESPONSE #100
 		ActionOverride("thalantyr",DestroySelf())		
@@ -53,7 +54,7 @@ REPLACE_STATE_TRIGGER MELICA 26 ~Global("D5ThalantyrDead","GLOBAL",0)~
 
 APPEND MELICA
 
-IF ~GlobalGT("D5ThalantyrDead","GLOBAL",1)~ BEGIN d5melica_0 
+IF ~Global("D5ThalantyrDead","GLOBAL",1)~ BEGIN d5melica_0 
   SAY @22001
   IF ~Global("D5ThalantyrDead","GLOBAL",1)~ REPLY @22002 DO ~SetGlobal("D5ThalantyrDead","GLOBAL",2)~ GOTO d5melica_1
   IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @22007 GOTO d5melica_4
