@@ -43,7 +43,6 @@ This shard is a piece of an immensely powerful Mirror of Opposition, now broken.
 @22015  = ~Yes, yes, boy, now be quiet a moment. Ah ha, here they are. Now to make certain these will not fall into the hands of some other unfortunate fool. I will store them securely, this time. Tell me, Melicamp, do you quite feel yourself again?~
 //
 //
-@23000  = ~Captain Gregson~
 @23001  = ~Well. I suppose we must thank you for your timely intervention. Though, if I am being honest, the timing of your arrival does seem quite convenient. Who did you say you are?~
 @23002  = ~I am <CHARNAME>. We have been investigating the Iron Throne's involvement with the iron crisis and the push for war with Amn. We have spoken to Scar about it.~
 @23003  = ~Yes, well, unfortunately Scar is dead, and won't be coming back. So we cannot ask him about it.~
@@ -129,7 +128,7 @@ I discovered a letter from Sarevok among Korlasz' things. It appears to have bee
 @25014  = ~~
 @25015  = ~~
 @25016  = ~~
-@25017  = ~What? Daddy no! You don't understand - <CHARNAME> is my friend. HESHE has been with me. There's no way HESHE could have killed you we were nowhere near the estate.~
+@25017  = ~What? Daddy no! You don't understand - <CHARNAME> is my friend. <PRO_HESHE> has been with me. There's no way <PRO_HESHE> could have killed you we were nowhere near the estate.~
 @25018  = ~Is... is this true? Did you murder my dad? Wait, when could that even have happened?~
 @25019  = ~What is going on here??~
 @25020  = ~What in the Abyss is going on here?? Do you know who you are talking to?~
@@ -217,10 +216,10 @@ You retire to your chamber in the Ducal Palace, your thoughts troubled. You wond
 @27009  = ~This is a serious matter. We must know whether any remnants of his supporters may still threaten the city. The ranks of the crusade are swelling in the north, to the point where it may present an existential threat to nearby cities. We cannot have our attention divided between the threat without and a threat within.~
 @27010  = ~Sarevok is dead and will trouble the city no more. The bodies of Tazok, Angelo, and another mage are still there. But Sarevok... he just disappeared in a swirl of glowing motes. Given where were, it may have had something to do with the ritual he had planned? It is hard to say. But he is truly dead, and beyond returning. I know it. In my bones.~
 @27011  = ~What do you want me to say? He's gone. Good riddance.~
-@27012  = ~This is unbelievable! How do we know any of that even happened? I have heard the reports - Sarevok was said to be immensely powerful. Are we to believe this... this upstart could have defeated him and his top lieutenants, in his place of power? For all we know they could have been working together the whole time! Sarevok may be running to meet with Caelar Argent, then to march against the city at the head of a wildling army!~
+@27012  = ~This is unbelievable! How do we know any of that even happened? I have heard the reports - Sarevok was said to be immensely powerful. Are we to believe this... this upstart could have defeated Sarevok and his top lieutenants, in the heart of his of power? We cannot credit this story. For all we know they could have been working together the whole time! Sarevok may be running to meet with Caelar Argent, then to march against the city at the head of a wildling army!~
 @27013  = ~Daddy, really, what are you talking about?~
 @27014  = ~That seems unlikely. The circumstances would have to be pretty convoluted for that to be the case. If <CHARNAME> were- ~
-@27015  = ~I am not interested in conjecture! I am interested in what can be proven! This has been a disaster for the city. Our iron was poisoned, our military readiness reduced, our trading costers brutally attacked, ONE of us was assassinated and the other three were nearly killed as well. And <CHARNAME> has been tangled up in it from the beginning!~
+@27015  = ~I am NOT interested in conjecture! I am interested in what can be proven! This has been a disaster for the city. Our iron was poisoned, our military readiness reduced, our trading costers brutally attacked, ONE of us was assassinated and the other three were nearly killed as well. And <CHARNAME> has been tangled up in it from the beginning!~
 @27016  = ~And he has still not answered for my murder. I tell you, it was no doppelganger. That would make no sense anyway; Sarevok left evidence connecting the murder to the Shadow Thieves, so why would the murderer not take the form of a Shadow Thief? I tell you, something about this stinks. I demand that <CHARNAME> submit to our custody until we can get to the bottom of it. <PRO_HESHE> should be subject to divination and forced interrogation.~
 @27017  = ~Entar. I sympathize with what you went through, but I disagree about that course of action. I have had accounts from the Flaming Fist about <CHARNAME>'s performance rooting out Korlasz, working with our men to defeat her while showing mercy where appropriate.~
 @27018  = ~Entar. I sympathize with what you went through, but I disagree about that course of action. I have had accounts from the Flaming Fist about <CHARNAME>'s performance rooting out Korlasz, working with our men to soundly defeat her and all of her followers.~
@@ -234,17 +233,17 @@ You retire to your chamber in the Ducal Palace, your thoughts troubled. You wond
 @27026  = ~My place is here in the city. If someone or something out there is wearing my face, I need to know who, and why. Send your troops to face the crusade without me.~
 @27027  = ~Are you sure that is your choice? There will be no going back: this will require you to rest up and then leave Baldur's Gate post-haste with the city's armed forces. Any unfinished business you have here will have to be left behind.~
 @27028  = ~Are you sure that is your choice? There will be no catching up: the city's armed forces need to march as soon as possible, and cannot wait for you. Whatever is happening at Castle Dragonspear will not be your concern; your business will be to the south.~
-@27029  = ~Oh my gods. Have you noticed, I am in this company? Ugh, this is so embarrassing!~
+@27029  = ~Oh my gods, dad. Have you noticed, I'M in this company? Ugh, this is so embarrassing!~
 @27030  = ~You... what?? Are you all hearing this? <CHARNAME> is a chaos agent, just like Sarevok. Now more than ever, the Council must heed my concerns! Another Bhaal-child. And what of the others? Maybe it is a whole company of them! Who knows what danger they pose?~
 @27031  = ~That is... unexpected. Though, from everything I now know, perhaps unsurprising. And you never knew, until recently? Fascinating. Whatever your parentage, you are clearly not cut from the same cloth as Sarevok. Your actions heretofore have aptly proven that. There are debates among sages about whether direct divine influence in a mortal's blood would overpower them, or whether their own soul can retain its independence. I suppose we are seeing this question play out, in real time. My own opinion is that mortal souls are wondrous and powerful things, that even gods cannot subsume. That is, of course, why the gods need mortal flocks. But that is just supposition. To have a true test case...~
 @27032  = ~That is... unexpected. Though, from everything I now know, perhaps unsurprising.I am not sure how to feel about this revelation. I have noticed your tendency to put your concern for yourself above others. On its own, this is not a problem; heavens know many, many other people have similar tendencies! And whatever the shade of your moral fiber, you are clearly not cut from the same cloth as Sarevok. You are, as I say, balancing on a knife's edge at the moment. Your next move will be telling.~
 @27033  = ~We thank you for your honesty. It strikes me that may be a particularly sensitive thing to admit, so I appreciate your openness. If anything, I think this helps your case, since you easily could have remained in silence. You are acting like a true ally, which is to your benefit. I suppose, now that we know about Sarevok and that the time mentioned in the prophecy is upon us, every foundling child will be suspect. Er, no offense, of course.~
-@27034  = ~Ultimately, however, it changes little in the short term. I also would like to hear what you propose to do. Will you prove yourself by joining our campaign in the north? Or will you do so by tracking down the last threads of Sarevok's scheming and find out the truth of Duke Entar's murder?~
+@27034  = ~Ultimately, however, it changes little in the short term. I also would like to hear what you propose to do. Will you prove yourself by joining our campaign in the north? Or will track down the last threads of Sarevok's scheming and find out the truth of Duke Entar's murder?~
 @27035  = ~I am glad to hear it. As I say, you have proven your value, and after our recent travails, the city needs all the help it can muster to face the Crusade. From our reports, the crusaders have the wild energy of berserkers. And, unfortunately, the same disregard for innocents.~
 @27036  = ~Well, you will have to chance to wet your blades, but mark well they are pointed at crusaders! I cannot say I enjoy your attitude, but fortunately our interests are aligned in this matter. And mark you well, you will be subject to army discipline, so be careful not to step out of line.~
 @27037  = ~You have a short time to rest before the army marches.~
 @27038  = ~Very well. I shall inform Corporal Duncan and Captain Corwin that they should make ready to leave at once, and not wait for you.~
-@27039  = ~Well, what is it to be then? This is your one chance to make a choice as to where your future lies: north toward Dragonspear, or here in the south. Choose well.~
+@27039  = ~Well, what is it to be then? This is your chance to make a choice as to where your future lies: north toward Dragonspear, or here in the south. Choose well.~
 @27040  = ~Yes, I am sure.~
 @27041  = ~Wait, let me reconsider.~
 @27042  = ~But first, we must let the people of the city know that order has been restored. They need to know that the villain is defeated, slain by a hero. Whether or not that is what you really are, the fact is you did stop Sarevok. The whispers about you have already started; it would be prudent to make sure the less kind ones do not become dominant. Come: you will be presented as the 'Hero of Baldur's Gate.'~
@@ -257,8 +256,8 @@ Though you are fêted by the rulers of Baldur's Gate, a sense of unease plagues 
 Every day, more refugees driven from their homes by the servants of Caelar Argent arrive at the city gates. Many have stories of the Shining Lady's grace; all have tales of her followers' wrath.
 
 You retire to your chamber in the Ducal Palace, your thoughts troubled. You wonder what effect Caelar's crusade will have on Baldur's Gate, little knowing how close at hand the answer is...~
-@27046  = ~I would like some time to consider this decision. Please, allow me to get my affairs in order and rest. Then I will return and inform you which path I will choose.~
-@27047  = ~Very well, that is reasonable. Do not take too long though, ~
+@27046  = ~I would like some time to consider this decision. Please, I have been through much. I need to rest, and consider my path. Then I will return and inform you which path I will choose.~
+@27047  = ~Very well, I suppose that is reasonable. Do not take too long though. There is much to do.~
 @27048  = ~~ // ***** journal
 @27049  = ~You have returned. What is your decision?~ // *****
 @27050  = ~The Hunt for Sarevok
@@ -298,7 +297,7 @@ Refugees driven from their homes by the servants of Caelar Argent are arriving a
 @28030  = ~By all means.~ // belt, set ("D5CloneCut","GLOBAL",4)
 @28031  = ~This is perplexing indeed. The person in the cell is no shapeshifter, and does not appear illusionary or phantasmal in nature. I sense no magic at all; <PRO_HESHE> appears to be perfectly natural. <CHARNAME>, do you have a twin you never mentioned?~ // liia
 @28032  = ~Definitely not. The closest thing I have to a sibling is Imoen.~
-@28033  = ~Definitely not. The closest thing I have to a sibling is, I suppose, Sarevok.~
+@28033  = ~Definitely not. The closest thing I have to a sibling is - well, I suppose Sarevok...~
 @28034  = ~Hm. Let me try something a bit more involved. The body may give no answers, but I have a more powerful spell that can inspect <PRO_HISHER> aura, giving some indication of <PRO_HISHER> mind and soul. Apologies, whoever you are, this might sting a bit.~
 @28035  = ~Apologies, whoever you are, this might sting a bit.~
 @28036  = ~I am beginning to be frustrated. All my divinations are telling me that this person IS, fully, <CHARNAME>. Not a mimic of any sort, nor even an identical twin. But of course that cannot be. Belt, we should consult with the priests of Helm, and I can look into whether we have any scrolls of some rarer divination that might penetrate... whatever this is.~ // liia
@@ -341,6 +340,48 @@ Refugees driven from their homes by the servants of Caelar Argent are arriving a
 @28070  = ~I'm sorry, <CHARNAME>. I shouldn't have let you get into this kind of trouble. But now we're together again, I'm sure we will clear everything up.~
 @28071  = ~Do not th-think I'm pleased to be here, <CHARNAME>. What I do, I do for Gorion and Imoen.~
 @28072  = ~You make it sound as though I went looking for trouble.~
+//
+//
+// use this for the extra quest after killing sarevok but before the big choice
+@29001  = ~~
+@29002  = ~~
+@29003  = ~~
+@29004  = ~~
+@29005  = ~~
+@29006  = ~~
+@29007  = ~~
+@29008  = ~~
+@29009  = ~~
+@29010  = ~~
+@29011  = ~~
+@29012  = ~~
+@29013  = ~~
+@29014  = ~~
+@29015  = ~~
+@29016  = ~~
+@29017  = ~~
+@29018  = ~~
+@29019  = ~~
+@29020  = ~~
+@29021  = ~~
+@29022  = ~~
+@29023  = ~~
+@29024  = ~~
+@29025  = ~~
+@29026  = ~~
+@29027  = ~~
+@29028  = ~~
+@29029  = ~~
+@29030  = ~~
+/*
+~We talk about the planes like they are places to visit, but they are literally the afterlife! They are where our stories, myths, and dreams play themselves out! Contemplate having the stuff of myth, transmuted to actual blood, running in your veins.~
+~And the forbear of the Argent name was not some middling devil or deva, but a solar! Practically a god! Trust me, you cannot imagine what is like to have such lineage!~
+~Well...~
+~You seriously don't know who you are talking to.~
+~People discuss it like a blessing, but mortals are not meant to be made of such stuff. It is so hard... it takes an iron will to master your own blood, every day. Some can do so... not me, but some. Some even find power in it, use it to propel themselves to greatness. Or at least, that is what they tell themselves. But is it truly great, to use a gift of someone else's making? Can you claim superiority, for something fused in your blood?~
+~You asked about Caelar... I worry for her. She was always so strong, she mastered her gift so completely, so young. But now - she acts as if she has earned it. She talks about mastering fate itself. Like a god! But she is still a mortal; and I wonder, is she really so powerful, or is she foolishly listening to the whispers in her blood, the echoes of power from another time, another place?~
+~We...~
+*/
 //
 //
 @30001 = ~That's it recruit. I have had enough. You can get away with a lot because of who you are, but this is a military campaign and there are limits!~

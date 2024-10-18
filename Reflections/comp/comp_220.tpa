@@ -144,17 +144,28 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
 
 OUTER_SET thalan_20011 = STATE_WHICH_SAYS @22011 FROM ~THALAN~
 
+/*
 <<<<<<<< d5/melica#.d
+ADD_TRANS_TRIGGER MELICA %melica_thecalling_1285% ~False()~ DO 0
+
 EXTEND_BOTTOM MELICA %melica_thecalling_1285%
 
 IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_20011% 
 
 END
 >>>>>>>>
+*/
+// try this instead
+<<<<<<<< d5/melica#.d
+ALTER_TRANS MELICA BEGIN %melica_thecalling_1285% END BEGIN 0 END BEGIN "EPILOGUE" ~EXTERN THALAN %thalan_20011%~ END
+>>>>>>>>
 COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
 COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
 
-// ***** should we make sure the bracers don't get lost...??
+//
+// also, change state 73's response (160) to point to state 75 instead of 74
+// and change CDIRIS.DLG's response 21 to point to THALAN state 75 instead of 77
+// ...maybe not! Thalantyr says he will retrieve the bracers again.
 
 END	//	end thecalling is installed
 

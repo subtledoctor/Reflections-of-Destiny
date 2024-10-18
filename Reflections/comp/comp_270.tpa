@@ -220,7 +220,7 @@ EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar10
 <<<<<<<< d5/transit+.d
 APPEND BELT
 
-IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5GregsonPalace","GLOBAL",0) Global("C#st_HeroCutScene","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0)~ BEGIN d5beltsd_0
+IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5GregsonPalace","GLOBAL",0) Global("C#st_HeroCutScene","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0) Global("D5DecisionPostponed","GLOBAL",0)~ BEGIN d5beltsd_0
   SAY @27002
   IF ~~ REPLY @27003 GOTO d5beltsd_1
   IF ~~ REPLY @27004 GOTO d5beltsd_1
@@ -263,6 +263,7 @@ IF ~~ BEGIN d5beltsd_7
   IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 GOTO d5beltsd_8
   IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 GOTO d5beltsd_9
   IF ~~ REPLY @27026 GOTO d5beltsd_10
+  IF ~~ REPLY @27046 GOTO d5beltsd_11
 END
 
 IF ~~ BEGIN d5beltsd_8 // chose SoD !evil
@@ -284,11 +285,8 @@ IF ~~ BEGIN d5beltsd_10 // chose clone
 END
 
 IF ~~ BEGIN d5beltsd_11
-  SAY @27039
-  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 GOTO d5beltsd_8
-  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 GOTO d5beltsd_8
-  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 GOTO d5beltsd_9
-  IF ~~ REPLY @27026 GOTO d5beltsd_10
+  SAY @27047
+  IF ~~ DO ~SetGlobal("D5DecisionPostponed","GLOBAL",1)~ EXIT
 END
 
 IF ~~ BEGIN d5beltsd_12 // chose SoD !evil
@@ -343,11 +341,20 @@ IF ~~ BEGIN d5beltsd_18
     AddJournalEntry(@27050,QUEST_DONE)~ EXIT // ...clone cut scene
 END
 
+IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1)~ BEGIN d5beltsd_19
+  SAY @27039
+  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 GOTO d5beltsd_8
+  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 GOTO d5beltsd_8
+  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 GOTO d5beltsd_9
+  IF ~~ REPLY @27026 GOTO d5beltsd_10
+  IF ~~ REPLY @27046 GOTO d5beltsd_11
+END
+
 END
 
 APPEND LIIA
 
-IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5CloneCut","GLOBAL",0) Global("C#st_HeroCutScene","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0)~ BEGIN d5beltsd_0
+IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5CloneCut","GLOBAL",0) Global("C#st_HeroCutScene","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0) Global("D5DecisionPostponed","GLOBAL",0)~ BEGIN d5beltsd_0
   SAY @27002
   IF ~~ REPLY @27003 EXTERN BELT d5beltsd_1
   IF ~~ REPLY @27004 EXTERN BELT d5beltsd_1
@@ -380,7 +387,8 @@ IF ~~ BEGIN d5liiasd_5
   IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 EXTERN BELT d5beltsd_8 	// go to SoD
   IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 EXTERN BELT d5beltsd_9 	// go to SoD
   IF ~~ REPLY @27026 EXTERN BELT d5beltsd_10 								// go to clone cut scene
-  IF ~~ REPLY @27023 DO ~SetGlobal("D5heritageRevealed","GLOBAL",1)~ EXTERN BDENTAR d5entarsd_4 							// disclose your heritage to dukes
+  IF ~~ REPLY @27023 DO ~SetGlobal("D5HeritageRevealed","GLOBAL",1)~ EXTERN BDENTAR d5entarsd_4 							// disclose your heritage to dukes
+  IF ~~ REPLY @27046 EXTERN BELT d5beltsd_11
 END
 
 IF ~~ BEGIN d5liiasd_6
@@ -393,11 +401,20 @@ IF ~~ BEGIN d5liiasd_7
   IF ~~ EXTERN BELT d5beltsd_6
 END
 
+IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1)~ BEGIN d5liiasd_8
+  SAY @27039
+  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 EXTERN BELT d5beltsd_8
+  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 EXTERN BELT d5beltsd_8
+  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 EXTERN BELT d5beltsd_9
+  IF ~~ REPLY @27026 EXTERN BELT d5beltsd_10
+  IF ~~ REPLY @27046 EXTERN BELT d5beltsd_11
+END
+
 END
 
 APPEND BDENTAR
 
-IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("C#st_HeroCutScene","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0)~ BEGIN d5entarsd_0
+IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("C#st_HeroCutScene","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0) Global("D5DecisionPostponed","GLOBAL",0)~ BEGIN d5entarsd_0
   SAY @27002
   IF ~~ REPLY @27003 EXTERN BELT d5beltsd_1
   IF ~~ REPLY @27004 EXTERN BELT d5beltsd_1
@@ -426,6 +443,15 @@ IF ~~ BEGIN d5entarsd_4
   IF ~!IsValidForPartyDialogue("SKIE") Alignment(Player1,MASK_GENEUTRAL)~ EXTERN LIIA d5liiasd_6
   IF ~!IsValidForPartyDialogue("SKIE") Alignment(Player1,MASK_EVIL)~ EXTERN LIIA d5liiasd_7
   IF ~IsValidForPartyDialogue("SKIE")~ EXTERN SKIE d5skiesd_1
+END
+
+IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1)~ BEGIN d5entarsd_5
+  SAY @27039
+  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 EXTERN BELT d5beltsd_8
+  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 EXTERN BELT d5beltsd_8
+  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 EXTERN BELT d5beltsd_9
+  IF ~~ REPLY @27026 EXTERN BELT d5beltsd_10
+  IF ~~ REPLY @27046 EXTERN BELT d5beltsd_11
 END
 
 END

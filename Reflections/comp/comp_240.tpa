@@ -18,6 +18,10 @@ DEFINE_ACTION_FUNCTION early_korlasz BEGIN
  -- ***** ...some random follower's DisplayString
 
 - ***** imoen doesn't appear when starting SoD campaign on its own!
+ -- figure out the normal and modded sequence for variables and Imoen's appearance
+ -- 
+ -- 
+ -- 
 
 */
 
@@ -81,7 +85,7 @@ COPY_EXISTING ~bdrope.BCS~ ~override~
 		SPRINT textToReplace ~\(See("imoen2?")\)~
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
 		PATCH_IF (num_matches > 0) BEGIN
-			REPLACE_TEXTUALLY CASE_INSENSITIVE ~%textToReplace%~ ~\1 Global("C#EBG1_KorlaszQuest","GLOBAL",0)~
+			REPLACE_TEXTUALLY CASE_INSENSITIVE ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
 			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
 		END ELSE BEGIN
 			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
@@ -95,6 +99,7 @@ IF
 	Clicked([ANYONE])
 	NearLocation(LastTrigger,790,1660,12)
 	Global("C#EBG1_ChangeRopeTrigger","MYAREA",2) 
+	GlobalGT("D5GregsonExist","GLOBAL",0)
 THEN
 	RESPONSE #100
 		ClearAllActions()
@@ -297,6 +302,22 @@ ACTION_IF GAME_IS ~eet~ BEGIN
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
 		PATCH_IF (num_matches > 0) BEGIN
 			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 !Global("SOD_fromimport","GLOBAL",2)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+  BUT_ONLY
+END
+
+ACTION_IF (MOD_IS_INSTALLED ~c#sodtweaks.tp2~ ~4~) BEGIN
+// more patching if SoDTweaks 
+  COPY_EXISTING ~bd0120.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(Global("C#st_SpawnKorlaszHelp","bd0120",0)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
 			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
 		END ELSE BEGIN
 			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
@@ -674,14 +695,6 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bd0120.bcs~) BEGIN
 		END ELSE BEGIN
 			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
-		SPRINT textToReplace ~\(GlobalLT("bd_plot","GLOBAL",40)\)~
-		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
-		PATCH_IF (num_matches > 0) BEGIN
-			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Global("D5GregsonExist","GLOBAL",0)~
-			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
-		END ELSE BEGIN
-			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
-		END
 	END
   BUT_ONLY
 END
@@ -689,6 +702,13 @@ END
 // put Gregson into the crypt as well, in place of Imoen
 
 <<<<<<<< d5/bd120+4.baf
+IF
+	GlobalGT("D5GregsonExist","GLOBAL",0 )
+THEN
+	RESPONSE #100
+		SetGlobal("BDSH_Imoen_Floor","GLOBAL",99)
+END
+
 IF
 	Global("D5GregsonCrypt","GLOBAL",4)
 THEN

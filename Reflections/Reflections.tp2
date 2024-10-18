@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.4sd2~
+VERSION ~0.4sd3~
 
 ALWAYS
   OUTER_SPRINT newline ~%WNL%%LNL%%MNL%%TAB% ~
@@ -100,10 +100,25 @@ LAF campaign_election END
 INCLUDE ~%MOD_FOLDER%/comp/comp_280.tpa~
 LAF mirror_man END
 
+/*
+INCLUDE ~%MOD_FOLDER%/comp/comp_290.tpa~
+LAF breathing_room END
+*/
+
+/*
+INCLUDE ~%MOD_FOLDER%/comp/comp_299.tpa~
+
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  LAF sod_remix_coast_way END
+  LAF sod_remix_bloodbark_grove END
+  LAF sod_remix_wyrm_forest END
+  LAF sod_remix_coldhearth_dungeon END
+  LAF sod_remix_underground_river END
+END
+*/
 
 //___________________________________________________________________________________
 //
-/*
 BEGIN @300	//	the clone saga
 DESIGNATED 300
 LABEL ~D5_REFLECTIONS_CLONE_SAGA~
@@ -112,7 +127,6 @@ REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 INCLUDE ~%MOD_FOLDER%/comp/comp_300.tpa~
 
 LAF clone_saga END
-*/
 
 //___________________________________________________________________________________
 //
