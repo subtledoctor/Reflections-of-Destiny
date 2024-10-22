@@ -52,11 +52,15 @@ COPY ~%MOD_FOLDER%/data/mirror_shard/d5mshard.bam~ ~override~
 
 COPY ~%MOD_FOLDER%/data/mirror_shard/d5shard3.itm~ ~override~
 	SAY NAME1 @11001
+	SAY NAME2 @11001
 	SAY UNIDENTIFIED_DESC @11002
+	SAY IDENTIFIED_DESC @11002
 
 COPY ~%MOD_FOLDER%/data/mirror_shard/d5shard1.itm~ ~override~
 	SAY NAME1 @11001
+	SAY NAME2 @11001
 	SAY UNIDENTIFIED_DESC @11002
+	SAY IDENTIFIED_DESC @11002
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~deathk.cre~) BEGIN
   COPY_EXISTING ~deathk.cre~ ~override~
