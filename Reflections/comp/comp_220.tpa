@@ -106,12 +106,12 @@ END
 COPY ~d5/thalan+.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
 
-OUTER_SET thalan_20015 = STATE_WHICH_SAYS @22015 FROM ~THALAN~
+OUTER_SET thalan_22015 = STATE_WHICH_SAYS @22015 FROM ~THALAN~
 
 <<<<<<<< d5/melica#.d
 EXTEND_BOTTOM MELICA 23
 
-IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_20015% 
+IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_22015% 
 
 END
 >>>>>>>>
@@ -128,7 +128,7 @@ OUTER_SET melica_thecalling_1285 = STATE_WHICH_SAYS 1285 IN ~thecalling/language
 
 PRINT ~the state we want is # %melica_thecalling_1285%~
 
-<<<<<<<< d5/thalan+.d
+<<<<<<<< d5/thalan_.d
 APPEND THALAN
 
 IF ~~ BEGIN d5thalan_0 
@@ -140,10 +140,10 @@ END
 
 END
 >>>>>>>>
-COPY ~d5/thalan+.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
+COPY ~d5/thalan_.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan_.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan_.d~
 
-OUTER_SET thalan_20011 = STATE_WHICH_SAYS @22011 FROM ~THALAN~
+OUTER_SET thalan_22011 = STATE_WHICH_SAYS @22011 FROM ~THALAN~
 
 /*
 <<<<<<<< d5/melica#.d
@@ -151,14 +151,14 @@ ADD_TRANS_TRIGGER MELICA %melica_thecalling_1285% ~False()~ DO 0
 
 EXTEND_BOTTOM MELICA %melica_thecalling_1285%
 
-IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_20011% 
+IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_22011% 
 
 END
 >>>>>>>>
 */
 // try this instead
 <<<<<<<< d5/melica#.d
-ALTER_TRANS MELICA BEGIN %melica_thecalling_1285% END BEGIN 0 END BEGIN "EPILOGUE" ~EXTERN THALAN %thalan_20011%~ END
+ALTER_TRANS MELICA BEGIN %melica_thecalling_1285% END BEGIN 0 END BEGIN "ACTION" ~SetGlobal("CDBracerQuest","GLOBAL",99)~ "EPILOGUE" ~EXTERN THALAN %thalan_22011%~ END
 >>>>>>>>
 COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
 COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/melica#.d~

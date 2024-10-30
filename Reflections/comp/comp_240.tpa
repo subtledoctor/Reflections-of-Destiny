@@ -664,6 +664,14 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bd0120.bcs~) BEGIN
 		END ELSE BEGIN
 			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
+		SPRINT textToReplace ~\(!StateCheck("imoen2",CD_STATE_NOTVALID)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 !InParty("Imoen2")~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
 	END
   BUT_ONLY
 END
@@ -1011,6 +1019,13 @@ END
 ACTION_IF !(FILE_EXISTS_IN_GAME ~bd0130.bcs~) BEGIN
   COMPILE ~weidu_external/%MOD_FOLDER%/compile/bd0130.baf~
 END
+
+
+// remove Korlasz' journal
+
+COPY_EXISTING ~BD0130.are~ ~override~
+  LPF DELETE_AREA_ITEM STR_VAR item_to_delete = ~BDSHKORJ~ END
+
 
 //___________________________________________________________________________________
 //
