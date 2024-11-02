@@ -79,6 +79,22 @@ COPY_EXISTING ~bdsodtrn.BCS~ ~override~
 		END ELSE BEGIN
 			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
+		SPRINT textToReplace ~\(!HasDLC("SOD")\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~False()~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(HasDLC("SOD")\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~True()~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
 	END
 BUT_ONLY
 
@@ -476,26 +492,20 @@ END
 COPY ~d5/transit+.d~ ~weidu_external/%MOD_FOLDER%/compile/transit+.d~
 
 
-// cross-compatibility with component "Sarevok's Sword": we add script to remove Sarevok's Sword to BG1 area, too 
+// cross-compatibility with EBG1
 
-ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~4~) BEGIN
+ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~0~) BEGIN
 
-<<<<<<<< .../ar0110_remove_Sarevoks_sword.baf
-/* Sarevok's Sword will be stolen after PC returns from Korlasz' Dungeon */
-IF
-  GlobalGT("bd_plot","GLOBAL",1)
-  Global("C#st_RemoveSwordPCChest","MYAREA",0)
-  HasItem("c#stsrvs","Container1")
-THEN
-  RESPONSE #100
-    ActionOverride("Container1",DestroyItem("c#stsrvs"))
-    SetGlobal("C#st_RemoveSwordPCChest","MYAREA",1)
-END
->>>>>>>>
-COPY ~.../ar0110_remove_Sarevoks_sword.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~
-EXTEND_BOTTOM ~%NBaldursGate_DucalPalace_L3%.bcs~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~ EVALUATE_BUFFER 
+ OUTER_SET belt_ebg1_0 = STATE_WHICH_SAYS 0 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
 
-END	//	end EBG1 #4
+ PRINT ~the state we want is # %belt_ebg1_0%~
+
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ ~~~~~
+ ADD_STATE_TRIGGER BELT %belt_ebg1_0% ~Global("D5GregsonExist","GLOBAL",0)~
+
+~~~~~
+ 
+END	//	end EBG1 #0
 
 
 // cross-compatibility with component "Short Hero Tribute Scene": set a variable so the dialogue can trigger the cut scene 
@@ -514,26 +524,48 @@ ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~2~) BEGIN
  COPY ~d5/hero108.baf~ ~weidu_external/%MOD_FOLDER%/compile/hero108.baf~
  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/hero108.baf~
 
- OUTER_SET belt_ebg1_0 = STATE_WHICH_SAYS 0 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
  OUTER_SET belt_ebg1_2 = STATE_WHICH_SAYS 2 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
- OUTER_SET belt_ebg1_113 = STATE_WHICH_SAYS 113 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
 
- PRINT ~the state we want is # %belt_ebg1_0%~
- PRINT ~oh and also # %belt_ebg1_0%~
+ PRINT ~the state we want is # %belt_ebg1_2%~
+
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ ~~~~~
+ ADD_STATE_TRIGGER BELT %belt_ebg1_2% ~Global("D5GregsonExist","GLOBAL",0)~
+  
+~~~~~
+ 
+END	//	end EBG1 #2
+
+
+// cross-compatibility with component "Sarevok's Sword": we add script to remove Sarevok's Sword to BG1 area, too 
+
+ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~4~) BEGIN
+
+<<<<<<<< .../ar0110_remove_Sarevoks_sword.baf
+/* Sarevok's Sword will be stolen after PC returns from Korlasz' Dungeon */
+IF
+  GlobalGT("bd_plot","GLOBAL",1)
+  Global("C#st_RemoveSwordPCChest","MYAREA",0)
+  HasItem("c#stsrvs","Container1")
+THEN
+  RESPONSE #100
+    ActionOverride("Container1",DestroyItem("c#stsrvs"))
+    SetGlobal("C#st_RemoveSwordPCChest","MYAREA",1)
+END
+>>>>>>>>
+ COPY ~.../ar0110_remove_Sarevoks_sword.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~
+ EXTEND_BOTTOM ~%NBaldursGate_DucalPalace_L3%.bcs~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~ EVALUATE_BUFFER 
+
+ OUTER_SET belt_ebg1_113 = STATE_WHICH_SAYS 113 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
  PRINT ~and there is also # %belt_ebg1_113%~
 
  APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ ~~~~~
- ADD_STATE_TRIGGER BELT %belt_ebg1_0% ~Global("D5GregsonExist","GLOBAL",0)~
-
- ADD_STATE_TRIGGER BELT %belt_ebg1_2% ~Global("D5GregsonExist","GLOBAL",0)~
-  
  ALTER_TRANS BELT // file name
   BEGIN %belt_ebg1_113% END // state number (can be more than one)
   BEGIN 0 END // transition number (can be more than one)
   BEGIN "EPILOGUE" ~GOTO d5beltsd_16~ END
 ~~~~~
  
-END	//	end EBG1 #2
+END	//	end EBG1 #4
 
 
 // compile the dialogues

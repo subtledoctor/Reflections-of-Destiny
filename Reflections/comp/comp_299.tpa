@@ -1,0 +1,472 @@
+
+/*
+
+TO DO: 
+
+*****
+- if player skips SoD, add entrance to Coast Way Forest from... SW edge of Umar Hills?
+ -- and disable Skie scene
+  --- and remove her two crusaders 
+
+*****
+- if player skips SoD, add entrance to Bloodbark Grove from... SW edge of druid grove?
+
+*****
+- if player skips SoD, add entrance to Forest of Wyrms from... SE edge of Small Teeth Pass?
+ -- and enable this area on the map
+ -- remove crusaders from temple of cyric
+ -- remove dialogue about recruitment or the crusade
+
+*****
+- if player skips SoD, move the Coldhearth dungeon to Small Teeth Pass @ 2060x12455
+ -- and enable this area on the map
+  --- OR to Umar's Cave, @ 1405x725
+ -- check skip variable, enable entrance on map
+ -- check initial dialogue for references to crusade
+ -- disable final recruitment dialogue
+ -- disable recruit coldhearth dialogue
+
+*****
+- if player skips SoD, move underground river area to...beneath the bridge district?
+ -- change the crusaders to smugglers
+ -- remove the northwest exit and its guardians
+ -- kill the crusaders fighting against the drow
+ -- remove any druid dialogue relating to the crusade
+ -- remove crusader patrols
+
+
+*/
+
+//___________________________________________________________________________________
+//
+
+// omit references to the Crusade from Coldhearth
+
+DEFINE_ACTION_FUNCTION sod_remix_coldhearth_dungeon BEGIN
+
+<<<<<<<< d5/bdcoldh+.d
+ADD_TRANS_TRIGGER BDCOLDH 25 ~Global("D5SkipSoD","GLOBAL",1)~ DO 0
+
+ADD_TRANS_TRIGGER BDCOLDH 26 ~Global("D5SkipSoD","GLOBAL",1)~ DO 1
+
+ADD_TRANS_TRIGGER BDCOLDH 26 ~Global("D5SkipSoD","GLOBAL",1)~ DO 2
+
+ADD_TRANS_TRIGGER BDCOLDH 26 ~Global("D5SkipSoD","GLOBAL",1)~ DO 3
+
+ADD_TRANS_TRIGGER BDCOLDH 32 ~Global("D5SkipSoD","GLOBAL",1)~ DO 1
+>>>>>>>>
+COPY ~d5/bdcoldh+.d~ ~weidu_external/%MOD_FOLDER%/compile/bdcoldh+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdcoldh+.d~
+
+// don't even need to do this for brother deepvein! ...I think
+
+
+// enable AR1700 on main map
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~AR0602.are~) BEGIN
+<<<<<<<< d5/ar0602_.baf
+IF
+	Global("D5SkipSoD","GLOBAL",1)
+	Global("D5_AR1700_Revealed","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("D5_AR1700_Revealed","GLOBAL",1)
+	RevealAreaOnMap("AR1700")
+END
+>>>>>>>> 
+  COPY ~d5/ar0602_.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0602_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~ar0602~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/ar0602_~ END
+END
+
+
+// add dungeon entrance to ar1700
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~AR1700.are~) BEGIN
+ COPY_EXISTING ~AR1700.are~ ~override~
+ /* add travel region that links to other area */
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 2  	//travel - kind of trigger area
+    fj_box_left     = 1940 	// x coordinate
+    fj_box_top      = 1225 	// y coordinate
+    fj_box_right    = 2075 	// x coordinate
+    fj_box_bottom   = 1365 	// y coordinate
+    fj_cursor_idx   = 30 	//door - mouse cursor symbol
+    fj_flags        = 4
+    fj_vertex_0     = 1940 + (1225 << 16) // start with the lowest point: x coodinate - y coordinate
+    fj_vertex_1     = 2075 + (1225 << 16)
+    fj_vertex_2     = 2075 + (1365 << 16)
+    fj_vertex_3     = 1940 + (1365 << 16)
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = d5bd1100 	//name of this travel region so you can address it via script etc.
+    fj_destination_area = bd1100 	//name of the destination area
+    fj_destination_name = d5bx1100 	//name of exitpoint in destination area
+  END
+
+/* add exitpoint for backwards travel */
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_loc_x       = 2120 	// x coordinate where the group will spawn
+    fj_loc_y       = 1500 	// y coordinate where the group will spawn
+    fj_orientation = 12 	// E face direction in which group is looking after coming through
+    STR_VAR
+    fj_structure_type = entrance
+    fj_name           = d5bx1700 // name of this new exitpoint so it can be referenced for the travel region of the other area
+  END
+ BUT_ONLY 
+END
+
+
+// modify dungeon exit to point back to BG2
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~BD1100.are~) BEGIN
+ COPY_EXISTING ~BD1100.are~ ~override~
+ /* add travel region that links to other area */
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 2 	//travel - kind of trigger area
+    fj_box_left     = 150 	// x coordinate
+    fj_box_top      = 1160 	// y coordinate
+    fj_box_right    = 370 	// x coordinate
+    fj_box_bottom   = 1350 	// y coordinate
+    fj_cursor_idx   = 30   	//door - mouse cursor symbol
+    fj_flags        = 4
+    fj_vertex_0     = 150 + (1160 << 16) //start with the lowest point: x coodinate - y coordinate
+    fj_vertex_1     = 370 + (1160 << 16)
+    fj_vertex_2     = 370 + (1350 << 16)
+    fj_vertex_3     = 150 + (1350 << 16)
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = d5bd1700 	//name of this travel region so you can address it via script etc.
+    fj_destination_area = AR1700 	//name of the destination area
+    fj_destination_name = d5bx1700 	//name of exitpoint in destination area
+  END
+
+/* add exitpoint for backwards travel */
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_loc_x       = 375 	// x coordinate where the group will spawn
+    fj_loc_y       = 1330 	// y coordinate where the group will spawn
+    fj_orientation = 14 	// SE - face direction in which group is looking after coming through
+    STR_VAR
+    fj_structure_type = entrance
+    fj_name           = d5bx1100 //name of this new exitpoint so it can be referenced for the travel region of the other area
+  END
+ BUT_ONLY
+END 
+
+
+// set area scripts to allow travel from BG2
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~AR1700.are~) BEGIN
+<<<<<<<< d5/ar1700_.baf
+IF
+	Global("D5SkipSoD","GLOBAL",1)
+	Global("D5GotoBD1100","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("D5GotoBD1100","GLOBAL",1)
+	TriggerActivation("d5bd1100",TRUE)
+END
+
+IF
+	Global("D5SkipSoD","GLOBAL",0)
+	Global("D5StayAR1700","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("D5StayAR1700","GLOBAL",1)
+	TriggerActivation("d5bd1100",FALSE)
+END
+
+IF
+	Global("D5SkipSoD","GLOBAL",1)
+	Global("D5HeresDaran","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5HeresDaran","GLOBAL",1)
+		CreateCreature("bddaran",[2345.1570],6)
+		CreateCreature("bdatkdar",[2240.1440],14)
+		CreateCreature("bdatkdar",[2155.1530],12)
+END
+>>>>>>>> 
+  COPY ~d5/ar1700_.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar1700_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~ar1700~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/ar1700_~ END
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bd1100.are~) BEGIN
+<<<<<<<< d5/bd1100_.baf
+IF
+	Global("D5SkipSoD","GLOBAL",1)
+	Global("D5GotoAR1700","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("D5GotoAR1700","GLOBAL",1)
+	TriggerActivation("d5bd1700",TRUE)
+	TriggerActivation("tranbd1000",FALSE)
+END
+
+IF
+	Global("D5SkipSoD","GLOBAL",0)
+	Global("D5StayBD1100","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("D5StayBD1100","GLOBAL",1)
+	TriggerActivation("d5bd1700",FALSE)
+END
+>>>>>>>> 
+  COPY ~d5/bd1100_.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd1100_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~bd1100~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/bd1100_~ END
+END
+
+// robert is now your uncle
+
+END	//	end function
+
+
+//___________________________________________________________________________________
+//
+
+DEFINE_ACTION_FUNCTION sod_remix_coast_way_forest BEGIN
+
+// rewrite BDISABEL state 50
+
+<<<<<<<< d5/bdisab+.d
+REPLACE_SAY BDISABEL 50 @20091
+>>>>>>>>
+COPY ~d5/bdisab+.d~ ~weidu_external/%MOD_FOLDER%/compile/bdisab+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdisab+.d~
+
+
+// add map travel entrance from AR1300
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~AR13000.are~) BEGIN
+ COPY_EXISTING ~AR1300.are~ ~override~
+ /* add travel region that links to other area */
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 2  	//travel - kind of trigger area
+    fj_box_left     = 1 	// x coordinate
+    fj_box_top      = 2050 	// y coordinate
+    fj_box_right    = 100 	// x coordinate
+    fj_box_bottom   = 3839 	// y coordinate
+    fj_cursor_idx   = 30 	//door - mouse cursor symbol
+    fj_flags        = 4
+    fj_vertex_0     = 1 + (2050 << 16) //start with the lowest point: x coodinate - y coordinate
+    fj_vertex_1     = 100 + (2050 << 16)
+    fj_vertex_2     = 100 + (3839 << 16)
+    fj_vertex_3     = 1 + (3839 << 16)
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = d5bd7000 	//name of this travel region so you can address it via script etc.
+    fj_destination_area = bd7000 	//name of the destination area
+    fj_destination_name = ExitNE 	//name of exitpoint in destination area
+  END
+
+/* add exitpoint for backwards travel */
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_loc_x       = 175 	// x coordinate where the group will spawn
+    fj_loc_y       = 2795 	// y coordinate where the group will spawn
+    fj_orientation = 12 	// E face direction in which group is looking after coming through
+    STR_VAR
+    fj_structure_type = entrance
+    fj_name           = d5bx1300 // name of this new exitpoint so it can be referenced for the travel region of the other area
+  END
+ BUT_ONLY
+END 
+
+
+// add travel back to AR1300 - need to cover four map edges
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~BD7000.are~) BEGIN
+ COPY_EXISTING ~BD7000.are~ ~override~
+ /* add travel region that links to other area */
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 2 	//travel - kind of trigger area
+    fj_box_left     = 2495 	// x coordinate
+    fj_box_top      = 165 	// y coordinate
+    fj_box_right    = 2559 	// x coordinate
+    fj_box_bottom   = 480 	// y coordinate
+    fj_cursor_idx   = 30   	//door - mouse cursor symbol
+    fj_flags        = 4
+    fj_vertex_0     = 2495 + (165 << 16) //start with the lowest point: x coodinate - y coordinate
+    fj_vertex_1     = 2559 + (165 << 16)
+    fj_vertex_2     = 2559 + (480 << 16)
+    fj_vertex_3     = 2495 + (480 << 16)
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = d5ar130a 	//name of this travel region so you can address it via script etc.
+    fj_destination_area = AR1300 	//name of the destination area
+    fj_destination_name = d5bx1300 	//name of exitpoint in destination area
+  END
+
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 2 	//travel - kind of trigger area
+    fj_box_left     = 2495 	// x coordinate
+    fj_box_top      = 1640 	// y coordinate
+    fj_box_right    = 2559 	// x coordinate
+    fj_box_bottom   = 1780 	// y coordinate
+    fj_cursor_idx   = 30   	//door - mouse cursor symbol
+    fj_flags        = 4
+    fj_vertex_0     = 2495 + (1640 << 16) //start with the lowest point: x coodinate - y coordinate
+    fj_vertex_1     = 2559 + (1640 << 16)
+    fj_vertex_2     = 2559 + (1780 << 16)
+    fj_vertex_3     = 2495 + (1780 << 16)
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = d5ar130b 	//name of this travel region so you can address it via script etc.
+    fj_destination_area = AR1300 	//name of the destination area
+    fj_destination_name = d5bx1300 	//name of exitpoint in destination area
+  END
+
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 2 	//travel - kind of trigger area
+    fj_box_left     = 2150 	// x coordinate
+    fj_box_top      = 1875 	// y coordinate
+    fj_box_right    = 2280 	// x coordinate
+    fj_box_bottom   = 1919 	// y coordinate
+    fj_cursor_idx   = 30   	//door - mouse cursor symbol
+    fj_flags        = 4
+    fj_vertex_0     = 2150 + (1875 << 16) //start with the lowest point: x coodinate - y coordinate
+    fj_vertex_1     = 2280 + (1875 << 16)
+    fj_vertex_2     = 2280 + (1919 << 16)
+    fj_vertex_3     = 2150 + (1919 << 16)
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = d5ar130c 	//name of this travel region so you can address it via script etc.
+    fj_destination_area = AR1300 	//name of the destination area
+    fj_destination_name = d5bx1300 	//name of exitpoint in destination area
+  END
+
+  LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
+    INT_VAR
+    fj_type         = 2 	//travel - kind of trigger area
+    fj_box_left     = 410 	// x coordinate
+    fj_box_top      = 1875 	// y coordinate
+    fj_box_right    = 1155 	// x coordinate
+    fj_box_bottom   = 1919 	// y coordinate
+    fj_cursor_idx   = 30   	//door - mouse cursor symbol
+    fj_flags        = 4
+    fj_vertex_0     = 410 + (1875 << 16) //start with the lowest point: x coodinate - y coordinate
+    fj_vertex_1     = 1155 + (1875 << 16)
+    fj_vertex_2     = 1155 + (1919 << 16)
+    fj_vertex_3     = 410 + (1919 << 16)
+    STR_VAR
+    fj_structure_type   = region
+    fj_name             = d5ar130d 	//name of this travel region so you can address it via script etc.
+    fj_destination_area = AR1300 	//name of the destination area
+    fj_destination_name = d5bx1300 	//name of exitpoint in destination area
+  END
+ BUT_ONLY
+END 
+
+
+// set area scripts to allow travel from BG2
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~AR1300.are~) BEGIN
+<<<<<<<< d5/ar1300_.baf
+IF
+	Global("D5SkipSoD","GLOBAL",1)
+	Global("D5GotoBD7000","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("D5GotoBD7000","GLOBAL",1)
+	TriggerActivation("d5bd7000",TRUE)
+END
+
+IF
+	Global("D5SkipSoD","GLOBAL",0)
+	Global("D5StayAR1300","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("D5StayAR1300","GLOBAL",1)
+	TriggerActivation("d5bd7000",FALSE)
+END
+>>>>>>>> 
+  COPY ~d5/ar1300_.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar1300_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~ar1300~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/ar1300_~ END
+END
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~bd7000.are~) BEGIN
+<<<<<<<< d5/bd7000_.baf
+IF
+	Global("D5SkipSoD","GLOBAL",1)
+	Global("D5GotoAR1300","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("D5GotoAR1300","GLOBAL",1)
+	TriggerActivation("d5ar130a",TRUE)
+	TriggerActivation("d5ar130b",TRUE)
+	TriggerActivation("d5ar130c",TRUE)
+	TriggerActivation("d5ar130d",TRUE)
+END
+
+IF
+	Global("D5SkipSoD","GLOBAL",0)
+	Global("D5StayBD7000","GLOBAL",0)
+THEN
+	RESPONSE #100
+	SetGlobal("D5StayBD7000","GLOBAL",1)
+	TriggerActivation("d5ar130a",FALSE)
+	TriggerActivation("d5ar130b",FALSE)
+	TriggerActivation("d5ar130c",FALSE)
+	TriggerActivation("d5ar130d",FALSE)
+END
+>>>>>>>> 
+  COPY ~d5/bd7000_.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd7000_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~bd7000~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/bd7000_~ END
+END
+
+
+// that's...it?
+
+// maybe rewrite Tsolak's combat script?
+
+
+END	//	end function
+
+
+//___________________________________________________________________________________
+//
+
+DEFINE_ACTION_FUNCTION sod_remix_bloodbark_grove BEGIN
+
+
+END	//	end function
+
+
+//___________________________________________________________________________________
+//
+
+DEFINE_ACTION_FUNCTION sod_remix_wyrm_forest BEGIN
+
+
+END	//	end function
+
+
+//___________________________________________________________________________________
+//
+
+DEFINE_ACTION_FUNCTION sod_remix_random_cave BEGIN
+
+
+END	//	end function
+
+
+//___________________________________________________________________________________
+//
+
+DEFINE_ACTION_FUNCTION sod_remix_underground_river BEGIN
+
+
+END	//	end function
+
+
+////////////////////
+////////////////////
+////////////////////
+

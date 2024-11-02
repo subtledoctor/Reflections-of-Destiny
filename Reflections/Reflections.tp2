@@ -1,9 +1,10 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.4.6~
+VERSION ~0.5.1~
 
 ALWAYS
+  INCLUDE ~%MOD_FOLDER%/lib/misc_functions.tpa~
   OUTER_SPRINT newline ~%WNL%%LNL%%MNL%%TAB% ~
   ACTION_IF (GAME_IS ~eet~) BEGIN
     OUTER_SPRINT bg1_area_prefix ~BG~
@@ -105,17 +106,15 @@ INCLUDE ~%MOD_FOLDER%/comp/comp_290.tpa~
 LAF breathing_room END
 */
 
-/*
 INCLUDE ~%MOD_FOLDER%/comp/comp_299.tpa~
 
 ACTION_IF (GAME_IS ~eet~) BEGIN
-  LAF sod_remix_coast_way END
-  LAF sod_remix_bloodbark_grove END
-  LAF sod_remix_wyrm_forest END
   LAF sod_remix_coldhearth_dungeon END
-  LAF sod_remix_underground_river END
+  LAF sod_remix_coast_way_forest END
+//  LAF sod_remix_bloodbark_grove END
+//  LAF sod_remix_wyrm_forest END
+//  LAF sod_remix_underground_river END
 END
-*/
 
 //___________________________________________________________________________________
 //

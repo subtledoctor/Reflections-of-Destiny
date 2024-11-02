@@ -574,6 +574,31 @@ ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~0~) BEGIN
 END	//	end EBG1 #0
 
 
+ACTION_IF !(MOD_IS_INSTALLED ~c#anotherfinehell.tp2~ ~0~) BEGIN
+
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/switch+8.d~ ~~~~~
+ALTER_TRANS BDIMOEN 	// file name
+  BEGIN 89 END 			// state number (can be more than one)
+  BEGIN 0 END 		// transition number (can be more than one)
+  BEGIN "TRIGGER" ~Global("D5SkipSoD","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0)~ END
+~~~~~
+ 
+END	//	end no AFH #0
+
+// compatibility with AFH 
+
+ACTION_IF (MOD_IS_INSTALLED ~c#anotherfinehell.tp2~ ~0~) BEGIN
+
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/switch+8.d~ ~~~~~
+ALTER_TRANS BDIMOEN 	// file name
+  BEGIN 89 END 			// state number (can be more than one)
+  BEGIN 0 5 END 	// transition number (can be more than one)
+  BEGIN "TRIGGER" ~Global("D5SkipSoD","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0)~ END
+~~~~~
+ 
+END	//	end AFH #0
+
+
 //  now compile the dialogues
 
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/switch+8.d~
@@ -599,10 +624,10 @@ ACTION_IF (GAME_IS ~eet~) BEGIN
  <<<<<<<< d5/d5nu602.baf
  IF
 	CheckStatGT(Player1,30,0)
-	Global("P1RestFix","GLOBAL",0)
+	Global("D5P1RestFix","GLOBAL",0)
  THEN
 	RESPONSE #100
-		SetGlobal("P1RestFix","GLOBAL",1)
+		SetGlobal("D5P1RestFix","GLOBAL",1)
 		ActionOverride(Player1,Rest())
  END
  >>>>>>>>
