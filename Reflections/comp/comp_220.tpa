@@ -35,6 +35,7 @@ THEN
 	RESPONSE #100
 		ActionOverride("thalantyr",DestroySelf())		
 		SetGlobal("D5ThalantyrDead","GLOBAL",1)
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/area3202.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~

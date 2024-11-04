@@ -629,6 +629,7 @@ ACTION_IF (GAME_IS ~eet~) BEGIN
 	RESPONSE #100
 		SetGlobal("D5P1RestFix","GLOBAL",1)
 		ActionOverride(Player1,Rest())
+		Continue()
  END
  >>>>>>>>
  COPY ~d5/d5nu602.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5nu602.baf~

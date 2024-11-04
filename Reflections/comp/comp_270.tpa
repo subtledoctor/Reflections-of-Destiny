@@ -550,6 +550,7 @@ THEN
   RESPONSE #100
     ActionOverride("Container1",DestroyItem("c#stsrvs"))
     SetGlobal("C#st_RemoveSwordPCChest","MYAREA",1)
+    Continue()
 END
 >>>>>>>>
  COPY ~.../ar0110_remove_Sarevoks_sword.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~

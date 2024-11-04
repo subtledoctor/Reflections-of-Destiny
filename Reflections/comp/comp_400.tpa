@@ -237,6 +237,7 @@ THEN
 	RESPONSE #100
 		SetGlobal("D5CharnameIsScary","bd2000",1)
 		ActionOverride(Player1,AddSpecialAbility("SPIN203"))
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/bd2000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~

@@ -43,6 +43,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5ImoenChap","GLOBAL",1)
+		Continue()
 END
 
 IF
@@ -52,6 +53,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5ImoenChap","GLOBAL",2)
+		Continue()
 END
 
 IF
@@ -61,6 +63,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5ImoenChap","GLOBAL",3)
+		Continue()
 END
 
 IF
@@ -70,6 +73,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5ImoenChap","GLOBAL",4)
+		Continue()
 END
 
 IF
@@ -79,6 +83,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5ImoenChap","GLOBAL",5)
+		Continue()
 END
 
 IF
@@ -88,6 +93,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5ImoenChap","GLOBAL",6)
+		Continue()
 END
 
 IF
@@ -97,6 +103,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5ImoenChap","GLOBAL",7)
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/baldur+.baf~ ~weidu_external/%MOD_FOLDER%/compile/baldur+.baf~
@@ -180,6 +187,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5ImoenPalace","GLOBAL",2)
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/ar108+5.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+5.baf~
@@ -598,9 +606,11 @@ END
 <<<<<<<< d5/area0153.baf
 IF
 	Allegiance("DENKOD",[EVILCUTOFF])
+	Global("AttackedThieves","GLOBAL",0)
 THEN
 	RESPONSE #100
 		SetGlobal("AttackedThieves","GLOBAL",1)
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/area0153.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0153.baf~
@@ -700,6 +710,7 @@ THEN
 	RESPONSE #100
 		ActionOverride("VOLETA",DestroySelf())		
 		SetGlobal("D5VoletaGone","GLOBAL",1)
+		Continue()
 END
 
 IF
@@ -707,6 +718,7 @@ IF
 THEN
 	RESPONSE #100
 		SetGlobal("D5MazeOpen","GLOBAL",2)
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/area0146.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~

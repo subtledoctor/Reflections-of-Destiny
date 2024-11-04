@@ -172,6 +172,7 @@ THEN
 		ActionOverride(Player5,DestroyItem("MISC55"))
 		ActionOverride(Player6,DestroyItem("MISC55"))
 		SetGlobal("C#st_RemoveMisc55","MYAREA",1)
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
@@ -194,6 +195,7 @@ ACTION_IF (GAME_IS ~eet~) BEGIN
  THEN
 	RESPONSE #100
 		SetGlobal("D5ThisIsEET","GLOBAL",1)
+		Continue()
  END
  >>>>>>>>
  COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
@@ -220,6 +222,7 @@ THEN
 	RESPONSE #100
 		CreateCreature("d5gregs",[1120.850],14)
 		SetGlobal("D5GregsonExist","GLOBAL",1)
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/area0607.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0607.baf~

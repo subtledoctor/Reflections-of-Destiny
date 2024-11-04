@@ -105,6 +105,7 @@ THEN
 	RESPONSE #100
 		TriggerActivation("Door0123",FALSE)
 		SetGlobal("D5TempleLock","GLOBAL",1)
+		Continue()
 END
 
 IF
@@ -115,6 +116,7 @@ THEN
 		TriggerActivation("Door0123",TRUE)
 		SetGlobal("D5TempleLock","GLOBAL",2)
 		AddJournalEntry(@26001,QUEST)
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/area0125.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0125.baf~

@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.5.1~
+VERSION ~0.5.3~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/misc_functions.tpa~
@@ -61,6 +61,22 @@ LANGUAGE
 
 //___________________________________________________________________________________
 //
+BEGIN @50	//	bonus content in BG2
+DESIGNATED 50
+LABEL ~D5_REFLECTIONS_BONUS_CONTENT~
+REQUIRE_PREDICATE (GAME_IS ~eet~) ~ ~
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_50.tpa~
+
+LAF reveal_small_teeth END
+LAF sod_remix_coldhearth_dungeon END
+LAF sod_remix_coast_way_forest END
+LAF sod_remix_wyrm_forest END
+LAF sod_remix_bloodbark_grove END
+// LAF sod_remix_underground_river END
+
+//___________________________________________________________________________________
+//
 BEGIN @100	//	the mirror shards
 DESIGNATED 100
 LABEL ~D5_REFLECTIONS_MIRROR_SHARD~
@@ -106,16 +122,6 @@ INCLUDE ~%MOD_FOLDER%/comp/comp_290.tpa~
 LAF breathing_room END
 */
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_299.tpa~
-
-ACTION_IF (GAME_IS ~eet~) BEGIN
-  LAF sod_remix_coldhearth_dungeon END
-  LAF sod_remix_coast_way_forest END
-//  LAF sod_remix_bloodbark_grove END
-//  LAF sod_remix_wyrm_forest END
-//  LAF sod_remix_underground_river END
-END
-
 //___________________________________________________________________________________
 //
 BEGIN @300	//	the clone saga
@@ -140,17 +146,3 @@ LAF feyr_itself END
 
 //___________________________________________________________________________________
 //
-/*
-BEGIN @500	//	rewriting history
-DESIGNATED 500
-LABEL ~D5_REFLECTIONS_REWRITE_CAELAR~
-REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
-
-INCLUDE ~%MOD_FOLDER%/comp/comp_500.tpa~
-
-LAF rewrite_caelar END
-*/
-
-//___________________________________________________________________________________
-//
-

@@ -4,14 +4,7 @@
 @6   = ~...~
 //
 //
-@10   = ~Reflections of Destiny Part 1: The Mirror Shard~
-@20   = ~Reflections of Destiny Part 2: Death on Feathered Wings~
-@30   = ~Reflections of Destiny Part 3: Belt Tightening~
-@40   = ~Reflections of Destiny Part 4: Fight the Future~
-@50   = ~Reflections of Destiny Part 5: The Boy Who Lived~
-@60   = ~Reflections of Destiny Part 6: Not the End of the World~
-@70   = ~Reflections of Destiny Part 7: Pick a Side~
-@80   = ~Reflections of Destiny Part 8: Man in the Mirror~
+@50   = ~Reflections of Destiny Bonus: SoD Content in BG2~
 @100  = ~Reflections of Destiny Part 1: The Mirror Shard~
 @200  = ~Reflections of Destiny Part 2: Back to the Future~
 @300  = ~Reflections of Destiny Part 3: The Clone Saga~
@@ -27,7 +20,9 @@ This shard is a piece of an immensely powerful Mirror of Opposition, now broken.
 //
 //
 // use this for the extra random stuff in component 200
-@20091  = ~Take this shield, it doesn't really belong to me. I thought I could make better use of it than its true owner... but that doesn't justify keeping it.~
+@20091  = ~See that cavern there? The clerics, an' Coldhearth too, they were, y'know that thing...? Adamant. They were adamant no one who happened along see anything suspicious.~
+@20092  = ~Ho there stranger. Be you careful around here, there be some nasty critters from behind yon waterfall. Dead critters - but the kind of dead where they still try to bite you, if you get me.~
+@20093  = ~Take this shield, it doesn't really belong to me. I thought I could make better use of it than its true owner... but that doesn't justify keeping it.~
 //
 @22001  = ~You'll have to excuse me, everything is a mess, with Thalantyr gone. I am managing things until his return.~
 @22002  = ~Where has he gone?~
