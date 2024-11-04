@@ -45,6 +45,13 @@
 </div>
 <h2>Contents</h2>
 <div class="section">
+  <h4 class="subheader">Component 50: </h4>
+  <div class="section">
+    <p><strong><em>BG2 Bonus Content!</em></strong></p>
+    <p>This component makes several SoD areas accessible in BG2, as long as you did not play SoD up to that point. So if you play and utilize component 200's option to skip the SoD campaign... or you use another mod to skip the SoD campaign... or you import a character from the end of BG1 into the BG2 campaign... or you simply start a new BG2 campaign - as long as your character has not been through SoD, then you will be able to play through these areas in chapter 2 of BG2. </p>
+      <p>Note, however, that this component will only install on games that have EET installed - your character must not have played SoD, however it is still necessary to have the SoD areas available in the game for the mod to send you there!</p>
+      <p>This is designed as a kind of easter egg, so I do not want to spoil where the SoD areas are on the BG2 map. Most should be fairly obvious when you pass through the Athkatla City Gates; one, however, is in a different place - search west of De'Arnise's Hold.</p>
+  </div>
   <h4 class="subheader">Component 100: </h4>
   <div class="section">
     <p><strong><em>The Mirror Shard</em></strong></p>
@@ -59,6 +66,11 @@
       <p>Next, once you find Sarevok and fight him, the BG1 campaign will no longer abruptly end. Instead you will report your success to the Grand Dukes - and they may not be as happy about your actions as you might think! This is where the game will finally move on to the Siege of Dragonspear campaign.</p>
       <p>However, this also presents you with an option to <b>skip</b> Siege of Dragonspear, and stay in Baldur's Gate when the Coalition army marches north to meet Caelar Argent. This choice will proceed to the resolution of the Mirror Shard plot (again, only implicitly) and send you to the beginning of the Shadows of Amn campaign. The goal here is to make your capture by Irenicus and escape from his lair feel like it is still occurring in the BG1 campaign. It should add immediacy to the transition to BG2.</p>
       <p>Through all this, there are many more dialogues in the end of BG1 which flesh out what is happening in the city, how you are perceived, and your relationship to the city's rulers. You will have an explicit choice to disclose your heritage to them, or to keep it concealed. This doesn't have any mechanical consequences (yet!) but provides a better sense of agency and more in-depth player interactions in a part of the game that, in its initial release, is shockingly sparse.</p>
+  </div>
+  <h4 class="subheader">Component 300: </h4>
+  <div class="section">
+    <p><strong><em>The Clone Saga</em></strong></p>
+    <p>This component uses the Mirror Shard/clone plot that is the basis of the 'Skip SoD' option in component 200, and adds it to the <b>end</b> of SoD. The entire end-of-SoD plot involving the murder of Skie Silvershield and the trial of Charname is <b>removed</b>, and replaced with this version. Skie's death happens off-screen, not in a dream sequence; and there is no trial. Instead the events unfold more quickly and you find yourself outside Baldur's Gate under a cloud of suspicion, which goes unresolved. This should be a bit closer to how Charname's leaving Baldur's Gate was described in BG2.</p>
   </div>
   <h4 class="subheader">Component 400: </h4>
   <div class="section">
