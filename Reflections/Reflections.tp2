@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.5.3~
+VERSION ~0.5.4~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/misc_functions.tpa~

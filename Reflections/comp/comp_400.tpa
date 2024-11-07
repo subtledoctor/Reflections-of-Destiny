@@ -99,7 +99,6 @@ THEN
 		PlaySound("eff_m10a")
 		ActionOverride(Player1,ForceSpellRES("SPIN103",Myself))
 		SetGlobal("bd_208_status","global",3)
-		ActionOverride("bdthirri",FaceObject("bdfeyr"))
 		Wait(1)
 		EndCutSceneMode()
 END
@@ -167,7 +166,7 @@ IF ~~ BEGIN d5elandr_6
   SAY @40018
   IF ~~ DO ~ClearAllActions()
 			StartCutSceneMode()
-			StartCutSceneEx("d5c208a",FALSE)~ 
+			StartCutScene("d5c208a")~ 
 		EXIT
 END
 
