@@ -275,7 +275,8 @@ END
 
 IF ~Global("D5KorlaszDone","GLOBAL",2) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5beltkd_1
   SAY @25004
-  IF ~!PartyHasItem("D5SCRLSK")~ REPLY @25005 GOTO d5beltkd_5
+  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",0)~ REPLY @25005 GOTO d5beltkd_5
+  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",1)~ REPLY @25006 GOTO d5beltkd_6
   IF ~PartyHasItem("D5SCRLSK")~ REPLY @25006 GOTO d5beltkd_6
 END
 
@@ -291,7 +292,8 @@ END
 
 IF ~~ BEGIN d5beltkd_4
   SAY @25004
-  IF ~!PartyHasItem("D5SCRLSK")~ REPLY @25005 GOTO d5beltkd_5
+  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",0)~ REPLY @25005 GOTO d5beltkd_5
+  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",1)~ REPLY @25006 GOTO d5beltkd_6
   IF ~PartyHasItem("D5SCRLSK")~ REPLY @25006 GOTO d5beltkd_6
 END
 

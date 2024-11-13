@@ -124,9 +124,11 @@ BUT_ONLY
 <<<<<<<< d5/d53000+.baf
 IF
 	Global("bd_skie_plot","global",99)
+	InMyArea("BDSKIE")
 THEN
 	RESPONSE #100
 		ActionOverride("BDSKIE",EscapeArea())
+		Continue()
 END
 
 IF
@@ -140,6 +142,7 @@ THEN
 		CreateCreature("bdskie",[1330.210],NE)
 		Wait(1) 
 		ActionOverride("BDBENCE",StartDialogueNoSet(Player1))
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/d53000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/d53000+.baf~

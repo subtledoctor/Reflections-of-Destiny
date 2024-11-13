@@ -115,7 +115,7 @@ I discovered a letter from Sarevok among Korlasz' things. It appears to have bee
 @25003  = ~Korlasz is in custody. She is, for now, refusing to tell us anything about Sarevok. I wonder that a knave like Sarevok can engender such stubborn loyalty...~
 @25004  = ~Tell me, did you find any information about Sarevok or his whereabouts?~
 @25005  = ~We have found nothing useful.~
-@25006  = ~We found this letter from Sarevok to Korlasz. It mentions an Undercity? A place inside Baldur's Gate? Do you know what he is talking about?~
+@25006  = ~We found a letter from Sarevok to Korlasz. It mentions an Undercity? A place inside Baldur's Gate? Do you know what he is talking about?~
 @25007  = ~Well, you should make sure you scour the crypt, it is our best lead at the moment. Korlasz is an important ally of Sarevok, she is sure to have some information.~
 @25008  = ~Liia is the history expert here, I will defer to her on this.~
 @25009  = ~Ah yes. The city's history is quite old. Older than the bricks of these buildings, older than Balduran. There have been rumors that the decaying remains of the original city still lie somewhere beneath us.~
@@ -384,15 +384,15 @@ Refugees driven from their homes by the servants of Caelar Argent are arriving a
 //
 @30001 = ~That's it recruit. I have had enough. You can get away with a lot because of who you are, but this is a military campaign and there are limits!~
 @30002 = ~You can't tell me what to do!~
-@30003 = ~I CAN tell you what to do! We have scouts for scouting! You don't understand the value of the chain of command, and it is going to get someone killed. You have crossed the line over and over again, racking up violation after violation. At the same time, we are entering the most dangerous phase of this campaign. The Crusade could attack at any moment, and they will put this entire camp to the torch if they can. And if we survive that, we must attack a fortified castle.~
+@30003 = ~Yes, I CAN tell you what to do! You don't understand the value of the chain of command, and it is going to get someone killed. You have crossed the line over and over again, racking up violation after violation. At the same time, we are entering the most dangerous phase of this campaign. The Crusade could attack at any moment, and they will put this entire camp to the torch if they can. And if we survive that, we must attack a fortified castle.~
 @30004 = ~I was scouting the castle! I saw a weak point in the walls, and -~
-@30005 = ~We HAVE scouts, and you are not one of them! I don't care if you are skilled, or you obtained useful information. I cannot trust you to keep yourself and your squadmates safe in an engagement like this. I am sorry Skie. But your adventure is over. I am ordering you back to Baldur's Gate where you will be safe. I don't care if your father is a grand duke - I'll wager he will thank me for making this decision. Now pack up, and move out.~
+@30005 = ~We HAVE scouts, and you are not one of them! I don't care if you are skilled, or you obtained useful information. I cannot trust you to keep yourself and your squadmates safe in an engagement like this. I am sorry Skie, but your adventure is over. I am ordering you back to Baldur's Gate where you will be safe. I don't care if your father is a grand duke - I'll wager he will thank me for making this decision. Now pack up, and move out.~
 @30006 = ~But it's not fair! <CHARNAME>, talk to him!~
 @30007 = ~I said move out!~
 @30008 = ~...Yes, sir.~
 @30009 = ~You are making the right call. This is war, not a game.~
 @30010 = ~You know, she is more capable than you realize.~
-@30011 = ~I know Skie is more capable of handling herself than most of the recruits here. She is smart, has a flair for adventure, and got the best training money could buy. But she doesn't take commands seriously, and there are brutal commanders in the Crusade who will easily see and exploit her weakness. Gods forbid they capture her - she is more of a liability than an asset right not. I hate to be so calculating but... this is a moment for hard choices.~
+@30011 = ~I know Skie is more capable of handling herself than most of the recruits here. She is smart, has a flair for adventure, and got the best training money could buy. But she doesn't take orders seriously, and there are commanders in the Crusade who will easily see and exploit her weakness. Gods forbid they capture her - she is more of a liability than an asset right now. I hate to be so calculating but... this is a moment for hard choices.~
 @30012 = ~Anyway, I can't stand around discussing it. I have things to do, and I am sure you do as well. See you around.~
 @30013 = ~~
 @30014 = ~~
@@ -408,7 +408,7 @@ Refugees driven from their homes by the servants of Caelar Argent are arriving a
 @30024 = ~What? I would not do that!~
 @30025 = ~That is stupid. I could not have done if even if I wanted to.~
 @30026 = ~I know that, but the witnesses are apparently quite clear. In the last day you have defeated Caelar's lieutenants, you traveled to another plane of existence, reportedly fought an archfiend... such things are not done by ordinary people. Given who... given what you are...~
-@30027 = ~Just because my father was Bhaal, that doesn't mean I can teleport from here to a distant city and back. That's ridiculous. It doesn't work that way.~
+@30027 = ~Just because my father was Bhaal, that doesn't mean I can somehow teleport to a distant city. That's ridiculous. It doesn't work that way.~
 @30028 = ~Honestly? If pressed, I'm not sure I could say what you are and aren't capable of.~
 @30029 = ~Anyway why would I? I've been busy here, as you well know. It makes no sense. Skie is, well, not a friend exactly, but... I don't know. Certainly not someone I want dead! Have they raised her yet? Just ask her, she will tell you.~
 @30030 = ~I am told she cannot be raised. It is not clear why. Nothing they tried has worked. They told me it is as if her soul is not available for the spells to work on. This started as a war, but now we have been dealing with godchildren and devils and - I don't know what to think.~
