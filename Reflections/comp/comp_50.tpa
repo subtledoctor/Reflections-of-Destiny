@@ -680,6 +680,53 @@ END
 END
 
 
+// remove crusaders
+
+/* use the area script
+<<<<<<<< d5/bdkher_.baf
+IF
+	Global("D5SkipSoD","GLOBAL",1)
+	AreaCheck("bd7230")	
+	Global("D5NoKeherrem","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5NoKeherrem","GLOBAL",1)
+		DestroySelf()
+END
+>>>>>>>> 
+COPY ~d5/bdkher_.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdkher_.baf~
+EXTEND_BOTTOM ~bdkher.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bdkher_.baf~ END
+*/
+
+<<<<<<<< d5/bd7230_.baf
+IF
+	Global("D5SkipSoD","GLOBAL",1)
+	InMyArea("bdkharmy")	
+THEN
+	RESPONSE #100
+		ActionOverride("bdkharmy",DestroySelf())
+END
+
+IF
+	Global("D5SkipSoD","GLOBAL",1)
+	InMyArea("bdkher1")	
+THEN
+	RESPONSE #100
+		ActionOverride("bdkher1",DestroySelf())
+END
+
+IF
+	Global("D5SkipSoD","GLOBAL",1)
+	InMyArea("bdkher2")	
+THEN
+	RESPONSE #100
+		ActionOverride("bdkher2",DestroySelf())
+END
+>>>>>>>> 
+COPY ~d5/bd7230_.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd7230_.baf~
+LAF cd_extend_bg_area_script STR_VAR area = ~bd7230~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/bd7230_~ END
+
+
 // fix dialogues
 
 
