@@ -71,6 +71,7 @@
   <div class="section">
     <p><strong><em>The Clone Saga</em></strong></p>
     <p>This component uses the Mirror Shard/clone plot that is the basis of the 'Skip SoD' option in component 200, and adds it to the <b>end</b> of SoD. The entire end-of-SoD plot involving the murder of Skie Silvershield and the trial of Charname is <b>removed</b>, and replaced with this version. Skie's death happens off-screen, not in a dream sequence; and there is no trial. Instead the events unfold more quickly and you find yourself outside Baldur's Gate under a cloud of suspicion, which goes unresolved. This should be a bit closer to how Charname's leaving Baldur's Gate was described in BG2.</p>
+    <p><strong>Note:</strong> this component should not be installed along with Another Fine Hell component 0. It can cause serious technical problems, and there is no reason to install both since the end of SoD can only play out according to one mod or the other. Choose one.</p>
   </div>
   <h4 class="subheader">Component 400: </h4>
   <div class="section">

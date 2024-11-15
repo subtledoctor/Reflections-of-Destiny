@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.5.7~
+VERSION ~0.5.8~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/misc_functions.tpa~
@@ -128,6 +128,7 @@ BEGIN @300	//	the clone saga
 DESIGNATED 300
 LABEL ~D5_REFLECTIONS_CLONE_SAGA~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
+FORBID_COMPONENT ~c#anotherfinehell.tp2~ ~0~ @7
 
 INCLUDE ~%MOD_FOLDER%/comp/comp_300.tpa~
 
