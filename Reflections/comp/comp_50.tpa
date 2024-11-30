@@ -77,15 +77,15 @@ END	// end function
 DEFINE_ACTION_FUNCTION sod_remix_coldhearth_dungeon BEGIN
 
 <<<<<<<< d5/bdcoldh+.d
-ADD_TRANS_TRIGGER BDCOLDH 25 ~Global("D5SkipSoD","GLOBAL",1)~ DO 0
+ADD_TRANS_TRIGGER BDCOLDH 25 ~Global("D5SkipSoD","GLOBAL",0)~ DO 0
 
-ADD_TRANS_TRIGGER BDCOLDH 26 ~Global("D5SkipSoD","GLOBAL",1)~ DO 1
+ADD_TRANS_TRIGGER BDCOLDH 26 ~Global("D5SkipSoD","GLOBAL",0)~ DO 1
 
-ADD_TRANS_TRIGGER BDCOLDH 26 ~Global("D5SkipSoD","GLOBAL",1)~ DO 2
+ADD_TRANS_TRIGGER BDCOLDH 26 ~Global("D5SkipSoD","GLOBAL",0)~ DO 2
 
-ADD_TRANS_TRIGGER BDCOLDH 26 ~Global("D5SkipSoD","GLOBAL",1)~ DO 3
+ADD_TRANS_TRIGGER BDCOLDH 26 ~Global("D5SkipSoD","GLOBAL",0)~ DO 3
 
-ADD_TRANS_TRIGGER BDCOLDH 32 ~Global("D5SkipSoD","GLOBAL",1)~ DO 1
+ADD_TRANS_TRIGGER BDCOLDH 32 ~Global("D5SkipSoD","GLOBAL",0)~ DO 1
 >>>>>>>>
 COPY ~d5/bdcoldh+.d~ ~weidu_external/%MOD_FOLDER%/compile/bdcoldh+.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdcoldh+.d~
