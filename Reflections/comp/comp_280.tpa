@@ -52,7 +52,7 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5bdimo.baf~
 COPY ~%MOD_FOLDER%/data/switcheroo/d5cut64.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5cut64.baf~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5cut64.baf~
 COPY ~%MOD_FOLDER%/data/switcheroo/d5telbgt.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5telbgt.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5telbgt.baf~ EVALUTATE_BUFFER
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5telbgt.baf~ EVALUATE_BUFFER
 
 
 
@@ -119,7 +119,7 @@ THEN
 		ActionOverride("BDENTAR",EscapeAreaObject("Door0200"))
 		ActionOverride("BELT",EscapeAreaObject("Door0200"))
 		ActionOverride("LIIA",EscapeAreaObject("Door0200"))
-		Wait(1)
+		Wait(2)
 		MoveToPoint([460.715])
 		FadeToColor([20.0],0)
 		LeaveAreaLUAPanic("d50104","",[805.760],S)
@@ -195,11 +195,14 @@ IF
 THEN
 	RESPONSE #100
 		CutSceneId(Player1)
-		Wait(2)
+		Wait(1)
+		ApplySpellRES("D5PAUSE",Myself) 
+		ApplySpellRES("D5PAUSE","BDFF1002") 
 		ApplySpellRES("D5PAUSE","D5GREGS") 
 		ApplySpellRES("D5PAUSE","BELT") 
 		ApplySpellRES("D5PAUSE","LIIA") 
 		ApplySpellRES("D5PAUSE","BDENTAR") 
+		Wait(1)
 		AddAreaFlag(DREAMAREA)
 		ActionOverride(Player2,MakeUnselectable(1))
 		ActionOverride(Player3,MakeUnselectable(1))
@@ -214,6 +217,7 @@ THEN
 		Wait(2)
 		RemoveAreaFlag(DREAMAREA)
 		Wait(1)
+		ApplySpellRES("D5PAUSX",Myself) 
 		ApplySpellRES("D5PAUSX","BDFF1002") 
 		ApplySpellRES("D5PAUSX","D5GREGS") 
 		ApplySpellRES("D5PAUSX","BELT") 

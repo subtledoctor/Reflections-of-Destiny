@@ -147,6 +147,7 @@ THEN
 	RESPONSE #100
 		ReputationSet(8)
 		SetGlobal("D5DukesRepReset","GLOBAL",1)
+		Continue()
 END
 
 IF
@@ -156,6 +157,7 @@ THEN
 		XEquipItem("D5HPBLT","BELT",SLOT_BELT,EQUIP)  // Min1HP
 		XEquipItem("D5HPBLT","LIIA",SLOT_BELT,EQUIP)  // Min1HP
 		SetGlobal("D5DukesImmortal","GLOBAL",1)
+		Continue()
 END
 
 IF

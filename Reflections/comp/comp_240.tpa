@@ -40,16 +40,16 @@ INCLUDE ~%MOD_FOLDER%/lib/get_response_strrefs.tph~
 COPY_EXISTING ~%bg1_area_prefix%0700.are~ ~override~
   LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
     INT_VAR
-    fj_type         = 2    //travel
-    fj_box_left     = 1005  //kleinstes x
-    fj_box_top      = 3172  //kleinstes y
-    fj_box_right    = 1150  //grˆﬂtes x
-    fj_box_bottom   = 3300   //grˆﬂtes y
-    fj_cursor_idx   = 28 //stairs
-    fj_vertex_0     = 1005 + (3300 << 16)   //kleinstes x +  kleinstes y
-    fj_vertex_1     = 1150 + (3299 << 16)   //grˆﬂtes x + kleinstes y
-    fj_vertex_2     = 1142 + (3172 << 16)   //grˆﬂtes x + grˆﬂtes y
-    fj_vertex_3     = 1017 + (3176 << 16)   //kleinstes x + grˆﬂtes y
+    fj_type         = 2    // travel
+    fj_box_left     = 1005 
+    fj_box_top      = 3172 
+    fj_box_right    = 1150 
+    fj_box_bottom   = 3300 
+    fj_cursor_idx   = 28 // stairs
+    fj_vertex_0     = 1005 + (3300 << 16) 
+    fj_vertex_1     = 1150 + (3299 << 16) 
+    fj_vertex_2     = 1142 + (3172 << 16) 
+    fj_vertex_3     = 1017 + (3176 << 16) 
     STR_VAR
     fj_structure_type   = region
     fj_name             = C#EBG1_TranBD0120
@@ -59,16 +59,16 @@ COPY_EXISTING ~%bg1_area_prefix%0700.are~ ~override~
 // add info trigger for closed entrance 
   LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
     INT_VAR
-    fj_type         = 1    //trigger
-    fj_box_left     = 1005  //kleinstes x
-    fj_box_top      = 3172  //kleinstes y
-    fj_box_right    = 1150  //grˆﬂtes x
-    fj_box_bottom   = 3300   //grˆﬂtes y
-    fj_cursor_idx   = 22 //question mark
-    fj_vertex_0     = 1005 + (3300 << 16)   //kleinstes x +  kleinstes y
-    fj_vertex_1     = 1150 + (3299 << 16)   //grˆﬂtes x + kleinstes y
-    fj_vertex_2     = 1142 + (3172 << 16)   //grˆﬂtes x + grˆﬂtes y
-    fj_vertex_3     = 1017 + (3176 << 16)   //kleinstes x + grˆﬂtes y
+    fj_type         = 1    // trigger
+    fj_box_left     = 1005 
+    fj_box_top      = 3172 
+    fj_box_right    = 1150 
+    fj_box_bottom   = 3300 
+    fj_cursor_idx   = 22 // question mark
+    fj_vertex_0     = 1005 + (3300 << 16) 
+    fj_vertex_1     = 1150 + (3299 << 16) 
+    fj_vertex_2     = 1142 + (3172 << 16) 
+    fj_vertex_3     = 1017 + (3176 << 16) 
     fj_info_point_strref = RESOLVE_STR_REF (@24024)
     STR_VAR
     fj_structure_type   = region
@@ -115,16 +115,16 @@ COPY_EXISTING ~bd0120.are~ ~override~
 /* travel region to SoD-area bd0050 - EDIT don't need this in Reflections
   LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
     INT_VAR
-    fj_type         = 2    //travel
-    fj_box_left     = 750  //kleinstes x
-    fj_box_top      = 1528  //kleinstes y
-    fj_box_right    = 810  //grˆﬂtes x
-    fj_box_bottom   = 1683   //grˆﬂtes y
+    fj_type         = 2    // travel
+    fj_box_left     = 750 
+    fj_box_top      = 1528 
+    fj_box_right    = 810 
+    fj_box_bottom   = 1683 
     fj_cursor_idx   = 28 //stairs
-    fj_vertex_0     = 756 + (1683 << 16)   //kleinstes x +  kleinstes y
-    fj_vertex_1     = 810 + (1681 << 16)   //grˆﬂtes x + kleinstes y
-    fj_vertex_2     = 804 + (1532 << 16)   //grˆﬂtes x + grˆﬂtes y
-    fj_vertex_3     = 750 + (1528 << 16)   //kleinstes x + grˆﬂtes y
+    fj_vertex_0     = 756 + (1683 << 16) 
+    fj_vertex_1     = 810 + (1681 << 16) 
+    fj_vertex_2     = 804 + (1532 << 16) 
+    fj_vertex_3     = 750 + (1528 << 16) 
     STR_VAR
     fj_structure_type   = region
     fj_name             = C#EBG1_TranBD0050
@@ -134,8 +134,8 @@ COPY_EXISTING ~bd0120.are~ ~override~
 */
   LAUNCH_PATCH_FUNCTION  ~fj_are_structure~
     INT_VAR
-    fj_loc_x       = 920    //x
-    fj_loc_y       = 1601   //y
+    fj_loc_x       = 920    // x
+    fj_loc_y       = 1601   // y
     fj_orientation = 13
     STR_VAR
     fj_structure_type = entrance

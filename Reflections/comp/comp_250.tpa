@@ -184,9 +184,11 @@ IF
 	Global("D5MazeOpen","GLOBAL",1)
 	Global("D5ImoenPalace","GLOBAL",0)
 	InParty("%IMOEN_DV%")
+	InMyArea("%IMOEN_DV%")	
+	!StateCheck("%IMOEN_DV%",CD_STATE_NOTVALID)
 THEN
 	RESPONSE #100
-		SetGlobal("D5ImoenPalace","GLOBAL",2)
+		SetGlobal("D5ImoenPalace","GLOBAL",3)	//	is this necessary?
 		Continue()
 END
 >>>>>>>>
@@ -264,7 +266,7 @@ END
 COPY ~d5/d5imcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5imcut1.baf~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5imcut1.baf~ EVALUATE_BUFFER
 
-<<<<<<<< d5/palace+.d
+<<<<<<<< d5/palace+5.d
 APPEND BELT
 
 IF ~Global("D5KorlaszDone","GLOBAL",1) Global("D5MazeOpen","GLOBAL",0) Global("D5EntarCut","GLOBAL",0)~ BEGIN d5beltkd_0
@@ -431,7 +433,7 @@ END
 
 IF ~~ BEGIN d5liiakd_19
   SAY @25055
-  IF ~~ DO ~SetGlobal("D5ImoenPalace","GLOBAL",3)~ JOURNAL @25039 EXIT
+  IF ~~ DO ~SetGlobal("D5ImoenPalace","GLOBAL",5)~ JOURNAL @25039 EXIT
 END
 
 END
@@ -521,7 +523,7 @@ IF ~~ BEGIN d5imoenkd_6
   IF ~~ EXTERN LIIA d5liiakd_19
 END
 
-IF WEIGHT #-1 ~Global("D5ImoenPalace","GLOBAL",3) !Dead("SAREVOK")~ BEGIN d5imoenkd_7
+IF WEIGHT #-1 ~Global("D5ImoenPalace","GLOBAL",5) !Dead("SAREVOK")~ BEGIN d5imoenkd_7
   SAY @25056
   IF ~~ REPLY @25057 GOTO d5imoenkd_8
   IF ~~ REPLY @25059 GOTO d5imoenkd_9
@@ -544,8 +546,8 @@ END
 
 END
 >>>>>>>> 
-COPY ~d5/palace+.d~ ~weidu_external/%MOD_FOLDER%/compile/palace+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/palace+.d~
+COPY ~d5/palace+5.d~ ~weidu_external/%MOD_FOLDER%/compile/palace+5.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/palace+5.d~
 
 //modify trigger to activate entrance to maze
 
@@ -620,14 +622,13 @@ COPY ~d5/area0153.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%015
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0153.bcs~) BEGIN
   EXTEND_TOP ~%bg1_area_prefix%0153.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0153.baf~
 END
-
-ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0146.bcs~) BEGIN
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0153.bcs~) BEGIN
   COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0153.baf~
 END
 
 // change Denkod's dialogue
 
-<<<<<<<< d5/denkod+.d
+<<<<<<<< d5/denkod+5.d
 REPLACE_STATE_TRIGGER DENKOD 0 ~Global("D5MazeOpen","GLOBAL",99)~
 
 APPEND DENKOD
@@ -675,27 +676,12 @@ END
 
 END
 >>>>>>>> 
-COPY ~d5/denkod+.d~ ~weidu_external/%MOD_FOLDER%/compile/denkod+.d~
+COPY ~d5/denkod+5.d~ ~weidu_external/%MOD_FOLDER%/compile/denkod+5.d~
 
-/* apparently don't need this!
-// compatibility with EBG1 
-
-ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~12~) BEGIN
-
- OUTER_SET denkod_ebg1_140 = STATE_WHICH_SAYS 140 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~DENKOD~
-
- PRINT ~we're looking at state # %denkod_ebg1_140%~		//	should be 3
-
- APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/denkod+.d~ ~~~~~
- ADD_STATE_TRIGGER DENKOD %denkod_ebg1_140% ~Global("D5GregsonExist","GLOBAL",0)~
-~~~~~
- 
-END	//	end EBG1 #2
-*/
 
 // now compile the dialogue
 
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/denkod+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/denkod+5.d~
 
 
 // remove voleta stiletto
@@ -707,16 +693,16 @@ IF_EXISTS BUT_ONLY
 <<<<<<<< d5/area0146.baf
 IF
 	GlobalGT("D5MazeOpen","GLOBAL",0)
-	Global("D5VoletaGone","GLOBAL",0)
+	Global("D5VoletaGone","%bg1_area_prefix%0146",0)
 THEN
 	RESPONSE #100
 		ActionOverride("VOLETA",DestroySelf())		
-		SetGlobal("D5VoletaGone","GLOBAL",1)
+		SetGlobal("D5VoletaGone","%bg1_area_prefix%0146",1)
 		Continue()
 END
 
 IF
-	GlobalGT("D5MazeOpen","GLOBAL",1)
+	Global("D5MazeOpen","GLOBAL",1)
 THEN
 	RESPONSE #100
 		SetGlobal("D5MazeOpen","GLOBAL",2)
@@ -726,14 +712,41 @@ END
 COPY ~d5/area0146.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0146.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0146.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~
+  EXTEND_TOP ~%bg1_area_prefix%0146.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~ EVALUATE_BUFFER
 END
-
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0146.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~ EVALUATE_BUFFER
 END
 
 // ***** write out journal entries (34, 35, 39, 79)
+
+
+// remove imoen from the world if she is hanging out somwehere
+
+<<<<<<<< d5/imoen+5.baf
+IF
+	OR(2)
+		Global("D5ImoenPalace","GLOBAL",2)
+		Global("D5ImoenPalace","GLOBAL",5)
+	!AreaCheck("%NBaldursGate_DucalPalace_L1%")
+	!InPartyAllowDead(Myself)
+THEN
+	RESPONSE #100
+		EscapeArea()
+END
+>>>>>>>>
+COPY ~d5/imoen+5.baf~ ~weidu_external/%MOD_FOLDER%/compile/imoen+5.baf~
+
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~imoen_.bcs~) BEGIN
+    EXTEND_TOP ~imoen_.bcs~ ~weidu_external/%MOD_FOLDER%/compile/imoen+5.baf~
+  END
+END
+ACTION_IF !(GAME_IS ~eet~) /* AND (FILE_EXISTS_IN_GAME ~imoen_.bcs~) huh? */ BEGIN
+  ACTION_IF (FILE_EXISTS_IN_GAME ~imoen.bcs~) BEGIN
+    EXTEND_TOP ~imoen.bcs~ ~weidu_external/%MOD_FOLDER%/compile/imoen+5.baf~
+  END
+END
 
 //___________________________________________________________________________________
 //

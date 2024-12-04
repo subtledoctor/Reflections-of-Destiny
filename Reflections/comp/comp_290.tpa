@@ -1,0 +1,1135 @@
+
+DEFINE_ACTION_FUNCTION one_for_the_road BEGIN
+
+/*  
+TO DO:
+	- remove trigger or whatever that makes dauston appear in BG in SoD intro
+		...SetGlobal("BD_KICK_DAUSTON","GLOBAL",99), maybe?
+	- add phantom sarevok
+
+- after killing Sarevok, dukes talk about Caelar
+ -- are they connected?
+ -- is it another Bhaalspawn?
+ -- what's her deal, anyway?
+- they give you an information-gathering quest
+ -- a relation of Caelar's lives nearby... a wreck of a man, but maybe he has useful information
+ -- go talk to him
+ -- ...or say, sure, but I'll get to it when I get to it
+- quest: you find the Argent but there is a kidnapping attempt!
+ -- some dialogue with ringleader
+ -- you find out a bunch of refugees are being driven toward the city
+ -- *they* find out what you are (maybe it is discernable in your aura after killing Sarevok)
+ -- "things are accelerating faster than she feared! another Bhaalspawn in the upper echelons of the city's government!"
+ -- leader teleports away and you battle his minions
+- report back to the dukes, *then* have the critical choice
+
+
+THINGS:
+- after dauston quest, again offer choice to investigate entar's murder
+
+- add more conversation with dukes
+- set a variable, D5DaustonQuest
+
+- if imoen is in party, have her leave
+	...liia asks her to stay
+	...imoen is firm, says she wants to work with liia
+	...after all, it is a request by a friggin duke
+	...and her life has sucked since leaving candlekeep; this is an opportunity to have some stability, eat nice food, wear nice things, but also develop her talent and be useful
+- Liia should pipe up and ask this *after* you accept the Dauston quest, only if Imoen is in the party
+- create a hidden container in %var%0108.are
+- have that container take her items - ActionOverride("[Imoen_import_eq]",TakeCreatureItems("Imoen",ALL))
+- have %var%0110.bcs move those items to her personal container
+	...need to remove its trap and lock, too
+- add to bd0103.bcs - MoveContainerContents("%var%0110*Container\ 4","BD0103*Imoen_equipment")
+
+
+- //make refugees - borrow files from SoD?
+- //add blocks to UB area script for them to appear, along with mayor
+
+- make a trigger area that sets off the cut scene
+	...or just do something like TriggerOverride("Innkeeper",Detect([PC]))
+- scene with mayor talking to refugees
+
+- convo with mayor about Dauston; says he is sleeping one off on the beach
+	...add response to innkeeper as well?
+
+- //add dauston to area
+
+- first dialogue w/ dauston he is unresponsive, but set var to 1 and terminate dialogue trigger cut scene w/ crusaders
+
+- set up cut scene with appearance of crusaders
+
+- dialogue w/ cuvieronius
+
+- cut scene: cuv casts spell:
+	...dauston glows blue, charname glows purple, aasimars glow blue, tieflings glow red
+	...specifically emily glows blue, in case she is still coded as a half-elf
+	...a ghostly image of Sarevok appears near charname, also with a purple glow
+	...maybe, imply that cuv uses the heartstone gem for this divination???
+
+- (make spells for glow; apply them by script)
+- (make ghostly sarevok creature)
+
+- more dialogue w/ cuv, upon finish olo teleports away and the others go hostile
+	...CreateVisualEffect("DDOORH",[x.y])
+- when fight over, convo w/ dauston, he says he will put himself under the protection of the dukes, then exits
+
+ -- or MAYBE, don't even talk to dauston first? just have him lying there and when PCs approach, the crusaders show up?
+ -- ...then he can get up and talk after, and say "well I guess you know my little secret now" and then into the whole disccussion
+ -- ...then he agrees to go to the palace to be under the dukes' protection, and walks away
+
+- one more dialogue with dukes, finally the choice to move on
+
+- add refugees to bridge near entrance to BG city
+
+- Beregost bartenders:
+	...bart4 in jovial juggler
+	...bart13 in burning wizard
+	...bart5 in feldepost's
+	...bart3 in red sheaf
+- add a transition to each of these with trigger daustonquest>0 and <3
+	...useless talk but increment daustonquest by 1
+- ...add another transition with daustonquest=3
+	...saying he likes went off to live by the sea, and set var to 4, and add a journal entry
+- UB bartender:
+	bart14
+- add a transition with trigger daustonquest=4
+	...saying he is probably sleeping under a tree by the boats
+
+- adjust the current UB daustonquest
+
+- journal entries!!!
+	...upon being given dauston quest
+	...after talking to a few beregost bartenders
+	...
+	...
+
+*/
+
+//___________________________________________________________________________________
+//
+
+
+// prep journal entries
+
+ADD_JOURNAL TITLE (@29000) @29001 @29002 @29003 @29005 @29007 @29008 @29009
+
+// make spells for soul glow
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cloub.vvc~ ~override~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cloub.bam~ ~override~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cloup.vvc~ ~override~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cloup.bam~ ~override~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5clour.vvc~ ~override~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5clour.bam~ ~override~
+
+// look up tielfing and aasimar race values in race.ids
+
+COPY_EXISTING ~race.ids~ ~override~
+  READ_2DA_ENTRIES_NOW rows 2
+  FOR (row = 1; row < rows; ++row) BEGIN
+    READ_2DA_ENTRY_FORMER rows row 1 race_name
+    READ_2DA_ENTRY_FORMER rows row 0 race_ind
+    PATCH_IF (~%race_name%~ STRING_EQUAL_CASE ~tiefling~) BEGIN
+	  SET tiefling_code = %race_ind%
+	END
+    PATCH_IF (~%race_name%~ STRING_EQUAL_CASE ~aasimar~) BEGIN
+	  SET aasimar_code = %race_ind%
+	END
+  END
+IF_EXISTS BUT_ONLY
+
+ACTION_IF !(VARIABLE_IS_SET %tiefling_code%) BEGIN
+  OUTER_SET %tiefling_code% = 154
+END
+ACTION_IF !(VARIABLE_IS_SET %aasimar_code%) BEGIN
+  OUTER_SET %aasimar_code% = 185
+END
+
+COPY ~%MOD_FOLDER%/data/d5_base.spl~ ~override/d5solgl.spl~
+  WRITE_SHORT 0x1c 4
+  WRITE_LONG 0x34 1
+  LPF ALTER_SPELL_HEADER INT_VAR target = 5 projectile = 254 speed = 1 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 326 target = 2 parameter1 = %aasimar_code% parameter2 = 104 timing = 1 STR_VAR resource = ~d5cloub~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 326 target = 2 parameter1 = %tiefling_code% parameter2 = 104 timing = 1 STR_VAR resource = ~d5clour~ END
+COPY ~%MOD_FOLDER%/data/d5_base.spl~ ~override/d5cloub.spl~
+  WRITE_SHORT 0x1c 4
+  WRITE_LONG 0x34 1
+  LPF ALTER_SPELL_HEADER INT_VAR target = 5 speed = 0 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 321 target = 1 timing = 1 STR_VAR resource = ~d5cloub~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 timing = 0 duration = 9 STR_VAR resource = ~d5cloub~ END
+COPY ~%MOD_FOLDER%/data/d5_base.spl~ ~override/d5cloup.spl~
+  WRITE_SHORT 0x1c 4
+  WRITE_LONG 0x34 1
+  LPF ALTER_SPELL_HEADER INT_VAR target = 5 speed = 0 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 321 target = 1 timing = 1 STR_VAR resource = ~d5cloup~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 timing = 0 duration = 9 STR_VAR resource = ~d5cloup~ END
+COPY ~%MOD_FOLDER%/data/d5_base.spl~ ~override/d5clour.spl~
+  WRITE_SHORT 0x1c 4
+  WRITE_LONG 0x34 1
+  LPF ALTER_SPELL_HEADER INT_VAR target = 5 speed = 0 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 321 target = 1 timing = 1 STR_VAR resource = ~d5clour~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 timing = 0 duration = 9 STR_VAR resource = ~d5clour~ END
+
+
+// create phantom sarevok
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5sargh.cre~ ~override~
+  SAY 0x08 ~Phantom Figure~
+  SAY 0x0c ~Phantom Figure~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5ringgh.itm~ ~override~
+
+<<<<<<<< d5/d5sargh.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		Wait(8)
+		DestroySelf()
+END	
+>>>>>>>>
+COPY ~d5/d5sargh.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5sargh.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5sargh.baf~
+
+
+// bartenders' dialogues looking for dauston
+
+<<<<<<<< d5/bart+9.d
+
+APPEND BART3
+
+IF ~~ BEGIN d5bart3dq_1
+  SAY ~Yes, I recall good Sir Dauston. "The Knight of Cups," people called him. Liked his drink something fierce, but he was a good fellow. Never violent without cause, and always paid his bill. As for where he is now, I cannot tell you. He has not been in here for a few weeks at least. Ask around the other taverns, someone might know.~
+  IF ~~ REPLY ~Thank you.~ DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart3dq_2
+  SAY ~Ah yes, "The Knight of Cups!" Good lad, that. He was a good customer, but I worried for his health. He has not been around these parts for some time. Said he wanted to live by the sea air, and left town. Mind you, I suspect that means he wanted to find a tavern by the sea, not just any old beach.~
+  IF ~~ REPLY ~Thank you.~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@29003,QUEST)~ EXIT
+END
+
+END
+
+EXTEND_BOTTOM BART3 0
+	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY ~I am looking for a man - a paladin, I think. Named Sir Dauston.~ GOTO d5bart3dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY ~I am looking for a man - a paladin, I think. Named Sir Dauston.~ GOTO d5bart3dq_2
+END
+
+APPEND BART4
+
+IF ~~ BEGIN d5bart4dq_1
+  SAY ~Yes, I recall good Sir Dauston. "The Knight of Cups," people called him. Liked his drink something fierce, but he was a good fellow. Never violent without cause, and always paid his bill. As for where he is now, I cannot tell you. He has not been in here for a few weeks at least. Ask around the other taverns, someone might know.~
+  IF ~~ REPLY ~Thank you.~ DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart4dq_2
+  SAY ~Ah yes, "The Knight of Cups!" Good lad, that. He was a good customer, but I worried for his health. He has not been around these parts for some time. Said he wanted to live by the sea air, and left town. Mind you, I suspect that means he wanted to find a tavern by the sea, not just any old beach.~
+  IF ~~ REPLY ~Thank you.~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@29003,QUEST)~ EXIT
+END
+
+END
+
+EXTEND_BOTTOM BART4 0
+	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY ~I am looking for a man - a paladin, I think. Named Sir Dauston.~ GOTO d5bart4dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY ~I am looking for a man - a paladin, I think. Named Sir Dauston.~ GOTO d5bart4dq_2
+END
+
+EXTEND_BOTTOM BART4 1
+	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY ~I am looking for a man - a paladin, I think. Named Sir Dauston.~ GOTO d5bart4dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY ~I am looking for a man - a paladin, I think. Named Sir Dauston.~ GOTO d5bart4dq_2
+END
+
+APPEND BART5
+
+IF ~~ BEGIN d5bart5dq_1
+  SAY ~Yes, I recall good Sir Dauston. "The Knight of Cups," people called him. Liked his drink something fierce, but he was a good fellow. Never violent without cause, and always paid his bill. As for where he is now, I cannot tell you. He has not been in here for a few weeks at least. Ask around the other taverns, someone might know.~
+  IF ~~ REPLY ~Thank you.~ DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart5dq_2
+  SAY ~Ah yes, "The Knight of Cups!" Good lad, that. He was a good customer, but I worried for his health. He has not been around these parts for some time. Said he wanted to live by the sea air, and left town. Mind you, I suspect that means he wanted to find a tavern by the sea, not just any old beach.~
+  IF ~~ REPLY ~Thank you.~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@29003,QUEST)~ EXIT
+END
+
+END
+
+EXTEND_BOTTOM BART5 0
+	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY ~I am looking for a man - a paladin, I think. Named Sir Dauston.~ GOTO d5bart5dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY ~I am looking for a man - a paladin, I think. Named Sir Dauston.~ GOTO d5bart5dq_2
+END
+
+APPEND BART13
+
+IF ~~ BEGIN d5bart13dq_1
+  SAY ~Yes, I recall good Sir Dauston. "The Knight of Cups," people called him. Liked his drink something fierce, but he was a good fellow. Never violent without cause, and always paid his bill. As for where he is now, I cannot tell you. He has not been in here for a few weeks at least. Ask around the other taverns, someone might know.~
+  IF ~~ REPLY ~Thank you.~ DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart13dq_2
+  SAY ~Ah yes, "The Knight of Cups!" Good lad, that. He was a good customer, but I worried for his health. He has not been around these parts for some time. Said he wanted to live by the sea air, and left town. Mind you, I suspect that means he wanted to find a tavern by the sea, not just any old beach.~
+  IF ~~ REPLY ~Thank you.~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@29003,QUEST)~ EXIT
+END
+
+END
+
+EXTEND_BOTTOM BART13 0
+	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY ~I am looking for a man - a paladin, I think. Named Sir Dauston.~ GOTO d5bart13dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY ~I am looking for a man - a paladin, I think. Named Sir Dauston.~ GOTO d5bart13dq_2
+END
+
+APPEND BART14
+
+IF ~~ BEGIN d5bart14dq_1
+  SAY ~Ah yes, we know Sir Dauston well here. Showed up a few weeks ago and has been a reliable customer since. He is not here in the inn at the moment, which means he is probably recovering, er, resting, on the beach by the fishing boats. He likes to find himself a spot in the shade.~
+  IF ~~ REPLY ~Alright, I will go check by the beach.~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",6) AddJournalEntry(@29005,QUEST)~ EXIT
+END
+
+END
+
+EXTEND_BOTTOM BART14 0 // ulgoth's beard
+	IF ~Global("D5DaustonQuest","GLOBAL",5)~ REPLY ~I am looking for a knight, or a drunk. Named Sir Dauston. I was told he might be found at a tavern near the sea. I suppose this place fits the bill.~ GOTO d5bart14dq_1
+END
+>>>>>>>>
+COPY ~d5/bart+9.d~ ~weidu_external/%MOD_FOLDER%/compile/bart+9.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bart+9.d~ EVALUATE_BUFFER
+
+
+// create innkeeper/mayor
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5ubmay1.cre~ ~override~
+  SAY 0x08 ~Mayor~
+  SAY 0x0c ~Mayor~
+  WRITE_ASCII 0x248 ~D5UBMAY1~ #8
+  WRITE_ASCII 0x260 ~SHOUT~ #8
+
+// mayor script
+
+<<<<<<<< d5/d5ubmay1.baf
+IF
+	AreaCheck("%bg1_area_prefix%1000")  // Ulgoth's Beard
+	GlobalGT("D5DaustonQuest","GLOBAL",0)
+	Global("D5UBRefugeeSpeech","%bg1_area_prefix%1000",0)
+	See(Player1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",1)
+		StartDialogueNoSet(Player1)
+END	
+
+IF
+	AreaCheck("%bg1_area_prefix%1000")  // Ulgoth's Beard
+	Global("D5UBRefugeeSpeech","%bg1_area_prefix%1000",2)
+	See(Player1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",3)
+		Wait(2)
+		StartDialogueNoSet(Player1)
+END	
+>>>>>>>>
+COPY ~d5/d5ubmay1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.baf~ EVALUATE_BUFFER 
+
+
+// mayor dialogue
+
+<<<<<<<< d5/d5ubmay1.d
+BEGIN ~D5UBMAY1~
+
+IF ~Global("D5DaustonQuest","GLOBAL",5) GlobalLT("D5UBRefugeeSpeech","%bg1_area_prefix%1000",2)~ BEGIN d5ubmay1_1
+  SAY ~Hello everyone! If you could please stay calm and gather around, so I can speak -~
+  IF ~~ EXTERN BDREFGF2 d5refgf2_1
+END
+
+IF ~~ BEGIN d5ubmay1_2
+  SAY ~Now now, everyone stay calm. It will be a cold day in Avernus before Ulgoth's Beard lets those in need go hungry. We'll find space for everyone to spend the night, and warm food to feed you.~
+  IF ~~ GOTO d5ubmay1_3
+END
+
+IF ~~ BEGIN d5ubmay1_3
+  SAY ~However, come the morrow, you will need to be moving on. We are a small village and we lack the resources to support this many outsiders.~
+  IF ~~ EXTERN BDREFGM4 d5refgm4_1
+END
+
+IF ~~ BEGIN d5ubmay1_4
+  SAY ~Yes, we've had some reports of this crusade, as it were. I know things are dangerous. But that does not change the fact that we are a small community with not much more than an inn and some fishing boats. We just don't have the ability to take you all in.~
+  IF ~~ GOTO d5ubmay1_5
+END
+
+IF ~~ BEGIN d5ubmay1_5
+  SAY ~We have sent word of these goings-on to Baldur's Gate, and asked the Dukes for assistance and aid. Baldur's Gate is a large city, with much trade, lots of space, and institutions that can help you. You can probably find work there. It is only a few days' travel. We will outfit you for the trip as best we are able, but you must move on to the city.~
+  IF ~~ EXTERN BDREFGM4 d5refgm4_2
+END
+
+IF ~~ BEGIN d5ubmay1_6
+  SAY ~Thank you ma'am, yes. We mean you no harm and will do what we can. There will be some pots of fish stew ready soon, next to the inn. Please stay calm and make yourselves as comfortable as possible. As I say, you can spend the night here, and you will be warm and fed, and safe.~
+  IF ~~ DO ~SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",2)~ EXIT
+END
+
+IF ~Global("D5UBRefugeeSpeech","%bg1_area_prefix%1000",3)~ BEGIN d5ubmay1_7
+  SAY ~Hello, good adventurer. Please excuse the state of our village at the moment, these refugees are creating some tension in the village. Not that it is their fault! I feel badly for them, they have been very misused by these so-called crusaders in the north.~
+  IF ~~ REPLY ~What is going on?~ GOTO d5ubmay1_8
+  IF ~~ REPLY ~What's with all these people?~ GOTO d5ubmay1_8
+END
+
+IF ~~ BEGIN d5ubmay1_8
+  SAY ~Oh, they all have different stories, but the common thread is, this woman Caelar Argent - some kind of noble from Waterdeep - has been raising an army. Some had their homes raided for supplies; some had family members join up and leave them unable to take care of themselves.~
+  IF ~~ GOTO d5ubmay1_9
+END
+
+IF ~~ BEGIN d5ubmay1_9
+  SAY ~The drums of war are beating, and that is hard on everyone. It can cause tragedy before a war even properly begins.~
+  IF ~~ REPLY ~Is there anything I can do to help? ~ GOTO d5ubmay1_10
+  IF ~~ REPLY ~These people are not my concern. I am looking for someone, someone connected to Caelar Argent. A knight. Name of Dauston?~ GOTO d5ubmay1_12
+END
+
+IF ~~ BEGIN d5ubmay1_10
+  SAY ~Oh, no sir, unless you've got food and shelter for several dozen people among that magical gear of yours. I don't suppose you know the 'Mordenkainen's Magnificent Mansion' spell?~
+  IF ~~ GOTO d5ubmay1_11
+END
+
+IF ~~ BEGIN d5ubmay1_11
+  SAY ~No, these people don't need adventurers, they need community. They don't like to be pushed on, but their best bet is to head to the city, as I said. The dukes will know what to do.~
+  IF ~~ REPLY ~The dukes actually sent me here, in connection with Caelar Argent's activity. They told me I could find someone... a knight? By the name of Dauston?~ GOTO d5ubmay1_12
+END
+
+IF ~~ BEGIN d5ubmay1_12
+  SAY ~Oh yes, good Sir Dauston. Not exactly a knight. Not for a long time anyway. The man is so pickled, he should live in a jar. But, ah, I should not complain. He has a good heart, and he comes from money so he bar tab is generally paid. He means well, but he seems to just have a hard time with living, with the normal parts of life that you and I take for granted. You know, wake up, feed and clean yourself, do a job, maintain friendships.~
+  IF ~~ GOTO d5ubmay1_13
+END
+
+IF ~~ BEGIN d5ubmay1_13
+  SAY ~Well, er, at least I take it for granted. You look to be one of these adventurer types who goes running into beast-filled holes. Maybe you are more like Sir Dauston. Eh, I should ask you... do you mean the man harm? He is good enough, and fairly defenseless. I should not like to send trouble his way.~
+  IF ~~ REPLY ~No, nothing like that. I merely seek to speak with him - it is said he is related to Caelar Argent, the dukes hope that he might shed some light on her recent activities.~ GOTO d5ubmay1_14
+  IF ~~ REPLY ~Harm him? Not unless he invites it. I am here to find out more about this Caelar Argent character. I was told he has a connection to her.~ GOTO d5ubmay1_14
+END
+
+IF ~~ BEGIN d5ubmay1_14
+  SAY ~Ah. We know little enough about her, though as you see we are starting to feel the effects of her recruitment. Well, I was just in the tavern and Sir Dauston is not there. Which means you can likely find him over by the beach, sleeping off his drink.~
+  IF ~~ REPLY ~Thank you. I will look for him there.~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",6) SetGlobal("D5UBRefugeesMove","GLOBAL",3) SetGlobal("D5UBRefugeeSpeech",""%bg1_area_prefix%1000"",4)~ EXIT
+END
+
+BEGIN ~BDREFGF2~
+
+IF ~~ BEGIN d5refgf2_1
+  SAY ~Please, Mister Mayor sir, show us kindness! We have been on the road so long, and we have nowhere to go!~
+  IF ~~ EXTERN D5UBMAY1 d5ubmay1_2
+END
+
+IF ~~ BEGIN d5refgf2_2
+  SAY ~Now, stop it, you know that's not true. This man and this village have helped us, even when they did not have to. We should thank them for as much as they could give. Things will be better in the city. The dukes of Baldur's Gate will be able to do more for us.~
+  IF ~~ EXTERN D5UBMAY1 d5ubmay1_6
+END
+
+BEGIN ~BDREFGM4~
+
+IF ~~ BEGIN d5refgm4_1
+  SAY ~What? But where are we to go? I... I am able-bodied! I can work for my keep. Many others can as well.~
+  IF ~~ EXTERN BDREFGF6 d5refgf6_1
+END
+
+IF ~~ BEGIN d5refgm4_2
+  SAY ~Is that all? What good are you? Here we are on the cusp of starving and you'll turn us out? You no better than those crusaders!~
+  IF ~~ EXTERN BDREFGF2 d5refgf2_2
+END
+
+BEGIN ~BDREFGF6~
+
+IF ~~ BEGIN d5refgf6_1
+  SAY ~We've got families here, children! You don't know what it is like up north! Whole villages being taken over, ransacked - people being turned out of their homes, murdered, worse... in the name of some "shining lady!"~
+  IF ~~ EXTERN D5UBMAY1 d5ubmay1_4
+END
+>>>>>>>>
+COPY ~d5/d5ubmay1.d~ ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.d~ EVALUATE_BUFFER
+
+
+// create crusaders
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cruaf5.cre~ ~override~	//	archer
+    ~%MOD_FOLDER%/data/one_for_the_road/d5cru41.cre~ ~override~ 	//	crusader
+    ~%MOD_FOLDER%/data/one_for_the_road/d5cru44.cre~ ~override~ 	//	recruit/thief
+    ~%MOD_FOLDER%/data/one_for_the_road/d5cru52.cre~ ~override~ 	//	cleric
+    ~%MOD_FOLDER%/data/one_for_the_road/d5cru58.cre~ ~override~ 	//	mage
+  READ_LONG 0x08 crusader_name_string
+  PATCH_IF (GAME_IS ~eet~) BEGIN
+    TEXT_SPRINT eet_crusader_name_string ~2%crusader_name_string%~
+    WRITE_LONG 0x08 eet_crusader_name_string
+    WRITE_LONG 0x0c eet_crusader_name_string
+  END
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cuvier.cre~ ~override~	//	leader
+  READ_LONG 0x08 crusader_name_string
+  PATCH_IF (GAME_IS ~eet~) BEGIN
+    TEXT_SPRINT eet_crusader_name_string ~2%crusader_name_string%~
+    WRITE_LONG 0x08 eet_crusader_name_string
+    WRITE_LONG 0x0c eet_crusader_name_string
+  END
+  WRITE_ASCII 0x2cc ~d5cuvier~ #8
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cru48.cre~ ~override~ 	//	sergeant
+  READ_LONG 0x08 crusader_name_string
+  PATCH_IF (GAME_IS ~eet~) BEGIN
+    TEXT_SPRINT eet_crusader_name_string ~2%crusader_name_string%~
+    WRITE_LONG 0x08 eet_crusader_name_string
+    WRITE_LONG 0x0c eet_crusader_name_string
+  END
+  WRITE_ASCII 0x2cc ~d5crusgt~ #8
+
+// create Dauston		//	need to make sure this .CRE works for the scripted actions
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5dausto.cre~ ~override~
+  SAY 0x08 ~Sir Dauston~
+  SAY 0x0c ~Sir Dauston~
+  WRITE_ASCII 0x248 ~D5DAUST~ #8
+  WRITE_BYTE 0x272 %aasimar_code%
+
+// dauston script
+
+<<<<<<<< d5/d5daust.baf
+IF
+	AreaCheck("%bg1_area_prefix%1000") 
+	Global("D5DaustonQuest","GLOBAL",13)
+	!ActuallyInCombat()
+	See(Player1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",14)
+		SetSequence(1)
+		Wait(1)
+		StartDialogueNoSet(Player1)
+END	
+>>>>>>>>
+COPY ~d5/d5daust.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5daust.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5daust.baf~ EVALUATE_BUFFER 
+
+
+// cuv/dauston dialogue
+
+<<<<<<<< d5/d5dausto.d
+BEGIN ~D5CUVIER~
+
+IF ~Global("D5DaustonQuest","GLOBAL",9)~ BEGIN d5cuvier_1
+  SAY ~This is where they said he would be. But hold - who are these others?~
+  IF ~~ GOTO d5cuvier_2
+END
+
+IF ~~ BEGIN d5cuvier_2
+  SAY ~You there! You should leave. We have business with this man.~
+  IF ~~ EXTERN D5CRUSGT d5crusgt_1
+END
+
+IF ~~ BEGIN d5cuvier_3
+  SAY ~Look at those scars. The fine clothing underneath the mud and stains. I'd wager this is the man. At any rate we will find out for sure. Sir Dauston shares the Lady's gift. The gem will reveal his lineage.~
+  IF ~~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",10)~ EXIT 
+END
+
+IF ~Global("D5DaustonQuest","GLOBAL",12)~ BEGIN d5cuvier_4
+  SAY ~That is Dauston, alright - but what is this?? Who are you stranger, that your aura shines with death? And what are you carrying with you?~
+  IF ~~ EXTERN D5CRUSGT d5crusgt_2
+END
+
+IF ~~ BEGIN d5cuvier_5
+  SAY ~We have no business with Sarevok, except to extinguish what he represents. You... you are another of the Children, aren't you? That aura is unmistakeable.~
+  IF ~~ EXTERN D5CRUSGT d5crusgt_3 
+END
+
+IF ~~ BEGIN d5cuvier_6
+  SAY ~Don be a fool! This is not Sarevok! But that aura is unmistakeable. It is another of the Children.~
+  IF ~~ EXTERN D5CRUSGT d5crusgt_3
+END
+
+IF ~~ BEGIN d5cuvier_7
+  SAY ~Another Child, here with Sir Dauston... what it means is, things are accelerating. I must bring news of this to the Lady at once! This changes our mission, but only slightly. Capture the Child if you can, otherwise kill <PRO_HIMHER>. Then bind Sir Dauston and bring him to Dragonspear as planned.~
+  IF ~~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",13)~ EXIT 
+END
+
+BEGIN ~D5CRUSGT~
+
+IF ~~ BEGIN d5crusgt_1
+  SAY ~Are you sure that's Dauston? I thought he was supposed to be a knight. This guy looks like a common drunk.~
+  IF ~~ EXTERN D5CUVIER d5cuvier_3
+END
+
+IF ~~ BEGIN d5crusgt_2
+  SAY ~Is... is this Sarevok?? <PRO_HESHE> doesn't look like the way Sarevok was described...~
+  IF ~~ REPLY ~Sarevok is dead. What is your business with him?~ EXTERN D5CUVIER d5cuvier_5 
+  IF ~~ REPLY ~Yes... I am indeed Sarevok! You should run, lest you incur my wrath!~ EXTERN D5CUVIER d5cuvier_6 
+END
+
+IF ~~ BEGIN d5crusgt_3
+  SAY ~Another one! What does that mean?~
+  IF ~~ EXTERN D5CUVIER d5cuvier_7 
+END
+
+BEGIN ~D5DAUSTO~
+
+IF ~Global("D5DaustonQuest","GLOBAL",6)~ BEGIN d5dausto_1
+  SAY ~Uhhhhh. Whazzat... Go 'way. Mm sleepin'.~
+  IF ~~ REPLY ~Hey. Wake up, we need to speak with you.~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",7)~ EXIT 
+END
+
+IF ~Global("D5DaustonQuest","GLOBAL",14)~ BEGIN d5dausto_2
+  SAY ~Ohh... my head... hello, sir. I must give you my thanks. Those people seemed to want to kidnap me. Did I hear them mention Caelar Argent?~
+  IF ~~ REPLY ~Yes, they seemed be her agents. In fact, that is why I sought you out as well. Is it true you are related to her?~ GOTO d5dausto_3
+  IF ~~ REPLY ~Never mind them, they have been taken care of. They were foolish to challenge me. I am here for you. Is it true you are related to Caelar Argent?~ GOTO d5dausto_3
+END
+
+IF ~~ BEGIN d5dausto_3
+  SAY ~Yes... we are somewhat distant cousins. I am not an Argent - we are related on my mother's side. But in my time I was close to the Argent family. I once squired for her uncle. Back when I... when things seemed under control.~
+  IF ~~ REPLY ~What do you mean? Under control how?~ GOTO d5dausto_4
+  IF ~~ REPLY ~Spare me your whining. I am here with a purpose. Can you give me information that can be used against Caelar?~ GOTO d5dausto_4
+END
+
+IF ~~ BEGIN d5dausto_4
+  SAY ~I was not always this way. In my youth I was strong, righteous, a warrior who rode with the Order of the Aster. You see, I am like Caelar. We are both descended from the same celestial being, one of the most righteous and powerful planar crusaders. Since that time, long ago, the residual power of that coupling occasionally manifests in a child of our family. It manifested in me, and also in Caelar.~
+  IF ~~ REPLY ~How did you come to this?~ GOTO d5dausto_6
+END
+
+IF ~~ BEGIN d5dausto_5
+  SAY ~I cannot tell you much about Caelar's current actions. But she has always been a driven person. She is like me, an aasimar. Descended from a celestial being - one of the most righteous and powerful planar crusaders. Since that time, long ago, the residual power of that coupling occasionally manifests in a child of our family.~
+  IF ~~ REPLY ~What about you? How did you come to this?~ GOTO d5dausto_6
+END
+
+IF ~~ BEGIN d5dausto_6
+  SAY ~In my youth I thought my heritage made me strong. People say "it's celestial blood, it makes you extra good!" Well, they don't know what they are talking about. My ancestor was made of the very planes themselves. Do you understand what that means? It is literally the afterlife! The place where our myths and stories and dreams play themselves out, over and over! The stuff of myth, transmuted to actual blood, running though one's veins... mortals were not meant to handle it!~
+  IF ~~ GOTO d5dausto_7
+END
+
+IF ~~ BEGIN d5dausto_7
+  SAY ~Oh, it's one thing if a deva or some minor fiend has a dalliance with a mortal. You get a mortal with a tail, or golden eyes. But my ancestor was a solar! One of the most powerful and influential solars to walk the planes, tantamount to a god! And I FEEL that, all the time. It doesn't stop even when I sleep! The dreams, the urges, the intrusive thoughts about stamping out evil every time I am slighted in the most insignificant way... You have no idea what it is like to have this in your blood!~
+  IF ~~ REPLY ~You really don't know who you are talking to.~ GOTO d5dausto_8
+  IF ~~ REPLY ~What about Caelar? She does not appear to be affected the way you have been.~ GOTO d5dausto_8
+END
+
+IF ~~ BEGIN d5dausto_8
+  SAY ~For one such as us, it takes an iron will to master your own blood, every hour of every day. Some find power in it: it hones them like a blade, and propels them to greatness. But is that true greatness, to use a gift of someone else's making? Can you claim superiority, for something fused into your blood? Caelar was always strong - she mastered her gift so completely, so young. But... she began acting as if she earned it. She talked about mastering fate itself. Like a god! But she is only a mortal, and I wonder if she is only listening to the whispers of the past, echoes of power from another time and place.~
+  IF ~~ GOTO d5dausto_9
+END
+
+IF ~~ BEGIN d5dausto_9
+  SAY ~Caelar drowns herself in righteous battle. I refuse to do that any longer - I do not trust myself. So I drown myself in something a bit less destructive. It is the only way I have found to quiet the urges, while ensuring I don't hurt anyone. And eventually, one day, this taint will die with me. I won't carry it on to future generations.~
+  IF ~~ REPLY ~When is the last time you saw her? Can you tell me anything about her current plans?~ GOTO d5dausto_10
+  IF ~~ REPLY ~Her mage took a particular interest in me. Do you have any idea if she has a connection to me?~ GOTO d5dausto_10
+END
+
+IF ~~ BEGIN d5dausto_10
+  SAY ~There is little else I can tell you. I have not spoken to her in years. Caelar, consciously or not, seems to be reenacting our ancestor's fate. I fear there will be no reasoning with her. She hears only the din of the urges in her blood.~
+  IF ~~ REPLY ~Will you come to Baldur's Gate, and speak to the dukes? I am sure they would like to hear this from you directly. And they can keep you safe from further attacks by the crusaders.~ GOTO d5dausto_11
+  IF ~~ REPLY ~The dukes of Baldur's Gate want me to send you to them. It looks like it is them or the crusaders. Your choice, but I really think you should do what I ask. I have my own urges - quite dark.~ GOTO d5dausto_11
+END
+
+IF ~~ BEGIN d5dausto_11
+  SAY ~Alright, I will go to Baldur's Gate. I want no part of my cousin's fate. Thank you for speaking with me, and for fighting off those crusaders. I will see my way to the dukes' palace.~
+  IF ~~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",15)~ EXIT 
+END
+>>>>>>>>
+COPY ~d5/d5dausto.d~ ~weidu_external/%MOD_FOLDER%/compile/d5dausto.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5dausto.d~
+
+
+// UB area script
+
+<<<<<<<< d5/bg1000+9.baf
+IF
+	Global("D5DaustonQuest","GLOBAL",4)
+	Global("D5UBRefugeesMove","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5UBRefugeesMove","GLOBAL",1)
+		CreateCreature("d5dausto",[610.820],E)
+		CreateCreature("d5ubmay1",[2195.680],10)
+		CreateCreature("bdrefgm1",[2065.695],10)
+		CreateCreature("bdrefgf1",[2100.735],10)
+		CreateCreature("bdrefgm2",[2235.756],8)
+		CreateCreature("bdrefgf2",[2160.775],8)
+		CreateCreature("bdrefgm3",[2015.720],10)
+		CreateCreature("bdrefgf3",[2060.765],10)
+		CreateCreature("bdrefgm4",[2115.805],10)
+		CreateCreature("bdrefgf4",[2245.815],8)
+		CreateCreature("bdrefgm5",[2190.820],8)
+		CreateCreature("bdrefgf5",[1980.765],10)
+		CreateCreature("bdrefgm6",[1960.715],12)
+		CreateCreature("bdrefgf6",[2030.800],10)
+		CreateCreature("bdrefgm7",[2195.860],8)
+		CreateCreature("bdrefgf7",[2105.840],8)
+		Continue()
+END	
+
+IF
+	GlobalGT("D5UBRefugeesMove","GLOBAL",4)
+THEN
+	RESPONSE #100
+		ActionOverride("bdrefgm1",DestroySelf())
+		ActionOverride("bdrefgf1",DestroySelf())
+		ActionOverride("bdrefgm2",DestroySelf())
+		ActionOverride("bdrefgf2",DestroySelf())
+		ActionOverride("bdrefgm3",DestroySelf())
+		ActionOverride("bdrefgf3",DestroySelf())
+		ActionOverride("bdrefgm4",DestroySelf())
+		ActionOverride("bdrefgf4",DestroySelf())
+		ActionOverride("bdrefgm5",DestroySelf())
+		ActionOverride("bdrefgf5",DestroySelf())
+		ActionOverride("bdrefgm6",DestroySelf())
+		ActionOverride("bdrefgf6",DestroySelf())
+		ActionOverride("bdrefgm7",DestroySelf())
+		ActionOverride("bdrefgf7",DestroySelf())
+		Continue()
+END	
+
+IF
+	Global("D5DaustonQuest","GLOBAL",4)
+	Global("D5DaustonSleep","%bg1_area_prefix%1000",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",5)
+		SetGlobal("D5DaustonSleep","%bg1_area_prefix%1000",1)
+		ActionOverride("d5dausto",SetSequence(16))
+		Continue()
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",7)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",8)
+		CreateCreature("d5cru48",[860.340],S) // sergeant
+		CreateCreature("d5cru44",[945.345],S) // thief
+		CreateCreature("d5cuvier",[915.290],S)
+		CreateCreature("d5cru58",[990.290],S) // mage
+		CreateCreature("d5cru41",[470.270],S) // fighter
+		CreateCreature("d5cru52",[500.210],S) // cleric
+		CreateCreature("d5cruaf5",[555.170],S) // archer
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CRCUT1")
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",10)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",11)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CRCUT2")
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",13)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",14)
+		ActionOverride("d5cuvier",ForceSpellPoint([2900.300],WIZARD_DIMENSION_DOOR))
+		Wait(1)
+		ActionOverride("d5cuvier",DestroySelf())
+		ActionOverride("d5cru48",Enemy())
+		ActionOverride("d5cru41",Enemy())
+		ActionOverride("d5cru48",Enemy())
+		ActionOverride("d5cru52",Enemy())
+		ActionOverride("d5cru58",Enemy())
+		ActionOverride("d5cruaf5",Enemy())
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",15)
+	InMyArea("d5dausto")	
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",20)
+		AddJournalEntry(@29007,QUEST)
+		ActionOverride("d5dausto",EscapeArea())
+END
+>>>>>>>>
+COPY ~d5/bg1000+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bg1000+9.baf~
+EXTEND_TOP ~%bg1_area_prefix%1000.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bg1000+9.baf~ EVALUATE_BUFFER
+
+
+// crusaders' entry cut scene
+
+<<<<<<<< d5/d5crcut1.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId("D5DAUSTO")
+		SetGlobal("D5DaustonQuest","GLOBAL",9)
+		ActionOverride("d5cru48",MoveToPoint([685.720])) // sergeant
+		ActionOverride("d5cru41",MoveToPoint([620.715])) // fighter
+		Wait(1)
+		ActionOverride("d5cru44",MoveToPoint([800.655])) // thief
+		ActionOverride("d5cru52",MoveToPoint([625.625])) // cleric
+		Wait(1)
+		ActionOverride("d5cuvier",MoveToPoint([695.635])) // cuv
+		ActionOverride("d5cruaf5",MoveToPoint([400.635])) // archer
+		ActionOverride("d5cru58",MoveToPoint([680.560])) // mage
+		Wait(6)
+		EndCutSceneMode()
+		ActionOverride("d5cuvier",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5crcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5crcut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5crcut1.baf~
+
+
+// cuvieronius cast spell cut scene
+// ***** create and destroy phantom sarevok here
+
+// ***** maybe: make spells with op318 effects to block if not the right race
+// 		...then just apply both of them to Player2-6
+
+<<<<<<<< d5/d5crcut2.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId("D5DAUSTO")
+		ActionOverride("d5cuvier",ForceSpellRES("d5solgl",Myself))
+		Wait(1)
+		ActionOverride(Player1,ApplySpellRES("d5cloup",Myself))
+		Wait(8)
+		EndCutSceneMode()
+		ActionOverride("d5cuvier",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5crcut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5crcut2.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5crcut2.baf~
+
+// refugees move to BG east
+
+<<<<<<<< d5/bg0800+9.baf
+IF
+	Global("D5UBRefugeesMove","GLOBAL",3)
+THEN
+	RESPONSE #100
+		SetGlobal("D5UBRefugeesMove","GLOBAL",5)
+		CreateCreature("bdrefgm1",[2370.1300],10)
+		CreateCreature("bdrefgf1",[2415.1305],4)
+		CreateCreature("bdrefgm2",[2400.1255],2)
+		CreateCreature("bdrefgf2",[2480.1295],10)
+		CreateCreature("bdrefgm3",[2515.1315],8)
+		CreateCreature("bdrefgf3",[2470.1250],12)
+		CreateCreature("bdrefgm4",[2565.1280],4)
+		CreateCreature("bdrefgf4",[2585.1220],2)
+		CreateCreature("bdrefgm5",[2525.1200],14)
+		CreateCreature("bdrefgf5",[2490.1160],6)
+		CreateCreature("bdrefgm6",[2465.1100],0)
+		CreateCreature("bdrefgf6",[2445.1190],8)
+		CreateCreature("bdrefgm7",[2405.1150],12)
+		CreateCreature("bdrefgf7",[2415.1105],14)
+		CreateCreature("bdrefgm1",[2775.1230],8)
+		CreateCreature("bdrefgf1",[2810.1200],4)
+		CreateCreature("bdrefgm2",[2710.1250],10)
+		CreateCreature("bdrefgf2",[2735.1195],2)
+		CreateCreature("bdrefgm3",[2675.1200],12)
+		CreateCreature("bdrefgf3",[2725.1165],0)
+END	
+>>>>>>>>
+COPY ~d5/bg0800+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bg0800+9.baf~
+EXTEND_TOP ~%bg1_area_prefix%0800.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bg0800+9.baf~
+
+
+// more Belt and Liia dialogue
+
+<<<<<<<< d5/final+9.d
+APPEND BELT
+
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",15) Global("D5GregsonPalace","GLOBAL",0) ~ BEGIN d5beltdq_1
+  SAY ~Thank you for sending Sir Dauston to us. Please accept my apologies - we did not expect for your mission to involve violence. I would like to hear your take on the man, but then we will move on to the next phase of this operation. What we will ask of you concerns you alone - not your companions. Are you prepared to move forward? There will be no going back; if you have any outstanding business you can go complete it, and return to me when you are ready to move on. Do you understand?~
+  IF ~~ REPLY ~I am ready to move on. Really ready. I get it.~ GOTO d5beltdq_2
+  IF ~~ REPLY ~Let us delay this conversation then, while I finish up my business. I will return.~ EXIT
+END
+
+IF ~~ BEGIN d5beltdq_2
+  SAY ~Very well. On our end we will continue to debrief Sir Dauston, but for the moment he will be secured in a safe location, protected from any further actions by agents of Caelar Argent. Tell me, what do you think of what he told you about her?~
+  IF ~~ REPLY ~He said she was descended from a solar. That would make her an aasimar.~ GOTO d5beltdq_3
+END
+
+IF ~~ BEGIN d5beltdq_3
+  SAY ~Yes. Aasimar are not unheard of, but with ancestry from a solar... that is exceedingly rare. Solars are practically gods in their own right. Stories of a solar interacting with mortals at all are exceedingly rare.~
+  IF ~~ REPLY ~Sir Dauston said something about Caelar reenacting her ancestor's actions. Do you know what that could mean?~ GOTO d5beltdq_4
+END
+
+IF ~~ BEGIN d5beltdq_4
+  SAY ~No... it would of course depend on who that ancestor was. And it may have been so long ago that we would have no knowledge of the events. On the other hand, this at least sheds some light on why Caelar chooses to call her war effort a "crusade."~
+  IF ~~ GOTO d5beltdq_5
+END
+
+IF ~~ BEGIN d5beltdq_5
+  SAY ~Could her cause truly be righteous? Is our oppositional stance the correct response? If she means well, why choose a stronghold over a portal to the Nine Hells? Could she be protecting it from some outside incursion? There are so many unanswered questions!~
+  IF ~~ REPLY ~You are trying to find logic in her actions. But Sir Dauston seemed to think that Caelar is delusional.~ GOTO d5beltdq_6
+END
+
+IF ~~ BEGIN d5beltdq_6
+  SAY ~That may well be the case. But in a way, it would be a much more concerning prospect. To have her power, her influence, an army at her back... if she has lost touch with reality, this crusade could be incredibly destructive. Reports tell us that many innocents have already suffered in the area under her sway. As here sphere of influence expands, such devastation would grow with it.~
+  IF ~~ GOTO d5beltdq_7
+END
+
+IF ~~ BEGIN d5beltdq_7
+  SAY ~Of course Sir Dauston himself may not be entirely reliable. His own mind is clearly touched, and thick with drink. I prefer not to assume the worst about Caelar.~
+  IF ~~ GOTO d5beltdq_8
+END
+
+IF ~~ BEGIN d5beltdq_8
+  SAY ~Ultimately, we must find out the truth. Preparations for the Flaming Fist's expedition are almost complete. We have been in touch with officials from Waterdeep and Daggerford. Our troops will rendezvous with theirs, and together we will confront the crusade.~
+  IF ~~ GOTO d5beltdq_9
+END
+
+IF ~~ BEGIN d5beltdq_9
+  SAY ~We would like you to join the Flaming Fist, and travel with them to Dragonspear Castle. I know you are not a soldier, and I do not expect you to be in the army's command structure. But the roads are dangerous, doubly so as the effects of the Crusade spread south. The forces will undoubtedly encounter situations that can best be handled by adventurers. And beyond that, you are a celebrity, a hero of the city, the slayer of Sarevok. You averted a war once; it would do people well to think that it might be averted again.~
+  IF ~~ REPLY ~I would be honored to travel to Dragonspear Castle with the Flaming Fist, to represent the interests of Baldur's Gate.~ GOTO d5beltdq_10
+  IF ~~ REPLY ~Caelar's agent had a particular interest in me. I need to find out why. If that means traveling alongside your little army, so be it.~ GOTO d5beltdq_10
+  IF ~~ REPLY ~I will not commit to such a voyage. I have no interest in serving in military campaigns, and Dragonspear Castle is no concern of mine. Caelar is raising an army; you have your army. You can have your little war, but I will not take part in it. ~ GOTO d5beltdq_11
+END
+
+IF ~~ BEGIN d5beltdq_10
+  SAY ~Wonderful. I am glad to hear you will continue to serve our city, and I am certain that Captain Corwin and Corporal Bence will be equally happy. For the moment, I suggest you rest while the Flaming Fist make final preparations to move out.~
+  IF ~~ REPLY ~Very well, I will do that.~ 
+    DO ~AddJournalEntry(@29008,QUEST_DONE)
+		SetInterrupt(FALSE)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutSceneEx("d5st2so2",TRUE)
+		SetInterrupt(TRUE)~
+    EXIT
+END
+
+IF ~~ BEGIN d5beltdq_11
+  SAY ~Very well, no one will force you. One way or another, you have earned the right to make such decisions for yourself. Your destiny is your own, surely.~
+  IF ~~ 
+    DO ~SetGlobal("D5GregsonPalace","GLOBAL",1) 
+    	SetGlobal("D5SkipSoD","GLOBAL",1) 
+    	AddJournalEntry(@29009,QUEST_DONE)~ 
+    EXIT // ...mirror clone cut scene
+END
+
+END
+
+APPEND BDENTAR
+
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",15) Global("D5GregsonPalace","GLOBAL",0)~ BEGIN d5entardq_1
+  SAY ~You found Caelar's cousin! Good job. Things have been progressing here. Belt can talk to you about next steps.~
+  IF ~~ EXTERN BELT d5beltdq_1
+END
+
+END
+
+APPEND LIIA
+
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",15) Global("D5GregsonPalace","GLOBAL",0)~ BEGIN d5liiadq_1
+  SAY ~You found Caelar's cousin! Good job. Things have been progressing here. Belt can talk to you about next steps.~
+  IF ~~ EXTERN BELT d5beltdq_1
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",3) Global("D5DaustonQuest","GLOBAL",1) Global("D5CloneCut","GLOBAL",0)~ BEGIN d5liiadq_2
+  SAY ~<CHARNAME>, if I might delay you for a moment? I would like to speak with Imoen.~
+  IF ~~ EXTERN BDIMOEN d5imoendq_1
+END
+
+IF ~~ BEGIN d5liiadq_3
+  SAY ~Yes, child. I have been observing you. Your mind is quite adept - moreso than you let on. Whether it be a difficult lock or learning a new bit of magic, you have natural talent beyond that of most people.~
+  IF ~~ EXTERN BDIMOEN d5imoendq_2
+END
+
+IF ~~ BEGIN d5liiadq_4
+  SAY ~Child, that kind of stuff IS hard - for most people. But for you it is remarkably simple. You seem to have been born with... unique aptitudes. And I would like to help you make the most of them. I propose to take you on as my apprentice, to guide you and tutor you in the use of magic. I think that you could fairly easily, in time, be as skilled as I am.~
+  IF ~~ EXTERN BDIMOEN d5imoendq_3
+END
+
+IF ~~ BEGIN d5liiadq_5
+  SAY ~Imoen, hear me: I am quite serious. You will have quarters here in the Ducal Palace. You will be trained as an agent of the Dukes of Baldur's Gate. You will come to do great works, but in your own way. Not necessarily running around in dungeons and mines. With the right guidance, I think you could do so much more.~
+  IF ~~ EXTERN BDIMOEN d5imoendq_4
+END
+
+IF ~~ BEGIN d5liiadq_6
+  SAY ~But Imoen, this means your work here would starting now. I would ask that you stay here with me, and begin your studies, while your companions go on this mission for Duke Belt. What say you?~
+  IF ~~ EXTERN BDIMOEN d5imoendq_6
+END
+
+IF ~~ BEGIN d5liiadq_7
+  SAY ~Then it is agreed. Imoen, let us begin immediately, I will help you familiarize yourself with the palace. <CHARNAME>, we shall see you again soon.~
+  IF ~~ DO ~SetGlobal("D5ImoenPalace","GLOBAL",4)~ EXIT 
+END
+
+END
+
+APPEND BDIMOEN
+
+IF ~~ BEGIN d5imoendq_1
+  SAY ~Uh... you wanna speak to me??~
+  IF ~~ EXTERN LIIA d5liiadq_3
+END
+
+IF ~~ BEGIN d5imoendq_2
+  SAY ~I mean, that kind of stuff isn't very hard. You're giving me too much credit.~
+  IF ~~ EXTERN LIIA d5liiadq_4
+END
+
+IF ~~ BEGIN d5imoendq_3
+  SAY ~What? That's, I couldn't... Say, you aren't joking, are you? Because, if so you are totally committing to the bit. I mean, where would I live and stuff?~
+  IF ~~ EXTERN LIIA d5liiadq_5
+END
+
+IF ~~ BEGIN d5imoendq_4
+  SAY ~Wow! <CHARNAME>, you hear that? Duke Liia thinks I have potential!~
+  IF ~~ REPLY ~Of course, Imoen. I've always known you have potential.~ GOTO d5imoendq_5
+  IF ~~ REPLY ~Yes... she seems to have an angle. I just haven't figured out what it is, yet...~ EXTERN LIIA d5liiadq_6
+END
+
+IF ~~ BEGIN d5imoendq_5
+  SAY ~Yeah, but now someone really important thinks so!~
+  IF ~~ EXTERN LIIA d5liiadq_6
+END
+
+IF ~~ BEGIN d5imoendq_6
+  SAY ~I, uh, geez. I'm not sure what to say. I think... I think I want to say yes? <CHARNAME>, I know you need me and all - you would be totally lost without me. But maybe not anymore? This trip seems pretty simple. Maybe you could handle this one on your own.~
+  IF ~~ GOTO d5imoendq_7
+END
+
+IF ~~ BEGIN d5imoendq_7
+  SAY ~I gotta be honest, I kinda like the sound of staying here. Not that I haven't enjoyed tromping around the country with you but I'm kinda tired of it? The monsters, the undead, the murderous bozos... the dirt. So much dirt!~
+  IF ~~ GOTO d5imoendq_8
+END
+
+IF ~~ BEGIN d5imoendq_8
+  SAY ~Liia thinks I could be helpful and powerful and all, but from here! I could eat hot food, wear nice things, sleep in a comfy bed. I have to tell you, I really miss that stuff. And you're working for the Dukes as well, now! So it's not like we can't see each other whenever we want to.~
+  IF ~~ REPLY ~Well, Imoen, if that's what you want, I wouldn't tell you otherwise. I'm really happy for you to have such an opportunity. I think you absolutely deserve it.~ GOTO d5imoendq_9
+  IF ~~ REPLY ~Imoen, your job is to assist me. You can't leave now.~ GOTO d5imoendq_10
+END
+
+IF ~~ BEGIN d5imoendq_9
+  SAY ~Really? Oh, thank you! This is really exciting! I promise I'll do really well, and when you get in trouble I'll say nice things about you!~
+  IF ~~ GOTO d5imoendq_11
+END
+
+IF ~~ BEGIN d5imoendq_10
+  SAY ~What? Geez, I'm looking for a little support here! You know I'm not just here for your sake. I've been saving your butt time and again, whether you realize it or not. Not everything is about you! I'm sorry, but I just can't pass up this kind of opportunity. Liia seems really nice - probably nicer than you. Uh, no offense.~
+  IF ~~ GOTO d5imoendq_11
+END
+
+IF ~~ BEGIN d5imoendq_11
+  SAY ~You can use my gear if you want! I won't need it here. I'll put it in my chest up on the third floor if you want to borrow any of it.~
+  IF ~~ EXTERN LIIA d5liiadq_7
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",5) GlobalGT("D5DaustonQuest","GLOBAL",0)~ BEGIN d5imoendq_12
+  SAY ~Heya! I'm studying with Liia. It's kinda boring, but really cool too!~
+  IF ~~ EXIT
+END
+
+END
+>>>>>>>>
+COPY ~d5/final+9.d~ ~weidu_external/%MOD_FOLDER%/compile/final+9.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/final+9.d~ EVALUATE_BUFFER
+
+
+// get Imoen's stuff into her container
+COPY_EXISTING ~%bg1_area_prefix%0110.are~ ~override~
+  LPF ALTER_AREA_CONTAINER INT_VAR trapped = 0 flag_locked = 0 STR_VAR container_name = ~Container 4~ END
+
+COPY_EXISTING ~%bg1_area_prefix%0108.are~ ~override~
+  LPF fj_are_structure
+    INT_VAR
+    fj_type        = 8 // nonvisible
+    fj_loc_x       = 2
+    fj_loc_y       = 2
+    fj_box_left    = 2
+    fj_box_top     = 2
+    fj_box_right   = 3
+    fj_box_bottom  = 3
+    fj_trap_loc_x  = 2
+    fj_trap_loc_y  = 2
+    fj_vertex_0    = 2 + (2 << 16)
+    fj_vertex_1    = 3 + (2 << 16)
+    fj_vertex_2    = 3 + (2 << 16)
+    fj_vertex_3    = 2 + (2 << 16)
+    STR_VAR
+    fj_structure_type = container
+    fj_name           = ~d5_imoen_eq~
+  END
+
+// in Liia/Imoen dialogue, SetGlobal("D5ImoenPalace","GLOBAL",4)
+
+
+// area script: more dialogue if imoen in party
+
+<<<<<<<< d5/ar108+9.baf
+IF
+	GlobalLT("D5ImoenPalace","GLOBAL",3) // <-- should be 0 if she is in the party!
+	Global("D5DaustonQuest","GLOBAL",1)
+	InPartyAllowDead("%IMOEN_DV%")
+	InMyArea("%IMOEN_DV%")	
+	!StateCheck("%IMOEN_DV%",CD_STATE_NOTVALID)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",3)
+		ActionOverride("%IMOEN_DV%",SetDialogue("BDIMOEN"))
+		ActionOverride("LIIA",StartDialogueNoSet(Player1))
+END
+
+IF
+	InPartyAllowDead("%IMOEN_DV%")
+	Global("D5ImoenPalace","GLOBAL",4)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",5)
+		ActionOverride("d5_imoen_eq",TakeCreatureItems("%IMOEN_DV%",ALL))  // Imoen
+		Wait(1)
+		ActionOverride("%IMOEN_DV%",LeaveParty())
+		Continue()
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",20)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",21)
+		SaveGame(2)
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/ar108+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+9.baf~
+EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+9.baf~ EVALUATE_BUFFER 
+
+
+// handle Imoen's inventory
+
+<<<<<<<< d5/bg110+9.baf
+IF
+	Global("D5ImoenPalace","GLOBAL",5)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",6)
+		MoveContainerContents("%bg1_area_prefix%0108*d5_imoen_eq","%bg1_area_prefix%0110*Container 4")
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/bg110+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bg110+9.baf~
+EXTEND_TOP ~%bg1_area_prefix%0110.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bg110+9.baf~ EVALUATE_BUFFER 
+
+
+<<<<<<<< d5/bd103+9.baf
+IF
+	GlobalLT("D5ImoenPalace","GLOBAL",6)
+	GlobalLT("BD_PLOT","GLOBAL",51)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",7)
+		MoveContainerContents("%bg1_area_prefix%0108*d5_imoen_eq","BD0103*Imoen_equipment")
+		Continue()
+END
+IF
+	Global("D5ImoenPalace","GLOBAL",6)
+	GlobalLT("BD_PLOT","GLOBAL",51)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",7)
+		MoveContainerContents("%bg1_area_prefix%0110*Container 4","BD0103*Imoen_equipment")
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/bd103+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd103+9.baf~
+EXTEND_TOP ~bd0103.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bd103+9.baf~ EVALUATE_BUFFER 
+
+
+END	//	end define function

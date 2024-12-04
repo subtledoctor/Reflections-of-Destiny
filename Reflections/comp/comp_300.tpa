@@ -142,7 +142,6 @@ THEN
 		CreateCreature("bdskie",[1330.210],NE)
 		Wait(1) 
 		ActionOverride("BDBENCE",StartDialogueNoSet(Player1))
-		Continue()
 END
 >>>>>>>>
 COPY ~d5/d53000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/d53000+.baf~

@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.5.9~
+VERSION ~0.6~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/misc_functions.tpa~
@@ -117,10 +117,8 @@ LAF campaign_election END
 INCLUDE ~%MOD_FOLDER%/comp/comp_280.tpa~
 LAF mirror_man END
 
-/*
 INCLUDE ~%MOD_FOLDER%/comp/comp_290.tpa~
-LAF breathing_room END
-*/
+LAF one_for_the_road END
 
 //___________________________________________________________________________________
 //
@@ -136,7 +134,7 @@ LAF clone_saga END
 
 //___________________________________________________________________________________
 //
-BEGIN @400	//	nothing to fear but feyr itself
+BEGIN @400	//	nothing to fear but feyr yourself
 DESIGNATED 400
 LABEL ~D5_REFLECTIONS_FEYR_ITSELF~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
@@ -147,3 +145,17 @@ LAF feyr_itself END
 
 //___________________________________________________________________________________
 //
+/*
+BEGIN @500	//	rewriting history
+DESIGNATED 500
+LABEL ~D5_REFLECTIONS_REWRITE_CAELAR~
+REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_500.tpa~
+
+LAF rewrite_caelar END
+*/
+
+//___________________________________________________________________________________
+//
+

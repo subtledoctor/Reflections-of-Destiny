@@ -60,6 +60,7 @@ END
 COPY ~.../c#st2sod.baf~ ~weidu_external/%MOD_FOLDER%/compile/c#st2sod.baf~
 COMPILE EVALUATE_BUFFER ~weidu_external/%MOD_FOLDER%/compile/c#st2sod.baf~
 
+/* no, just replace it
 // SoD + EET: patch bdsodtrn.bcs so the BG1 Endmovie doesn't show twice 
 COPY_EXISTING ~bdsodtrn.BCS~ ~override~
 	DECOMPILE_AND_PATCH BEGIN
@@ -97,6 +98,51 @@ COPY_EXISTING ~bdsodtrn.BCS~ ~override~
 		END
 	END
 BUT_ONLY
+*/
+
+<<<<<<<< .../bdsodtrn.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		ApplySpellRES("clearcld",Myself) 
+		SetGlobal("EndOfBG1","GLOBAL",1)
+		SetGlobal("SOD_fromimport","GLOBAL",1)
+		SetGlobal("PartyCured","GLOBAL",1)
+		Wait(1)
+		ApplySpellRES("clearcld",Myself)
+		Wait(4)
+		FadeToColor([30.0],0)
+		Wait(1)
+		CopyGroundPilesTo("BD0120",[949.1686])  // Tomb Safehouse First Floor
+		ApplySpellRES("bdresurr",Player2)  // No such index
+		ApplySpellRES("bdresurr",Player3)  // No such index
+		ApplySpellRES("bdresurr",Player4)  // No such index
+		ApplySpellRES("bdresurr",Player5)  // No such index
+		ApplySpellRES("bdresurr",Player6)  // No such index
+		ApplySpellRES("bddispel",Player1)  // No such index
+		ApplySpellRES("bddispel",Player2)  // No such index
+		ApplySpellRES("bddispel",Player3)  // No such index
+		ApplySpellRES("bddispel",Player4)  // No such index
+		ApplySpellRES("bddispel",Player5)  // No such index
+		ApplySpellRES("bddispel",Player6)  // No such index
+		AdvanceTime(ONE_DAY)
+		ApplySpellRES("bdrejuve",Player1)  // No such index
+		ApplySpellRES("bdrejuve",Player2)  // No such index
+		ApplySpellRES("bdrejuve",Player3)  // No such index
+		ApplySpellRES("bdrejuve",Player4)  // No such index
+		ApplySpellRES("bdrejuve",Player5)  // No such index
+		ApplySpellRES("bdrejuve",Player6)  // No such index
+		Wait(3)
+		MoveToCampaign("SoD")
+		MultiPlayerSync()
+		SetCursorState(TRUE)
+		EndCutSceneMode()
+END
+>>>>>>>>
+COPY ~.../bdsodtrn.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdsodtrn.baf~
+COMPILE EVALUATE_BUFFER ~weidu_external/%MOD_FOLDER%/compile/bdsodtrn.baf~ 
 
 
 // cutscene for transition to SoD, including handling of Imoen's stuff. 
@@ -283,15 +329,13 @@ IF ~~ BEGIN d5beltsd_7
 END
 
 IF ~~ BEGIN d5beltsd_8 // chose SoD !evil
-  SAY @27027
-  IF ~~ REPLY @27040 DO ~SetGlobal("ENDOFBG1","GLOBAL",1)~ GOTO d5beltsd_12
-  IF ~~ REPLY @27041 GOTO d5beltsd_11
+  SAY @27035
+  IF ~~ GOTO d5beltsd_12
 END
 
 IF ~~ BEGIN d5beltsd_9 // chose SoD evil
-  SAY @27027
-  IF ~~ REPLY @27040 DO ~SetGlobal("ENDOFBG1","GLOBAL",1)~ GOTO d5beltsd_13
-  IF ~~ REPLY @27041 GOTO d5beltsd_11
+  SAY @27036
+  IF ~~ GOTO d5beltsd_12
 END
 
 IF ~~ BEGIN d5beltsd_10 // chose clone
@@ -302,62 +346,64 @@ END
 
 IF ~~ BEGIN d5beltsd_11
   SAY @27047
-  IF ~~ DO ~SetGlobal("D5DecisionPostponed","GLOBAL",1)~ EXIT
+  IF ~~ 
+    DO ~SetGlobal("D5DecisionPostponed","GLOBAL",1)~ 
+    EXIT
 END
 
-IF ~~ BEGIN d5beltsd_12 // chose SoD !evil
-  SAY @27035
-  IF ~~ GOTO d5beltsd_14
+IF ~~ BEGIN d5beltsd_12
+  SAY @27037
+  IF ~~ GOTO d5beltsd_13	// give dauston quest
 END
 
-IF ~~ BEGIN d5beltsd_13 // chose SoD evil
-  SAY @27036
-  IF ~~ GOTO d5beltsd_14
+IF ~~ BEGIN d5beltsd_13
+  SAY @27038
+  IF ~Global("C#st_HeroCutScene","GLOBAL",0) Global("D5HeroSceneInstalled","GLOBAL",1)~ GOTO d5beltsd_15 // hero tribute diversion
+  IF ~Global("D5HeroSceneInstalled","GLOBAL",0)~ GOTO d5beltsd_14
+  IF ~Global("C#st_HeroCutScene","GLOBAL",1)~ GOTO d5beltsd_14
 END
 
 IF ~~ BEGIN d5beltsd_14
-  SAY @27037
-  IF ~Global("C#st_HeroCutScene","GLOBAL",0) Global("D5HeroSceneInstalled","GLOBAL",1)~ GOTO d5beltsd_15 // hero tribute diversion
-  IF ~Global("D5HeroSceneInstalled","GLOBAL",0)~ GOTO d5beltsd_16
-  IF ~Global("C#st_HeroCutScene","GLOBAL",1)~ GOTO d5beltsd_16
+  SAY @27052
+  IF ~~ 
+    DO ~SetGlobal("D5DaustonQuest","GLOBAL",1) 
+  		AddJournalEntry(@27001,QUEST_DONE)~
+  	EXIT
 END
 
 IF ~~ BEGIN d5beltsd_15
   SAY @27042
-  IF ~~ DO ~SetGlobal("C#st_HeroCutScene","GLOBAL",1)
-	ClearAllActions()
-	StartCutSceneMode()
-	StartCutSceneEx("c#stcut1",FALSE)~ EXIT // ... out to tribute cut scene
+  IF ~~ 
+    DO ~SetGlobal("C#st_HeroCutScene","GLOBAL",1)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutSceneEx("c#stcut1",FALSE)~ 
+	EXIT // ... out to tribute cut scene
 END
 
-IF ~~ BEGIN d5beltsd_16
-  SAY @27043
-  IF ~~ DO ~AddJournalEntry(@27001,QUEST_DONE)
-	SetInterrupt(FALSE)
-	ClearAllActions()
-	StartCutSceneMode()
-	StartCutSceneEx("d5st2so2",TRUE)
-	SetInterrupt(TRUE)~ EXIT 
+IF WEIGHT #-1 ~Global("C#st_HeroCutScene","GLOBAL",1) Global("D5AltEndSoD","GLOBAL",0) Global("D5DaustonQuest","GLOBAL",0) AreaCheck("%%bg1_area_prefix%0108")~ BEGIN d5beltsd_16
+  SAY @27052
+  IF ~~ 
+    DO ~SetGlobal("D5DaustonQuest","GLOBAL",1) 
+  		AddJournalEntry(@27001,QUEST_DONE)~
+  	EXIT
 END
 
-IF ~Global("C#st_HeroCutScene","GLOBAL",1) Global("D5AltEndSoD","GLOBAL",0)~ BEGIN d5beltsd_17
-  SAY @27043
-  IF ~~ DO ~AddJournalEntry(@27001,QUEST_DONE)
-	SetInterrupt(FALSE)
-	ClearAllActions()
-	StartCutSceneMode()
-	StartCutSceneEx("d5st2so2",TRUE)
-	SetInterrupt(TRUE)~ EXIT // ... back from hero cut scene, out to start SoD
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",4)~ BEGIN d5beltsd_17
+  SAY @27053
+  IF ~~ REPLY @27054 EXIT
 END
 
 IF ~~ BEGIN d5beltsd_18
-  SAY @27038
-  IF ~~ DO ~SetGlobal("D5GregsonPalace","GLOBAL",1) 
-    SetGlobal("D5SkipSoD","GLOBAL",1) 
-    AddJournalEntry(@27050,QUEST_DONE)~ EXIT // ...clone cut scene
+  SAY @27048
+  IF ~~ 
+    DO ~SetGlobal("D5GregsonPalace","GLOBAL",1) 
+    	SetGlobal("D5SkipSoD","GLOBAL",1) 
+    	AddJournalEntry(@27050,QUEST_DONE)~ 
+    EXIT // ...clone cut scene
 END
 
-IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1)~ BEGIN d5beltsd_19
+IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1) Global("D5DaustonQuest","GLOBAL",0)~ BEGIN d5beltsd_19
   SAY @27039
   IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 GOTO d5beltsd_8
   IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 GOTO d5beltsd_8
@@ -417,13 +463,18 @@ IF ~~ BEGIN d5liiasd_7
   IF ~~ EXTERN BELT d5beltsd_6
 END
 
-IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1)~ BEGIN d5liiasd_8
+IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1) Global("D5DaustonQuest","GLOBAL",0)~ BEGIN d5liiasd_8
   SAY @27039
   IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 EXTERN BELT d5beltsd_8
   IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 EXTERN BELT d5beltsd_8
   IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 EXTERN BELT d5beltsd_9
   IF ~~ REPLY @27026 EXTERN BELT d5beltsd_10
   IF ~~ REPLY @27046 EXTERN BELT d5beltsd_11
+END
+
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",4)~ BEGIN d5liiasd_9
+  SAY @27053
+  IF ~~ REPLY @27054 EXIT
 END
 
 END
@@ -461,13 +512,18 @@ IF ~~ BEGIN d5entarsd_4
   IF ~IsValidForPartyDialogue("SKIE")~ EXTERN SKIE d5skiesd_1
 END
 
-IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1)~ BEGIN d5entarsd_5
+IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1) Global("D5DaustonQuest","GLOBAL",0)~ BEGIN d5entarsd_5
   SAY @27039
   IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 EXTERN BELT d5beltsd_8
   IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 EXTERN BELT d5beltsd_8
   IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 EXTERN BELT d5beltsd_9
   IF ~~ REPLY @27026 EXTERN BELT d5beltsd_10
   IF ~~ REPLY @27046 EXTERN BELT d5beltsd_11
+END
+
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",4)~ BEGIN d5entarsd_6
+  SAY @27053
+  IF ~~ REPLY @27054 EXIT
 END
 
 END
@@ -563,14 +619,14 @@ END
  ALTER_TRANS BELT // file name
   BEGIN %belt_ebg1_113% END // state number (can be more than one)
   BEGIN 0 END // transition number (can be more than one)
-  BEGIN "EPILOGUE" ~GOTO d5beltsd_16~ END
+  BEGIN "EPILOGUE" ~GOTO d5beltsd_14~ END
 ~~~~~
  
 END	//	end EBG1 #4
 
 
 // compile the dialogues
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/transit+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ EVALUATE_BUFFER
 
 
 // fix some lines
