@@ -1,0 +1,177 @@
+
+DEFINE_ACTION_FUNCTION kill_thalantyr BEGIN
+
+/*
+- set area script
+
+- ...chapter check?
+- patch area script for thalantyr's interior
+- remove thalantyr and set GV
+- patch melicamp's dialogue in response to the GV
+ -- "You'll have to excuse me, everything is a mess, with Thalantyr gone. I am managing things until his return."
+ -- [cond1] where has he gone?
+ -- [cond2] would you be willing to buy or sell items from thalantyr's stock?
+ -- "Oh, he has not gone anywhere. He is dead! Killed. I have no idea who did it. 
+ -- [if recovered] And whoever it was, they took those thrice-damned Netherese bracers!" 
+ -- that sounds bad. but why did you say when he returns? is he to be resurrected?
+ -- "Oh no, no, he does not approve of the use of clerical magic. He has made his own contingent arrangements in case of his demise. Some kind of combination of reincarnation and regeneration, if I understand it correctly. Should be complete in a few... weeks? Maybe? I'm afraid it's a bit over my head - I'm just his apprentice! ...I have really learned to appreciate my limits, lately."
+ -- would you be willing to buy or sell items from thalantyr's stock?
+ -- "Ah. Well, I suppose he would not mind if I conducted some business on his behalf. He has trained me well in balancing the tower's accounts, if not in the actual use of magic."
+ 
+- check for The Calling; disable the bit where you take & destroy the bracers
+*/
+
+//___________________________________________________________________________________
+//
+
+// modify area script
+
+<<<<<<<< d5/area3202.baf
+IF
+	GlobalGT("CHAPTER","GLOBAL",6)
+	Global("D5ThalantyrDead","GLOBAL",0)
+	Dead("SLYTHE")
+THEN
+	RESPONSE #100
+		ActionOverride("thalantyr",DestroySelf())		
+		SetGlobal("D5ThalantyrDead","GLOBAL",1)
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/area3202.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%3202.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%3202.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
+END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%3202.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
+END
+
+// add dialogue options to melicamp if Global("D5ThalantyrDead","GLOBAL",1) (melica.dlg)
+
+<<<<<<<< d5/melica+.d
+REPLACE_STATE_TRIGGER MELICA 26 ~Global("D5ThalantyrDead","GLOBAL",0)~
+
+APPEND MELICA
+
+IF ~Global("D5ThalantyrDead","GLOBAL",1)~ BEGIN d5melica_0 
+  SAY @10101
+  IF ~Global("D5ThalantyrDead","GLOBAL",1)~ REPLY @10102 DO ~SetGlobal("D5ThalantyrDead","GLOBAL",2)~ GOTO d5melica_1
+  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @10107 GOTO d5melica_4
+  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @10110 EXIT
+END
+
+IF ~~ BEGIN d5melica_1
+  SAY @10103
+  IF ~Global("D5BracersHere","GLOBAL",1)~ REPLY ~~ GOTO d5melica_2
+  IF ~GlobalGT("CDBracerQuest","GLOBAL",18)~ REPLY ~~ GOTO d5melica_2
+  IF ~GlobalLT("CDBracerQuest","GLOBAL",19) Global("D5BracersHere","GLOBAL",0)~ REPLY @10105 GOTO d5melica_3
+END
+
+IF ~~ BEGIN d5melica_2
+  SAY @10104
+  IF ~~ REPLY @10105 GOTO d5melica_3
+END
+
+IF ~~ BEGIN d5melica_3
+  SAY @10106
+  IF ~~ REPLY @10107 GOTO d5melica_4
+  IF ~~ REPLY @10110 EXIT
+END
+
+IF ~~ BEGIN d5melica_4
+  SAY @10108
+  IF ~~ REPLY @10109 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
+END
+
+END
+>>>>>>>> 
+COPY ~d5/melica+.d~ ~weidu_external/%MOD_FOLDER%/compile/melica+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/melica+.d~
+
+// make sure the bracers don't disappear
+
+ACTION_IF !(MOD_IS_INSTALLED ~thecalling.tp2~ ~0~) BEGIN
+
+<<<<<<<< d5/thalan+.d
+APPEND THALAN
+
+IF ~~ BEGIN d5thalan_0 
+  SAY @10115
+  IF ~~ DO ~SetGlobal("D5BracersHere","GLOBAL",1)~ EXTERN ~MELICA~ 24
+END
+
+END
+>>>>>>>>
+COPY ~d5/thalan+.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
+
+OUTER_SET thalan_22015 = STATE_WHICH_SAYS @10115 FROM ~THALAN~
+
+<<<<<<<< d5/melica#.d
+EXTEND_BOTTOM MELICA 23
+
+IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_22015% 
+
+END
+>>>>>>>>
+COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
+COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
+
+END	//	end thecalling not installed
+
+ACTION_IF (MOD_IS_INSTALLED ~thecalling.tp2~ ~0~) BEGIN
+
+// forestall the last bit of The Calling
+
+OUTER_SET melica_thecalling_1285 = STATE_WHICH_SAYS 1285 IN ~thecalling/languages/%s/mage.tra~ FROM ~MELICA~
+
+PRINT ~the state we want is # %melica_thecalling_1285%~
+
+<<<<<<<< d5/thalan_.d
+APPEND THALAN
+
+IF ~~ BEGIN d5thalan_0 
+  SAY @10111
+  IF ~~ REPLY @10112 EXIT
+  IF ~~ REPLY @10113 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
+  IF ~~ REPLY @10114 EXIT
+END
+
+END
+>>>>>>>>
+COPY ~d5/thalan_.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan_.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan_.d~
+
+OUTER_SET thalan_22011 = STATE_WHICH_SAYS @10111 FROM ~THALAN~
+
+/*
+<<<<<<<< d5/melica#.d
+ADD_TRANS_TRIGGER MELICA %melica_thecalling_1285% ~False()~ DO 0
+
+EXTEND_BOTTOM MELICA %melica_thecalling_1285%
+
+IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_10111% 
+
+END
+>>>>>>>>
+*/
+// try this instead
+<<<<<<<< d5/melica#.d
+ALTER_TRANS MELICA BEGIN %melica_thecalling_1285% END BEGIN 0 END BEGIN "ACTION" ~SetGlobal("CDBracerQuest","GLOBAL",99)~ "EPILOGUE" ~EXTERN THALAN %thalan_22011%~ END
+>>>>>>>>
+COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
+COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
+
+//
+// also, change state 73's response (160) to point to state 75 instead of 74
+// and change CDIRIS.DLG's response 21 to point to THALAN state 75 instead of 77
+// ...maybe not! Thalantyr says he will retrieve the bracers again.
+
+END	//	end thecalling is installed
+
+//___________________________________________________________________________________
+//
+
+END	//	end define function

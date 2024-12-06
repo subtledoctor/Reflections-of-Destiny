@@ -242,12 +242,12 @@ END
 // make Daran talk to us
 
 <<<<<<<< d5/bddar++.d
-REPLACE_SAY BDDARAN 19 @20091
+REPLACE_SAY BDDARAN 19 @31091
 
 APPEND BDDARAN
 
 IF WEIGHT #-1 ~AreaCheck("AR1700")~ BEGIN d5bddaran_0
-  SAY @20092
+  SAY @31092
   IF ~~ GOTO 2
 END
 
@@ -269,7 +269,7 @@ DEFINE_ACTION_FUNCTION sod_remix_coast_way_forest BEGIN
 // rewrite BDISABEL state 50
 
 <<<<<<<< d5/bdisab+.d
-REPLACE_SAY BDISABEL 50 @20093
+REPLACE_SAY BDISABEL 50 @31093
 >>>>>>>>
 COPY ~d5/bdisab+.d~ ~weidu_external/%MOD_FOLDER%/compile/bdisab+.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdisab+.d~

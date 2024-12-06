@@ -1,0 +1,332 @@
+
+DEFINE_ACTION_FUNCTION delay_maze BEGIN
+
+/*
+- plan: prevent Belt from directing you to the thieves' guild; send to the FF instead
+
+- change belt.dlg state 11 to have an impossible trigger
+- add a new state with condition [ Global("SarevokBehavior","GLOBAL",1) ]
+ -- ...there is no way to know where he teleported to. but he cannot have gone far - that was a dimension door spell, not a long-range teleport. he must still be inside the city. I will order all entrances to be monitored and have mages checking for magical passage. he will not easily escape.
+ -- ...you assume he wants to escape...
+ -- ...yes, he did say he would come after you right before leaving, did he not? that is worrying. with all the power he amassed, he no doubt still has significant resources close at hand. we must find him. perhaps you should check with the FF - with Angelo is gone and his goons will be run out. But maybe someone gleaned some information from him in the short time he was running the place.
+
+- do something in Belt's first new dialogue state setting rep to 8, if it is under 8.
+
+- add a FF officer to the headquarters - Officer Jenks? He seems a reasonable sort
+ -- add via the area script
+- but make it a new version? with new dialogue?
+- set a variable that will be used later
+ -- (later you will meet him at the entrance to Korlasz' crypt; the area script will create him there based on this variable)
+
+// ***** need to make more journal entries
+
+*/
+
+//___________________________________________________________________________________
+//
+
+// make Belt and Liia survive
+
+COPY ~%MOD_FOLDER%/data/d5hpblt.itm~ ~override~
+COPY_EXISTING ~belt.cre~ ~override~
+  ADD_CRE_ITEM ~d5hpblt~ #0 #0 #0 ~IDENTIFIED~ ~BELT~
+COPY_EXISTING ~liia.cre~ ~override~
+  ADD_CRE_ITEM ~d5hpblt~ #0 #0 #0 ~IDENTIFIED~ ~BELT~
+
+
+// prep journal entries
+
+ADD_JOURNAL TITLE (@10200) @10234 @10235
+
+// add to Belt's dialogue
+
+<<<<<<<< d5/belt+.d
+REPLACE_STATE_TRIGGER BELT 11 ~Global("SarevokBehavior","GLOBAL",99)~
+
+APPEND BELT
+
+IF ~Global("SarevokBehavior","GLOBAL",1) Global("D5PostCoronation","GLOBAL",0)~ BEGIN d5belt_0
+  SAY @10201
+  IF ~~ REPLY @10202 GOTO d5belt_1
+END
+
+IF ~~ BEGIN d5belt_1
+  SAY @10203
+  IF ~~ GOTO d5belt_2
+END
+
+IF ~~ BEGIN d5belt_2
+  SAY @10204
+  IF ~~ REPLY @10205 GOTO d5belt_3
+  IF ~~ REPLY @10206 GOTO d5belt_4
+END
+
+IF ~~ BEGIN d5belt_3
+  SAY @10207
+  IF ~~ GOTO d5belt_5
+END
+
+IF ~~ BEGIN d5belt_4
+  SAY @10208
+  IF ~~ GOTO d5belt_5
+END
+
+IF ~~ BEGIN d5belt_5
+  SAY @10209
+  IF ~~ REPLY @10210 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@10235,QUEST)~ EXIT
+  IF ~~ REPLY @10211 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@10235,QUEST)~ EXIT
+END
+
+IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0) Global("D5KorlaszDone","GLOBAL",0)~ BEGIN d5belt_6
+  SAY @10212
+  IF ~~ REPLY @10213 EXIT
+  IF ~~ REPLY @10214 EXIT
+END
+
+END
+>>>>>>>> 
+COPY ~d5/belt+.d~ ~weidu_external/%MOD_FOLDER%/compile/belt+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/belt+.d~
+
+<<<<<<<< d5/liia+.d
+REPLACE_STATE_TRIGGER LIIA 8 ~Global("SarevokBehavior","GLOBAL",99)~
+
+APPEND LIIA
+
+IF ~Global("SarevokBehavior","GLOBAL",1) Global("D5PostCoronation","GLOBAL",0)~ BEGIN d5liia_0
+  SAY @10201
+  IF ~~ REPLY @10202 GOTO d5liia_1
+END
+
+IF ~~ BEGIN d5liia_1
+  SAY @10203
+  IF ~~ GOTO d5liia_2
+END
+
+IF ~~ BEGIN d5liia_2
+  SAY @10204
+  IF ~~ REPLY @10205 GOTO d5liia_3
+  IF ~~ REPLY @10206 GOTO d5liia_4
+END
+
+IF ~~ BEGIN d5liia_3
+  SAY @10207
+  IF ~~ GOTO d5liia_5
+END
+
+IF ~~ BEGIN d5liia_4
+  SAY @10208
+  IF ~~ GOTO d5liia_5
+END
+
+IF ~~ BEGIN d5liia_5
+  SAY @10209
+  IF ~~ REPLY @10210 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@10235,QUEST)~ EXIT
+  IF ~~ REPLY @10211 DO ~ActionOverride("BELT",MoveToPoint([715.370])) ActionOverride("LIIA",MoveToPoint([670.360])) SetGlobal("D5PostCoronation","GLOBAL",1) SetGlobal("DukeThanks","GLOBAL",1) AddJournalEntry(@10235,QUEST)~ EXIT
+END
+
+IF ~GlobalGT("D5PostCoronation","GLOBAL",0) Global("D5SarevokDead","GLOBAL",0) Global("D5KorlaszDone","GLOBAL",0)~ BEGIN d5liia_6
+  SAY @10212
+  IF ~~ REPLY @10213 EXIT
+  IF ~~ REPLY @10214 EXIT
+END
+
+END
+>>>>>>>> 
+COPY ~d5/liia+.d~ ~weidu_external/%MOD_FOLDER%/compile/liia+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/liia+.d~
+
+// reset reputation after the confrontation, if necessary
+
+<<<<<<<< d5/area0108.baf
+IF
+	Global("D5DukesRepReset","GLOBAL",0)
+	Global("D5PostCoronation","GLOBAL",1)
+	ReputationLT(Player1,8)
+THEN
+	RESPONSE #100
+		ReputationSet(8)
+		SetGlobal("D5DukesRepReset","GLOBAL",1)
+		Continue()
+END
+
+IF
+	Global("D5DukesImmortal","GLOBAL",0)
+THEN
+	RESPONSE #100
+		XEquipItem("D5HPBLT","BELT",SLOT_BELT,EQUIP)  // Min1HP
+		XEquipItem("D5HPBLT","LIIA",SLOT_BELT,EQUIP)  // Min1HP
+		SetGlobal("D5DukesImmortal","GLOBAL",1)
+		Continue()
+END
+
+IF
+	PartyHasItem("MISC55")
+	Global("C#st_RemoveMisc55","MYAREA",0)
+THEN
+	RESPONSE #100
+		SetGlobal("BD0120_START","GLOBAL",1)
+		SetGlobal("BDAI_RESET_TIMERS","GLOBAL",1)
+		ActionOverride(Player1,DestroyItem("MISC55"))
+		ActionOverride(Player2,DestroyItem("MISC55"))
+		ActionOverride(Player3,DestroyItem("MISC55"))
+		ActionOverride(Player4,DestroyItem("MISC55"))
+		ActionOverride(Player5,DestroyItem("MISC55"))
+		ActionOverride(Player6,DestroyItem("MISC55"))
+		SetGlobal("C#st_RemoveMisc55","MYAREA",1)
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+END
+
+// mark EET
+
+ACTION_IF (GAME_IS ~eet~) BEGIN
+
+ <<<<<<<< d5/area0108.baf
+ IF
+	Global("D5ThisIsEET","GLOBAL",0)
+ THEN
+	RESPONSE #100
+		SetGlobal("D5ThisIsEET","GLOBAL",1)
+		Continue()
+ END
+ >>>>>>>>
+ COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+
+ ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
+    EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+ END
+
+END
+// set area script at FF headquarters to spawn Officer Jenks
+
+COPY_EXISTING ~bdjenks.cre~ ~override/d5gregs.cre~
+  SAY 0x08 ~Captain Gregson~
+  SAY 0x0c ~Captain Gregson~
+  WRITE_ASCII 0x280 ~d5gregs~ #20
+  WRITE_ASCII 0x2cc ~d5gregs~ #8
+IF_EXISTS
+
+<<<<<<<< d5/area0607.baf
+IF
+	Global("D5GregsonExist","GLOBAL",0)
+	Global("D5PostCoronation","GLOBAL",1)
+THEN
+	RESPONSE #100
+		CreateCreature("d5gregs",[1120.850],14)
+		SetGlobal("D5GregsonExist","GLOBAL",1)
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/area0607.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0607.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0607.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%0607.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0607.baf~
+END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0607.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0607.baf~
+END
+
+// add dialogue to Gregson
+
+<<<<<<<< d5/d5gregs.d
+BEGIN ~D5GREGS~
+
+IF ~Global("D5GregsonCrypt","GLOBAL",0)~ BEGIN d5gregs_0
+  SAY @10215
+  IF ~~ GOTO d5gregs_1
+END
+
+IF ~~ BEGIN d5gregs_1
+  SAY @10216
+  IF ~~ GOTO d5gregs_2
+END
+
+IF ~~ BEGIN d5gregs_2
+  SAY @10217
+  IF ~~ REPLY @10218 GOTO d5gregs_3
+  IF ~~ REPLY @10219 EXIT
+END
+
+IF ~~ BEGIN d5gregs_3
+  SAY @10220
+  IF ~~ GOTO d5gregs_4
+END
+
+IF ~~ BEGIN d5gregs_4
+  SAY @10221
+  IF ~~ REPLY @10222 GOTO d5gregs_5
+END
+
+IF ~~ BEGIN d5gregs_5
+  SAY @10223
+  IF ~~ GOTO d5gregs_6
+END
+
+IF ~~ BEGIN d5gregs_6
+  SAY @10224
+  IF ~~ REPLY @10225 GOTO d5gregs_7
+  IF ~~ REPLY @10226 DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1)~ GOTO d5gregs_8
+END
+
+IF ~~ BEGIN d5gregs_7
+  SAY @10227
+  IF ~~ REPLY @10228 DO ~AddJournalEntry(@10234,QUEST)~ GOTO d5gregs_9
+  IF ~~ REPLY @10229 DO ~AddJournalEntry(@10234,QUEST)~ GOTO d5gregs_9
+END
+
+IF ~~ BEGIN d5gregs_8
+  SAY @10230
+  IF ~~ REPLY @10231 DO ~AddJournalEntry(@10234,QUEST)~ GOTO d5gregs_9
+  IF ~~ REPLY @10232 DO ~AddJournalEntry(@10234,QUEST)~ GOTO d5gregs_9
+END
+
+IF ~~ BEGIN d5gregs_9
+  SAY @10233
+  IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1) EscapeAreaNoSee()~ EXIT
+END
+>>>>>>>> 
+COPY ~d5/d5gregs.d~ ~weidu_external/%MOD_FOLDER%/compile/d5gregs.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5gregs.d~
+
+// kill bill
+
+<<<<<<<< d5/area0200.baf
+IF
+	InMyArea("BILL")
+	Global("D5PostCoronation","GLOBAL",1)
+THEN
+	RESPONSE #100
+		ActionOverride("BILL",DestroySelf())
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/area0200.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0200.baf~
+
+ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0200.bcs~) BEGIN
+  EXTEND_TOP ~%bg1_area_prefix%0200.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0200.baf~
+END
+
+ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0200.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0200.baf~
+END
+
+// cleanup stuff from EBG1
+
+INCLUDE ~%MOD_FOLDER%/lib/sarevok_cleanup.tpa~
+// INCLUDE ~%MOD_FOLDER%/lib/sarevok_cleanup_more.tpa~
+
+//___________________________________________________________________________________
+//
+
+END	//	end define function

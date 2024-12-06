@@ -1,0 +1,1052 @@
+
+DEFINE_ACTION_FUNCTION one_for_the_road BEGIN
+
+/*  
+TO DO:
+	- ***** remove trigger or whatever that makes dauston appear in BG in SoD intro
+		...SetGlobal("BD_KICK_DAUSTON","GLOBAL",99), maybe?
+	- ***** add phantom sarevok
+
+- after killing Sarevok, dukes talk about Caelar
+ -- are they connected?
+ -- is it another Bhaalspawn?
+ -- what's her deal, anyway?
+- they give you an information-gathering quest
+ -- a relation of Caelar's lives nearby... a wreck of a man, but maybe he has useful information
+ -- go talk to him
+ -- ...or say, sure, but I'll get to it when I get to it
+- quest: you find the Argent but there is a kidnapping attempt!
+ -- some dialogue with ringleader
+ -- you find out a bunch of refugees are being driven toward the city
+ -- *they* find out what you are (maybe it is discernable in your aura after killing Sarevok)
+ -- "things are accelerating faster than she feared! another Bhaalspawn in the upper echelons of the city's government!"
+ -- leader teleports away and you battle his minions
+- report back to the dukes, *then* have the critical choice
+
+*/
+
+//___________________________________________________________________________________
+//
+
+
+// prep journal entries
+
+ADD_JOURNAL TITLE (@10800) @10801 @10802 @10803 @10805 @10807 @10808 @10809
+
+// make spells for soul glow
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cloub.vvc~ ~override~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cloub.bam~ ~override~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cloup.vvc~ ~override~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cloup.bam~ ~override~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5clour.vvc~ ~override~
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5clour.bam~ ~override~
+
+// look up tielfing and aasimar race values in race.ids
+
+COPY_EXISTING ~race.ids~ ~override~
+  READ_2DA_ENTRIES_NOW rows 2
+  FOR (row = 1; row < rows; ++row) BEGIN
+    READ_2DA_ENTRY_FORMER rows row 1 race_name
+    READ_2DA_ENTRY_FORMER rows row 0 race_ind
+    PATCH_IF (~%race_name%~ STRING_EQUAL_CASE ~tiefling~) BEGIN
+	  SET tiefling_code = %race_ind%
+	END
+    PATCH_IF (~%race_name%~ STRING_EQUAL_CASE ~aasimar~) BEGIN
+	  SET aasimar_code = %race_ind%
+	END
+  END
+IF_EXISTS BUT_ONLY
+
+ACTION_IF !(VARIABLE_IS_SET %tiefling_code%) BEGIN
+  OUTER_SET %tiefling_code% = 154
+END
+ACTION_IF !(VARIABLE_IS_SET %aasimar_code%) BEGIN
+  OUTER_SET %aasimar_code% = 185
+END
+
+COPY ~%MOD_FOLDER%/data/d5_base.spl~ ~override/d5solgl.spl~
+  WRITE_SHORT 0x1c 4
+  WRITE_LONG 0x34 1
+  LPF ALTER_SPELL_HEADER INT_VAR target = 5 speed = 2 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 326 target = 4 parameter1 = %aasimar_code% parameter2 = 104 timing = 1 STR_VAR resource = ~d5cloub~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 326 target = 4 parameter1 = %tiefling_code% parameter2 = 104 timing = 1 STR_VAR resource = ~d5clour~ END
+COPY ~%MOD_FOLDER%/data/d5_base.spl~ ~override/d5cloub.spl~
+  WRITE_SHORT 0x1c 4
+  WRITE_LONG 0x34 1
+  LPF ALTER_SPELL_HEADER INT_VAR target = 5 speed = 0 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 321 target = 1 timing = 1 STR_VAR resource = ~d5cloub~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 timing = 0 duration = 9 STR_VAR resource = ~d5cloub~ END
+COPY ~%MOD_FOLDER%/data/d5_base.spl~ ~override/d5cloup.spl~
+  WRITE_SHORT 0x1c 4
+  WRITE_LONG 0x34 1
+  LPF ALTER_SPELL_HEADER INT_VAR target = 5 speed = 0 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 321 target = 1 timing = 1 STR_VAR resource = ~d5cloup~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 timing = 0 duration = 9 STR_VAR resource = ~d5cloup~ END
+COPY ~%MOD_FOLDER%/data/d5_base.spl~ ~override/d5clour.spl~
+  WRITE_SHORT 0x1c 4
+  WRITE_LONG 0x34 1
+  LPF ALTER_SPELL_HEADER INT_VAR target = 5 speed = 0 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 321 target = 1 timing = 1 STR_VAR resource = ~d5clour~ END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 timing = 0 duration = 9 STR_VAR resource = ~d5clour~ END
+
+
+// create phantom sarevok
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5sargh.cre~ ~override~
+  SAY 0x08 @10821
+  SAY 0x0c @10821
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5ringgh.itm~ ~override~
+
+<<<<<<<< d5/d5sargh.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		Wait(8)
+		DestroySelf()
+END	
+>>>>>>>>
+COPY ~d5/d5sargh.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5sargh.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5sargh.baf~
+
+
+// bartenders' dialogues looking for dauston
+
+<<<<<<<< d5/bart+9.d
+
+APPEND BART3
+
+IF ~~ BEGIN d5bart3dq_1
+  SAY @10811
+  IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart3dq_2
+  SAY @10813
+  IF ~~ REPLY @10812 DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@10803,QUEST)~ EXIT
+END
+
+END
+
+EXTEND_BOTTOM BART3 0
+	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart3dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart3dq_2
+END
+
+APPEND BART4
+
+IF ~~ BEGIN d5bart4dq_1
+  SAY @10811
+  IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart4dq_2
+  SAY @10813
+  IF ~~ REPLY @10812 DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@10803,QUEST)~ EXIT
+END
+
+END
+
+EXTEND_BOTTOM BART4 0
+	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart4dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart4dq_2
+END
+
+EXTEND_BOTTOM BART4 1
+	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart4dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart4dq_2
+END
+
+APPEND BART5
+
+IF ~~ BEGIN d5bart5dq_1
+  SAY @10811
+  IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart5dq_2
+  SAY @10813
+  IF ~~ REPLY @10812 DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@10803,QUEST)~ EXIT
+END
+
+END
+
+EXTEND_BOTTOM BART5 0
+	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart5dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart5dq_2
+END
+
+APPEND BART13
+
+IF ~~ BEGIN d5bart13dq_1
+  SAY @10811
+  IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart13dq_2
+  SAY @10813
+  IF ~~ REPLY @10812 DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@10803,QUEST)~ EXIT
+END
+
+END
+
+EXTEND_BOTTOM BART13 0
+	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart13dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart13dq_2
+END
+
+APPEND BART14
+
+IF ~~ BEGIN d5bart14dq_1
+  SAY @10816
+  IF ~~ REPLY @10818 DO ~SetGlobal("D5DaustonQuest","GLOBAL",6) AddJournalEntry(@10805,QUEST)~ EXIT
+END
+
+END
+
+EXTEND_BOTTOM BART14 0 // ulgoth's beard
+	IF ~Global("D5DaustonQuest","GLOBAL",5)~ REPLY @10817 GOTO d5bart14dq_1
+END
+>>>>>>>>
+COPY ~d5/bart+9.d~ ~weidu_external/%MOD_FOLDER%/compile/bart+9.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bart+9.d~ EVALUATE_BUFFER
+
+
+// create innkeeper/mayor
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5ubmay1.cre~ ~override~
+  SAY 0x08 @10820
+  SAY 0x0c @10820
+  WRITE_ASCII 0x248 ~D5UBMAY1~ #8
+  WRITE_ASCII 0x260 ~SHOUT~ #8
+
+// mayor script
+
+<<<<<<<< d5/d5ubmay1.baf
+IF
+	AreaCheck("%bg1_area_prefix%1000")  // Ulgoth's Beard
+	GlobalGT("D5DaustonQuest","GLOBAL",0)
+	Global("D5UBRefugeeSpeech","%bg1_area_prefix%1000",0)
+	See(Player1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",1)
+		StartDialogueNoSet(Player1)
+END	
+
+IF
+	AreaCheck("%bg1_area_prefix%1000")  // Ulgoth's Beard
+	Global("D5UBRefugeeSpeech","%bg1_area_prefix%1000",2)
+	See(Player1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",3)
+		Wait(2)
+		StartDialogueNoSet(Player1)
+END	
+>>>>>>>>
+COPY ~d5/d5ubmay1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.baf~ EVALUATE_BUFFER 
+
+
+// mayor dialogue
+
+<<<<<<<< d5/d5ubmay1.d
+BEGIN ~D5UBMAY1~
+
+IF ~Global("D5DaustonQuest","GLOBAL",5) GlobalLT("D5UBRefugeeSpeech","%bg1_area_prefix%1000",2)~ BEGIN d5ubmay1_1
+  SAY @10825
+  IF ~~ EXTERN BDREFGF2 d5refgf2_1
+END
+
+IF ~~ BEGIN d5ubmay1_2
+  SAY @10826
+  IF ~~ GOTO d5ubmay1_3
+END
+
+IF ~~ BEGIN d5ubmay1_3
+  SAY @10827
+  IF ~~ EXTERN BDREFGM4 d5refgm4_1
+END
+
+IF ~~ BEGIN d5ubmay1_4
+  SAY @10828
+  IF ~~ GOTO d5ubmay1_5
+END
+
+IF ~~ BEGIN d5ubmay1_5
+  SAY @10829
+  IF ~~ EXTERN BDREFGM4 d5refgm4_2
+END
+
+IF ~~ BEGIN d5ubmay1_6
+  SAY @10830
+  IF ~~ DO ~SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",2)~ EXIT
+END
+
+IF ~Global("D5UBRefugeeSpeech","%bg1_area_prefix%1000",3)~ BEGIN d5ubmay1_7
+  SAY @10831
+  IF ~~ REPLY ~What is going on?~ GOTO d5ubmay1_8
+  IF ~~ REPLY ~What's with all these people?~ GOTO d5ubmay1_8
+END
+
+IF ~~ BEGIN d5ubmay1_8
+  SAY @10832
+  IF ~~ GOTO d5ubmay1_9
+END
+
+IF ~~ BEGIN d5ubmay1_9
+  SAY @10833
+  IF ~~ REPLY @10834 GOTO d5ubmay1_10
+  IF ~~ REPLY @10835 GOTO d5ubmay1_12
+END
+
+IF ~~ BEGIN d5ubmay1_10
+  SAY @10836
+  IF ~~ GOTO d5ubmay1_11
+END
+
+IF ~~ BEGIN d5ubmay1_11
+  SAY @10837
+  IF ~~ REPLY @10838 GOTO d5ubmay1_12
+END
+
+IF ~~ BEGIN d5ubmay1_12
+  SAY @10839
+  IF ~~ GOTO d5ubmay1_13
+END
+
+IF ~~ BEGIN d5ubmay1_13
+  SAY @10840
+  IF ~~ REPLY @10841 GOTO d5ubmay1_14
+  IF ~~ REPLY @10842 GOTO d5ubmay1_14
+END
+
+IF ~~ BEGIN d5ubmay1_14
+  SAY @10843
+  IF ~~ REPLY @10818 DO ~SetGlobal("D5DaustonQuest","GLOBAL",6) SetGlobal("D5UBRefugeesMove","GLOBAL",3) SetGlobal("D5UBRefugeeSpeech",""%bg1_area_prefix%1000"",4)~ EXIT
+END
+
+BEGIN ~BDREFGF2~
+
+IF ~~ BEGIN d5refgf2_1
+  SAY @10846
+  IF ~~ EXTERN D5UBMAY1 d5ubmay1_2
+END
+
+IF ~~ BEGIN d5refgf2_2
+  SAY @10847
+  IF ~~ EXTERN D5UBMAY1 d5ubmay1_6
+END
+
+BEGIN ~BDREFGM4~
+
+IF ~~ BEGIN d5refgm4_1
+  SAY @10848
+  IF ~~ EXTERN BDREFGF6 d5refgf6_1
+END
+
+IF ~~ BEGIN d5refgm4_2
+  SAY @10849
+  IF ~~ EXTERN BDREFGF2 d5refgf2_2
+END
+
+BEGIN ~BDREFGF6~
+
+IF ~~ BEGIN d5refgf6_1
+  SAY @10850
+  IF ~~ EXTERN D5UBMAY1 d5ubmay1_4
+END
+>>>>>>>>
+COPY ~d5/d5ubmay1.d~ ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.d~ EVALUATE_BUFFER
+
+
+// create crusaders
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cruaf5.cre~ ~override~	//	archer
+    ~%MOD_FOLDER%/data/one_for_the_road/d5cru41.cre~ ~override~ 	//	crusader
+    ~%MOD_FOLDER%/data/one_for_the_road/d5cru44.cre~ ~override~ 	//	recruit/thief
+    ~%MOD_FOLDER%/data/one_for_the_road/d5cru52.cre~ ~override~ 	//	cleric
+    ~%MOD_FOLDER%/data/one_for_the_road/d5cru58.cre~ ~override~ 	//	mage
+  READ_LONG 0x08 crusader_name_string
+  PATCH_IF (GAME_IS ~eet~) BEGIN
+    TEXT_SPRINT eet_crusader_name_string ~2%crusader_name_string%~
+    WRITE_LONG 0x08 eet_crusader_name_string
+    WRITE_LONG 0x0c eet_crusader_name_string
+  END
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cuvier.cre~ ~override~	//	leader
+  READ_LONG 0x08 crusader_name_string
+  PATCH_IF (GAME_IS ~eet~) BEGIN
+    TEXT_SPRINT eet_crusader_name_string ~2%crusader_name_string%~
+    WRITE_LONG 0x08 eet_crusader_name_string
+    WRITE_LONG 0x0c eet_crusader_name_string
+  END
+  WRITE_ASCII 0x2cc ~d5cuvier~ #8
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5cru48.cre~ ~override~ 	//	sergeant
+  READ_LONG 0x08 crusader_name_string
+  PATCH_IF (GAME_IS ~eet~) BEGIN
+    TEXT_SPRINT eet_crusader_name_string ~2%crusader_name_string%~
+    WRITE_LONG 0x08 eet_crusader_name_string
+    WRITE_LONG 0x0c eet_crusader_name_string
+  END
+  WRITE_ASCII 0x2cc ~d5crusgt~ #8
+
+// create Dauston		//	need to make sure this .CRE works for the scripted actions
+
+COPY ~%MOD_FOLDER%/data/one_for_the_road/d5dausto.cre~ ~override~
+  SAY 0x08 @10822
+  SAY 0x0c @10822
+  WRITE_ASCII 0x248 ~D5DAUST~ #8
+  WRITE_BYTE 0x272 %aasimar_code%
+
+// dauston script
+
+<<<<<<<< d5/d5daust.baf
+IF
+	AreaCheck("%bg1_area_prefix%1000") 
+	Global("D5DaustonQuest","GLOBAL",13)
+	!ActuallyInCombat()
+	See(Player1)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",14)
+		SetSequence(1)
+		Wait(1)
+		StartDialogueNoSet(Player1)
+END	
+>>>>>>>>
+COPY ~d5/d5daust.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5daust.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5daust.baf~ EVALUATE_BUFFER 
+
+
+// cuv/dauston dialogue
+
+<<<<<<<< d5/d5dausto.d
+BEGIN ~D5CUVIER~
+
+IF ~Global("D5DaustonQuest","GLOBAL",9)~ BEGIN d5cuvier_1
+  SAY @10851
+  IF ~~ GOTO d5cuvier_2
+END
+
+IF ~~ BEGIN d5cuvier_2
+  SAY @10852
+  IF ~~ EXTERN D5CRUSGT d5crusgt_1
+END
+
+IF ~~ BEGIN d5cuvier_3
+  SAY @10853
+  IF ~~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",10)~ EXIT 
+END
+
+IF ~Global("D5DaustonQuest","GLOBAL",12)~ BEGIN d5cuvier_4
+  SAY @10854
+  IF ~~ EXTERN D5CRUSGT d5crusgt_2
+END
+
+IF ~~ BEGIN d5cuvier_5
+  SAY @10855
+  IF ~~ EXTERN D5CRUSGT d5crusgt_3 
+END
+
+IF ~~ BEGIN d5cuvier_6
+  SAY @10856
+  IF ~~ EXTERN D5CRUSGT d5crusgt_3
+END
+
+IF ~~ BEGIN d5cuvier_7
+  SAY @10857
+  IF ~~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",13)~ EXIT 
+END
+
+BEGIN ~D5CRUSGT~
+
+IF ~~ BEGIN d5crusgt_1
+  SAY @10860
+  IF ~~ EXTERN D5CUVIER d5cuvier_3
+END
+
+IF ~~ BEGIN d5crusgt_2
+  SAY @10861
+  IF ~~ REPLY @10862 EXTERN D5CUVIER d5cuvier_5 
+  IF ~~ REPLY @10863 EXTERN D5CUVIER d5cuvier_6 
+END
+
+IF ~~ BEGIN d5crusgt_3
+  SAY @10864
+  IF ~~ EXTERN D5CUVIER d5cuvier_7 
+END
+
+BEGIN ~D5DAUSTO~
+
+IF ~Global("D5DaustonQuest","GLOBAL",6)~ BEGIN d5dausto_1
+  SAY @10866
+  IF ~~ REPLY @10867 DO ~SetGlobal("D5DaustonQuest","GLOBAL",7)~ EXIT 
+END
+
+IF ~Global("D5DaustonQuest","GLOBAL",14)~ BEGIN d5dausto_2
+  SAY @10868
+  IF ~~ REPLY @10869 GOTO d5dausto_3
+  IF ~~ REPLY @10870 GOTO d5dausto_3
+END
+
+IF ~~ BEGIN d5dausto_3
+  SAY @10871
+  IF ~~ REPLY @10872 GOTO d5dausto_4
+  IF ~~ REPLY @10873 GOTO d5dausto_4
+END
+
+IF ~~ BEGIN d5dausto_4
+  SAY @10874
+  IF ~~ REPLY @10875 GOTO d5dausto_6
+END
+
+IF ~~ BEGIN d5dausto_5
+  SAY @10876
+  IF ~~ REPLY @10877 GOTO d5dausto_6
+END
+
+IF ~~ BEGIN d5dausto_6
+  SAY @10878
+  IF ~~ GOTO d5dausto_7
+END
+
+IF ~~ BEGIN d5dausto_7
+  SAY @10879
+  IF ~~ REPLY @10880 GOTO d5dausto_8
+  IF ~~ REPLY @10881 GOTO d5dausto_8
+END
+
+IF ~~ BEGIN d5dausto_8
+  SAY @10882
+  IF ~~ GOTO d5dausto_9
+END
+
+IF ~~ BEGIN d5dausto_9
+  SAY @10883
+  IF ~~ REPLY @10884 GOTO d5dausto_10
+  IF ~~ REPLY @10885 GOTO d5dausto_10
+END
+
+IF ~~ BEGIN d5dausto_10
+  SAY @10886
+  IF ~~ REPLY @10887 GOTO d5dausto_11
+  IF ~~ REPLY @10888 GOTO d5dausto_11
+END
+
+IF ~~ BEGIN d5dausto_11
+  SAY @10889
+  IF ~~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",15)~ EXIT 
+END
+>>>>>>>>
+COPY ~d5/d5dausto.d~ ~weidu_external/%MOD_FOLDER%/compile/d5dausto.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5dausto.d~
+
+
+// UB area script
+
+<<<<<<<< d5/bg1000+9.baf
+IF
+	Global("D5DaustonQuest","GLOBAL",4)
+	Global("D5UBRefugeesMove","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5UBRefugeesMove","GLOBAL",1)
+		CreateCreature("d5dausto",[610.820],E)
+		CreateCreature("d5ubmay1",[2195.680],10)
+		CreateCreature("bdrefgm1",[2065.695],10)
+		CreateCreature("bdrefgf1",[2100.735],10)
+		CreateCreature("bdrefgm2",[2235.756],8)
+		CreateCreature("bdrefgf2",[2160.775],8)
+		CreateCreature("bdrefgm3",[2015.720],10)
+		CreateCreature("bdrefgf3",[2060.765],10)
+		CreateCreature("bdrefgm4",[2115.805],10)
+		CreateCreature("bdrefgf4",[2245.815],8)
+		CreateCreature("bdrefgm5",[2190.820],8)
+		CreateCreature("bdrefgf5",[1980.765],10)
+		CreateCreature("bdrefgm6",[1960.715],12)
+		CreateCreature("bdrefgf6",[2030.800],10)
+		CreateCreature("bdrefgm7",[2195.860],8)
+		CreateCreature("bdrefgf7",[2105.840],8)
+		Continue()
+END	
+
+IF
+	GlobalGT("D5UBRefugeesMove","GLOBAL",4)
+THEN
+	RESPONSE #100
+		ActionOverride("bdrefgm1",DestroySelf())
+		ActionOverride("bdrefgf1",DestroySelf())
+		ActionOverride("bdrefgm2",DestroySelf())
+		ActionOverride("bdrefgf2",DestroySelf())
+		ActionOverride("bdrefgm3",DestroySelf())
+		ActionOverride("bdrefgf3",DestroySelf())
+		ActionOverride("bdrefgm4",DestroySelf())
+		ActionOverride("bdrefgf4",DestroySelf())
+		ActionOverride("bdrefgm5",DestroySelf())
+		ActionOverride("bdrefgf5",DestroySelf())
+		ActionOverride("bdrefgm6",DestroySelf())
+		ActionOverride("bdrefgf6",DestroySelf())
+		ActionOverride("bdrefgm7",DestroySelf())
+		ActionOverride("bdrefgf7",DestroySelf())
+		Continue()
+END	
+
+IF
+	Global("D5DaustonQuest","GLOBAL",4)
+	Global("D5DaustonSleep","%bg1_area_prefix%1000",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",5)
+		SetGlobal("D5DaustonSleep","%bg1_area_prefix%1000",1)
+		ActionOverride("d5dausto",SetSequence(16))
+		Continue()
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",7)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",8)
+		CreateCreature("d5cru48",[860.340],S) // sergeant
+		CreateCreature("d5cru44",[945.345],S) // thief
+		CreateCreature("d5cuvier",[915.290],S)
+		CreateCreature("d5cru58",[990.290],S) // mage
+		CreateCreature("d5cru41",[470.270],S) // fighter
+		CreateCreature("d5cru52",[500.210],S) // cleric
+		CreateCreature("d5cruaf5",[555.170],S) // archer
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CRCUT1")
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",10)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",11)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutScene("D5CRCUT2")
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",13)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",14)
+		ActionOverride("d5cuvier",ForceSpellPoint([2900.300],WIZARD_DIMENSION_DOOR))
+		Wait(1)
+		ActionOverride("d5cuvier",DestroySelf())
+		ActionOverride("d5cru48",Enemy())
+		ActionOverride("d5cru41",Enemy())
+		ActionOverride("d5cru48",Enemy())
+		ActionOverride("d5cru52",Enemy())
+		ActionOverride("d5cru58",Enemy())
+		ActionOverride("d5cruaf5",Enemy())
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",15)
+	InMyArea("d5dausto")	
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",20)
+		AddJournalEntry(@10807,QUEST)
+		ActionOverride("d5dausto",EscapeArea())
+END
+>>>>>>>>
+COPY ~d5/bg1000+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bg1000+9.baf~
+EXTEND_TOP ~%bg1_area_prefix%1000.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bg1000+9.baf~ EVALUATE_BUFFER
+
+
+// crusaders' entry cut scene
+
+<<<<<<<< d5/d5crcut1.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId("D5DAUSTO")
+		SetGlobal("D5DaustonQuest","GLOBAL",9)
+		ActionOverride("d5cru48",MoveToPoint([685.720])) // sergeant
+		ActionOverride("d5cru41",MoveToPoint([620.715])) // fighter
+		Wait(1)
+		ActionOverride("d5cru44",MoveToPoint([800.655])) // thief
+		ActionOverride("d5cru52",MoveToPoint([625.625])) // cleric
+		Wait(1)
+		ActionOverride("d5cuvier",MoveToPoint([695.635])) // cuv
+		ActionOverride("d5cruaf5",MoveToPoint([400.635])) // archer
+		ActionOverride("d5cru58",MoveToPoint([680.560])) // mage
+		Wait(6)
+		EndCutSceneMode()
+		ActionOverride("d5cuvier",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5crcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5crcut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5crcut1.baf~
+
+
+// cuvieronius cast spell cut scene
+// ***** create and destroy phantom sarevok here
+
+<<<<<<<< d5/d5crcut2.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId("D5DAUSTO")
+		ActionOverride("d5cuvier",ForceSpellRES("d5solgl",Myself))
+		Wait(2)
+		ActionOverride(Player1,ApplySpellRES("d5cloup",Myself))
+		Wait(7)
+		EndCutSceneMode()
+		ActionOverride("d5cuvier",StartDialogueNoSet(Player1))
+END
+>>>>>>>>
+COPY ~d5/d5crcut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5crcut2.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5crcut2.baf~
+
+// refugees move to BG east
+
+<<<<<<<< d5/bg0800+9.baf
+IF
+	Global("D5UBRefugeesMove","GLOBAL",3)
+THEN
+	RESPONSE #100
+		SetGlobal("D5UBRefugeesMove","GLOBAL",5)
+		CreateCreature("bdrefgm1",[2370.1300],10)
+		CreateCreature("bdrefgf1",[2415.1305],4)
+		CreateCreature("bdrefgm2",[2400.1255],2)
+		CreateCreature("bdrefgf2",[2480.1295],10)
+		CreateCreature("bdrefgm3",[2515.1315],8)
+		CreateCreature("bdrefgf3",[2470.1250],12)
+		CreateCreature("bdrefgm4",[2565.1280],4)
+		CreateCreature("bdrefgf4",[2585.1220],2)
+		CreateCreature("bdrefgm5",[2525.1200],14)
+		CreateCreature("bdrefgf5",[2490.1160],6)
+		CreateCreature("bdrefgm6",[2465.1100],0)
+		CreateCreature("bdrefgf6",[2445.1190],8)
+		CreateCreature("bdrefgm7",[2405.1150],12)
+		CreateCreature("bdrefgf7",[2415.1105],14)
+		CreateCreature("bdrefgm1",[2775.1230],8)
+		CreateCreature("bdrefgf1",[2810.1200],4)
+		CreateCreature("bdrefgm2",[2710.1250],10)
+		CreateCreature("bdrefgf2",[2735.1195],2)
+		CreateCreature("bdrefgm3",[2675.1200],12)
+		CreateCreature("bdrefgf3",[2725.1165],0)
+END	
+>>>>>>>>
+COPY ~d5/bg0800+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bg0800+9.baf~
+EXTEND_TOP ~%bg1_area_prefix%0800.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bg0800+9.baf~
+
+
+// more Belt and Liia dialogue
+// use @106__ tra range for belt/liia; and the @104__ tra range for liia/imoen
+
+<<<<<<<< d5/final+9.d
+APPEND BELT
+
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",15) Global("D5GregsonPalace","GLOBAL",0) ~ BEGIN d5beltdq_1
+  SAY @10671
+  IF ~~ REPLY @10672 GOTO d5beltdq_2
+  IF ~~ REPLY @10673 EXIT
+END
+
+IF ~~ BEGIN d5beltdq_2
+  SAY @10674
+  IF ~~ REPLY @10675 GOTO d5beltdq_3
+END
+
+IF ~~ BEGIN d5beltdq_3
+  SAY @10676
+  IF ~~ REPLY @10677 GOTO d5beltdq_4
+END
+
+IF ~~ BEGIN d5beltdq_4
+  SAY @10678
+  IF ~~ GOTO d5beltdq_5
+END
+
+IF ~~ BEGIN d5beltdq_5
+  SAY @10679
+  IF ~~ REPLY @10680 GOTO d5beltdq_6
+END
+
+IF ~~ BEGIN d5beltdq_6
+  SAY @10681
+  IF ~~ GOTO d5beltdq_7
+END
+
+IF ~~ BEGIN d5beltdq_7
+  SAY @10682
+  IF ~~ GOTO d5beltdq_8
+END
+
+IF ~~ BEGIN d5beltdq_8
+  SAY @10683
+  IF ~~ GOTO d5beltdq_9
+END
+
+IF ~~ BEGIN d5beltdq_9
+  SAY @10684
+  IF ~~ REPLY @10685 GOTO d5beltdq_10
+  IF ~~ REPLY @10686 GOTO d5beltdq_10
+  IF ~~ REPLY @10687 GOTO d5beltdq_11
+END
+
+IF ~~ BEGIN d5beltdq_10
+  SAY @10688
+  IF ~~ REPLY @10689
+    DO ~AddJournalEntry(@10808,QUEST_DONE)
+		SetInterrupt(FALSE)
+		ClearAllActions()
+		StartCutSceneMode()
+		StartCutSceneEx("d5st2so2",TRUE)
+		SetInterrupt(TRUE)~
+    EXIT
+END
+
+IF ~~ BEGIN d5beltdq_11
+  SAY @10690
+  IF ~~ 
+    DO ~SetGlobal("D5GregsonPalace","GLOBAL",1) 
+    	SetGlobal("D5SkipSoD","GLOBAL",1) 
+    	AddJournalEntry(@10809,QUEST_DONE)~ 
+    EXIT // ...mirror clone cut scene
+END
+
+END
+
+APPEND BDENTAR
+
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",15) Global("D5GregsonPalace","GLOBAL",0)~ BEGIN d5entardq_1
+  SAY @10691
+  IF ~~ EXTERN BELT d5beltdq_1
+END
+
+END
+
+APPEND LIIA
+
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",15) Global("D5GregsonPalace","GLOBAL",0)~ BEGIN d5liiadq_1
+  SAY @10691
+  IF ~~ EXTERN BELT d5beltdq_1
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",3) Global("D5DaustonQuest","GLOBAL",1) Global("D5CloneCut","GLOBAL",0)~ BEGIN d5liiadq_2
+  SAY @10478
+  IF ~~ EXTERN BDIMOEN d5imoendq_1
+END
+
+IF ~~ BEGIN d5liiadq_3
+  SAY @10479
+  IF ~~ EXTERN BDIMOEN d5imoendq_2
+END
+
+IF ~~ BEGIN d5liiadq_4
+  SAY @10480
+  IF ~~ EXTERN BDIMOEN d5imoendq_3
+END
+
+IF ~~ BEGIN d5liiadq_5
+  SAY @10481
+  IF ~~ EXTERN BDIMOEN d5imoendq_4
+END
+
+IF ~~ BEGIN d5liiadq_6
+  SAY @10482
+  IF ~~ EXTERN BDIMOEN d5imoendq_6
+END
+
+IF ~~ BEGIN d5liiadq_7
+  SAY @10483
+  IF ~~ DO ~SetGlobal("D5ImoenPalace","GLOBAL",4)~ EXIT 
+END
+
+END
+
+APPEND BDIMOEN
+
+IF ~~ BEGIN d5imoendq_1
+  SAY @10484
+  IF ~~ EXTERN LIIA d5liiadq_3
+END
+
+IF ~~ BEGIN d5imoendq_2
+  SAY @10485
+  IF ~~ EXTERN LIIA d5liiadq_4
+END
+
+IF ~~ BEGIN d5imoendq_3
+  SAY @10486
+  IF ~~ EXTERN LIIA d5liiadq_5
+END
+
+IF ~~ BEGIN d5imoendq_4
+  SAY @10487
+  IF ~~ REPLY @10488 GOTO d5imoendq_5
+  IF ~~ REPLY @10489 EXTERN LIIA d5liiadq_6
+END
+
+IF ~~ BEGIN d5imoendq_5
+  SAY @10490
+  IF ~~ EXTERN LIIA d5liiadq_6
+END
+
+IF ~~ BEGIN d5imoendq_6
+  SAY @10491
+  IF ~~ GOTO d5imoendq_7
+END
+
+IF ~~ BEGIN d5imoendq_7
+  SAY @10492
+  IF ~~ GOTO d5imoendq_8
+END
+
+IF ~~ BEGIN d5imoendq_8
+  SAY @10493
+  IF ~~ REPLY @10494 GOTO d5imoendq_9
+  IF ~~ REPLY @10495 GOTO d5imoendq_10
+END
+
+IF ~~ BEGIN d5imoendq_9
+  SAY @10496
+  IF ~~ GOTO d5imoendq_11
+END
+
+IF ~~ BEGIN d5imoendq_10
+  SAY @10497
+  IF ~~ GOTO d5imoendq_11
+END
+
+IF ~~ BEGIN d5imoendq_11
+  SAY @10498
+  IF ~~ EXTERN LIIA d5liiadq_7
+END
+
+IF ~Global("D5ImoenPalace","GLOBAL",5) GlobalGT("D5DaustonQuest","GLOBAL",0)~ BEGIN d5imoendq_12
+  SAY @10499
+  IF ~~ EXIT
+END
+
+END
+>>>>>>>>
+COPY ~d5/final+9.d~ ~weidu_external/%MOD_FOLDER%/compile/final+9.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/final+9.d~ EVALUATE_BUFFER
+
+
+// get Imoen's stuff into her container
+COPY_EXISTING ~%bg1_area_prefix%0110.are~ ~override~
+  LPF ALTER_AREA_CONTAINER INT_VAR trapped = 0 flag_locked = 0 STR_VAR container_name = ~Container 4~ END
+
+COPY_EXISTING ~%bg1_area_prefix%0108.are~ ~override~
+  LPF fj_are_structure
+    INT_VAR
+    fj_type        = 8 // nonvisible
+    fj_loc_x       = 2
+    fj_loc_y       = 2
+    fj_box_left    = 2
+    fj_box_top     = 2
+    fj_box_right   = 3
+    fj_box_bottom  = 3
+    fj_trap_loc_x  = 2
+    fj_trap_loc_y  = 2
+    fj_vertex_0    = 2 + (2 << 16)
+    fj_vertex_1    = 3 + (2 << 16)
+    fj_vertex_2    = 3 + (2 << 16)
+    fj_vertex_3    = 2 + (2 << 16)
+    STR_VAR
+    fj_structure_type = container
+    fj_name           = ~d5_imoen_eq~
+  END
+
+// in Liia/Imoen dialogue, SetGlobal("D5ImoenPalace","GLOBAL",4)
+
+
+// area script: more dialogue if imoen in party
+
+<<<<<<<< d5/ar108+9.baf
+IF
+	GlobalLT("D5ImoenPalace","GLOBAL",3) // <-- should be 0 if she is in the party!
+	Global("D5DaustonQuest","GLOBAL",1)
+	InPartyAllowDead("%IMOEN_DV%")
+	InMyArea("%IMOEN_DV%")	
+	!StateCheck("%IMOEN_DV%",CD_STATE_NOTVALID)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",3)
+		ActionOverride("%IMOEN_DV%",SetDialogue("BDIMOEN"))
+		ActionOverride("LIIA",StartDialogueNoSet(Player1))
+END
+
+IF
+	InPartyAllowDead("%IMOEN_DV%")
+	Global("D5ImoenPalace","GLOBAL",4)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",5)
+		ActionOverride("d5_imoen_eq",TakeCreatureItems("%IMOEN_DV%",ALL))  // Imoen
+		Wait(1)
+		ActionOverride("%IMOEN_DV%",LeaveParty())
+		Continue()
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",20)
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonQuest","GLOBAL",21)
+		SaveGame(2)
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/ar108+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+9.baf~
+EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+9.baf~ EVALUATE_BUFFER 
+
+
+// handle Imoen's inventory
+
+<<<<<<<< d5/bg110+9.baf
+IF
+	Global("D5ImoenPalace","GLOBAL",5)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",6)
+		MoveContainerContents("%bg1_area_prefix%0108*d5_imoen_eq","%bg1_area_prefix%0110*Container 4")
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/bg110+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bg110+9.baf~
+EXTEND_TOP ~%bg1_area_prefix%0110.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bg110+9.baf~ EVALUATE_BUFFER 
+
+
+<<<<<<<< d5/bd103+9.baf
+IF
+	GlobalLT("D5ImoenPalace","GLOBAL",6)
+	GlobalLT("BD_PLOT","GLOBAL",51)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",7)
+		MoveContainerContents("%bg1_area_prefix%0108*d5_imoen_eq","BD0103*Imoen_equipment")
+		Continue()
+END
+IF
+	Global("D5ImoenPalace","GLOBAL",6)
+	GlobalLT("BD_PLOT","GLOBAL",51)
+THEN
+	RESPONSE #100
+		SetGlobal("D5ImoenPalace","GLOBAL",7)
+		MoveContainerContents("%bg1_area_prefix%0110*Container 4","BD0103*Imoen_equipment")
+		Continue()
+END
+>>>>>>>>
+COPY ~d5/bd103+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd103+9.baf~
+EXTEND_TOP ~bd0103.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bd103+9.baf~ EVALUATE_BUFFER 
+
+
+END	//	end define function

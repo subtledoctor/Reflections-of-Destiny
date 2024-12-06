@@ -1,177 +1,262 @@
 
-DEFINE_ACTION_FUNCTION kill_thalantyr BEGIN
+DEFINE_ACTION_FUNCTION feyr_itself BEGIN
 
 /*
-- set area script
 
-- ...chapter check?
-- patch area script for thalantyr's interior
-- remove thalantyr and set GV
-- patch melicamp's dialogue in response to the GV
- -- "You'll have to excuse me, everything is a mess, with Thalantyr gone. I am managing things until his return."
- -- [cond1] where has he gone?
- -- [cond2] would you be willing to buy or sell items from thalantyr's stock?
- -- "Oh, he has not gone anywhere. He is dead! Killed. I have no idea who did it. 
- -- [if recovered] And whoever it was, they took those thrice-damned Netherese bracers!" 
- -- that sounds bad. but why did you say when he returns? is he to be resurrected?
- -- "Oh no, no, he does not approve of the use of clerical magic. He has made his own contingent arrangements in case of his demise. Some kind of combination of reincarnation and regeneration, if I understand it correctly. Should be complete in a few... weeks? Maybe? I'm afraid it's a bit over my head - I'm just his apprentice! ...I have really learned to appreciate my limits, lately."
- -- would you be willing to buy or sell items from thalantyr's stock?
- -- "Ah. Well, I suppose he would not mind if I conducted some business on his behalf. He has trained me well in balancing the tower's accounts, if not in the actual use of magic."
- 
-- check for The Calling; disable the bit where you take & destroy the bracers
+- / rewrite elandro's dialogue
+	...add_state_trigger bdelandr 0 so it never fires (Dead("bdfeyr"))
+	...ditto state 10
+	...add a new state w/ new dialogue
+	...check any interjections w/ thirrim
+	
+- / alter_trans bdthirri.dlg so transition 0 of state 0 points to new bdelandr state
+	...and rewrite state 0 aka #46575
+
+- / rewrite #46711
+
+- / rewrite #46718
+
+- / rewrite #61744 (journal)
+
+- / rewrite #61745 (journal)
+
+- / write new cut script for appearance of feyr
+	...elandro should DestroySelf()
+	...in bdelandr.bcs, replace_textually ~RandomWalkContinuous()~ ~DestroySelf()~
+
+- / ooh! ooh! if never talk on the roof, have elandro transform when he enters the fight!
+	...say, once GlobalGT("bd_bridgefort_plot","global",8), and enemy within 15', start a 30-second timer
+	...when timer ends, DestroySelf() and CreateCreature("BDFeyr")
+	...this ^^ in bdelendr.bcs
+
+- / check cut scene on bridge (including modded versions)
+	...if Dead("bdfeyr") then give Player1 innate Cloak of Fear (SPIN203)
+
 */
+
 
 //___________________________________________________________________________________
 //
 
-// modify area script
+// elandro transforms instead of creating the feyr
 
-<<<<<<<< d5/area3202.baf
+COPY_EXISTING ~bdelandr.BCS~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~RandomWalkContinuous~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~DestroySelf~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+
+
+// modify elandro's override script for battle
+
+<<<<<<<< d5/bdeland+.baf
 IF
-	GlobalGT("CHAPTER","GLOBAL",6)
-	Global("D5ThalantyrDead","GLOBAL",0)
-	Dead("SLYTHE")
+	GlobalGT("bd_bridgefort_plot","global",8)
+	Global("D5ElandroBattle","GLOBAL",0)
+	!Dead("BDFEYR")
+	See([ENEMY])
 THEN
 	RESPONSE #100
-		ActionOverride("thalantyr",DestroySelf())		
-		SetGlobal("D5ThalantyrDead","GLOBAL",1)
-		Continue()
-END
->>>>>>>>
-COPY ~d5/area3202.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
-
-ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%3202.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%3202.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
+		SetGlobalTimer("D5FeyrTi","GLOBAL",FOUR_ROUNDS)
+		SetGlobal("D5ElandroBattle","GLOBAL",1)
 END
 
-ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%3202.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
+IF
+	GlobalTimerExpired("D5FeyrTi","GLOBAL")
+THEN
+	RESPONSE #100
+		DisplayStringHead(Myself,@22020)
+		Wait(2)
+		CreateCreatureObject("BDFEYR",Myself,0,0,0)
+		DestroySelf()
+		ActionOverride(Player1,ForceSpellRES("SPIN103",Myself))
 END
+>>>>>>>> 
+COPY ~d5/bdeland+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.baf~
+EXTEND_TOP ~bdelandr.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.baf~
 
-// add dialogue options to melicamp if Global("D5ThalantyrDead","GLOBAL",1) (melica.dlg)
 
-<<<<<<<< d5/melica+.d
-REPLACE_STATE_TRIGGER MELICA 26 ~Global("D5ThalantyrDead","GLOBAL",0)~
+// modified cut scene for feyr to appear
 
-APPEND MELICA
+<<<<<<<< d5/d5c208a.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		ActionOverride("bdelandr",DisplayStringHead(Myself,@22020)
+		Wait(2)
+		ActionOverride("bdelandr",DestroySelf())
+		CreateCreature("bdfeyr",[3210.980],NW)
+		CreateVisualEffectObject("spflesh3","bdfeyr")
+		PlaySound("eff_m10a")
+		ActionOverride(Player1,ForceSpellRES("SPIN103",Myself))
+		SetGlobal("bd_208_status","global",3)
+		Wait(1)
+		EndCutSceneMode()
+END
+>>>>>>>> 
+COPY ~d5/d5c208a.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5c208a.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5c208a.baf~
 
-IF ~Global("D5ThalantyrDead","GLOBAL",1)~ BEGIN d5melica_0 
+
+// modify elandro's dialogue
+
+<<<<<<<< d5/bdeland+.d
+ADD_STATE_TRIGGER BDELANDR 0 ~Dead("BDFEYR")~
+ADD_STATE_TRIGGER BDELANDR 10 ~Dead("BDFEYR")~
+
+APPEND BDTHIRRI
+
+IF WEIGHT #-1 ~!Dead("BDELANDR") GlobalLT("bd_bridgefort_plot","global",9)~ BEGIN d5bdthirri_0
   SAY @22001
-  IF ~Global("D5ThalantyrDead","GLOBAL",1)~ REPLY @22002 DO ~SetGlobal("D5ThalantyrDead","GLOBAL",2)~ GOTO d5melica_1
-  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @22007 GOTO d5melica_4
-  IF ~Global("D5ThalantyrDead","GLOBAL",2)~ REPLY @22010 EXIT
+  IF ~~ REPLY @22002 EXTERN BDELANDR d5elandr_0
+  IF ~~ REPLY @22003 EXTERN BDELANDR d5elandr_0
 END
 
-IF ~~ BEGIN d5melica_1
-  SAY @22003
-  IF ~Global("D5BracersHere","GLOBAL",1)~ REPLY ~~ GOTO d5melica_2
-  IF ~GlobalGT("CDBracerQuest","GLOBAL",18)~ REPLY ~~ GOTO d5melica_2
-  IF ~GlobalLT("CDBracerQuest","GLOBAL",19) Global("D5BracersHere","GLOBAL",0)~ REPLY @22005 GOTO d5melica_3
-END
-
-IF ~~ BEGIN d5melica_2
-  SAY @22004
-  IF ~~ REPLY @22005 GOTO d5melica_3
-END
-
-IF ~~ BEGIN d5melica_3
-  SAY @22006
-  IF ~~ REPLY @22007 GOTO d5melica_4
-  IF ~~ REPLY @22010 EXIT
-END
-
-IF ~~ BEGIN d5melica_4
+IF ~~ BEGIN d5bdthirri_1
   SAY @22008
-  IF ~~ REPLY @22009 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
+  IF ~~ EXTERN BDELANDR d5elandr_1
+END
+
+END
+
+APPEND BDELANDR
+
+IF WEIGHT #-1 ~!Dead("BDFEYR") GlobalLT("bd_bridgefort_plot","global",9)~ BEGIN d5elandr_0
+  SAY @22005
+  IF ~~ REPLY @22006 EXTERN BDTHIRRI d5bdthirri_1
+  IF ~~ REPLY @22007 EXTERN BDTHIRRI d5bdthirri_1
+END
+
+IF ~~ BEGIN d5elandr_1
+  SAY @22009
+  IF ~~ REPLY @22010 GOTO d5elandr_2
+END
+
+IF ~~ BEGIN d5elandr_2
+  SAY @22011
+  IF ~~ GOTO d5elandr_3
+END
+
+IF ~~ BEGIN d5elandr_3
+  SAY @22012
+  IF ~~ REPLY @22013 GOTO d5elandr_4
+  IF ~~ REPLY @22014 GOTO d5elandr_4
+END
+
+IF ~~ BEGIN d5elandr_4
+  SAY @22015
+  IF ~~ REPLY @22016 GOTO d5elandr_5
+END
+
+IF ~~ BEGIN d5elandr_5
+  SAY @22017
+  IF ~~ GOTO d5elandr_6
+END
+
+IF ~~ BEGIN d5elandr_6
+  SAY @22018
+  IF ~~ DO ~ClearAllActions()
+			StartCutSceneMode()
+			StartCutScene("d5c208a")~ 
+		EXIT
 END
 
 END
 >>>>>>>> 
-COPY ~d5/melica+.d~ ~weidu_external/%MOD_FOLDER%/compile/melica+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/melica+.d~
+COPY ~d5/bdeland+.d~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdeland+.d~
 
-// make sure the bracers don't disappear
 
-ACTION_IF !(MOD_IS_INSTALLED ~thecalling.tp2~ ~0~) BEGIN
+// *****
+// add innate at bridge
 
-<<<<<<<< d5/thalan+.d
-APPEND THALAN
-
-IF ~~ BEGIN d5thalan_0 
-  SAY @22015
-  IF ~~ DO ~SetGlobal("D5BracersHere","GLOBAL",1)~ EXTERN ~MELICA~ 24
+/* figure out a better way to do this... like, read a GV from that cut scene and use it in the area script
+ACTION_IF (FILE_EXISTS_IN_GAME ~bdcut28.bcs~) AND !(FILE_EXISTS_IN_GAME ~c#stbb28.bcs~) BEGIN
+  COPY_EXISTING ~bdcut28.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(True()\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Dead("bdfeyr")
+THEN
+	RESPONSE #100
+		CutSceneId("bdcutid")
+		ActionOverride(Player1,AddSpecialAbility("SPIN203"))
+		Continue()
+END
+IF
+	True()~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+    END
+  IF_EXISTS BUT_ONLY
 END
 
+ACTION_IF (FILE_EXISTS_IN_GAME ~bdcut28.bcs~) AND (FILE_EXISTS_IN_GAME ~c#stbb28.bcs~) BEGIN
+  COPY_EXISTING ~bdcut28.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(True()\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Dead("bdfeyr")
+THEN
+	RESPONSE #100
+		CutSceneId("bdcutid")
+		ActionOverride(Player1,AddSpecialAbility("SPIN203"))
+		Continue()
 END
->>>>>>>>
-COPY ~d5/thalan+.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
-
-OUTER_SET thalan_22015 = STATE_WHICH_SAYS @22015 FROM ~THALAN~
-
-<<<<<<<< d5/melica#.d
-EXTEND_BOTTOM MELICA 23
-
-IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_22015% 
-
+IF
+	True()~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+    END
+  IF_EXISTS BUT_ONLY
 END
->>>>>>>>
-COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
-COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
-
-END	//	end thecalling not installed
-
-ACTION_IF (MOD_IS_INSTALLED ~thecalling.tp2~ ~0~) BEGIN
-
-// forestall the last bit of The Calling
-
-OUTER_SET melica_thecalling_1285 = STATE_WHICH_SAYS 1285 IN ~thecalling/languages/%s/mage.tra~ FROM ~MELICA~
-
-PRINT ~the state we want is # %melica_thecalling_1285%~
-
-<<<<<<<< d5/thalan_.d
-APPEND THALAN
-
-IF ~~ BEGIN d5thalan_0 
-  SAY @22011
-  IF ~~ REPLY @22012 EXIT
-  IF ~~ REPLY @22013 DO ~StartStore("highhedg",LastTalkedToBy(Myself))~ EXIT
-  IF ~~ REPLY @22014 EXIT
-END
-
-END
->>>>>>>>
-COPY ~d5/thalan_.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan_.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan_.d~
-
-OUTER_SET thalan_22011 = STATE_WHICH_SAYS @22011 FROM ~THALAN~
-
-/*
-<<<<<<<< d5/melica#.d
-ADD_TRANS_TRIGGER MELICA %melica_thecalling_1285% ~False()~ DO 0
-
-EXTEND_BOTTOM MELICA %melica_thecalling_1285%
-
-IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_22011% 
-
-END
->>>>>>>>
 */
-// try this instead
-<<<<<<<< d5/melica#.d
-ALTER_TRANS MELICA BEGIN %melica_thecalling_1285% END BEGIN 0 END BEGIN "ACTION" ~SetGlobal("CDBracerQuest","GLOBAL",99)~ "EPILOGUE" ~EXTERN THALAN %thalan_22011%~ END
+
+<<<<<<<< d5/bd2000+.baf
+IF
+	Global("D5CharnameIsScary","bd2000",0)
+	GlobalGT("bd_mdd420_ot","bd2000",1)
+	Dead("bdfeyr")
+THEN
+	RESPONSE #100
+		SetGlobal("D5CharnameIsScary","bd2000",1)
+		ActionOverride(Player1,AddSpecialAbility("SPIN203"))
+		Continue()
+END
 >>>>>>>>
-COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
-COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
+COPY ~d5/bd2000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~
+EXTEND_TOP ~BD2000.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~
 
-//
-// also, change state 73's response (160) to point to state 75 instead of 74
-// and change CDIRIS.DLG's response 21 to point to THALAN state 75 instead of 77
-// ...maybe not! Thalantyr says he will retrieve the bracers again.
 
-END	//	end thecalling is installed
+// rewrite strings
 
-//___________________________________________________________________________________
-//
+ACTION_IF (GAME_IS ~eet~) BEGIN
+  STRING_SET 246711 @22041
+  STRING_SET 246718 @22042
+  STRING_SET 261744 @22043
+  STRING_SET 261745 @22044
+END
+ELSE BEGIN
+  STRING_SET 46711 @22041
+  STRING_SET 46718 @22042
+  STRING_SET 61744 @22043
+  STRING_SET 61745 @22044
+END
+
 
 END	//	end define function

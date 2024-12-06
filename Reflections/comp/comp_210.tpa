@@ -1,0 +1,187 @@
+
+DEFINE_ACTION_FUNCTION more_realism_sod BEGIN
+
+/*
+
+//identify crusaders who should recognize Charname
+	- barghest		-	bdbarghe	-	bdbarghe.bcs	...if AreaCheck("BD2000")
+	- vichand?		-	bdvichan	-	bdvichan.bcs	
+	- hormorn		-	bdhormor	-	bdhormor.bcs	
+	- delgar		-	bdmunsch	-	bdmunsch.bcs
+	- oloneiros		-	bdolonei	-	bdolonei.bcs
+	- turin			-	bdturin		-	bdturin.bcs		...if AreaCheck("BD5100")
+	?- spensse		-	
+	?- anji			-	
+	?- bardyla		-	
+	- crus. patrol	-	bdcrus81	-	bdcrus80.bcs, bdcrus83.bcs
+	- polvi			-	bdpolvi		-	bdpolvi.bcs		...if AreaCheck("BD5200")
+	- dreon			-	bddreon		-	create bddreon.bcs	...if AreaCheck("bd4000")
+	?- leopas et al	-	bdleopas	-	bdtrial.bcs
+	- beno famari	-	bdfamari	-	bdfamari.bcs	...if !InParty("Corwin")
+	- cr. commander	-	bdfamcru	-	bdfamcru.bcs
+	- crus. guard	-	bddssen		-	bddssen.bcs		
+	- 
+...set them to enemy() if they see(player1)
+
+//give Dosia a rejuvenation ability at gate to avernus
+
+//if Charname played BG1 but never met skie,
+...skip her initial confiding in Charname
+...and add some exposition to Bence instead
+
+*/
+
+
+//___________________________________________________________________________________
+//
+
+// crusaders more wary
+
+<<<<<<<< .../crusee.baf
+IF
+	See(Player1)
+	Global("D5SeenMe","LOCALS",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5SeenMe","LOCALS",1)
+		Enemy()
+END
+>>>>>>>>
+COPY ~.../crusee.baf~ ~weidu_external/%MOD_FOLDER%/compile/bddreon.baf~
+ACTION_IF (FILE_EXISTS_IN_GAME ~bddreon.bcs~) BEGIN
+  EXTEND_TOP ~bddreon.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bddreon.baf~
+END
+ACTION_IF !(FILE_EXISTS_IN_GAME ~bddreon.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/bddreon.baf~
+END
+
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/bddreon.baf~
+
+ACTION_FOR_EACH crusader_script IN 
+	~bdbarghe~
+	~bdvichan~
+	~bdhormor~
+	~bdmunsch~
+	~bdolonei~
+	~bdturin~
+	~bdcrus80~
+	~bdcrus83~
+	~bdpolvi~
+	~bdtrial~
+	~bdfamcru~
+	~bddssen~
+BEGIN
+	EXTEND_TOP ~%crusader_script%.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bddreon.baf~ 
+END
+
+<<<<<<<< .../famsee.baf
+IF
+	See(Player1)
+	Global("D5SeenMe","LOCALS",0)
+	!InParty("CORWIN")
+THEN
+	RESPONSE #100
+		SetGlobal("D5SeenMe","LOCALS",1)
+		Enemy()
+END
+>>>>>>>>
+COPY ~.../famsee.baf~ ~weidu_external/%MOD_FOLDER%/compile/famsee.baf~
+EXTEND_TOP ~bdfamari.bcs~ ~weidu_external/%MOD_FOLDER%/compile/famsee.baf~
+
+
+
+// change ladle's dialogue (bdladle.dlg)
+
+
+
+// let dosia rejuvenate you
+
+<<<<<<<< .../dosia+.d
+ALTER_TRANS BDDOSIA BEGIN 60 END BEGIN 1 END BEGIN "TRIGGER" ~~ END
+>>>>>>>>
+COPY ~.../dosia+.d~ ~weidu_external/%MOD_FOLDER%/compile/dosia+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/dosia+.d~
+
+
+
+// remove initial Skie palace talk and cut scene
+
+COPY_EXISTING ~bd0102.bcs~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(CreateCreature("BDSKIE".+$\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ApplySpellRES("bddest","bdskie".+$\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+
+COPY_EXISTING ~bd0103.bcs~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(Global("BD_MDD007","bd0103",2)\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~Global("BD_MDD007","bd0103",99)~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+	END
+BUT_ONLY
+
+<<<<<<<< .../d5bd0103.baf
+IF
+	Global("BD_plot","global",54)
+	Global("BD_MDD007","bd0103",2)  // Ducal Palace  Third Floor
+	Global("BD_MDD005","bd0103",0)  // Ducal Palace  Third Floor
+THEN
+	RESPONSE #100
+		ClearAllActions()
+		StartCutSceneMode()
+		SetGlobal("BD_MDD005","bd0103",1)  // Ducal Palace  Third Floor
+		SmallWait(30)
+		FadeToColor([20.0],0)
+		SmallWait(20)
+		FadeToColor([0.0],0)
+		SmallWait(1)
+		DayNight(3)
+		ActionOverride(Player1,JumpToPoint([220.400]))
+		ActionOverride(Player1,Face(SE))
+		ActionOverride(Player1,SetSequence(SEQ_SLEEP))
+		MoveGlobal("bd0103",Player2,[78.511])
+		MoveGlobal("bd0103",Player3,[102.529])
+		MoveGlobal("bd0103",Player4,[129.552])
+		MoveGlobal("bd0103",Player5,[160.576])
+		MoveGlobal("bd0103",Player6,[195.601])
+		ActionOverride(Player2,Face(NE))
+		ActionOverride(Player3,Face(NE))
+		ActionOverride(Player4,Face(NE))
+		ActionOverride(Player5,Face(NE))
+		ActionOverride(Player6,Face(NE))
+		ApplySpellRES("bdhide",Player2)  // No such index
+		ApplySpellRES("bdhide",Player3)  // No such index
+		ApplySpellRES("bdhide",Player4)  // No such index
+		ApplySpellRES("bdhide",Player5)  // No such index
+		ApplySpellRES("bdhide",Player6)  // No such index
+		MoveViewObject(Player1,INSTANT)
+		StartCutSceneMode()
+		StartCutSceneEx("bdcut05",TRUE)
+END
+>>>>>>>>
+COPY ~.../d5bd0103.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5bd0103.baf~
+EXTEND_TOP ~bd0103.bcs~ ~weidu_external/%MOD_FOLDER%/compile/d5bd0103.baf~ 
+
+//___________________________________________________________________________________
+//
+END	//	end define function

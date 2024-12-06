@@ -22,7 +22,7 @@ DEFINE_ACTION_FUNCTION keep_playing BEGIN
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@23036) @26001
+ADD_JOURNAL TITLE (@10200) @10501
 
 // stuff from EBG1
 
@@ -79,7 +79,7 @@ THEN
 	RESPONSE #100
 		TriggerActivation("Door0123",TRUE)
 		SetGlobal("D5TempleLock","GLOBAL",2)
-		AddJournalEntry(@26001,QUEST)
+		AddJournalEntry(@10501,QUEST)
 		Continue()
 END
 
@@ -113,52 +113,74 @@ END	//	end if EBG1 not installed
 
 // ***** expand exposition in Sarevok's dialogue - use states 13, 14, and 20
 
-<<<<<<<< .../nusarev.d
-/* just replace the text of states 13/14/20; good for compatibility...
-// but need to adjust transitions so that all the exposition is revealed
-REPLACE_SAY SAREVO 13 ~~ // Foiled my plans! BG would fallen, the army poured in, murder on the grandest scale!
+/* option 1: just replace the text of states 13/14/20; good for compatibility...
+// but would need to change the transitions so that all the exposition is revealed
+REPLACE_SAY SAREVO 13 ~And now comes the mosquito to the spider's den. I underestimated you, <CHARNAME>. You successfully toppled my plans. War was to come to Baldur's Gate - I would have been a tragic hero, as the city fell to conquerors. As the Amnish army poured in, there would have been murder on the grandest scale!~
 
-REPLACE_SAY SAREVO 14 ~~ // And here below the center of the city, with Bhaalist rituals prepared, all of that death would have fueled my ascension!
+REPLACE_SAY SAREVO 14 ~You have no idea what this place it. We are directly under the gates to the inner city. The Bhaalist clergy were once lords of this land, using death to fuel their power. The old rituals have been prepared - all of the deaths at the hands of Amnish invaders would have been magically captured, and funneled to a single point of focus - the residual spark of Bhaal that beats in my heart!~ // And here below the center of the city, with Bhaalist rituals prepared, all of that death would have fueled my ascension!~
 
-REPLACE_SAY SAREVO 20 ~~ // But all is not lost - the rituals are still active, and now attuned to you! The doors are sealed - this will be your slaughterhouse. I will absorb your divine spark, and with double the power from Bhaal I will be unstoppable.
+REPLACE_SAY SAREVO 20 ~Fool! I do not wish to restore Bhaal's power. He is long gone. All that remains is us, and what we do with his legacy. I know you have felt the hunger, the urge not just to end life, but to TAKE it!~ // But all is not lost - the rituals are still active, and now attuned to you! The doors are sealed - this will be your slaughterhouse. I will absorb your divine spark, and with double the power from Bhaal I will be unstoppable.
+
+~But it is far too late for you. The rituals in this place are still active - but now attuned to you! The doors are sealed - this will be your slaughterhouse. As you sputter your last breath I will absorb your divine soul! I will not be a god - not yet - but with twice Bhaal's power I will be unstoppable!~ 
 */
 
-/* completely divert the dialogue to a new state... a bit dangerous for compatibility
+// option 2: completely divert the dialogue to a new state
+<<<<<<<< .../nusarev.d
 REPLACE_STATE_TRIGGER SAREVO 13 ~Global("SarevokBehavior","GLOBAL",99)~
 
 APPEND SAREVO
 
 IF WEIGHT #0 ~Global("SarevokBehavior","GLOBAL",2)~ THEN BEGIN d5nusarevo_1
-/*  ~You are indeed family. No other could have lived to oppose me in person. Of course, it will not matter in the end. Ultimately, I will prevail, and a new era will be born unto the realms.~ [SAREV01] */
-  SAY ~You stopped my war! It woulda been glorious bro!~
-  IF ~~ REPLY ~Chill bro!~ GOTO d5nusarevo_
-  IF ~~ REPLY ~Bro are you for real?~ GOTO d5nusarevo_
-  IF ~~ REPLY ~Bro I can't even with you.~ GOTO d5nusarevo_
-END
-  
-IF ~~ THEN BEGIN d5nusarevo_2
-/* ~Father Bhaal is dead, but the slaughter I will orchestrate shall prove me to be his most worthy successor. It will raise his power from the ashes. The streets will run red with blood when my work is finished!~ [SAREV05] */
-  SAY ~But I can salvage the sitch, bro. The rituals have been completed, the temple is still acting as a siphon for death - and now it is attuned to you bro!~
-  IF ~~ REPLY ~Wtf!~ GOTO d5nusarevo_
-  IF ~~ REPLY ~OMG.~ GOTO d5nusarevo_
+  SAY @10511
+  IF ~~ REPLY @10512 GOTO d5nusarevo_2
+  IF ~~ REPLY @10513 GOTO d5nusarevo_3
+  IF ~~ REPLY @10514 GOTO d5nusarevo_2
 END
 
+IF ~~ THEN BEGIN d5nusarevo_2
+  SAY @10516
+  IF ~~ REPLY @10517 GOTO d5nusarevo_3
+  IF ~~ REPLY @10518 GOTO d5nusarevo_3
+END
+  
 IF ~~ THEN BEGIN d5nusarevo_3
-/* ~Fool! I do not wish to RESTORE his power, merely to RAISE it! With the divine blood that flows through these veins, I shall assume control over that which he so foolishly lost! I shall BECOME Bhaal. THAT... is the only acceptable outcome. All that is left is for us to end this in a manner... befitting our heritage. Face me! Face the new LORD OF MURDER! Angelo! Tazok! Reveal yourselves and let's finish this now!~ [SAREV12] */
+  SAY @10521
+  IF ~~ REPLY @10522 GOTO d5nusarevo_4
+  IF ~~ REPLY @10523 GOTO d5nusarevo_4
 END
-  SAY ~The death of an entire city may be beyond me but I can still absorb your divine spark. With twice the energy from daddy Bhaal I will be unstoppable bro! Maybe not a god - not yet - but with enough power to continue on my path. No, let's throw down, bro!~
-  IF ~~ REPLY ~Bro I'm about to throw fingers!~ GOTO d5nusarevo_
-  IF ~~ REPLY ~Let's do this bro, quick and painful.~ GOTO d5nusarevo_
+
+IF ~~ THEN BEGIN d5nusarevo_4
+  SAY @10525
+  IF ~~ GOTO d5nusarevo_5
 END
-*/
+
+IF ~~ THEN BEGIN d5nusarevo_5
+  SAY @10526
+  IF ~~ REPLY @10527 GOTO d5nusarevo_6
+  IF ~~ REPLY @10528 GOTO d5nusarevo_6
+END
+
+IF ~~ THEN BEGIN d5nusarevo_6
+  SAY @10530
+  IF ~~ 
+    DO ~SetGlobal("SarevokBehavior","GLOBAL",3)
+		TriggerActivation("Door0123",FALSE)
+		ActionOverride("Galdor",Enemy())
+		ActionOverride("Semaj",Enemy())
+		ActionOverride("Tazok",Enemy())
+		Enemy() 
+	~ EXIT
+END
+
+END
 >>>>>>>>
-COPY ~d5/nusarev.d~ ~weidu_external/%MOD_FOLDER%/compile/nusarev.d~
+COPY ~.../nusarev.d~ ~weidu_external/%MOD_FOLDER%/compile/nusarev.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/nusarev.d~
+
 
 // ***** if SCS not installed, add a thing where anytime someone dies Sarevok gets a stat boost and healed
 //		...and maybe if S dies, his lackeys die as well?
 // 		...or, make that a separate component?
-
 
 //___________________________________________________________________________________
 //

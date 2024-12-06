@@ -31,7 +31,7 @@ DEFINE_ACTION_FUNCTION entar_accuse BEGIN
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@23036) @25035 @25079
+ADD_JOURNAL TITLE (@10200) @10435 @10415
 
 // add a game check to record the last time Imoen is in the party
 
@@ -204,7 +204,7 @@ IF
 THEN
 	RESPONSE #100
 		CutSceneId("BDENTAR")
-		DisplayStringHead(Myself,@25019)
+		DisplayStringHead(Myself,@10419)
 		MoveToPoint([705.560])
 		SmallWait(1)
 		SetGlobal("D5EntarCut","GLOBAL",3)
@@ -222,7 +222,7 @@ IF
 THEN
 	RESPONSE #100
 		CutSceneId("BDENTAR")
-		DisplayStringHead(Myself,@25030)
+		DisplayStringHead(Myself,@10430)
 		MoveToPoint([520.615])
 		SetGlobal("D5EntarCut","GLOBAL",6)
 		SmallWait(1)
@@ -254,7 +254,7 @@ IF
 THEN
 	RESPONSE #100
 		CutSceneId("%IMOEN_DV%")
-		DisplayStringHead(Myself,@25040)
+		DisplayStringHead(Myself,@10440)
 		MoveToPoint([530.360])
 		SmallWait(1)
 		SetGlobal("D5ImoenPalace","GLOBAL",2)
@@ -270,57 +270,57 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5imcut1.baf~ EVALUATE_BUFFER
 APPEND BELT
 
 IF ~Global("D5KorlaszDone","GLOBAL",1) Global("D5MazeOpen","GLOBAL",0) Global("D5EntarCut","GLOBAL",0)~ BEGIN d5beltkd_0
-  SAY @25001
+  SAY @10401
   IF ~Dead("BDKORLAS")~ GOTO d5beltkd_2
   IF ~!Dead("BDKORLAS")~ GOTO d5beltkd_3
 END
 
 IF ~Global("D5KorlaszDone","GLOBAL",2) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5beltkd_1
-  SAY @25004
-  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",0)~ REPLY @25005 GOTO d5beltkd_5
-  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",1)~ REPLY @25006 GOTO d5beltkd_6
-  IF ~PartyHasItem("D5SCRLSK")~ REPLY @25006 GOTO d5beltkd_6
+  SAY @10404
+  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",0)~ REPLY @10405 GOTO d5beltkd_5
+  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",1)~ REPLY @10406 GOTO d5beltkd_6
+  IF ~PartyHasItem("D5SCRLSK")~ REPLY @10406 GOTO d5beltkd_6
 END
 
 IF ~~ BEGIN d5beltkd_2
-  SAY @25002
+  SAY @10402
   IF ~~ GOTO d5beltkd_4
 END
 
 IF ~~ BEGIN d5beltkd_3
-  SAY @25003
+  SAY @10403
   IF ~~ GOTO d5beltkd_4
 END
 
 IF ~~ BEGIN d5beltkd_4
-  SAY @25004
-  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",0)~ REPLY @25005 GOTO d5beltkd_5
-  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",1)~ REPLY @25006 GOTO d5beltkd_6
-  IF ~PartyHasItem("D5SCRLSK")~ REPLY @25006 GOTO d5beltkd_6
+  SAY @10404
+  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",0)~ REPLY @10405 GOTO d5beltkd_5
+  IF ~!PartyHasItem("D5SCRLSK") Global("D5SarevokFoundJournal","GLOBAL",1)~ REPLY @10406 GOTO d5beltkd_6
+  IF ~PartyHasItem("D5SCRLSK")~ REPLY @10406 GOTO d5beltkd_6
 END
 
 IF ~~ BEGIN d5beltkd_5
-  SAY @25007
+  SAY @10407
   IF ~~ DO ~SetGlobal("D5KorlaszDone","GLOBAL",2)~ EXIT
 END
 
 IF ~~ BEGIN d5beltkd_6
-  SAY @25008
+  SAY @10408
   IF ~~ EXTERN LIIA d5liiakd_6
 END
 
 IF ~Global("D5EntarCut","GLOBAL",6)~ BEGIN d5beltkd_7
-  SAY @25031
+  SAY @10431
   IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",7)~ GOTO d5beltkd_8
 END
 
 IF ~~ BEGIN d5beltkd_8
-  SAY @25032
-  IF ~~ DO ~SetGlobal("D5MazeOpen","GLOBAL",1) AddJournalEntry(@25035,QUEST)~ EXIT
+  SAY @10432
+  IF ~~ DO ~SetGlobal("D5MazeOpen","GLOBAL",1) AddJournalEntry(@10435,QUEST)~ EXIT
 END
 
 IF ~Global("D5EntarCut","GLOBAL",7) !Dead("SAREVOK")~ BEGIN d5beltkd_9
-  SAY @25033
+  SAY @10433
   IF ~~ EXIT
 END
 
@@ -329,90 +329,90 @@ END
 APPEND LIIA
 
 IF ~Global("D5KorlaszDone","GLOBAL",1) Global("D5MazeOpen","GLOBAL",0) Global("D5EntarCut","GLOBAL",0)~ BEGIN d5liiakd_0
-  SAY @25001
+  SAY @10401
   IF ~Dead("BDKORLAS")~ GOTO d5liiakd_2
   IF ~!Dead("BDKORLAS")~ GOTO d5liiakd_3
 END
 
 IF ~Global("D5KorlaszDone","GLOBAL",2) Global("D5MazeOpen","GLOBAL",0)~ BEGIN d5liiakd_1
-  SAY @25004
-  IF ~!PartyHasItem("D5SCRLSK")~ REPLY @25005 GOTO d5liiakd_5
-  IF ~PartyHasItem("D5SCRLSK")~ REPLY @25006 GOTO d5liiakd_6
+  SAY @10404
+  IF ~!PartyHasItem("D5SCRLSK")~ REPLY @10405 GOTO d5liiakd_5
+  IF ~PartyHasItem("D5SCRLSK")~ REPLY @10406 GOTO d5liiakd_6
 END
 
 IF ~~ BEGIN d5liiakd_2
-  SAY @25002
+  SAY @10402
   IF ~~ GOTO d5liiakd_4
 END
 
 IF ~~ BEGIN d5liiakd_3
-  SAY @25003
+  SAY @10403
   IF ~~ GOTO d5liiakd_4
 END
 
 IF ~~ BEGIN d5liiakd_4
-  SAY @25004
-  IF ~!PartyHasItem("D5SCRLSK")~ REPLY @25005 GOTO d5liiakd_5
-  IF ~PartyHasItem("D5SCRLSK")~ REPLY @25006 GOTO d5liiakd_6
+  SAY @10404
+  IF ~!PartyHasItem("D5SCRLSK")~ REPLY @10405 GOTO d5liiakd_5
+  IF ~PartyHasItem("D5SCRLSK")~ REPLY @10406 GOTO d5liiakd_6
 END
 
 IF ~~ BEGIN d5liiakd_5
-  SAY @25007
+  SAY @10407
   IF ~~ DO ~SetGlobal("D5KorlaszDone","GLOBAL",2)~ EXIT
 END
 
 IF ~~ BEGIN d5liiakd_6
-  SAY @25009
+  SAY @10409
   IF ~~ GOTO d5liiakd_7
 END
 
 IF ~~ BEGIN d5liiakd_7
-  SAY @25010
+  SAY @10410
   IF ~~ GOTO d5liiakd_8
 END
 
 IF ~~ BEGIN d5liiakd_8
-  SAY @25011
+  SAY @10411
   IF ~~ GOTO d5liiakd_9
 END
 
 IF ~~ BEGIN d5liiakd_9
-  SAY @25012
+  SAY @10412
   IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",1)~ EXIT
 END
 
 IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5liiakd_10
-  SAY @25021
+  SAY @10421
   IF ~~ EXTERN BDENTAR d5entarkd_1
 END
 
 IF ~~ BEGIN d5liiakd_11
-  SAY @25023
+  SAY @10423
   IF ~~ EXTERN BDENTAR d5entarkd_2
 END
 
 IF ~~ BEGIN d5liiakd_12
-  SAY @25025
+  SAY @10425
   IF ~~ EXTERN BDENTAR d5entarkd_3
 END
 
 IF ~~ BEGIN d5liiakd_13
-  SAY @25027
+  SAY @10427
   IF ~~ EXTERN BDENTAR d5entarkd_4
 END
 
 IF ~~ BEGIN d5liiakd_14
-  SAY @25029
-  IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",4)~ JOURNAL @25034 EXIT
+  SAY @10429
+  IF ~~ DO ~SetGlobal("D5EntarCut","GLOBAL",4)~ JOURNAL @10434 EXIT
 END
 
 IF ~Global("D5EntarCut","GLOBAL",7) !Global("D5ImoenPalace","GLOBAL",2) !Dead("SAREVOK")~ BEGIN d5liiakd_15
-  SAY @25033
+  SAY @10433
   IF ~~ EXIT
 END
 
 IF ~Global("D5ImoenPalace","GLOBAL",2) Global("D5CloneCut","GLOBAL",0)~ BEGIN d5liiakd_16
-  SAY @25041
+  SAY @10441
   IF ~!Dead("IMOEN") GlobalLT("D5ImoenChap","GLOBAL",2)~ EXTERN BDIMOEN d5imoenkd_0
   IF ~!Dead("IMOEN") GlobalGT("D5ImoenChap","GLOBAL",1) GlobalLT("D5ImoenChap","GLOBAL",5)~ EXTERN BDIMOEN d5imoenkd_1
   IF ~!Dead("IMOEN") GlobalGT("D5ImoenChap","GLOBAL",4)~ EXTERN BDIMOEN d5imoenkd_2
@@ -420,20 +420,20 @@ IF ~Global("D5ImoenPalace","GLOBAL",2) Global("D5CloneCut","GLOBAL",0)~ BEGIN d5
 END
 
 IF ~~ BEGIN d5liiakd_17
-  SAY @25048
+  SAY @10448
   IF ~~ EXTERN BDIMOEN d5imoenkd_5
 END
 
 IF ~~ BEGIN d5liiakd_18
-  SAY @25050
-  IF ~~ REPLY @25051 EXTERN BDIMOEN d5imoenkd_6
-  IF ~~ REPLY @25052 GOTO d5liiakd_19
-  IF ~~ REPLY @25053 GOTO d5liiakd_19
+  SAY @10450
+  IF ~~ REPLY @10451 EXTERN BDIMOEN d5imoenkd_6
+  IF ~~ REPLY @10452 GOTO d5liiakd_19
+  IF ~~ REPLY @10453 GOTO d5liiakd_19
 END
 
 IF ~~ BEGIN d5liiakd_19
-  SAY @25055
-  IF ~~ DO ~SetGlobal("D5ImoenPalace","GLOBAL",5)~ JOURNAL @25039 EXIT
+  SAY @10455
+  IF ~~ DO ~SetGlobal("D5ImoenPalace","GLOBAL",5)~ JOURNAL @10439 EXIT
 END
 
 END
@@ -443,17 +443,17 @@ ADD_TRANS_TRIGGER BDLIIA 9 ~Global("D5EntarCut","GLOBAL",0)~ DO 2
 APPEND BDENTAR
 
 IF ~Global("D5EntarCut","GLOBAL",3)~ BEGIN d5entarkd_0
-  SAY @25020
+  SAY @10420
   IF ~~ EXTERN LIIA d5liiakd_10
 END
 
 IF ~~ BEGIN d5entarkd_1
-  SAY @25022
+  SAY @10422
   IF ~~ EXTERN LIIA d5liiakd_11
 END
 
 IF ~~ BEGIN d5entarkd_2
-  SAY @25024
+  SAY @10424
   IF ~!IsValidForPartyDialogue("SKIE")~ EXTERN LIIA d5liiakd_12
   IF ~IsValidForPartyDialogue("SKIE") Alignment(Player1,MASK_GOOD)~ EXTERN SKIE d5skiekd_0
   IF ~IsValidForPartyDialogue("SKIE") Alignment(Player1,MASK_GENEUTRAL)~ EXTERN SKIE d5skiekd_0
@@ -461,12 +461,12 @@ IF ~~ BEGIN d5entarkd_2
 END
 
 IF ~~ BEGIN d5entarkd_3
-  SAY @25026
+  SAY @10426
   IF ~~ EXTERN LIIA d5liiakd_13
 END
 
 IF ~~ BEGIN d5entarkd_4
-  SAY @25028
+  SAY @10428
   IF ~~ EXTERN LIIA d5liiakd_14
 END
 
@@ -475,12 +475,12 @@ END
 APPEND SKIE
 
 IF ~~ BEGIN d5skiekd_0
-  SAY @25017
+  SAY @10417
   IF ~~ EXTERN LIIA d5liiakd_12
 END
 
 IF ~~ BEGIN d5skiekd_1
-  SAY @25018
+  SAY @10418
   IF ~~ EXTERN LIIA d5liiakd_12
 END
 
@@ -489,58 +489,58 @@ END
 APPEND BDIMOEN
 
 IF ~Global("D5ImoenPalace","GLOBAL",2)~ BEGIN d5imoenkd_0
-  SAY @25042
+  SAY @10442
   IF ~~ GOTO d5imoenkd_4
 END
 
 IF ~~ BEGIN d5imoenkd_1
-  SAY @25043
+  SAY @10443
   IF ~~ GOTO d5imoenkd_4
 END
 
 IF ~~ BEGIN d5imoenkd_2
-  SAY @25044
+  SAY @10444
   IF ~~ GOTO d5imoenkd_4
 END
 
 IF ~~ BEGIN d5imoenkd_3
-  SAY @25045
+  SAY @10445
   IF ~~ GOTO d5imoenkd_4
 END
 
 IF ~~ BEGIN d5imoenkd_4
-  SAY @25047
+  SAY @10447
   IF ~~ EXTERN LIIA d5liiakd_17
 END
 
 IF ~~ BEGIN d5imoenkd_5
-  SAY @25049
+  SAY @10449
   IF ~~ EXTERN LIIA d5liiakd_18
 END
 
 IF ~~ BEGIN d5imoenkd_6
-  SAY @25054
+  SAY @10454
   IF ~~ EXTERN LIIA d5liiakd_19
 END
 
 IF WEIGHT #-1 ~Global("D5ImoenPalace","GLOBAL",5) !Dead("SAREVOK")~ BEGIN d5imoenkd_7
-  SAY @25056
-  IF ~~ REPLY @25057 GOTO d5imoenkd_8
-  IF ~~ REPLY @25059 GOTO d5imoenkd_9
+  SAY @10456
+  IF ~~ REPLY @10457 GOTO d5imoenkd_8
+  IF ~~ REPLY @10459 GOTO d5imoenkd_9
 END
 
 IF ~~ BEGIN d5imoenkd_8
-  SAY @25058
+  SAY @10458
   IF ~~ EXIT
 END
 
 IF ~~ BEGIN d5imoenkd_9
-  SAY @25060
+  SAY @10460
   IF ~~ EXIT
 END
 
 IF ~~ BEGIN d5imoenkd_10
-  SAY @25061
+  SAY @10461
   IF ~~ EXIT
 END
 
@@ -634,43 +634,43 @@ REPLACE_STATE_TRIGGER DENKOD 0 ~Global("D5MazeOpen","GLOBAL",99)~
 APPEND DENKOD
 
 IF WEIGHT #-1 ~Global("D5MazeOpen","GLOBAL",1) !Dead("SAREVOK")~ BEGIN d5denkod_0
-  SAY @25063
-  IF ~~ REPLY @25064 DO ~Enemy()~ DO ~SetGlobal("AttackedThieves","GLOBAL",1)~ EXIT
-  IF ~~ REPLY @25065 GOTO d5denkod_1
+  SAY @10463
+  IF ~~ REPLY @10464 DO ~Enemy()~ DO ~SetGlobal("AttackedThieves","GLOBAL",1)~ EXIT
+  IF ~~ REPLY @10465 GOTO d5denkod_1
 END
 
 IF ~~ BEGIN d5denkod_1
-  SAY @25066
+  SAY @10466
   IF ~~ GOTO d5denkod_2
 END
 
 IF ~~ BEGIN d5denkod_2
-  SAY @25067
-  IF ~~ REPLY @25068 GOTO d5denkod_3
+  SAY @10467
+  IF ~~ REPLY @10468 GOTO d5denkod_3
 END
 
 IF ~~ BEGIN d5denkod_3
-  SAY @25069
-  IF ~~ REPLY @25070 GOTO d5denkod_4
+  SAY @10469
+  IF ~~ REPLY @10470 GOTO d5denkod_4
 END
 
 IF ~~ BEGIN d5denkod_4
-  SAY @25071
-  IF ~~ REPLY @25072 GOTO d5denkod_5
+  SAY @10471
+  IF ~~ REPLY @10472 GOTO d5denkod_5
 END
 
 IF ~~ BEGIN d5denkod_5
-  SAY @25073
-  IF ~~ REPLY @25074 GOTO d5denkod_6
+  SAY @10473
+  IF ~~ REPLY @10474 GOTO d5denkod_6
 END
 
 IF ~~ BEGIN d5denkod_6
-  SAY @25075
-  IF ~~ DO ~AddJournalEntry(@25079,QUEST)~ EXIT
+  SAY @10475
+  IF ~~ DO ~AddJournalEntry(@10415,QUEST)~ EXIT
 END
 
 IF WEIGHT #-1 ~Global("D5MazeOpen","GLOBAL",2)~ BEGIN d5denkod_7
-  SAY @25076
+  SAY @10476
   IF ~~ EXIT
 END
 

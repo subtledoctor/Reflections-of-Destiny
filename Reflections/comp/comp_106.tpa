@@ -41,7 +41,7 @@ TO DO:
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@23036) @27001 @27050
+ADD_JOURNAL TITLE (@10200) @10601 @10650
 
 <<<<<<<< .../c#st2sod.baf
 IF
@@ -283,96 +283,96 @@ EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar10
 APPEND BELT
 
 IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5GregsonPalace","GLOBAL",0) Global("C#st_HeroCutScene","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0) Global("D5DecisionPostponed","GLOBAL",0)~ BEGIN d5beltsd_0
-  SAY @27002
-  IF ~~ REPLY @27003 GOTO d5beltsd_1
-  IF ~~ REPLY @27004 GOTO d5beltsd_1
+  SAY @10602
+  IF ~~ REPLY @10603 GOTO d5beltsd_1
+  IF ~~ REPLY @10604 GOTO d5beltsd_1
 END
 
 IF ~~ BEGIN d5beltsd_1
-  SAY @27005
-  IF ~~ REPLY @27006 GOTO d5beltsd_2
-  IF ~~ REPLY @27007 GOTO d5beltsd_2
+  SAY @10605
+  IF ~~ REPLY @10606 GOTO d5beltsd_2
+  IF ~~ REPLY @10607 GOTO d5beltsd_2
 END
 
 IF ~~ BEGIN d5beltsd_2
-  SAY @27008
+  SAY @10608
   IF ~~ EXTERN LIIA d5liiasd_1
 END
 
 IF ~~ BEGIN d5beltsd_3
-  SAY @27017
+  SAY @10617
   IF ~~ GOTO d5beltsd_5
 END
 
 IF ~~ BEGIN d5beltsd_4
-  SAY @27018
+  SAY @10618
   IF ~~ GOTO d5beltsd_5
 END
 
 IF ~~ BEGIN d5beltsd_5
-  SAY @27019
+  SAY @10619
   IF ~~ EXTERN LIIA d5liiasd_3
 END
 
 IF ~~ BEGIN d5beltsd_6
-  SAY @27033
+  SAY @10633
   IF ~~ GOTO d5beltsd_7
 END
 
 IF ~~ BEGIN d5beltsd_7
-  SAY @27034
-  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 GOTO d5beltsd_8
-  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 GOTO d5beltsd_8
-  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 GOTO d5beltsd_9
-  IF ~~ REPLY @27026 GOTO d5beltsd_10
-  IF ~~ REPLY @27046 GOTO d5beltsd_11
+  SAY @10634
+  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @10624 GOTO d5beltsd_8
+  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @10624 GOTO d5beltsd_8
+  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @10625 GOTO d5beltsd_9
+  IF ~~ REPLY @10626 GOTO d5beltsd_10
+  IF ~~ REPLY @10646 GOTO d5beltsd_11
 END
 
 IF ~~ BEGIN d5beltsd_8 // chose SoD !evil
-  SAY @27035
+  SAY @10635
   IF ~~ GOTO d5beltsd_12
 END
 
 IF ~~ BEGIN d5beltsd_9 // chose SoD evil
-  SAY @27036
+  SAY @10636
   IF ~~ GOTO d5beltsd_12
 END
 
 IF ~~ BEGIN d5beltsd_10 // chose clone
-  SAY @27028
-  IF ~~ REPLY @27040 DO ~SetGlobal("ENDOFBG1","GLOBAL",1)~ GOTO d5beltsd_18 // go to clone cut scene
-  IF ~~ REPLY @27041 GOTO d5beltsd_11
+  SAY @10628
+  IF ~~ REPLY @10640 DO ~SetGlobal("ENDOFBG1","GLOBAL",1)~ GOTO d5beltsd_18 // go to clone cut scene
+  IF ~~ REPLY @10641 GOTO d5beltsd_11
 END
 
 IF ~~ BEGIN d5beltsd_11
-  SAY @27047
+  SAY @10647
   IF ~~ 
     DO ~SetGlobal("D5DecisionPostponed","GLOBAL",1)~ 
     EXIT
 END
 
 IF ~~ BEGIN d5beltsd_12
-  SAY @27037
+  SAY @10637
   IF ~~ GOTO d5beltsd_13	// give dauston quest
 END
 
 IF ~~ BEGIN d5beltsd_13
-  SAY @27038
+  SAY @10638
   IF ~Global("C#st_HeroCutScene","GLOBAL",0) Global("D5HeroSceneInstalled","GLOBAL",1)~ GOTO d5beltsd_15 // hero tribute diversion
   IF ~Global("D5HeroSceneInstalled","GLOBAL",0)~ GOTO d5beltsd_14
   IF ~Global("C#st_HeroCutScene","GLOBAL",1)~ GOTO d5beltsd_14
 END
 
 IF ~~ BEGIN d5beltsd_14
-  SAY @27052
+  SAY @10652
   IF ~~ 
     DO ~SetGlobal("D5DaustonQuest","GLOBAL",1) 
-  		AddJournalEntry(@27001,QUEST_DONE)~
+  		AddJournalEntry(@10601,QUEST_DONE)~
   	EXIT
 END
 
 IF ~~ BEGIN d5beltsd_15
-  SAY @27042
+  SAY @10642
   IF ~~ 
     DO ~SetGlobal("C#st_HeroCutScene","GLOBAL",1)
 		ClearAllActions()
@@ -382,34 +382,34 @@ IF ~~ BEGIN d5beltsd_15
 END
 
 IF WEIGHT #-1 ~Global("C#st_HeroCutScene","GLOBAL",1) Global("D5AltEndSoD","GLOBAL",0) Global("D5DaustonQuest","GLOBAL",0) AreaCheck("%%bg1_area_prefix%0108")~ BEGIN d5beltsd_16
-  SAY @27052
+  SAY @10652
   IF ~~ 
     DO ~SetGlobal("D5DaustonQuest","GLOBAL",1) 
-  		AddJournalEntry(@27001,QUEST_DONE)~
+  		AddJournalEntry(@10601,QUEST_DONE)~
   	EXIT
 END
 
 IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",4)~ BEGIN d5beltsd_17
-  SAY @27053
-  IF ~~ REPLY @27054 EXIT
+  SAY @10653
+  IF ~~ REPLY @10654 EXIT
 END
 
 IF ~~ BEGIN d5beltsd_18
-  SAY @27048
+  SAY @10648
   IF ~~ 
     DO ~SetGlobal("D5GregsonPalace","GLOBAL",1) 
     	SetGlobal("D5SkipSoD","GLOBAL",1) 
-    	AddJournalEntry(@27050,QUEST_DONE)~ 
+    	AddJournalEntry(@10650,QUEST_DONE)~ 
     EXIT // ...clone cut scene
 END
 
 IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1) Global("D5DaustonQuest","GLOBAL",0)~ BEGIN d5beltsd_19
-  SAY @27039
-  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 GOTO d5beltsd_8
-  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 GOTO d5beltsd_8
-  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 GOTO d5beltsd_9
-  IF ~~ REPLY @27026 GOTO d5beltsd_10
-  IF ~~ REPLY @27046 GOTO d5beltsd_11
+  SAY @10639
+  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @10624 GOTO d5beltsd_8
+  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @10624 GOTO d5beltsd_8
+  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @10625 GOTO d5beltsd_9
+  IF ~~ REPLY @10626 GOTO d5beltsd_10
+  IF ~~ REPLY @10646 GOTO d5beltsd_11
 END
 
 END
@@ -417,64 +417,64 @@ END
 APPEND LIIA
 
 IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("D5CloneCut","GLOBAL",0) Global("C#st_HeroCutScene","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0) Global("D5DecisionPostponed","GLOBAL",0)~ BEGIN d5beltsd_0
-  SAY @27002
-  IF ~~ REPLY @27003 EXTERN BELT d5beltsd_1
-  IF ~~ REPLY @27004 EXTERN BELT d5beltsd_1
+  SAY @10602
+  IF ~~ REPLY @10603 EXTERN BELT d5beltsd_1
+  IF ~~ REPLY @10604 EXTERN BELT d5beltsd_1
 END
 
 IF ~~ BEGIN d5liiasd_1
-  SAY @27009
-  IF ~~ REPLY @27010 EXTERN BDENTAR d5entarsd_1
-  IF ~~ REPLY @27011 EXTERN BDENTAR d5entarsd_1
+  SAY @10609
+  IF ~~ REPLY @10610 EXTERN BDENTAR d5entarsd_1
+  IF ~~ REPLY @10611 EXTERN BDENTAR d5entarsd_1
 END
 
 IF ~~ BEGIN d5liiasd_2
-  SAY @27014
+  SAY @10614
   IF ~~ EXTERN BDENTAR d5entarsd_2
 END
 
 IF ~~ BEGIN d5liiasd_3
-  SAY @27020
+  SAY @10620
   IF ~~ GOTO d5liiasd_4
 END
 
 IF ~~ BEGIN d5liiasd_4
-  SAY @27021
+  SAY @10621
   IF ~~ GOTO d5liiasd_5
 END
 
 IF ~~ BEGIN d5liiasd_5
-  SAY @27022
-  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 EXTERN BELT d5beltsd_8 	// go to SoD
-  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 EXTERN BELT d5beltsd_8 	// go to SoD
-  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 EXTERN BELT d5beltsd_9 	// go to SoD
-  IF ~~ REPLY @27026 EXTERN BELT d5beltsd_10 								// go to clone cut scene
-  IF ~~ REPLY @27023 DO ~SetGlobal("D5HeritageRevealed","GLOBAL",1)~ EXTERN BDENTAR d5entarsd_4 							// disclose your heritage to dukes
-  IF ~~ REPLY @27046 EXTERN BELT d5beltsd_11
+  SAY @10622
+  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @10624 EXTERN BELT d5beltsd_8 	// go to SoD
+  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @10624 EXTERN BELT d5beltsd_8 	// go to SoD
+  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @10625 EXTERN BELT d5beltsd_9 	// go to SoD
+  IF ~~ REPLY @10626 EXTERN BELT d5beltsd_10 								// go to clone cut scene
+  IF ~~ REPLY @10623 DO ~SetGlobal("D5HeritageRevealed","GLOBAL",1)~ EXTERN BDENTAR d5entarsd_4 							// disclose your heritage to dukes
+  IF ~~ REPLY @10646 EXTERN BELT d5beltsd_11
 END
 
 IF ~~ BEGIN d5liiasd_6
-  SAY @27031
+  SAY @10631
   IF ~~ EXTERN BELT d5beltsd_6
 END
 
 IF ~~ BEGIN d5liiasd_7
-  SAY @27032
+  SAY @10632
   IF ~~ EXTERN BELT d5beltsd_6
 END
 
 IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1) Global("D5DaustonQuest","GLOBAL",0)~ BEGIN d5liiasd_8
-  SAY @27039
-  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 EXTERN BELT d5beltsd_8
-  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 EXTERN BELT d5beltsd_8
-  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 EXTERN BELT d5beltsd_9
-  IF ~~ REPLY @27026 EXTERN BELT d5beltsd_10
-  IF ~~ REPLY @27046 EXTERN BELT d5beltsd_11
+  SAY @10639
+  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @10624 EXTERN BELT d5beltsd_8
+  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @10624 EXTERN BELT d5beltsd_8
+  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @10625 EXTERN BELT d5beltsd_9
+  IF ~~ REPLY @10626 EXTERN BELT d5beltsd_10
+  IF ~~ REPLY @10646 EXTERN BELT d5beltsd_11
 END
 
 IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",4)~ BEGIN d5liiasd_9
-  SAY @27053
-  IF ~~ REPLY @27054 EXIT
+  SAY @10653
+  IF ~~ REPLY @10654 EXIT
 END
 
 END
@@ -482,30 +482,30 @@ END
 APPEND BDENTAR
 
 IF ~Global("D5EntarCut","GLOBAL",7) Dead("SAREVOK") Global("C#st_HeroCutScene","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0) Global("D5DecisionPostponed","GLOBAL",0)~ BEGIN d5entarsd_0
-  SAY @27002
-  IF ~~ REPLY @27003 EXTERN BELT d5beltsd_1
-  IF ~~ REPLY @27004 EXTERN BELT d5beltsd_1
+  SAY @10602
+  IF ~~ REPLY @10603 EXTERN BELT d5beltsd_1
+  IF ~~ REPLY @10604 EXTERN BELT d5beltsd_1
 END
 
 IF ~~ BEGIN d5entarsd_1
-  SAY @27012
+  SAY @10612
   IF ~!IsValidForPartyDialogue("SKIE")~ EXTERN LIIA d5liiasd_2
   IF ~IsValidForPartyDialogue("SKIE")~ EXTERN SKIE d5skiesd_0
 END
 
 IF ~~ BEGIN d5entarsd_2
-  SAY @27015
+  SAY @10615
   IF ~~ GOTO d5entarsd_3
 END
 
 IF ~~ BEGIN d5entarsd_3
-  SAY @27016
+  SAY @10616
   IF ~!Dead("PORIOS")~ EXTERN BELT d5beltsd_3
   IF ~Dead("PORIOS")~ EXTERN BELT d5beltsd_4
 END
 
 IF ~~ BEGIN d5entarsd_4
-  SAY @27030
+  SAY @10630
   IF ~!IsValidForPartyDialogue("SKIE") Alignment(Player1,MASK_GOOD)~ EXTERN LIIA d5liiasd_6
   IF ~!IsValidForPartyDialogue("SKIE") Alignment(Player1,MASK_GENEUTRAL)~ EXTERN LIIA d5liiasd_6
   IF ~!IsValidForPartyDialogue("SKIE") Alignment(Player1,MASK_EVIL)~ EXTERN LIIA d5liiasd_7
@@ -513,17 +513,17 @@ IF ~~ BEGIN d5entarsd_4
 END
 
 IF WEIGHT #-1 ~Global("D5DecisionPostponed","GLOBAL",1) Global("D5DaustonQuest","GLOBAL",0)~ BEGIN d5entarsd_5
-  SAY @27039
-  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @27024 EXTERN BELT d5beltsd_8
-  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @27024 EXTERN BELT d5beltsd_8
-  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @27025 EXTERN BELT d5beltsd_9
-  IF ~~ REPLY @27026 EXTERN BELT d5beltsd_10
-  IF ~~ REPLY @27046 EXTERN BELT d5beltsd_11
+  SAY @10639
+  IF ~Alignment(Player1,MASK_GOOD)~ REPLY @10624 EXTERN BELT d5beltsd_8
+  IF ~Alignment(Player1,MASK_GENEUTRAL)~ REPLY @10624 EXTERN BELT d5beltsd_8
+  IF ~Alignment(Player1,MASK_EVIL)~ REPLY @10625 EXTERN BELT d5beltsd_9
+  IF ~~ REPLY @10626 EXTERN BELT d5beltsd_10
+  IF ~~ REPLY @10646 EXTERN BELT d5beltsd_11
 END
 
 IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",4)~ BEGIN d5entarsd_6
-  SAY @27053
-  IF ~~ REPLY @27054 EXIT
+  SAY @10653
+  IF ~~ REPLY @10654 EXIT
 END
 
 END
@@ -531,12 +531,12 @@ END
 APPEND SKIE
 
 IF ~~ BEGIN d5skiesd_0
-  SAY @27013
+  SAY @10613
   IF ~~ EXTERN LIIA d5liiasd_2
 END
 
 IF ~~ BEGIN d5skiesd_1
-  SAY @27029
+  SAY @10629
   IF ~Alignment(Player1,MASK_GOOD)~ EXTERN LIIA d5liiasd_6
   IF ~Alignment(Player1,MASK_GENEUTRAL)~ EXTERN LIIA d5liiasd_6
   IF ~Alignment(Player1,MASK_EVIL)~ EXTERN LIIA d5liiasd_7
@@ -632,12 +632,12 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ EVALUATE_BUFFER
 // fix some lines
 
 ACTION_IF (GAME_IS ~bgee~) BEGIN
-  STRING_SET 65221 @27045
-  STRING_SET 70019 @27045
+  STRING_SET 65221 @10645
+  STRING_SET 70019 @10645
 END
 ACTION_IF (GAME_IS ~eet~) BEGIN
-  STRING_SET 265221 @27045
-  STRING_SET 270019 @27045
+  STRING_SET 265221 @10645
+  STRING_SET 270019 @10645
 END
 
 

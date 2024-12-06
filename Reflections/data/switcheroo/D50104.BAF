@@ -56,7 +56,7 @@ THEN
 		ApplySpellRES("D5PAUSX","LIIA") 
 		ApplySpellRES("D5PAUSX","BDENTAR") 
 		Wait(1)
-		ActionOverride("LIIA",DisplayStringHead(Myself,@28035))  // Apologies, whoever you are, this might sting a bit.
+		ActionOverride("LIIA",DisplayStringHead(Myself,@10735))  // Apologies, whoever you are, this might sting a bit.
 		Wait(1)
 		ActionOverride("LIIA",ForceSpellRES("D5_DIV",Player1))
 		Wait(2)
