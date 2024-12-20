@@ -106,11 +106,11 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/baldur+.baf~ ~weidu_external/%MOD_FOLDER%/compile/baldur+.baf~
-EXTEND_TOP ~baldur.BCS~ ~weidu_external/%MOD_FOLDER%/compile/baldur+.baf~
+COPY ~d5/baldur+.baf~ ~weidu_external/%MOD_FOLDER%/compile/104/baldur+.baf~
+EXTEND_TOP ~baldur.BCS~ ~weidu_external/%MOD_FOLDER%/compile/104/baldur+.baf~
 
 
-<<<<<<<< d5/ar108+5.baf
+<<<<<<<< d5/ar108+.baf
 /* Palace (ground floor): Duke Belt should be alive */
 /* Palace ground floor. revive Duke Belt and move him in the middle of the room */
 
@@ -192,10 +192,10 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/ar108+5.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+5.baf~
+COPY ~d5/ar108+.baf~ ~weidu_external/%MOD_FOLDER%/compile/104/ar108+.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+5.baf~ EVALUATE_BUFFER
+  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/104/ar108+.baf~ EVALUATE_BUFFER
 END
 
 <<<<<<<< d5/d5encut1.baf
@@ -213,8 +213,8 @@ THEN
 		ActionOverride("BDENTAR",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
-COPY ~d5/d5encut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5encut1.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5encut1.baf~
+COPY ~d5/d5encut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/104/d5encut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/104/d5encut1.baf~
 
 <<<<<<<< d5/d5encut2.baf
 IF
@@ -232,8 +232,8 @@ THEN
 END
 
 >>>>>>>>
-COPY ~d5/d5encut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5encut2.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5encut2.baf~
+COPY ~d5/d5encut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/104/d5encut2.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/104/d5encut2.baf~
 
 <<<<<<<< d5/belt+.baf
 IF
@@ -245,8 +245,8 @@ THEN
 		Dialogue([PC])
 END
 >>>>>>>>
-COPY ~d5/belt+.baf~ ~weidu_external/%MOD_FOLDER%/compile/belt+.baf~
-EXTEND_TOP ~BELT.BCS~ ~weidu_external/%MOD_FOLDER%/compile/belt+.baf~
+COPY ~d5/belt+.baf~ ~weidu_external/%MOD_FOLDER%/compile/104/belt+.baf~
+EXTEND_TOP ~BELT.BCS~ ~weidu_external/%MOD_FOLDER%/compile/104/belt+.baf~
 
 <<<<<<<< d5/d5imcut1.baf
 IF
@@ -263,10 +263,10 @@ THEN
 		ActionOverride("LIIA",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
-COPY ~d5/d5imcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5imcut1.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5imcut1.baf~ EVALUATE_BUFFER
+COPY ~d5/d5imcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/104/d5imcut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/104/d5imcut1.baf~ EVALUATE_BUFFER
 
-<<<<<<<< d5/palace+5.d
+<<<<<<<< d5/palace+.d
 APPEND BELT
 
 IF ~Global("D5KorlaszDone","GLOBAL",1) Global("D5MazeOpen","GLOBAL",0) Global("D5EntarCut","GLOBAL",0)~ BEGIN d5beltkd_0
@@ -546,8 +546,8 @@ END
 
 END
 >>>>>>>> 
-COPY ~d5/palace+5.d~ ~weidu_external/%MOD_FOLDER%/compile/palace+5.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/palace+5.d~
+COPY ~d5/palace+.d~ ~weidu_external/%MOD_FOLDER%/compile/104/palace+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/104/palace+.d~
 
 //modify trigger to activate entrance to maze
 
@@ -617,18 +617,18 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/area0153.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0153.baf~
+COPY ~d5/area0153.baf~ ~weidu_external/%MOD_FOLDER%/compile/104/%bg1_area_prefix%0153.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0153.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0153.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0153.baf~
+  EXTEND_TOP ~%bg1_area_prefix%0153.bcs~ ~weidu_external/%MOD_FOLDER%/compile/104/%bg1_area_prefix%0153.baf~
 END
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0153.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0153.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/104/%bg1_area_prefix%0153.baf~
 END
 
 // change Denkod's dialogue
 
-<<<<<<<< d5/denkod+5.d
+<<<<<<<< d5/denkod+.d
 REPLACE_STATE_TRIGGER DENKOD 0 ~Global("D5MazeOpen","GLOBAL",99)~
 
 APPEND DENKOD
@@ -676,12 +676,12 @@ END
 
 END
 >>>>>>>> 
-COPY ~d5/denkod+5.d~ ~weidu_external/%MOD_FOLDER%/compile/denkod+5.d~
+COPY ~d5/denkod+.d~ ~weidu_external/%MOD_FOLDER%/compile/104/denkod+.d~
 
 
 // now compile the dialogue
 
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/denkod+5.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/104/denkod+.d~
 
 
 // remove voleta stiletto
@@ -709,13 +709,13 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/area0146.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~
+COPY ~d5/area0146.baf~ ~weidu_external/%MOD_FOLDER%/compile/104/%bg1_area_prefix%0146.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0146.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0146.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~ EVALUATE_BUFFER
+  EXTEND_TOP ~%bg1_area_prefix%0146.bcs~ ~weidu_external/%MOD_FOLDER%/compile/104/%bg1_area_prefix%0146.baf~ EVALUATE_BUFFER
 END
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0146.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0146.baf~ EVALUATE_BUFFER
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/104/%bg1_area_prefix%0146.baf~ EVALUATE_BUFFER
 END
 
 // ***** write out journal entries (34, 35, 39, 79)
@@ -723,7 +723,7 @@ END
 
 // remove imoen from the world if she is hanging out somwehere
 
-<<<<<<<< d5/imoen+5.baf
+<<<<<<<< d5/imoen+.baf
 IF
 	OR(2)
 		Global("D5ImoenPalace","GLOBAL",2)
@@ -735,16 +735,16 @@ THEN
 		EscapeArea()
 END
 >>>>>>>>
-COPY ~d5/imoen+5.baf~ ~weidu_external/%MOD_FOLDER%/compile/imoen+5.baf~
+COPY ~d5/imoen+.baf~ ~weidu_external/%MOD_FOLDER%/compile/104/imoen+.baf~
 
 ACTION_IF (GAME_IS ~eet~) BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~imoen_.bcs~) BEGIN
-    EXTEND_TOP ~imoen_.bcs~ ~weidu_external/%MOD_FOLDER%/compile/imoen+5.baf~
+    EXTEND_TOP ~imoen_.bcs~ ~weidu_external/%MOD_FOLDER%/compile/104/imoen+.baf~
   END
 END
 ACTION_IF !(GAME_IS ~eet~) /* AND (FILE_EXISTS_IN_GAME ~imoen_.bcs~) huh? */ BEGIN
   ACTION_IF (FILE_EXISTS_IN_GAME ~imoen.bcs~) BEGIN
-    EXTEND_TOP ~imoen.bcs~ ~weidu_external/%MOD_FOLDER%/compile/imoen+5.baf~
+    EXTEND_TOP ~imoen.bcs~ ~weidu_external/%MOD_FOLDER%/compile/104/imoen+.baf~
   END
 END
 
@@ -752,3 +752,7 @@ END
 //
 
 END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////

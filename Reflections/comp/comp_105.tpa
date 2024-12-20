@@ -61,7 +61,7 @@ END
 
 // EXTEND_TOP ar0125.bcs to lock/unlock door
 
-<<<<<<<< .../ar0125+6.baf
+<<<<<<<< d5/ar0125+.baf
 IF
 	!Dead("SAREVOK")
 	Global("D5TempleLock","GLOBAL",0)
@@ -105,8 +105,8 @@ THEN
 		SetInterrupt(TRUE)
 END
 >>>>>>>>
-COPY ~.../ar0125+6.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0125+6.baf~
-EXTEND_TOP ~%Undercity_TempleofBhaal%.bcs~ ~weidu_external/%MOD_FOLDER%/compile/ar0125+6.baf~ EVALUATE_BUFFER
+COPY ~d5/ar0125+.baf~ ~weidu_external/%MOD_FOLDER%/compile/105/ar0125+.baf~
+EXTEND_TOP ~%Undercity_TempleofBhaal%.bcs~ ~weidu_external/%MOD_FOLDER%/compile/105/ar0125+.baf~ EVALUATE_BUFFER
 
 END	//	end if EBG1 not installed
 
@@ -125,7 +125,7 @@ REPLACE_SAY SAREVO 20 ~Fool! I do not wish to restore Bhaal's power. He is long 
 */
 
 // option 2: completely divert the dialogue to a new state
-<<<<<<<< .../nusarev.d
+<<<<<<<< d5/nusarev.d
 REPLACE_STATE_TRIGGER SAREVO 13 ~Global("SarevokBehavior","GLOBAL",99)~
 
 APPEND SAREVO
@@ -174,8 +174,8 @@ END
 
 END
 >>>>>>>>
-COPY ~.../nusarev.d~ ~weidu_external/%MOD_FOLDER%/compile/nusarev.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/nusarev.d~
+COPY ~d5/nusarev.d~ ~weidu_external/%MOD_FOLDER%/compile/105/nusarev.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/105/nusarev.d~
 
 
 // ***** if SCS not installed, add a thing where anytime someone dies Sarevok gets a stat boost and healed
@@ -186,3 +186,7 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/nusarev.d~
 //
 
 END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////

@@ -3,9 +3,10 @@ DEFINE_ACTION_FUNCTION one_for_the_road BEGIN
 
 /*  
 TO DO:
-	- ***** remove trigger or whatever that makes dauston appear in BG in SoD intro
-		...SetGlobal("BD_KICK_DAUSTON","GLOBAL",99), maybe?
-	- ***** add phantom sarevok
+
+***** WRITE JOURNAL ENTRIES
+
+***** add phantom sarevok
 
 - after killing Sarevok, dukes talk about Caelar
  -- are they connected?
@@ -107,22 +108,27 @@ THEN
 		DestroySelf()
 END	
 >>>>>>>>
-COPY ~d5/d5sargh.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5sargh.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5sargh.baf~
+COPY ~d5/d5sargh.baf~ ~weidu_external/%MOD_FOLDER%/compile/108/d5sargh.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/108/d5sargh.baf~
 
 
 // bartenders' dialogues looking for dauston
 
-<<<<<<<< d5/bart+9.d
+<<<<<<<< d5/bart+.d
 
 APPEND BART3
 
 IF ~~ BEGIN d5bart3dq_1
-  SAY @10811
+  SAY @10810
   IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
 END
 
 IF ~~ BEGIN d5bart3dq_2
+  SAY @10811
+  IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart3dq_3
   SAY @10813
   IF ~~ REPLY @10812 DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@10803,QUEST)~ EXIT
 END
@@ -130,18 +136,24 @@ END
 END
 
 EXTEND_BOTTOM BART3 0
-	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart3dq_1
-	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart3dq_2
+	IF ~Global("D5DaustonQuest","GLOBAL",1)~ REPLY @10815 GOTO d5bart3dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",2)~ REPLY @10815 GOTO d5bart3dq_2
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart3dq_3
 END
 
 APPEND BART4
 
 IF ~~ BEGIN d5bart4dq_1
-  SAY @10811
+  SAY @10810
   IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
 END
 
 IF ~~ BEGIN d5bart4dq_2
+  SAY @10811
+  IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart4dq_3
   SAY @10813
   IF ~~ REPLY @10812 DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@10803,QUEST)~ EXIT
 END
@@ -149,8 +161,9 @@ END
 END
 
 EXTEND_BOTTOM BART4 0
-	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart4dq_1
-	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart4dq_2
+	IF ~Global("D5DaustonQuest","GLOBAL",1)~ REPLY @10815 GOTO d5bart4dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",2)~ REPLY @10815 GOTO d5bart4dq_2
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart4dq_3
 END
 
 EXTEND_BOTTOM BART4 1
@@ -161,11 +174,16 @@ END
 APPEND BART5
 
 IF ~~ BEGIN d5bart5dq_1
-  SAY @10811
+  SAY @10810
   IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
 END
 
 IF ~~ BEGIN d5bart5dq_2
+  SAY @10811
+  IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart5dq_3
   SAY @10813
   IF ~~ REPLY @10812 DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@10803,QUEST)~ EXIT
 END
@@ -173,18 +191,24 @@ END
 END
 
 EXTEND_BOTTOM BART5 0
-	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart5dq_1
-	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart5dq_2
+	IF ~Global("D5DaustonQuest","GLOBAL",1)~ REPLY @10815 GOTO d5bart5dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",2)~ REPLY @10815 GOTO d5bart5dq_2
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart5dq_3
 END
 
 APPEND BART13
 
 IF ~~ BEGIN d5bart13dq_1
-  SAY @10811
+  SAY @10810
   IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
 END
 
 IF ~~ BEGIN d5bart13dq_2
+  SAY @10811
+  IF ~~ REPLY @10812 DO ~IncrementGlobal("D5DaustonQuest","GLOBAL",1)~ EXIT
+END
+
+IF ~~ BEGIN d5bart13dq_3
   SAY @10813
   IF ~~ REPLY @10812 DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@10803,QUEST)~ EXIT
 END
@@ -192,8 +216,9 @@ END
 END
 
 EXTEND_BOTTOM BART13 0
-	IF ~GlobalGT("D5DaustonQuest","GLOBAL",0) GlobalLT("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart13dq_1
-	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart13dq_2
+	IF ~Global("D5DaustonQuest","GLOBAL",1)~ REPLY @10815 GOTO d5bart13dq_1
+	IF ~Global("D5DaustonQuest","GLOBAL",2)~ REPLY @10815 GOTO d5bart13dq_2
+	IF ~Global("D5DaustonQuest","GLOBAL",3)~ REPLY @10815 GOTO d5bart13dq_3
 END
 
 APPEND BART14
@@ -209,8 +234,8 @@ EXTEND_BOTTOM BART14 0 // ulgoth's beard
 	IF ~Global("D5DaustonQuest","GLOBAL",5)~ REPLY @10817 GOTO d5bart14dq_1
 END
 >>>>>>>>
-COPY ~d5/bart+9.d~ ~weidu_external/%MOD_FOLDER%/compile/bart+9.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/bart+9.d~ EVALUATE_BUFFER
+COPY ~d5/bart+.d~ ~weidu_external/%MOD_FOLDER%/compile/108/bart+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/108/bart+.d~ EVALUATE_BUFFER
 
 
 // create innkeeper/mayor
@@ -246,8 +271,8 @@ THEN
 		StartDialogueNoSet(Player1)
 END	
 >>>>>>>>
-COPY ~d5/d5ubmay1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.baf~ EVALUATE_BUFFER 
+COPY ~d5/d5ubmay1.baf~ ~weidu_external/%MOD_FOLDER%/compile/108/d5ubmay1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/108/d5ubmay1.baf~ EVALUATE_BUFFER 
 
 
 // mayor dialogue
@@ -325,7 +350,10 @@ END
 
 IF ~~ BEGIN d5ubmay1_14
   SAY @10843
-  IF ~~ REPLY @10818 DO ~SetGlobal("D5DaustonQuest","GLOBAL",6) SetGlobal("D5UBRefugeesMove","GLOBAL",3) SetGlobal("D5UBRefugeeSpeech",""%bg1_area_prefix%1000"",4)~ EXIT
+  IF ~~ REPLY @10818 
+    DO ~SetGlobal("D5DaustonQuest","GLOBAL",6)
+    	SetGlobal("D5UBRefugeesMove","GLOBAL",3)
+    	SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",4)~ EXIT
 END
 
 BEGIN ~BDREFGF2~
@@ -359,8 +387,8 @@ IF ~~ BEGIN d5refgf6_1
   IF ~~ EXTERN D5UBMAY1 d5ubmay1_4
 END
 >>>>>>>>
-COPY ~d5/d5ubmay1.d~ ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5ubmay1.d~ EVALUATE_BUFFER
+COPY ~d5/d5ubmay1.d~ ~weidu_external/%MOD_FOLDER%/compile/108/d5ubmay1.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/108/d5ubmay1.d~ EVALUATE_BUFFER
 
 
 // create crusaders
@@ -419,8 +447,8 @@ THEN
 		StartDialogueNoSet(Player1)
 END	
 >>>>>>>>
-COPY ~d5/d5daust.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5daust.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5daust.baf~ EVALUATE_BUFFER 
+COPY ~d5/d5daust.baf~ ~weidu_external/%MOD_FOLDER%/compile/108/d5daust.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/108/d5daust.baf~ EVALUATE_BUFFER 
 
 
 // cuv/dauston dialogue
@@ -543,13 +571,13 @@ IF ~~ BEGIN d5dausto_11
   IF ~~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",15)~ EXIT 
 END
 >>>>>>>>
-COPY ~d5/d5dausto.d~ ~weidu_external/%MOD_FOLDER%/compile/d5dausto.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5dausto.d~
+COPY ~d5/d5dausto.d~ ~weidu_external/%MOD_FOLDER%/compile/108/d5dausto.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/108/d5dausto.d~
 
 
 // UB area script
 
-<<<<<<<< d5/bg1000+9.baf
+<<<<<<<< d5/bg1000+.baf
 IF
 	Global("D5DaustonQuest","GLOBAL",4)
 	Global("D5UBRefugeesMove","GLOBAL",0)
@@ -660,8 +688,8 @@ THEN
 		ActionOverride("d5dausto",EscapeArea())
 END
 >>>>>>>>
-COPY ~d5/bg1000+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bg1000+9.baf~
-EXTEND_TOP ~%bg1_area_prefix%1000.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bg1000+9.baf~ EVALUATE_BUFFER
+COPY ~d5/bg1000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/108/bg1000+.baf~
+EXTEND_TOP ~%bg1_area_prefix%1000.BCS~ ~weidu_external/%MOD_FOLDER%/compile/108/bg1000+.baf~ EVALUATE_BUFFER
 
 
 // crusaders' entry cut scene
@@ -687,8 +715,8 @@ THEN
 		ActionOverride("d5cuvier",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
-COPY ~d5/d5crcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5crcut1.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5crcut1.baf~
+COPY ~d5/d5crcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/108/d5crcut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/108/d5crcut1.baf~
 
 
 // cuvieronius cast spell cut scene
@@ -708,12 +736,12 @@ THEN
 		ActionOverride("d5cuvier",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
-COPY ~d5/d5crcut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5crcut2.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5crcut2.baf~
+COPY ~d5/d5crcut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/108/d5crcut2.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/108/d5crcut2.baf~
 
 // refugees move to BG east
 
-<<<<<<<< d5/bg0800+9.baf
+<<<<<<<< d5/bg0800+.baf
 IF
 	Global("D5UBRefugeesMove","GLOBAL",3)
 THEN
@@ -741,14 +769,14 @@ THEN
 		CreateCreature("bdrefgf3",[2725.1165],0)
 END	
 >>>>>>>>
-COPY ~d5/bg0800+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bg0800+9.baf~
-EXTEND_TOP ~%bg1_area_prefix%0800.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bg0800+9.baf~
+COPY ~d5/bg0800+.baf~ ~weidu_external/%MOD_FOLDER%/compile/108/bg0800+.baf~
+EXTEND_TOP ~%bg1_area_prefix%0800.BCS~ ~weidu_external/%MOD_FOLDER%/compile/108/bg0800+.baf~
 
 
 // more Belt and Liia dialogue
 // use @106__ tra range for belt/liia; and the @104__ tra range for liia/imoen
 
-<<<<<<<< d5/final+9.d
+<<<<<<<< d5/final+.d
 APPEND BELT
 
 IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",15) Global("D5GregsonPalace","GLOBAL",0) ~ BEGIN d5beltdq_1
@@ -936,8 +964,8 @@ END
 
 END
 >>>>>>>>
-COPY ~d5/final+9.d~ ~weidu_external/%MOD_FOLDER%/compile/final+9.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/final+9.d~ EVALUATE_BUFFER
+COPY ~d5/final+.d~ ~weidu_external/%MOD_FOLDER%/compile/108/final+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/108/final+.d~ EVALUATE_BUFFER
 
 
 // get Imoen's stuff into her container
@@ -947,22 +975,22 @@ COPY_EXISTING ~%bg1_area_prefix%0110.are~ ~override~
 COPY_EXISTING ~%bg1_area_prefix%0108.are~ ~override~
   LPF fj_are_structure
     INT_VAR
-    fj_type        = 8 // nonvisible
-    fj_loc_x       = 2
-    fj_loc_y       = 2
-    fj_box_left    = 2
-    fj_box_top     = 2
-    fj_box_right   = 3
-    fj_box_bottom  = 3
-    fj_trap_loc_x  = 2
-    fj_trap_loc_y  = 2
-    fj_vertex_0    = 2 + (2 << 16)
-    fj_vertex_1    = 3 + (2 << 16)
-    fj_vertex_2    = 3 + (2 << 16)
-    fj_vertex_3    = 2 + (2 << 16)
+      fj_type        = 8 // nonvisible
+      fj_loc_x       = 2
+      fj_loc_y       = 2
+      fj_box_left    = 2
+      fj_box_top     = 2
+      fj_box_right   = 3
+      fj_box_bottom  = 3
+      fj_trap_loc_x  = 2
+      fj_trap_loc_y  = 2
+      fj_vertex_0    = 2 + (2 << 16)
+      fj_vertex_1    = 3 + (2 << 16)
+      fj_vertex_2    = 3 + (2 << 16)
+      fj_vertex_3    = 2 + (2 << 16)
     STR_VAR
-    fj_structure_type = container
-    fj_name           = ~d5_imoen_eq~
+      fj_structure_type = container
+      fj_name           = ~d5_imoen_eq~
   END
 
 // in Liia/Imoen dialogue, SetGlobal("D5ImoenPalace","GLOBAL",4)
@@ -970,7 +998,7 @@ COPY_EXISTING ~%bg1_area_prefix%0108.are~ ~override~
 
 // area script: more dialogue if imoen in party
 
-<<<<<<<< d5/ar108+9.baf
+<<<<<<<< d5/ar108+.baf
 IF
 	GlobalLT("D5ImoenPalace","GLOBAL",3) // <-- should be 0 if she is in the party!
 	Global("D5DaustonQuest","GLOBAL",1)
@@ -1005,13 +1033,13 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/ar108+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+9.baf~
-EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+9.baf~ EVALUATE_BUFFER 
+COPY ~d5/ar108+.baf~ ~weidu_external/%MOD_FOLDER%/compile/108/ar108+.baf~
+EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/108/ar108+.baf~ EVALUATE_BUFFER 
 
 
 // handle Imoen's inventory
 
-<<<<<<<< d5/bg110+9.baf
+<<<<<<<< d5/bg110+.baf
 IF
 	Global("D5ImoenPalace","GLOBAL",5)
 THEN
@@ -1021,11 +1049,11 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/bg110+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bg110+9.baf~
-EXTEND_TOP ~%bg1_area_prefix%0110.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bg110+9.baf~ EVALUATE_BUFFER 
+COPY ~d5/bg110+.baf~ ~weidu_external/%MOD_FOLDER%/compile/108/bg110+.baf~
+EXTEND_TOP ~%bg1_area_prefix%0110.bcs~ ~weidu_external/%MOD_FOLDER%/compile/108/bg110+.baf~ EVALUATE_BUFFER 
 
 
-<<<<<<<< d5/bd103+9.baf
+<<<<<<<< d5/bd103+.baf
 IF
 	GlobalLT("D5ImoenPalace","GLOBAL",6)
 	GlobalLT("BD_PLOT","GLOBAL",51)
@@ -1045,8 +1073,15 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/bd103+9.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd103+9.baf~
-EXTEND_TOP ~bd0103.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bd103+9.baf~ EVALUATE_BUFFER 
+COPY ~d5/bd103+.baf~ ~weidu_external/%MOD_FOLDER%/compile/108/bd103+.baf~
+EXTEND_TOP ~bd0103.bcs~ ~weidu_external/%MOD_FOLDER%/compile/108/bd103+.baf~ EVALUATE_BUFFER 
 
+
+//___________________________________________________________________________________
+//
 
 END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////

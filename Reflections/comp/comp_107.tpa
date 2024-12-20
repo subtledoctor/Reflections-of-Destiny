@@ -41,24 +41,24 @@ COPY ~%MOD_FOLDER%/data/switcheroo/d5_div.spl~ ~override~
 COPY ~%MOD_FOLDER%/data/switcheroo/d5pause.spl~ ~override~
 COPY ~%MOD_FOLDER%/data/switcheroo/d5pausx.spl~ ~override~
 
-COPY ~%MOD_FOLDER%/data/switcheroo/d50104.baf~ ~weidu_external/%MOD_FOLDER%/compile/d50104.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d50104.baf~
-COPY ~%MOD_FOLDER%/data/switcheroo/d50105.baf~ ~weidu_external/%MOD_FOLDER%/compile/d50105.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d50105.baf~
-COPY ~%MOD_FOLDER%/data/switcheroo/d56000.baf~ ~weidu_external/%MOD_FOLDER%/compile/d56000.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d56000.baf~ EVALUATE_BUFFER
-COPY ~%MOD_FOLDER%/data/switcheroo/d5bdimo.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5bdimo.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5bdimo.baf~
-COPY ~%MOD_FOLDER%/data/switcheroo/d5cut64.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5cut64.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5cut64.baf~
-COPY ~%MOD_FOLDER%/data/switcheroo/d5telbgt.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5telbgt.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5telbgt.baf~ EVALUATE_BUFFER
+COPY ~%MOD_FOLDER%/data/switcheroo/d50104.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d50104.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d50104.baf~
+COPY ~%MOD_FOLDER%/data/switcheroo/d50105.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d50105.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d50105.baf~
+COPY ~%MOD_FOLDER%/data/switcheroo/d56000.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d56000.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d56000.baf~ EVALUATE_BUFFER
+COPY ~%MOD_FOLDER%/data/switcheroo/d5bdimo.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5bdimo.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d5bdimo.baf~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5cut64.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5cut64.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d5cut64.baf~
+COPY ~%MOD_FOLDER%/data/switcheroo/d5telbgt.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5telbgt.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d5telbgt.baf~ EVALUATE_BUFFER
 
 
 
 // gregson cut scene in palace 
 
-<<<<<<<< d5/ar108+8.baf
+<<<<<<<< d5/ar108+.baf
 IF
 	Global("D5GregsonCut","GLOBAL",0)
 	Global("D5GregsonPalace","GLOBAL",1)
@@ -85,8 +85,8 @@ THEN
 		StartCutScene("D5CLCUT1")
 END
 >>>>>>>>
-COPY ~d5/ar108+8.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+8.baf~
-EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+8.baf~
+COPY ~d5/ar108+.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/ar108+.baf~
+EXTEND_TOP ~%bg1_area_prefix%0108.bcs~ ~weidu_external/%MOD_FOLDER%/compile/107/ar108+.baf~
 
 // grcut1 = gregson run in and say charname is in custody
 
@@ -104,8 +104,8 @@ THEN
 		ActionOverride("D5GREGS",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
-COPY ~d5/d5grcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5grcut1.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5grcut1.baf~
+COPY ~d5/d5grcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5grcut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d5grcut1.baf~
 
 // clcut1 = everyone leave the palace
  
@@ -127,8 +127,8 @@ THEN
 		EndCutSceneMode()
 END
 >>>>>>>>
-COPY ~d5/d5clcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut1.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut1.baf~
+COPY ~d5/d5clcut1.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut1.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut1.baf~
 
 // clcut2 = arrive at FF jail, go to cell
 
@@ -164,8 +164,8 @@ THEN
 		ActionOverride("BELT",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
-COPY ~d5/d5clcut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut2.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut2.baf~
+COPY ~d5/d5clcut2.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut2.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut2.baf~
 
 // clcut3 = liia casts a divination spell
 
@@ -176,7 +176,7 @@ THEN
 	RESPONSE #100
 		CutSceneId(Player1)
 		Wait(2)
-		ActionOverride("LIIA",ForceSpellRES("D5_DIV","D5CHRNAM"))  // No such index
+		ActionOverride("LIIA",ForceSpellRES("D5_DIV",Myself))  // No such index
 		Wait(2)
 		CreateVisualEffectObject("SPSTRENH","D5CHRNAM")  // No such index
 		Wait(2)
@@ -184,8 +184,8 @@ THEN
 		ActionOverride("LIIA",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
-COPY ~d5/d5clcut3.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut3.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut3.baf~
+COPY ~d5/d5clcut3.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut3.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut3.baf~
 
 // clcut4 = timestop and switch places, followed by another liia divination
 /*
@@ -226,7 +226,7 @@ THEN
 		Wait(1)
 		ActionOverride("LIIA",DisplayStringHead(Myself,@10735))  // Apologies, whoever you are, this might sting a bit.
 		Wait(1)
-		ActionOverride("LIIA",ForceSpellRES("D5_DIV",Player1))
+		ActionOverride("LIIA",ForceSpellRES("D5_DIV",Myself))
 		Wait(2)
 		CreateVisualEffectObject("ICGLYPTI",Myself)
 		Wait(1)
@@ -237,8 +237,8 @@ THEN
 		ActionOverride("LIIA",StartDialogueNoSet(Player1))
 END
 >>>>>>>>
-COPY ~d5/d5clcut4.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut4.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut4.baf~
+COPY ~d5/d5clcut4.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut4.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut4.baf~
 */
 
 // clcut5 = everyone leaves, you are stuck
@@ -290,8 +290,8 @@ THEN
 		EndCutSceneMode()
 END
 >>>>>>>>
-COPY ~d5/d5clcut5.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut5.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut5.baf~
+COPY ~d5/d5clcut5.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut5.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut5.baf~
 
 // imoen in sewer cave
 
@@ -310,13 +310,13 @@ THEN
 		EndCutSceneMode()
 END
 >>>>>>>>
-COPY ~d5/d5clcut6.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5clcut6.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5clcut6.baf~
+COPY ~d5/d5clcut6.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut6.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/d5clcut6.baf~
 
 
 // dialogues
 
-<<<<<<<< d5/switch+8.d
+<<<<<<<< d5/switch+.d
 ADD_STATE_TRIGGER BELT 0 ~Global("D5CloneCut","GLOBAL",0)~
 
 APPEND BELT
@@ -560,7 +560,7 @@ ADD_TRANS_TRIGGER BDIMOEN 92 ~Global("D5SkipSoD","GLOBAL",0)~ DO 3
 ADD_TRANS_TRIGGER BDIMOEN 100 ~Global("D5SkipSoD","GLOBAL",0) Global("D5AltEndSoD","GLOBAL",0)~ DO 0 1 2 3 4
 
 >>>>>>>>
-COPY ~d5/switch+8.d~ ~weidu_external/%MOD_FOLDER%/compile/switch+8.d~
+COPY ~d5/switch+.d~ ~weidu_external/%MOD_FOLDER%/compile/107/switch+.d~
 
 
 // compatibility with EBG1 
@@ -571,7 +571,7 @@ ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~0~) BEGIN
 
  PRINT ~the state we want NOW is # %liia_ebg1_10%~
 
- APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/switch+8.d~ ~~~~~
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/107/switch+.d~ ~~~~~
  ADD_STATE_TRIGGER LIIA %liia_ebg1_10% ~Global("D5GregsonExist","GLOBAL",0)~
 ~~~~~
  
@@ -580,7 +580,7 @@ END	//	end EBG1 #0
 
 ACTION_IF !(MOD_IS_INSTALLED ~c#anotherfinehell.tp2~ ~0~) BEGIN
 
- APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/switch+8.d~ ~~~~~
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/107/switch+.d~ ~~~~~
 ALTER_TRANS BDIMOEN 	// file name
   BEGIN 89 END 			// state number (can be more than one)
   BEGIN 0 END 		// transition number (can be more than one)
@@ -593,7 +593,7 @@ END	//	end no AFH #0
 
 ACTION_IF (MOD_IS_INSTALLED ~c#anotherfinehell.tp2~ ~0~) BEGIN
 
- APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/switch+8.d~ ~~~~~
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/107/switch+.d~ ~~~~~
 ALTER_TRANS BDIMOEN 	// file name
   BEGIN 89 END 			// state number (can be more than one)
   BEGIN 0 5 END 	// transition number (can be more than one)
@@ -605,7 +605,7 @@ END	//	end AFH #0
 
 //  now compile the dialogues
 
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/switch+8.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/107/switch+.d~
 
 
 // clean up people's dialogue at ambush
@@ -636,10 +636,10 @@ ACTION_IF (GAME_IS ~eet~) BEGIN
 		Continue()
  END
  >>>>>>>>
- COPY ~d5/d5nu602.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5nu602.baf~
+ COPY ~d5/d5nu602.baf~ ~weidu_external/%MOD_FOLDER%/compile/107/d5nu602.baf~
 
  ACTION_IF (FILE_EXISTS_IN_GAME ~ar0602.bcs~) BEGIN
-  EXTEND_TOP ~ar0602.bcs~ ~weidu_external/%MOD_FOLDER%/compile/d5nu602.baf~
+  EXTEND_TOP ~ar0602.bcs~ ~weidu_external/%MOD_FOLDER%/compile/107/d5nu602.baf~
  END
 END
 
@@ -647,3 +647,7 @@ END
 //
 
 END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////

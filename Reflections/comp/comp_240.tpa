@@ -1,0 +1,77 @@
+
+DEFINE_ACTION_FUNCTION the_precipice BEGIN
+
+/*
+
+add an effect to Charname that casts a modified Control Undead every round while in Kanaglym
+
+make watcher and dragon ghost immune
+
+*/
+
+
+//___________________________________________________________________________________
+//
+
+// make control undead spell
+
+COPY ~%MOD_FOLDER%/data/d5_base.spl~ ~override/d5kangl.spl~
+  WRITE_SHORT 0x1c 4
+  WRITE_LONG 0x34 1
+  LPF ALTER_SPELL_HEADER INT_VAR target = 5 speed = 0 projectile = 259 END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 241 target = 2 parameter1 = 4 parameter2 = 1003 timing = 0 duration = 12 savingthrow = 16 savebonus = (0 - 10) END
+  LPF ADD_SPELL_EFFECT INT_VAR opcode = 177 target = 2 parameter1 = 4 parameter2 = 3 timing = 0 duration = 900 STR_VAR resource = ~d5kangl1~ END
+
+CREATE EFF ~d5kangl1~
+	WRITE_LONG 0x10 35
+	WRITE_LONG 0x14 2
+	WRITE_LONG 0x1c 2
+	WRITE_LONG 0x20 0
+	WRITE_LONG 0x24 0
+	WRITE_LONG 0x28 900
+	WRITE_SHORT 0x2c 100
+
+// apply spell to Charname every 8 seconds in kanaglym
+
+<<<<<<<< d5/d5bd5300.baf
+IF
+	!GlobalTimerNotExpired("D5KanaglymTimer","BD5300")
+THEN
+	RESPONSE #100
+		ApplySpellRES("D5KANGL",Player1)
+		SetGlobalTimer("D5KanaglymTimer","BD5300",8)
+END
+
+IF
+	Global("D5WhosYourDeadDaddy","BD5300",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5WhosYourDeadDaddy","BD5300",1)
+		ActionOverride(Player1,DisplayStringHead(Myself,@24001))
+		SetGlobalTimer("D5KanaglymTimer","BD5300",8)
+END
+>>>>>>>>
+COPY ~d5/d5bd5300.baf~ ~weidu_external/%MOD_FOLDER%/compile/240/d5bd5300.baf~
+EXTEND_TOP ~bd5300.bcs~ ~weidu_external/%MOD_FOLDER%/compile/240/d5bd5300.baf~ 
+
+// make watcher and halatath immune
+
+COPY_EXISTING ~bdendles.cre~ ~override~
+  LPF ADD_CRE_EFFECT INT_VAR opcode=206 target=1 timing=9 power=0 STR_VAR resource=~d5kangl~ END
+IF_EXISTS BUT_ONLY
+
+COPY_EXISTING ~bdhalat.cre~ ~override~
+  LPF ADD_CRE_EFFECT INT_VAR opcode=206 target=1 timing=9 power=0 STR_VAR resource=~d5kangl~ END
+IF_EXISTS BUT_ONLY
+COPY_EXISTING ~bdhalat2.cre~ ~override~
+  LPF ADD_CRE_EFFECT INT_VAR opcode=206 target=1 timing=9 power=0 STR_VAR resource=~d5kangl~ END
+IF_EXISTS BUT_ONLY
+
+//___________________________________________________________________________________
+//
+
+END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////

@@ -1,36 +1,35 @@
 
-DEFINE_ACTION_FUNCTION feyr_itself BEGIN
+DEFINE_ACTION_FUNCTION more_realism_sod BEGIN
 
 /*
 
-- / rewrite elandro's dialogue
-	...add_state_trigger bdelandr 0 so it never fires (Dead("bdfeyr"))
-	...ditto state 10
-	...add a new state w/ new dialogue
-	...check any interjections w/ thirrim
-	
-- / alter_trans bdthirri.dlg so transition 0 of state 0 points to new bdelandr state
-	...and rewrite state 0 aka #46575
+//identify crusaders who should recognize Charname
+	- barghest		-	bdbarghe	-	bdbarghe.bcs	...if AreaCheck("BD2000")
+	- vichand?		-	bdvichan	-	bdvichan.bcs	
+	- hormorn		-	bdhormor	-	bdhormor.bcs	
+	- delgar		-	bdmunsch	-	bdmunsch.bcs
+	- oloneiros		-	bdolonei	-	bdolonei.bcs
+	- turin			-	bdturin		-	bdturin.bcs		...if AreaCheck("BD5100")
+	?- spensse		-	
+	?- anji			-	
+	?- bardyla		-	
+	- crus. patrol	-	bdcrus81	-	bdcrus80.bcs, bdcrus83.bcs
+	- polvi			-	bdpolvi		-	bdpolvi.bcs		...if AreaCheck("BD5200")
+	- dreon			-	bddreon		-	create bddreon.bcs	...if AreaCheck("bd4000")
+	?- leopas et al	-	bdleopas	-	bdtrial.bcs
+	- beno famari	-	bdfamari	-	bdfamari.bcs	...if !InParty("Corwin")
+	- cr. commander	-	bdfamcru	-	bdfamcru.bcs
+	- crus. guard	-	bddssen		-	bddssen.bcs		
+	- 
+...set them to enemy() if they see(player1)
 
-- / rewrite #46711
+//give Dosia a rejuvenation ability at gate to avernus
 
-- / rewrite #46718
+//if Charname played BG1 but never met skie,
+...skip her initial confiding in Charname
+...and add some exposition to Bence instead
 
-- / rewrite #61744 (journal)
-
-- / rewrite #61745 (journal)
-
-- / write new cut script for appearance of feyr
-	...elandro should DestroySelf()
-	...in bdelandr.bcs, replace_textually ~RandomWalkContinuous()~ ~DestroySelf()~
-
-- / ooh! ooh! if never talk on the roof, have elandro transform when he enters the fight!
-	...say, once GlobalGT("bd_bridgefort_plot","global",8), and enemy within 15', start a 30-second timer
-	...when timer ends, DestroySelf() and CreateCreature("BDFeyr")
-	...this ^^ in bdelendr.bcs
-
-- / check cut scene on bridge (including modded versions)
-	...if Dead("bdfeyr") then give Player1 innate Cloak of Fear (SPIN203)
+//rewrite bddelanc #0 (change "50 men" to 200 and "350" to 700)
 
 */
 
@@ -38,225 +37,175 @@ DEFINE_ACTION_FUNCTION feyr_itself BEGIN
 //___________________________________________________________________________________
 //
 
-// elandro transforms instead of creating the feyr
+// crusaders more wary
 
-COPY_EXISTING ~bdelandr.BCS~ ~override~
+<<<<<<<< d5/crusee.baf
+IF
+	See(Player1)
+	Global("D5SeenMe","LOCALS",0)
+THEN
+	RESPONSE #100
+		SetGlobal("D5SeenMe","LOCALS",1)
+		Enemy()
+END
+>>>>>>>>
+COPY ~d5/crusee.baf~ ~weidu_external/%MOD_FOLDER%/compile/220/bddreon.baf~
+ACTION_IF (FILE_EXISTS_IN_GAME ~bddreon.bcs~) BEGIN
+  EXTEND_TOP ~bddreon.bcs~ ~weidu_external/%MOD_FOLDER%/compile/220/bddreon.baf~
+END
+ACTION_IF !(FILE_EXISTS_IN_GAME ~bddreon.bcs~) BEGIN
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/220/bddreon.baf~
+END
+
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/220/bddreon.baf~
+
+ACTION_FOR_EACH crusader_script IN 
+	~bdbarghe~
+	~bdvichan~
+	~bdhormor~
+	~bdmunsch~
+	~bdolonei~
+	~bdturin~
+	~bdcrus80~
+	~bdcrus83~
+	~bdpolvi~
+	~bdtrial~
+	~bdfamcru~
+	~bddssen~
+BEGIN
+	EXTEND_TOP ~%crusader_script%.bcs~ ~weidu_external/%MOD_FOLDER%/compile/220/bddreon.baf~ 
+END
+
+<<<<<<<< d5/famsee.baf
+IF
+	See(Player1)
+	Global("D5SeenMe","LOCALS",0)
+	!InParty("CORWIN")
+THEN
+	RESPONSE #100
+		SetGlobal("D5SeenMe","LOCALS",1)
+		Enemy()
+END
+>>>>>>>>
+COPY ~d5/famsee.baf~ ~weidu_external/%MOD_FOLDER%/compile/220/famsee.baf~
+EXTEND_TOP ~bdfamari.bcs~ ~weidu_external/%MOD_FOLDER%/compile/220/famsee.baf~
+
+
+
+// change ladle's dialogue (bdladle.dlg)
+
+
+
+// let dosia rejuvenate you
+
+<<<<<<<< d5/dosia+.d
+ALTER_TRANS BDDOSIA BEGIN 60 END BEGIN 1 END BEGIN "TRIGGER" ~~ END
+>>>>>>>>
+COPY ~d5/dosia+.d~ ~weidu_external/%MOD_FOLDER%/compile/220/dosia+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/220/dosia+.d~
+
+
+
+// remove initial Skie palace talk and cut scene
+
+COPY_EXISTING ~bd0102.bcs~ ~override~
 	DECOMPILE_AND_PATCH BEGIN
-		SPRINT textToReplace ~RandomWalkContinuous~
+		SPRINT textToReplace ~\(CreateCreature("BDSKIE".+$\)~
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
 		PATCH_IF (num_matches > 0) BEGIN
-			REPLACE_TEXTUALLY ~%textToReplace%~ ~DestroySelf~
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
 			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
 		END ELSE BEGIN
-			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
+		SPRINT textToReplace ~\(ApplySpellRES("bddest","bdskie".+$\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
 	END
 BUT_ONLY
 
-
-// modify elandro's override script for battle
-
-<<<<<<<< d5/bdeland+.baf
-IF
-	GlobalGT("bd_bridgefort_plot","global",8)
-	Global("D5ElandroBattle","GLOBAL",0)
-	!Dead("BDFEYR")
-	See([ENEMY])
-THEN
-	RESPONSE #100
-		SetGlobalTimer("D5FeyrTi","GLOBAL",FOUR_ROUNDS)
-		SetGlobal("D5ElandroBattle","GLOBAL",1)
-END
-
-IF
-	GlobalTimerExpired("D5FeyrTi","GLOBAL")
-THEN
-	RESPONSE #100
-		DisplayStringHead(Myself,@22020)
-		Wait(2)
-		CreateCreatureObject("BDFEYR",Myself,0,0,0)
-		DestroySelf()
-		ActionOverride(Player1,ForceSpellRES("SPIN103",Myself))
-END
->>>>>>>> 
-COPY ~d5/bdeland+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.baf~
-EXTEND_TOP ~bdelandr.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.baf~
-
-
-// modified cut scene for feyr to appear
-
-<<<<<<<< d5/d5c208a.baf
-IF
-	True()
-THEN
-	RESPONSE #100
-		CutSceneId(Player1)
-		ActionOverride("bdelandr",DisplayStringHead(Myself,@22020)
-		Wait(2)
-		ActionOverride("bdelandr",DestroySelf())
-		CreateCreature("bdfeyr",[3210.980],NW)
-		CreateVisualEffectObject("spflesh3","bdfeyr")
-		PlaySound("eff_m10a")
-		ActionOverride(Player1,ForceSpellRES("SPIN103",Myself))
-		SetGlobal("bd_208_status","global",3)
-		Wait(1)
-		EndCutSceneMode()
-END
->>>>>>>> 
-COPY ~d5/d5c208a.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5c208a.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5c208a.baf~
-
-
-// modify elandro's dialogue
-
-<<<<<<<< d5/bdeland+.d
-ADD_STATE_TRIGGER BDELANDR 0 ~Dead("BDFEYR")~
-ADD_STATE_TRIGGER BDELANDR 10 ~Dead("BDFEYR")~
-
-APPEND BDTHIRRI
-
-IF WEIGHT #-1 ~!Dead("BDELANDR") GlobalLT("bd_bridgefort_plot","global",9)~ BEGIN d5bdthirri_0
-  SAY @22001
-  IF ~~ REPLY @22002 EXTERN BDELANDR d5elandr_0
-  IF ~~ REPLY @22003 EXTERN BDELANDR d5elandr_0
-END
-
-IF ~~ BEGIN d5bdthirri_1
-  SAY @22008
-  IF ~~ EXTERN BDELANDR d5elandr_1
-END
-
-END
-
-APPEND BDELANDR
-
-IF WEIGHT #-1 ~!Dead("BDFEYR") GlobalLT("bd_bridgefort_plot","global",9)~ BEGIN d5elandr_0
-  SAY @22005
-  IF ~~ REPLY @22006 EXTERN BDTHIRRI d5bdthirri_1
-  IF ~~ REPLY @22007 EXTERN BDTHIRRI d5bdthirri_1
-END
-
-IF ~~ BEGIN d5elandr_1
-  SAY @22009
-  IF ~~ REPLY @22010 GOTO d5elandr_2
-END
-
-IF ~~ BEGIN d5elandr_2
-  SAY @22011
-  IF ~~ GOTO d5elandr_3
-END
-
-IF ~~ BEGIN d5elandr_3
-  SAY @22012
-  IF ~~ REPLY @22013 GOTO d5elandr_4
-  IF ~~ REPLY @22014 GOTO d5elandr_4
-END
-
-IF ~~ BEGIN d5elandr_4
-  SAY @22015
-  IF ~~ REPLY @22016 GOTO d5elandr_5
-END
-
-IF ~~ BEGIN d5elandr_5
-  SAY @22017
-  IF ~~ GOTO d5elandr_6
-END
-
-IF ~~ BEGIN d5elandr_6
-  SAY @22018
-  IF ~~ DO ~ClearAllActions()
-			StartCutSceneMode()
-			StartCutScene("d5c208a")~ 
-		EXIT
-END
-
-END
->>>>>>>> 
-COPY ~d5/bdeland+.d~ ~weidu_external/%MOD_FOLDER%/compile/bdeland+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdeland+.d~
-
-
-// *****
-// add innate at bridge
-
-/* figure out a better way to do this... like, read a GV from that cut scene and use it in the area script
-ACTION_IF (FILE_EXISTS_IN_GAME ~bdcut28.bcs~) AND !(FILE_EXISTS_IN_GAME ~c#stbb28.bcs~) BEGIN
-  COPY_EXISTING ~bdcut28.bcs~ ~override~
-    DECOMPILE_AND_PATCH BEGIN
-		SPRINT textToReplace ~\(True()\)~
+COPY_EXISTING ~bd0103.bcs~ ~override~
+	DECOMPILE_AND_PATCH BEGIN
+		SPRINT textToReplace ~\(Global("BD_MDD007","bd0103",2)\)~
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
 		PATCH_IF (num_matches > 0) BEGIN
-			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Dead("bdfeyr")
-THEN
-	RESPONSE #100
-		CutSceneId("bdcutid")
-		ActionOverride(Player1,AddSpecialAbility("SPIN203"))
-		Continue()
-END
-IF
-	True()~
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~Global("BD_MDD007","bd0103",99)~
 			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
 		END ELSE BEGIN
-			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
-    END
-  IF_EXISTS BUT_ONLY
-END
+	END
+BUT_ONLY
 
-ACTION_IF (FILE_EXISTS_IN_GAME ~bdcut28.bcs~) AND (FILE_EXISTS_IN_GAME ~c#stbb28.bcs~) BEGIN
-  COPY_EXISTING ~bdcut28.bcs~ ~override~
-    DECOMPILE_AND_PATCH BEGIN
-		SPRINT textToReplace ~\(True()\)~
-		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
-		PATCH_IF (num_matches > 0) BEGIN
-			REPLACE_TEXTUALLY ~%textToReplace%~ ~\1 Dead("bdfeyr")
+<<<<<<<< d5/d5bd0103.baf
+IF
+	Global("BD_plot","global",54)
+	Global("BD_MDD007","bd0103",2)  // Ducal Palace  Third Floor
+	Global("BD_MDD005","bd0103",0)  // Ducal Palace  Third Floor
 THEN
 	RESPONSE #100
-		CutSceneId("bdcutid")
-		ActionOverride(Player1,AddSpecialAbility("SPIN203"))
-		Continue()
-END
-IF
-	True()~
-			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
-		END ELSE BEGIN
-			PATCH_WARN ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
-		END
-    END
-  IF_EXISTS BUT_ONLY
-END
-*/
-
-<<<<<<<< d5/bd2000+.baf
-IF
-	Global("D5CharnameIsScary","bd2000",0)
-	GlobalGT("bd_mdd420_ot","bd2000",1)
-	Dead("bdfeyr")
-THEN
-	RESPONSE #100
-		SetGlobal("D5CharnameIsScary","bd2000",1)
-		ActionOverride(Player1,AddSpecialAbility("SPIN203"))
-		Continue()
+		ClearAllActions()
+		StartCutSceneMode()
+		SetGlobal("BD_MDD005","bd0103",1)  // Ducal Palace  Third Floor
+		SmallWait(30)
+		FadeToColor([20.0],0)
+		SmallWait(20)
+		FadeToColor([0.0],0)
+		SmallWait(1)
+		DayNight(3)
+		ActionOverride(Player1,JumpToPoint([220.400]))
+		ActionOverride(Player1,Face(SE))
+		ActionOverride(Player1,SetSequence(SEQ_SLEEP))
+		MoveGlobal("bd0103",Player2,[78.511])
+		MoveGlobal("bd0103",Player3,[102.529])
+		MoveGlobal("bd0103",Player4,[129.552])
+		MoveGlobal("bd0103",Player5,[160.576])
+		MoveGlobal("bd0103",Player6,[195.601])
+		ActionOverride(Player2,Face(NE))
+		ActionOverride(Player3,Face(NE))
+		ActionOverride(Player4,Face(NE))
+		ActionOverride(Player5,Face(NE))
+		ActionOverride(Player6,Face(NE))
+		ApplySpellRES("bdhide",Player2)  // No such index
+		ApplySpellRES("bdhide",Player3)  // No such index
+		ApplySpellRES("bdhide",Player4)  // No such index
+		ApplySpellRES("bdhide",Player5)  // No such index
+		ApplySpellRES("bdhide",Player6)  // No such index
+		MoveViewObject(Player1,INSTANT)
+		StartCutSceneMode()
+		StartCutSceneEx("bdcut05",TRUE)
 END
 >>>>>>>>
-COPY ~d5/bd2000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~
-EXTEND_TOP ~BD2000.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bd2000+.baf~
+COPY ~d5/d5bd0103.baf~ ~weidu_external/%MOD_FOLDER%/compile/220/d5bd0103.baf~
+EXTEND_TOP ~bd0103.bcs~ ~weidu_external/%MOD_FOLDER%/compile/220/d5bd0103.baf~ 
+
+<<<<<<<< d5/d5entar+.d
+ALTER_TRANS BDENTAR BEGIN 45 END BEGIN 1 END BEGIN "TRIGGER" ~False()~ END
+>>>>>>>>
+COPY ~d5/d5entar+.d~ ~weidu_external/%MOD_FOLDER%/compile/220/d5entar+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/220/d5entar+.d~
 
 
-// rewrite strings
 
-ACTION_IF (GAME_IS ~eet~) BEGIN
-  STRING_SET 246711 @22041
-  STRING_SET 246718 @22042
-  STRING_SET 261744 @22043
-  STRING_SET 261745 @22044
-END
-ELSE BEGIN
-  STRING_SET 46711 @22041
-  STRING_SET 46718 @22042
-  STRING_SET 61744 @22043
-  STRING_SET 61745 @22044
-END
+// more realistic troop numbers
 
+<<<<<<<< d5/delanc+.d
+REPLACE_SAY BDDELANC 0 @22011
+>>>>>>>>
+COPY ~d5/delanc+.d~ ~weidu_external/%MOD_FOLDER%/compile/220/delanc+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/220/delanc+.d~
+
+
+//___________________________________________________________________________________
+//
 
 END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////

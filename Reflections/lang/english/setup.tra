@@ -10,16 +10,16 @@
 @110  = ~Reflections of Destiny BG1: The Mirror Shard~
 @150  = ~Reflections of Destiny BG1: BP-in-BG~
 @200  = ~Reflections of Destiny SoD: Rewriting History~
-@210  = ~Reflections of Destiny SoD: Magical Realism~
-@220  = ~Reflections of Destiny SoD: Nothing to Fear but Feyr Itself~
-@230  = ~Reflections of Destiny SoD: The Precipice of Death~
-@250  = ~Reflections of Destiny SoD: Surplus Scarcity~
+@220  = ~Reflections of Destiny SoD: Magical Realism~
+@230  = ~Reflections of Destiny SoD: Nothing to Fear but Feyr Itself~
+@240  = ~Reflections of Destiny SoD: The Precipice of Death~
+@260  = ~Reflections of Destiny SoD: Surplus Scarcity~
 @290  = ~Reflections of Destiny SoD: The Clone Saga (ALPHA)~
-@300  = ~Reflections of Destiny BG2: ...~
-@310  = ~Reflections of Destiny BG2: SoD Content in SoA~
-@320  = ~Reflections of Destiny BG2: Imoen Is Stone~
-@330  = ~Reflections of Destiny BG2: Imoen Can Die~
-@400  = ~Reflections of Destiny TOB: ...~
+@300  = ~Reflections of Destiny BG2: something something fixing BG2 plot holes~
+@310  = ~Reflections of Destiny BG2: Wherever You Go There You Are~
+@320  = ~Reflections of Destiny BG2: Imoen Is Stone, by Jastey~
+@330  = ~Reflections of Destiny BG2: Imoen Can Die, by Jastey~
+@400  = ~Reflections of Destiny TOB: something something fixing ToB~
 //
 // *****
 // change @2x0 to @10(x-1)
@@ -28,12 +28,6 @@
 // change @370 to @297
 // change @380 to @298
 // change @400 to @220
-//
-@11001  = ~Mirror Shard~
-@11002  = ~Mirror Shard
-
-This shard is a piece of an immensely powerful Mirror of Opposition, now broken. Even this small shard still carries some of the item's magic. If it is brandished at a creature and it captures their likeness, it can create a copy of that creature which is loyal to the holder of the Shard. The shard is quite fragile, however, and seems likely to break if used more than once or twice.
-~
 //
 //
 @10101  = ~You'll have to excuse me, everything is a mess, with Thalantyr gone. I am managing things until his return.~
@@ -441,8 +435,8 @@ yadda found dauston, what he had to say is troubling~
 yadda going to march north and face Caelar directly~
 @10809  = ~Investigating the Crusade
 yadda staying in the south~
-@10810  = ~~
-@10811  = ~Yes, I recall good Sir Dauston. "The Knight of Cups," people called him. Liked his drink something fierce, but he was a good fellow. Never violent without cause, and always paid his bill. As for where he is now, I cannot tell you. He has not been in here for a few weeks at least. Ask around the other taverns, someone might know.~
+@10810  = ~Sir Dauston, yes, I recall the chap. Nice fellow. As for where he is now, I cannot tell you. He has not been in here for a few weeks at least. Ask around the other taverns, someone might know.~
+@10811  = ~Yes, I recall good Sir Dauston. "The Knight of Cups," people called him. Liked his drink something fierce, but he was a good fellow. Never violent without cause, and always paid his bill. I heard he took the road north, not sure where to.~
 @10812  = ~Thank you.~
 @10813  = ~Ah yes, "The Knight of Cups!" Good lad, that. He was a good customer, but I worried for his health. He has not been around these parts for some time. Said he wanted to live by the sea air, and left town. Mind you, I suspect that means he wanted to find a tavern by the sea, not just any old beach.~
 @10814  = ~~
@@ -488,11 +482,11 @@ yadda staying in the south~
 @10854  = ~That is Dauston, alright - but what is this?? Who are you stranger, that your aura shines with death? And what are you carrying with you?~
 @10855  = ~We have no business with Sarevok, except to extinguish what he represents. You... you are another of the Children, aren't you? That aura is unmistakeable.~
 @10856  = ~Don't be a fool! This is not Sarevok! But that aura is unmistakeable. It is another of the Children.~
-@10857  = ~Another Child, here with Sir Dauston... what it means is, things are accelerating. I must bring news of this to the Lady at once! This changes our mission, but only slightly. Capture the Child if you can, otherwise kill <PRO_HIMHER>. Then bind Sir Dauston and bring him to Dragonspear as planned.~
+@10857  = ~Another Child, here with Sir Dauston... what it means is, things are accelerating. I must bring news of this to the Lady at once! This changes our mission, but only slightly. Capture the Child if you can, otherwise exterminate <PRO_HIMHER>. Then bind Sir Dauston and bring him to Dragonspear as planned.~
 @10858  = ~~
 @10859  = ~~
 @10860  = ~Are you sure that's Dauston? I thought he was supposed to be a knight. This guy looks like a common drunk.~
-@10861  = ~Is... is this Sarevok?? <PRO_HESHE> doesn't look like the way Sarevok was described...~
+@10861  = ~Is... is this Sarevok?? <PRO_HESHE> doesn't look like the way Caelar described him...~
 @10862  = ~Sarevok is dead. What is your business with him?~
 @10863  = ~Yes... I am indeed Sarevok! You should run, lest you incur my wrath!~
 @10864  = ~Another one! What does that mean?~
@@ -522,6 +516,57 @@ yadda staying in the south~
 @10888  = ~The dukes of Baldur's Gate want me to send you to them. It looks like it is them or the crusaders. Your choice, but I really think you should do what I ask. I have my own urges - quite dark.~
 @10889  = ~Alright, I will go to Baldur's Gate. I want no part of my cousin's fate. Thank you for speaking with me, and for fighting off those crusaders. I will see my way to the dukes' palace.~
 @10890  = ~~
+//
+//
+@11001  = ~Mirror Shard~
+@11002  = ~Mirror Shard
+
+This shard is a piece of an immensely powerful Mirror of Opposition, now broken. Even this small shard still carries some of the item's magic. If it is brandished at a creature and it captures their likeness, it can create a copy of that creature which is loyal to the holder of the Shard. The shard is quite fragile, however, and seems likely to break if used more than once or twice.
+~
+//
+//
+@20001 = ~~
+//
+//
+@22011 = ~You mean your two hundred fighters? Why, my eight hundred fighters, of course.~
+//
+//
+@23001 = ~Forgive us if we are disturbing you, my <PRO_LADYLORD>. My young colleague seems to be having some difficulty dealing with the stress of the situation. I am not sure how much he has been sleeping. Of course the situation does seem dire. But surely things are not as bad as he fears? Right? I confess, I begin to doubt myself...~ // thirri
+@23002 = ~Not to worry. I am here to help. What do you mean 'having some difficulty?'~
+@23003 = ~Stress? You are behind strong walls! Wait til the monsters are right in your face, then you'll know stress!~
+@23004 = ~~
+@23005 = ~The water... must not... water...~ // elandro initial
+@23006 = ~The water? You mean the river? What about the water?~
+@23007 = ~What are you talking about? You sound a bit crazy.~
+@23008 = ~He has been walking around terrified, to the point of distraction, then he seems to dissociate, and move toward the edge of the fort, over here by the water. I would find his behavior fascinating if I didn't feel so bad for him. I have been trying to keep him calm, but it has been difficult. And sometimes it seems like his fear is making others around him more afraid.~
+@23009 = ~Oh, er, sorry, my mind was wandering. I've been... I've been so fearful lately, I have been having a hard time staying focused.I just want to be away from this place! The water makes me so uneasy. Like it is pulling me in, even from here!~
+@23010 = ~That is not a good idea. Maybe you should come with me inside the fort. You really should stay away from the river, I hear the waters are poisoned.~
+@23011 = ~I tried to cross the river quickly - only meant to stop briefly in Bridgefort, and then move on as fast as possible. But then those damned crusaders showed up, and we have been trapped ever since!~
+@23012 = ~I'm just a traveller! I just want to get away from this place! But those crusaders are acting like we are their enemies - they are going to slaughter us! Whenever I close my eyes it is all I can see, the slaughter!~
+@23013 = ~Please, try to calm yourself. Getting worked up with fear will not help anyone. I intend to make sure the crusaders do not harm anyone. We will get through this, and then you can go on your way.~
+@23014 = ~Calm down, man! Crying about your fears is not helping anyone. You need to get a grip on yourself before you start freaking people out.~
+@23015 = ~There is no stopping it! Don't you see that? I've been running from it my whole life - the slaughter! But every time I stop, find peace, it returns! And now it's like - like waves crashing in my head! I can't get away because I'm stuck HERE!~
+@23016 = ~Uh, are we still talking about the Crusade?~
+@23017 = ~I will enter the water! Wait, no, I cannot - oh gods, there is no escape this time! They will breach the walls, bring the slaughter with them, and we will all die - ~
+@23018 = ~Oh, no - what is happening to me?? I can't stop it -~
+@23019 = ~~
+@23020 = ~What is happening? What am I??~
+@23041 = ~A feyr—a coagulation of magical energy and mortal fear manifesting in the physical realm. It seemed to spring from Elandro - or he turned into it? It is unclear how he could do such a thing; no spell was cast and no item was used to call forth such a being. It seemed to burst forth from within him.~
+@23042 = ~A feyr is the inevitable consequence of a surfeit of magical energy combined with the unchecked fear of, say, a fort full of monkeys hiding in their own filth, trying to avoid an overwhelming force that seeks to destroy them. It is unclear how Elandro managed to turn into such a powerful creature; no spell was cast. It seemed to burst forth from within him.~
+@23043 = ~The Fear
+
+I've defeated the feyr that formed in the courtyard.
+
+The magical energy enveloping Bridgefort combined with the anxieties and fears of those within it, somehow spawned a hideous monster known as a 'feyr,' directly from Elandro. It is not apparent what method was used to call forth such a creature - it did not seem voluntary, and Elendro did not apear to cast any spell.~
+@23044 = ~The Fear
+
+I've defeated the feyr that formed in the courtyard.
+
+The magical energy enveloping Bridgefort combined with the anxieties and fears of those within it, somehow spawned a hideous monster known as a 'feyr,' directly from Elandro. It is not apparent what method was used to call forth such a creature - it did not seem voluntary, and Elendro did not apear to cast any spell.~
+@23045 = ~~
+//
+//
+@24001 = ~You feel a surge of power over the nearby undead creatures...~
 //
 //
 @29001 = ~That's it recruit. I have had enough. You can get away with a lot because of who you are, but this is a military campaign and there are limits!~
@@ -593,44 +638,55 @@ yadda staying in the south~
 @29759  = ~I did! I mean, the Dragonspear part. I didn't kill Skie! Imoen, I don't know what happened. I switched places, somehow, earlier today. I was over there, and I blinked, and I was here. I didn't feel myself teleporting or anything like that. It felt like... I didn't change, the whole world changed around me. What could do that?~
 //
 //
-@22001 = ~Forgive us if we are disturbing you, my <PRO_LADYLORD>. My young colleague seems to be having some difficulty dealing with the stress of the situation. I am not sure how much he has been sleeping. Of course the situation does seem dire. But surely things are not as bad as he fears? Right? I confess, I begin to doubt myself...~ // thirri
-@22002 = ~Not to worry. I am here to help. What do you mean 'having some difficulty?'~
-@22003 = ~Stress? You are behind strong walls! Wait til the monsters are right in your face, then you'll know stress!~
-@22004 = ~~
-@22005 = ~The water... must not... water...~ // elandro initial
-@22006 = ~The water? You mean the river? What about the water?~
-@22007 = ~What are you talking about? You sound a bit crazy.~
-@22008 = ~He has been walking around terrified, to the point of distraction, then he seems to dissociate, and move toward the edge of the fort, over here by the water. I would find his behavior fascinating if I didn't feel so bad for him. I have been trying to keep him calm, but it has been difficult. And sometimes it seems like his fear is making others around him more afraid.~
-@22009 = ~Oh, er, sorry, my mind was wandering. I've been... I've been so fearful lately, I have been having a hard time staying focused.I just want to be away from this place! The water makes me so uneasy. Like it is pulling me in, even from here!~
-@22010 = ~That is not a good idea. Maybe you should come with me inside the fort. You really should stay away from the river, I hear the waters are poisoned.~
-@22011 = ~I tried to cross the river quickly - only meant to stop briefly in Bridgefort, and then move on as fast as possible. But then those damned crusaders showed up, and we have been trapped ever since!~
-@22012 = ~I'm just a traveller! I just want to get away from this place! But those crusaders are acting like we are their enemies - they are going to slaughter us! Whenever I close my eyes it is all I can see, the slaughter!~
-@22013 = ~Please, try to calm yourself. Getting worked up with fear will not help anyone. I intend to make sure the crusaders do not harm anyone. We will get through this, and then you can go on your way.~
-@22014 = ~Calm down, man! Crying about your fears is not helping anyone. You need to get a grip on yourself before you start freaking people out.~
-@22015 = ~There is no stopping it! Don't you see that? I've been running from it my whole life - the slaughter! But every time I stop, find peace, it returns! And now it's like - like waves crashing in my head! I can't get away because I'm stuck HERE!~
-@22016 = ~Uh, are we still talking about the Crusade?~
-@22017 = ~I will enter the water! Wait, no, I cannot - oh gods, there is no escape this time! They will breach the walls, bring the slaughter with them, and we will all die - ~
-@22018 = ~Oh, no - what is happening to me?? I can't stop it -~
-@22019 = ~~
-@22020 = ~What is happening? What am I??~
-@22041 = ~A feyr—a coagulation of magical energy and mortal fear manifesting in the physical realm. It seemed to spring from Elandro - or he turned into it? It is unclear how he could do such a thing; no spell was cast and no item was used to call forth such a being. It seemed to burst forth from within him.~
-@22042 = ~A feyr is the inevitable consequence of a surfeit of magical energy combined with the unchecked fear of, say, a fort full of monkeys hiding in their own filth, trying to avoid an overwhelming force that seeks to destroy them. It is unclear how Elandro managed to turn into such a powerful creature; no spell was cast. It seemed to burst forth from within him.~
-@22043 = ~The Fear
-
-I've defeated the feyr that formed in the courtyard.
-
-The magical energy enveloping Bridgefort combined with the anxieties and fears of those within it, somehow spawned a hideous monster known as a 'feyr,' directly from Elandro. It is not apparent what method was used to call forth such a creature - it did not seem voluntary, and Elendro did not apear to cast any spell.~
-@22044 = ~The Fear
-
-I've defeated the feyr that formed in the courtyard.
-
-The magical energy enveloping Bridgefort combined with the anxieties and fears of those within it, somehow spawned a hideous monster known as a 'feyr,' directly from Elandro. It is not apparent what method was used to call forth such a creature - it did not seem voluntary, and Elendro did not apear to cast any spell.~
-@22045 = ~~
-//
-//
 // use this for the extra random stuff in component 310
 @31091  = ~See that cavern there? The clerics, an' Coldhearth too, they were, y'know that thing...? Adamant. They were adamant no one who happened along see anything suspicious.~
 @31092  = ~Ho there stranger. Be you careful around here, there be some nasty critters from behind yon waterfall. Dead critters - but the kind of dead where they still try to bite you, if you get me.~
 @31093  = ~Take this shield, it doesn't really belong to me. I thought I could make better use of it than its true owner... but that doesn't justify keeping it.~
+//
+//
+@33001  = ~Unhh...~
+@33002  = ~Imoen! Looks like you're recovering from whatever was affecting you earlier.~
+@33003  = ~Imoen! You seem like you're slipping away!~
+@33004  = ~Feel so... empty... can't hold on...~
+@33005  = ~~
+@33006  = ~~
+@33007  = ~~
+@33008  = ~~
+@33009  = ~~
+@33010  = ~Imoen is Dead.
+
+Imoen died in the asylum.
+
+My childhood friend Imoen - or was she my sister? - died the moment I thought I freed her from Irenicus' grasp. All is left for me now is to go after Irenicus, not only to retrieve my soul but also to confront him with all the deaths he brought into my life.~
+@33011  = ~Oh no! That w-was Imoen, was she not? <CHARNAME>, I am so sorry!~
+@33012  = ~Not... not another death. Not another death on account of this monster! <CHARNAME>, we will... we *will* find him!~
+@33013  = ~Oh, our friend Imoen dead! Boo, this is a sad day.~
+@33014  = ~Oh, our friend Imoen dead! This is a sad day.~
+@33015  = ~Pfft. So, this was what the rescuing mission was about?~
+@33016  = ~The ritual seems to have weakened her. (Well, maybe better than to have to drag her along.)~
+@33017  = ~This bird closed her eyes forever. No more songs of joy and love for this one. But songs of loss and grieve for the ones who remain.~
+@33018  = ~What... what a failure! We were too late, <CHARNAME>. I... I am sorry.~
+@33019  = ~Seeing a friend die is hard to take as it is. Not knowing whether it might have been possible to save her if only we did something differently, is the hardest part of it.~
+@33020  = ~She was too weak. Better have her die now than slow us down. Our own life is at risk now.~
+@33021  = ~Oh, <CHARNAME>, I am so sorry. But you have to keep in mind that you did all you could. Do not lose yourself in self-reproach. Take this advice from soneone who knows what she is talking about...~
+@33022  = ~The paths of nature seem crual and unjust at times.~
+@33023  = ~This reminds me of...of so many stories I've heard... and some that I experienced. (sigh)~
+@33024  = ~No! No! We failed in rescuing your friend. Let us find this mage. Let us make him pay for your loss!~
+@33025  = ~Pfeh, there she lies. Too weakend to endure, too strong to die during the ritual. Ths leaves us with only one more goal - find this mage and make him pay for everything he did!~
+@33026  = ~This is a grave moment indeed. <CHARNAME>, do not let yourself be drowned in guilt. We did what we could - albeit this knowledge is no relief for the pain you must feel now, it is important not to forget this.~
+@33027  = ~~
+@33028  = ~~
+@33029  = ~~
+@33030  = ~~
+@33031  = ~~
+@33032  = ~~
+@33033  = ~~
+@33034  = ~~
+@33035  = ~~
+@33036  = ~~
+@33037  = ~~
+@33038  = ~~
+@33039  = ~~
+@33040  = ~~
 //
 //

@@ -65,8 +65,8 @@ THEN
 		Continue()
 END
 >>>>>>>> 
-  COPY ~d5/ar0020_.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0020_.baf~
-  LAF cd_extend_bg_area_script STR_VAR area = ~ar0020~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/ar0020_~ END
+  COPY ~d5/ar0020_.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/ar0020_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~ar0020~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/310/ar0020_~ END
 END
 
 END	// end function
@@ -87,8 +87,8 @@ ADD_TRANS_TRIGGER BDCOLDH 26 ~Global("D5SkipSoD","GLOBAL",0)~ DO 3
 
 ADD_TRANS_TRIGGER BDCOLDH 32 ~Global("D5SkipSoD","GLOBAL",0)~ DO 1
 >>>>>>>>
-COPY ~d5/bdcoldh+.d~ ~weidu_external/%MOD_FOLDER%/compile/bdcoldh+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdcoldh+.d~
+COPY ~d5/bdcoldh+.d~ ~weidu_external/%MOD_FOLDER%/compile/310/bdcoldh+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/310/bdcoldh+.d~
 
 // don't even need to do this for brother deepvein! ...I think
 
@@ -207,8 +207,8 @@ THEN
 		Continue()
 END
 >>>>>>>> 
-  COPY ~d5/ar1700a.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar1700a.baf~
-  LAF cd_extend_bg_area_script STR_VAR area = ~ar1700~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/ar1700a~ END
+  COPY ~d5/ar1700a.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/ar1700a.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~ar1700~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/310/ar1700a~ END
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bd1100.are~) BEGIN
@@ -234,8 +234,8 @@ THEN
 		Continue()
 END
 >>>>>>>> 
-  COPY ~d5/bd1100_.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd1100_.baf~
-  LAF cd_extend_bg_area_script STR_VAR area = ~bd1100~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/bd1100_~ END
+  COPY ~d5/bd1100_.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/bd1100_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~bd1100~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/310/bd1100_~ END
 END
 
 
@@ -271,8 +271,8 @@ DEFINE_ACTION_FUNCTION sod_remix_coast_way_forest BEGIN
 <<<<<<<< d5/bdisab+.d
 REPLACE_SAY BDISABEL 50 @31093
 >>>>>>>>
-COPY ~d5/bdisab+.d~ ~weidu_external/%MOD_FOLDER%/compile/bdisab+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/bdisab+.d~
+COPY ~d5/bdisab+.d~ ~weidu_external/%MOD_FOLDER%/compile/310/bdisab+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/310/bdisab+.d~
 
 
 // add map travel entrance from AR1300
@@ -424,8 +424,8 @@ THEN
 		TriggerActivation("ar1700_bd7000",FALSE)
 END
 >>>>>>>> 
-  COPY ~d5/ar1300_.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar1300_.baf~
-  LAF cd_extend_bg_area_script STR_VAR area = ~ar1300~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/ar1300_~ END
+  COPY ~d5/ar1300_.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/ar1300_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~ar1300~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/310/ar1300_~ END
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bd7000.are~) BEGIN
@@ -454,8 +454,8 @@ THEN
 		TriggerActivation("bd7000_ar1300d",FALSE)
 END
 >>>>>>>> 
-  COPY ~d5/bd7000_.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd7000_.baf~
-  LAF cd_extend_bg_area_script STR_VAR area = ~bd7000~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/bd7000_~ END
+  COPY ~d5/bd7000_.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/bd7000_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~bd7000~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/310/bd7000_~ END
 END
 
 
@@ -643,8 +643,8 @@ THEN
 		Continue()
 END
 >>>>>>>> 
-  COPY ~d5/ar1700b.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar1700b.baf~
-  LAF cd_extend_bg_area_script STR_VAR area = ~ar1700~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/ar1700b~ END
+  COPY ~d5/ar1700b.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/ar1700b.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~ar1700~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/310/ar1700b~ END
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bd7200.are~) BEGIN
@@ -675,8 +675,8 @@ THEN
 		TriggerActivation("bd7200_ar1700e",FALSE)
 END
 >>>>>>>> 
-  COPY ~d5/bd7200_.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd7200_.baf~
-  LAF cd_extend_bg_area_script STR_VAR area = ~bd7200~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/bd7200_~ END
+  COPY ~d5/bd7200_.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/bd7200_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~bd7200~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/310/bd7200_~ END
 END
 
 
@@ -694,8 +694,8 @@ THEN
 		DestroySelf()
 END
 >>>>>>>> 
-COPY ~d5/bdkher_.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdkher_.baf~
-EXTEND_BOTTOM ~bdkher.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bdkher_.baf~ END
+COPY ~d5/bdkher_.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/bdkher_.baf~
+EXTEND_BOTTOM ~bdkher.bcs~ ~weidu_external/%MOD_FOLDER%/compile/310/bdkher_.baf~ END
 */
 
 <<<<<<<< d5/bd7230_.baf
@@ -723,8 +723,8 @@ THEN
 		ActionOverride("bdkher2",DestroySelf())
 END
 >>>>>>>> 
-COPY ~d5/bd7230_.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd7230_.baf~
-LAF cd_extend_bg_area_script STR_VAR area = ~bd7230~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/bd7230_~ END
+COPY ~d5/bd7230_.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/bd7230_.baf~
+LAF cd_extend_bg_area_script STR_VAR area = ~bd7230~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/310/bd7230_~ END
 
 
 // fix dialogues
@@ -929,8 +929,8 @@ THEN
 		Continue()
 END
 >>>>>>>> 
-  COPY ~d5/ar1700c.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar1700c.baf~
-  LAF cd_extend_bg_area_script STR_VAR area = ~ar1700~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/ar1700c~ END
+  COPY ~d5/ar1700c.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/ar1700c.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~ar1700~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/310/ar1700c~ END
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bd7400.are~) BEGIN
@@ -963,8 +963,8 @@ THEN
 		TriggerActivation("bd7400_ar1700f",FALSE)
 END
 >>>>>>>> 
-  COPY ~d5/bd7400_.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd7400_.baf~
-  LAF cd_extend_bg_area_script STR_VAR area = ~bd7400~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/bd7400_~ END
+  COPY ~d5/bd7400_.baf~ ~weidu_external/%MOD_FOLDER%/compile/310/bd7400_.baf~
+  LAF cd_extend_bg_area_script STR_VAR area = ~bd7400~ script = EVAL ~weidu_external/%MOD_FOLDER%/compile/310/bd7400_~ END
 END
 
 
@@ -986,13 +986,13 @@ END	//	end function
 //___________________________________________________________________________________
 //
 
+/*
 DEFINE_ACTION_FUNCTION sod_remix_underground_river BEGIN
 
 
 END	//	end function
-
+*/
 
 ////////////////////
 ////////////////////
 ////////////////////
-

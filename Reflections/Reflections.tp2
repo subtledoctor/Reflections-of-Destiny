@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.7~
+VERSION ~0.8.0~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/misc_functions.tpa~
@@ -70,14 +70,14 @@ FORBID_COMPONENT ~imoen_forever.tp2~ ~10~ @4
 FORBID_COMPONENT ~EET_end.tp2~ ~0~ @5
 FORBID_COMPONENT ~EET_end.tp2~ ~1~ @5
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_101.tpa~
-INCLUDE ~%MOD_FOLDER%/comp/comp_102.tpa~
-INCLUDE ~%MOD_FOLDER%/comp/comp_103.tpa~
-INCLUDE ~%MOD_FOLDER%/comp/comp_104.tpa~
-INCLUDE ~%MOD_FOLDER%/comp/comp_105.tpa~
-INCLUDE ~%MOD_FOLDER%/comp/comp_106.tpa~
-INCLUDE ~%MOD_FOLDER%/comp/comp_107.tpa~
-INCLUDE ~%MOD_FOLDER%/comp/comp_108.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_101.tpa~	//	thalantyr
+INCLUDE ~%MOD_FOLDER%/comp/comp_102.tpa~	//	dukes post-dops
+INCLUDE ~%MOD_FOLDER%/comp/comp_103.tpa~	//	korlasz in BG1
+INCLUDE ~%MOD_FOLDER%/comp/comp_104.tpa~	//	dukes post-korlasz
+INCLUDE ~%MOD_FOLDER%/comp/comp_105.tpa~	//	sarevok fight doesn't end campaign
+INCLUDE ~%MOD_FOLDER%/comp/comp_106.tpa~	//	dukes post-sarevok
+INCLUDE ~%MOD_FOLDER%/comp/comp_107.tpa~	//	off-ramp to BG2
+INCLUDE ~%MOD_FOLDER%/comp/comp_108.tpa~	//	quest introducing the crusade
 
 LAF kill_thalantyr END
 LAF delay_maze END
@@ -101,72 +101,57 @@ LAF mirror_shards END
 
 //___________________________________________________________________________________
 //
-/*
-BEGIN @150	//	bp in bg
-DESIGNATED 150
-LABEL ~D5_REFLECTIONS_BP_IN_BG~
-REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
-
-INCLUDE ~%MOD_FOLDER%/comp/comp_150.tpa~
-
-LAF put_bp_in_bg END
-*/
-
-//___________________________________________________________________________________
-//
-/*
 BEGIN @200	//	rewriting history
 DESIGNATED 200
 LABEL ~D5_REFLECTIONS_REWRITE_CAELAR~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_500.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_200.tpa~
 
 LAF rewrite_caelar END
-*/
 
 //___________________________________________________________________________________
 //
-BEGIN @210	//	magical realism
-DESIGNATED 210
+BEGIN @220	//	magical realism
+DESIGNATED 220
 LABEL ~D5_REFLECTIONS_MAGICAL_REALISM~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_210.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_220.tpa~
 
 LAF more_realism_sod END
 
 //___________________________________________________________________________________
 //
-BEGIN @220	//	nothing to fear but feyr yourself
-DESIGNATED 220
+BEGIN @230	//	nothing to fear but feyr itself
+DESIGNATED 230
 LABEL ~D5_REFLECTIONS_FEYR_ITSELF~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_220.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_230.tpa~
 
 LAF feyr_itself END
 
 //___________________________________________________________________________________
 //
-BEGIN @230	//	at the precipice of death
-DESIGNATED 230
+BEGIN @240	//	at the precipice of death
+DESIGNATED 240
 LABEL ~D5_REFLECTIONS_PRECIPICE_OF_DEATH~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_230.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_240.tpa~
 
 LAF the_precipice END
 
 //___________________________________________________________________________________
 //
 /*
-BEGIN @250	//	resource management
-DESIGNATED 250
+BEGIN @260	//	SoD loot reduction
+DESIGNATED 260
 LABEL ~D5_REFLECTIONS_SURPLUS_SCARCITY~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_230.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_260.tpa~
 
 LAF resource_management END
 */
@@ -180,7 +165,7 @@ LABEL ~D5_REFLECTIONS_CLONE_SAGA~
 REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 FORBID_COMPONENT ~c#anotherfinehell.tp2~ ~0~ @7
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_300.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_290.tpa~
 
 LAF clone_saga END
 */
@@ -192,9 +177,9 @@ LAF clone_saga END
 
 //___________________________________________________________________________________
 //
-BEGIN @310	//	bonus content in BG2
+BEGIN @310	//	SoD content in BG2
 DESIGNATED 310
-LABEL ~D5_REFLECTIONS_SOA_BONUS_CONTENT~
+LABEL ~D5_REFLECTIONS_SOD_CONTENT_SOA~
 REQUIRE_PREDICATE (GAME_IS ~eet~) ~ ~
 
 INCLUDE ~%MOD_FOLDER%/comp/comp_310.tpa~
@@ -208,35 +193,26 @@ LAF sod_remix_bloodbark_grove END
 
 //___________________________________________________________________________________
 //
-/*
-BEGIN @320	//	imoen is stone
-DESIGNATED 320
-LABEL ~D5_IMOEN_IS_STONE~
-REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
-
-INCLUDE ~%MOD_FOLDER%/comp/comp_320.tpa~
-
-LAF imoen_is_stone END
-*/
-
-//___________________________________________________________________________________
-//
-/*
 BEGIN @330	//	imoen can die
 DESIGNATED 330
 LABEL ~D5_REFLECTIONS_IMOEN_CAN_DIE~
-REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
+REQUIRE_PREDICATE (GAME_IS ~bg2ee eet~) ~ ~
 // forbid if i4eva installed
 
 INCLUDE ~%MOD_FOLDER%/comp/comp_330.tpa~
 
 LAF imoen_can_die END
-*/
 
 //___________________________________________________________________________________
 //
 
 // 400: Throne of Bhaal plot mod
+
+//___________________________________________________________________________________
+//
+
+// 430: Limit ToB companions to dead people 
+// (the ones at the end of SoA plus Sarevok plus Imoen plus dead ones plus newly-met ones)
 
 //___________________________________________________________________________________
 //

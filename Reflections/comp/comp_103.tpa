@@ -107,8 +107,8 @@ THEN
 		StartCutSceneEx("c#st2bc",TRUE)
 END
 >>>>>>>>
-COPY ~d5/bdrope-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdrope-et.baf~
-EXTEND_TOP ~bdrope.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bdrope-et.baf~ EVALUATE_BUFFER
+COPY ~d5/bdrope-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/103/bdrope-et.baf~
+EXTEND_TOP ~bdrope.bcs~ ~weidu_external/%MOD_FOLDER%/compile/103/bdrope-et.baf~ EVALUATE_BUFFER
 
 /* Add Travel points and Entrance point to Koralsz' Crypt bd0120.are */
 COPY_EXISTING ~bd0120.are~ ~override~
@@ -373,6 +373,7 @@ END
 
 IF
 	GlobalLT("bd_plot","GLOBAL",40)
+	Global("D5GregsonCrypt","GLOBAL",1)
 	OR(2)
 		Dead("BDKORLAS")
 		Global("BD_KORLASZ_SURRENDER","GLOBAL",1)
@@ -402,8 +403,8 @@ THEN
 END
 
 >>>>>>>>
-COPY ~.../bd0120-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd0120-et.baf~
-EXTEND_TOP ~bd0120.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bd0120-et.baf~ EVALUATE_BUFFER
+COPY ~.../bd0120-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/103/bd0120-et.baf~
+EXTEND_TOP ~bd0120.BCS~ ~weidu_external/%MOD_FOLDER%/compile/103/bd0120-et.baf~ EVALUATE_BUFFER
 
 /* Korlasz should no longer be in Korlasz crypt if it's done */
 <<<<<<<< .../bdshkorl-et.baf
@@ -419,8 +420,8 @@ THEN
 		DestroySelf()
 END
 >>>>>>>>
-COPY ~.../bdshkorl-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdshkorl-et.baf~
-EXTEND_TOP ~bdshkorl.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bdshkorl-et.baf~ EVALUATE_BUFFER
+COPY ~.../bdshkorl-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/103/bdshkorl-et.baf~
+EXTEND_TOP ~bdshkorl.BCS~ ~weidu_external/%MOD_FOLDER%/compile/103/bdshkorl-et.baf~ EVALUATE_BUFFER
 
 // Imoen should no longer be in Korlasz crypt if it's done 
 <<<<<<<< .../bdshimoe-et.baf
@@ -436,30 +437,12 @@ THEN
 		DestroySelf()
 END
 >>>>>>>>
-COPY ~.../bdshimoe-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdshimoe-et.baf~
-EXTEND_TOP ~bdshimoe.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bdshimoe-et.baf~ EVALUATE_BUFFER
+COPY ~.../bdshimoe-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/103/bdshimoe-et.baf~
+EXTEND_TOP ~bdshimoe.BCS~ ~weidu_external/%MOD_FOLDER%/compile/103/bdshimoe-et.baf~ EVALUATE_BUFFER
 
 //bdintro.BCS
 COPY_EXISTING ~bdintro.BCS~ ~override~
 	DECOMPILE_AND_PATCH BEGIN
-/*
-		SPRINT textToReplace ~\(CreateCreature("bdshimoe",\[881\.1652\],NE)\)~
-		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
-		PATCH_IF (num_matches > 0) BEGIN
-			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
-			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
-		END ELSE BEGIN
-			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
-		END
-*/
-		SPRINT textToReplace ~\(ActionOverride("IMOEN2?",StartDialogNoSet(Player1))\)~
-		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
-		PATCH_IF (num_matches > 0) BEGIN
-			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
-			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
-		END ELSE BEGIN
-			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
-		END
 		SPRINT textToReplace ~\(SetGlobal("bd_npc_camp_chapter","GLOBAL",0)\)~
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
 		PATCH_IF (num_matches > 0) BEGIN
@@ -504,8 +487,8 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~.../bdintro-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdintro-et.baf~
-EXTEND_TOP ~bdintro.BCS~ ~weidu_external/%MOD_FOLDER%/compile/bdintro-et.baf~ EVALUATE_BUFFER
+COPY ~.../bdintro-et.baf~ ~weidu_external/%MOD_FOLDER%/compile/103/bdintro-et.baf~
+EXTEND_TOP ~bdintro.BCS~ ~weidu_external/%MOD_FOLDER%/compile/103/bdintro-et.baf~ EVALUATE_BUFFER
 
 //cutskip.bcs
 COPY_EXISTING ~cutskip.BCS~ ~override~
@@ -624,14 +607,14 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/area0700.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0700.baf~
+COPY ~d5/area0700.baf~ ~weidu_external/%MOD_FOLDER%/compile/103/%bg1_area_prefix%0700.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0700.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0700.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0700.baf~
+  EXTEND_TOP ~%bg1_area_prefix%0700.bcs~ ~weidu_external/%MOD_FOLDER%/compile/103/%bg1_area_prefix%0700.baf~
 END
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0700.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0700.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/103/%bg1_area_prefix%0700.baf~
 END
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bdshcut0.bcs~) BEGIN
@@ -682,7 +665,7 @@ END
 
 // put Gregson into the crypt as well, in place of Imoen
 
-<<<<<<<< d5/bd120+4.baf
+<<<<<<<< d5/bd120+.baf
 IF
 	GlobalGT("D5GregsonExist","GLOBAL",0 )
 THEN
@@ -746,10 +729,10 @@ THEN
 END
 
 >>>>>>>>
-COPY ~d5/bd120+4.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd120+4.baf~
+COPY ~d5/bd120+.baf~ ~weidu_external/%MOD_FOLDER%/compile/103/bd120+.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bd0120.bcs~) BEGIN
-  EXTEND_TOP ~bd0120.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bd120+4.baf~
+  EXTEND_TOP ~bd0120.bcs~ ~weidu_external/%MOD_FOLDER%/compile/103/bd120+.baf~
 END
 
 <<<<<<<< d5/d5gregs+.d
@@ -811,8 +794,8 @@ END
 
 END
 >>>>>>>> 
-COPY ~d5/d5gregs+.d~ ~weidu_external/%MOD_FOLDER%/compile/d5gregs+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5gregs+.d~
+COPY ~d5/d5gregs+.d~ ~weidu_external/%MOD_FOLDER%/compile/103/d5gregs+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/103/d5gregs+.d~
 
 // change dialogue in intro cut scene
 
@@ -838,6 +821,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bdintro.bcs~) BEGIN
 		END ELSE BEGIN
 			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
+/*
 		SPRINT textToReplace ~\(CreateCreature("bdshimoe"\).+$~
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
 		PATCH_IF (num_matches > 0) BEGIN
@@ -846,6 +830,7 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bdintro.bcs~) BEGIN
 		END ELSE BEGIN
 			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
+*/
 		SPRINT textToReplace ~\(ActionOverride("IMOEN2"\).+$~
 		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
 		PATCH_IF (num_matches > 0) BEGIN
@@ -870,27 +855,65 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~bdintro.bcs~) BEGIN
 		END ELSE BEGIN
 			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
 		END
+		SPRINT textToReplace ~\(EndCutSceneMode()\)~
+		COUNT_REGEXP_INSTANCES ~%textToReplace%~ num_matches
+		PATCH_IF (num_matches > 0) BEGIN
+			REPLACE_TEXTUALLY ~%textToReplace%~ ~~
+			PATCH_PRINT ~Patching: %num_matches% matches found in %SOURCE_FILESPEC% for REPLACE_TEXTUALLY: %textToReplace%~
+		END ELSE BEGIN
+			PATCH_PRINT ~WARNING: could not find %textToReplace% in %SOURCE_FILESPEC%~
+		END
     END
   IF_EXISTS BUT_ONLY
 END
 
-<<<<<<<< d5/bdintro+.baf
+<<<<<<<< d5/bdintro_.baf
 IF
-	AreaCheck("BD0120")
 	Global("D5GregsonExist","GLOBAL",0)
-	Global("D5NoReflection","GLOBAL",0)
+	!InParty("Imoen")
+	InMyArea("Imoen")
 THEN
 	RESPONSE #100
-		CreateCreature("BDSHIMOE",[959.1622],NE)  // Imoen
-		SetGlobal("D5NoReflection","GLOBAL",1)
+		EndCutSceneMode()
+		ActionOverride("IMOEN",StartDialogueNoSet(Player1))
 END
 
+IF
+	Global("D5GregsonExist","GLOBAL",0)
+	InParty("Imoen")
+THEN
+	RESPONSE #100
+		EndCutSceneMode()
+END
+
+IF
+	GlobalGT("D5GregsonExist","GLOBAL",0)
+THEN
+	RESPONSE #100
+		EndCutSceneMode()
+END
 >>>>>>>>
-COPY ~d5/bdintro+.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdintro+.baf~
+COPY ~d5/bdintro_.baf~ ~weidu_external/%MOD_FOLDER%/compile/103/bdintro_.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bdintro.bcs~) BEGIN
-  EXTEND_TOP ~bdintro.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bdintro+.baf~
+  EXTEND_BOTTOM ~bdintro.bcs~ ~weidu_external/%MOD_FOLDER%/compile/103/bdintro_.baf~
 END
+
+// BDshimoe should go away if playing from BG1 
+
+<<<<<<<< d5/bdshimoe+.baf
+IF
+	OR(2)
+		AreaCheck("BD0120")
+		AreaCheck("BD0120")
+	GlobalGT("D5GregsonExist","GLOBAL",0)
+THEN
+	RESPONSE #100
+		DestroySelf()
+END
+>>>>>>>>
+COPY ~d5/bdshimoe+.baf~ ~weidu_external/%MOD_FOLDER%/compile/103/bdshimoe+.baf~
+EXTEND_TOP ~bdshimoe.bcs~ ~weidu_external/%MOD_FOLDER%/compile/103/bdshimoe+.baf~
 
 /* maybe not necessary!
 // delete proximity trigger for cross-chasm Porios dialogue
@@ -927,8 +950,8 @@ REPLACE_SAY BDPORIOS 8 @10315
 
 ADD_STATE_TRIGGER BDPORIOS 12 ~Global("D5GregsonExist","GLOBAL",0)~
 >>>>>>>> 
-COPY ~d5/d5porios+.d~ ~weidu_external/%MOD_FOLDER%/compile/d5porios+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5porios+.d~
+COPY ~d5/d5porios+.d~ ~weidu_external/%MOD_FOLDER%/compile/103/d5porios+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/103/d5porios+.d~
 
 // change bdkorlas.dlg
 // change the text of states 3, 7
@@ -941,8 +964,8 @@ REPLACE_SAY BDKORLAS 7 @10317
 
 ADD_TRANS_TRIGGER BDKORLAS 1 ~Global("D5GregsonExist","GLOBAL",0)~ DO 2
 >>>>>>>> 
-COPY ~d5/d5korlas+.d~ ~weidu_external/%MOD_FOLDER%/compile/d5korlas+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5korlas+.d~
+COPY ~d5/d5korlas+.d~ ~weidu_external/%MOD_FOLDER%/compile/103/d5korlas+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/103/d5korlas+.d~
 
 // create letter identifying the Undercity
 COPY_EXISTING ~scrl2n.itm~ ~override/d5scrlsk.itm~
@@ -1016,14 +1039,14 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/arebd130.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd0130.baf~
+COPY ~d5/arebd130.baf~ ~weidu_external/%MOD_FOLDER%/compile/103/bd0130.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bd0130.bcs~) BEGIN
-  EXTEND_TOP ~bd0130.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bd0130.baf~
+  EXTEND_TOP ~bd0130.bcs~ ~weidu_external/%MOD_FOLDER%/compile/103/bd0130.baf~
 END
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~bd0130.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/bd0130.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/103/bd0130.baf~
 END
 
 
@@ -1037,3 +1060,7 @@ COPY_EXISTING ~BD0130.are~ ~override~
 //
 
 END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////

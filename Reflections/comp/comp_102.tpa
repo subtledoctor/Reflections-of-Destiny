@@ -85,8 +85,8 @@ END
 
 END
 >>>>>>>> 
-COPY ~d5/belt+.d~ ~weidu_external/%MOD_FOLDER%/compile/belt+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/belt+.d~
+COPY ~d5/belt+.d~ ~weidu_external/%MOD_FOLDER%/compile/102/belt+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/102/belt+.d~
 
 <<<<<<<< d5/liia+.d
 REPLACE_STATE_TRIGGER LIIA 8 ~Global("SarevokBehavior","GLOBAL",99)~
@@ -133,8 +133,8 @@ END
 
 END
 >>>>>>>> 
-COPY ~d5/liia+.d~ ~weidu_external/%MOD_FOLDER%/compile/liia+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/liia+.d~
+COPY ~d5/liia+.d~ ~weidu_external/%MOD_FOLDER%/compile/102/liia+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/102/liia+.d~
 
 // reset reputation after the confrontation, if necessary
 
@@ -177,14 +177,14 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0108.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+  EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0108.baf~
 END
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0108.baf~
 END
 
 // mark EET
@@ -200,10 +200,10 @@ ACTION_IF (GAME_IS ~eet~) BEGIN
 		Continue()
  END
  >>>>>>>>
- COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+ COPY ~d5/area0108.baf~ ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0108.baf~
 
  ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0108.bcs~) BEGIN
-    EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0108.baf~
+    EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0108.baf~
  END
 
 END
@@ -227,14 +227,14 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/area0607.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0607.baf~
+COPY ~d5/area0607.baf~ ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0607.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0607.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0607.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0607.baf~
+  EXTEND_TOP ~%bg1_area_prefix%0607.bcs~ ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0607.baf~
 END
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0607.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0607.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0607.baf~
 END
 
 // add dialogue to Gregson
@@ -296,8 +296,8 @@ IF ~~ BEGIN d5gregs_9
   IF ~~ DO ~SetGlobal("D5GregsonCrypt","GLOBAL",1) EscapeAreaNoSee()~ EXIT
 END
 >>>>>>>> 
-COPY ~d5/d5gregs.d~ ~weidu_external/%MOD_FOLDER%/compile/d5gregs.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5gregs.d~
+COPY ~d5/d5gregs.d~ ~weidu_external/%MOD_FOLDER%/compile/102/d5gregs.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/102/d5gregs.d~
 
 // kill bill
 
@@ -311,14 +311,14 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/area0200.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0200.baf~
+COPY ~d5/area0200.baf~ ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0200.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0200.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%0200.bcs~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0200.baf~
+  EXTEND_TOP ~%bg1_area_prefix%0200.bcs~ ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0200.baf~
 END
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%0200.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%0200.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/102/%bg1_area_prefix%0200.baf~
 END
 
 // cleanup stuff from EBG1
@@ -330,3 +330,7 @@ INCLUDE ~%MOD_FOLDER%/lib/sarevok_cleanup.tpa~
 //
 
 END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////

@@ -38,14 +38,14 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/area3202.baf~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
+COPY ~d5/area3202.baf~ ~weidu_external/%MOD_FOLDER%/compile/101/%bg1_area_prefix%3202.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~%bg1_area_prefix%3202.bcs~) BEGIN
-  EXTEND_TOP ~%bg1_area_prefix%3202.BCS~ ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
+  EXTEND_TOP ~%bg1_area_prefix%3202.BCS~ ~weidu_external/%MOD_FOLDER%/compile/101/%bg1_area_prefix%3202.baf~
 END
 
 ACTION_IF !(FILE_EXISTS_IN_GAME ~%bg1_area_prefix%3202.bcs~) BEGIN
-  COMPILE ~weidu_external/%MOD_FOLDER%/compile/%bg1_area_prefix%3202.baf~
+  COMPILE ~weidu_external/%MOD_FOLDER%/compile/101/%bg1_area_prefix%3202.baf~
 END
 
 // add dialogue options to melicamp if Global("D5ThalantyrDead","GLOBAL",1) (melica.dlg)
@@ -87,8 +87,8 @@ END
 
 END
 >>>>>>>> 
-COPY ~d5/melica+.d~ ~weidu_external/%MOD_FOLDER%/compile/melica+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/melica+.d~
+COPY ~d5/melica+.d~ ~weidu_external/%MOD_FOLDER%/compile/101/melica+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/101/melica+.d~
 
 // make sure the bracers don't disappear
 
@@ -104,8 +104,8 @@ END
 
 END
 >>>>>>>>
-COPY ~d5/thalan+.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan+.d~
+COPY ~d5/thalan+.d~ ~weidu_external/%MOD_FOLDER%/compile/101/thalan+.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/101/thalan+.d~
 
 OUTER_SET thalan_22015 = STATE_WHICH_SAYS @10115 FROM ~THALAN~
 
@@ -116,8 +116,8 @@ IF ~~ REPLY ~~ EXTERN ~THALAN~ %thalan_22015%
 
 END
 >>>>>>>>
-COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
-COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
+COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/101/melica#.d~
+COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/101/melica#.d~
 
 END	//	end thecalling not installed
 
@@ -141,8 +141,8 @@ END
 
 END
 >>>>>>>>
-COPY ~d5/thalan_.d~ ~weidu_external/%MOD_FOLDER%/compile/thalan_.d~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/thalan_.d~
+COPY ~d5/thalan_.d~ ~weidu_external/%MOD_FOLDER%/compile/101/thalan_.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/101/thalan_.d~
 
 OUTER_SET thalan_22011 = STATE_WHICH_SAYS @10111 FROM ~THALAN~
 
@@ -161,8 +161,8 @@ END
 <<<<<<<< d5/melica#.d
 ALTER_TRANS MELICA BEGIN %melica_thecalling_1285% END BEGIN 0 END BEGIN "ACTION" ~SetGlobal("CDBracerQuest","GLOBAL",99)~ "EPILOGUE" ~EXTERN THALAN %thalan_22011%~ END
 >>>>>>>>
-COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
-COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/melica#.d~
+COPY ~d5/melica#.d~ ~weidu_external/%MOD_FOLDER%/compile/101/melica#.d~
+COMPILE EVAL ~weidu_external/%MOD_FOLDER%/compile/101/melica#.d~
 
 //
 // also, change state 73's response (160) to point to state 75 instead of 74
@@ -175,3 +175,7 @@ END	//	end thecalling is installed
 //
 
 END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////

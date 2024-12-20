@@ -1,0 +1,31 @@
+
+DEFINE_ACTION_FUNCTION imoen_is_stone BEGIN
+
+/*
+
+Incorporate the Imoen is Stone mod
+
+Petrify Imoen in the Waukeen's Promenade cut scene; de-petrify her soon after
+
+As far as Charname knows, she is in the same state as Branwen was - so chapter 2 time pressure is lessened
+
+*/
+
+//___________________________________________________________________________________
+//
+
+
+
+// 
+
+
+
+//___________________________________________________________________________________
+//
+
+
+END	//	end function
+
+////////////////////
+////////////////////
+////////////////////

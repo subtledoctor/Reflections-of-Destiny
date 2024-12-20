@@ -80,8 +80,8 @@ THEN
 		Attack("D5MICAMB")
 END
 >>>>>>>>
-COPY ~d5/d5irecam.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5irecam.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5irecam.baf~
+COPY ~d5/d5irecam.baf~ ~weidu_external/%MOD_FOLDER%/compile/110/d5irecam.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/110/d5irecam.baf~
 
 <<<<<<<< d5/d5mircam.baf
 IF
@@ -105,8 +105,8 @@ THEN
 		Attack("D5CAMBIO")
 END
 >>>>>>>>
-COPY ~d5/d5mircam.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5mircam.baf~
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/d5mircam.baf~
+COPY ~d5/d5mircam.baf~ ~weidu_external/%MOD_FOLDER%/compile/110/d5mircam.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/110/d5mircam.baf~
 
 COPY_EXISTING ~idemon02.cre~ ~override/d5idem01.cre~
 	WRITE_ASCII 0x248 ~D5MIRCAM~ #8
@@ -138,7 +138,7 @@ END	//	end if idemon02
 
 
 // set variables for later
-<<<<<<<< d5/ar516+1.baf
+<<<<<<<< d5/ar516+.baf
 IF
 	Global("D5PartyHadShard","GLOBAL",0)
 	PartyHasItem("D5SHARD3")
@@ -148,10 +148,10 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/ar516+1.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar516+1.baf~
-EXTEND_TOP ~%bg1_area_prefix%0516.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar516+1.baf~
+COPY ~d5/ar516+.baf~ ~weidu_external/%MOD_FOLDER%/compile/110/ar516+.baf~
+EXTEND_TOP ~%bg1_area_prefix%0516.BCS~ ~weidu_external/%MOD_FOLDER%/compile/110/ar516+.baf~
 
-<<<<<<<< d5/ar500+1.baf
+<<<<<<<< d5/ar500+.baf
 IF
 	Global("D5PartyHadSoultaker","GLOBAL",0)
 	PartyHasItem("DAGG10")
@@ -161,10 +161,10 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/ar500+1.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar500+1.baf~
-EXTEND_TOP ~%bg1_area_prefix%0500.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar500+1.baf~
+COPY ~d5/ar500+.baf~ ~weidu_external/%MOD_FOLDER%/compile/110/ar500+.baf~
+EXTEND_TOP ~%bg1_area_prefix%0500.BCS~ ~weidu_external/%MOD_FOLDER%/compile/110/ar500+.baf~
 
-<<<<<<<< d5/ar1002+1.baf
+<<<<<<<< d5/ar1002+.baf
 IF
 	Global("D5PartyHadSoultaker","GLOBAL",1)
 THEN
@@ -173,11 +173,15 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/ar1002+1.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar1002+1.baf~
-EXTEND_TOP ~%bg1_area_prefix%1002.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar1002+1.baf~
+COPY ~d5/ar1002+.baf~ ~weidu_external/%MOD_FOLDER%/compile/110/ar1002+.baf~
+EXTEND_TOP ~%bg1_area_prefix%1002.BCS~ ~weidu_external/%MOD_FOLDER%/compile/110/ar1002+.baf~
 
 
 //___________________________________________________________________________________
 //
 
 END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////

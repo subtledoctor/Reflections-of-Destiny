@@ -57,8 +57,8 @@ THEN
 		SetInterrupt(TRUE)
 END
 >>>>>>>>
-COPY ~.../c#st2sod.baf~ ~weidu_external/%MOD_FOLDER%/compile/c#st2sod.baf~
-COMPILE EVALUATE_BUFFER ~weidu_external/%MOD_FOLDER%/compile/c#st2sod.baf~
+COPY ~.../c#st2sod.baf~ ~weidu_external/%MOD_FOLDER%/compile/106/c#st2sod.baf~
+COMPILE EVALUATE_BUFFER ~weidu_external/%MOD_FOLDER%/compile/106/c#st2sod.baf~
 
 /* no, just replace it
 // SoD + EET: patch bdsodtrn.bcs so the BG1 Endmovie doesn't show twice 
@@ -100,7 +100,7 @@ COPY_EXISTING ~bdsodtrn.BCS~ ~override~
 BUT_ONLY
 */
 
-<<<<<<<< .../bdsodtrn.baf
+<<<<<<<< d5/bdsodtrn.baf
 IF
 	True()
 THEN
@@ -141,12 +141,12 @@ THEN
 		EndCutSceneMode()
 END
 >>>>>>>>
-COPY ~.../bdsodtrn.baf~ ~weidu_external/%MOD_FOLDER%/compile/bdsodtrn.baf~
-COMPILE EVALUATE_BUFFER ~weidu_external/%MOD_FOLDER%/compile/bdsodtrn.baf~ 
+COPY ~d5/bdsodtrn.baf~ ~weidu_external/%MOD_FOLDER%/compile/106/bdsodtrn.baf~
+COMPILE EVALUATE_BUFFER ~weidu_external/%MOD_FOLDER%/compile/106/bdsodtrn.baf~ 
 
 
 // cutscene for transition to SoD, including handling of Imoen's stuff. 
-<<<<<<<< .../d5st2so2.baf
+<<<<<<<< d5/d5st2so2.baf
 /* move the group to some area so Imoen's stuff can be handled. I'll take the PC's room for now. (There is an Imoen in bd0103 already so we can't do it there.) */
 IF
 	AreaCheck("%NBaldursGate_DucalPalace_L1%")
@@ -239,8 +239,8 @@ THEN
 		SetGlobal("d5st2so2","GLOBAL",2)
 END
 >>>>>>>>
-COPY ~.../d5st2so2.baf~ ~weidu_external/%MOD_FOLDER%/compile/d5st2so2.baf~
-COMPILE EVALUATE_BUFFER ~weidu_external/%MOD_FOLDER%/compile/d5st2so2.baf~ 
+COPY ~d5/d5st2so2.baf~ ~weidu_external/%MOD_FOLDER%/compile/106/d5st2so2.baf~
+COMPILE EVALUATE_BUFFER ~weidu_external/%MOD_FOLDER%/compile/106/d5st2so2.baf~ 
 
 /* this is commented out of EBG1... not sure why
 
@@ -263,7 +263,7 @@ BUT_ONLY
 
 // add entar to the palace
 
-<<<<<<<< d5/ar108+7.baf
+<<<<<<<< d5/ar108+.baf
 IF
 	Dead("Sarevok")
 	!InMyArea("BDENTAR")
@@ -273,8 +273,8 @@ THEN
 		Continue()
 END
 >>>>>>>>
-COPY ~d5/ar108+7.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar108+7.baf~
-EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/ar108+7.baf~
+COPY ~d5/ar108+.baf~ ~weidu_external/%MOD_FOLDER%/compile/106/ar108+.baf~
+EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/106/ar108+.baf~
 
 
 // dialogues in palace
@@ -366,7 +366,8 @@ END
 IF ~~ BEGIN d5beltsd_14
   SAY @10652
   IF ~~ 
-    DO ~SetGlobal("D5DaustonQuest","GLOBAL",1) 
+    DO ~SetGlobal("D5DaustonQuest","GLOBAL",1)
+    	SetGlobal("BD_KICK_DAUSTON","GLOBAL",99)
   		AddJournalEntry(@10601,QUEST_DONE)~
   	EXIT
 END
@@ -384,7 +385,8 @@ END
 IF WEIGHT #-1 ~Global("C#st_HeroCutScene","GLOBAL",1) Global("D5AltEndSoD","GLOBAL",0) Global("D5DaustonQuest","GLOBAL",0) AreaCheck("%%bg1_area_prefix%0108")~ BEGIN d5beltsd_16
   SAY @10652
   IF ~~ 
-    DO ~SetGlobal("D5DaustonQuest","GLOBAL",1) 
+    DO ~SetGlobal("D5DaustonQuest","GLOBAL",1)
+    	SetGlobal("BD_KICK_DAUSTON","GLOBAL",99)
   		AddJournalEntry(@10601,QUEST_DONE)~
   	EXIT
 END
@@ -545,7 +547,7 @@ END
 END
 
 >>>>>>>> 
-COPY ~d5/transit+.d~ ~weidu_external/%MOD_FOLDER%/compile/transit+.d~
+COPY ~d5/transit+.d~ ~weidu_external/%MOD_FOLDER%/compile/106/transit+.d~
 
 
 // cross-compatibility with EBG1
@@ -556,7 +558,7 @@ ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~0~) BEGIN
 
  PRINT ~the state we want is # %belt_ebg1_0%~
 
- APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ ~~~~~
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/106/transit+.d~ ~~~~~
  ADD_STATE_TRIGGER BELT %belt_ebg1_0% ~Global("D5GregsonExist","GLOBAL",0)~
 
 ~~~~~
@@ -577,14 +579,14 @@ ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~2~) BEGIN
 		Continue()
  END
  >>>>>>>>
- COPY ~d5/hero108.baf~ ~weidu_external/%MOD_FOLDER%/compile/hero108.baf~
- EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/hero108.baf~
+ COPY ~d5/hero108.baf~ ~weidu_external/%MOD_FOLDER%/compile/106/hero108.baf~
+ EXTEND_TOP ~%bg1_area_prefix%0108.BCS~ ~weidu_external/%MOD_FOLDER%/compile/106/hero108.baf~
 
  OUTER_SET belt_ebg1_2 = STATE_WHICH_SAYS 2 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
 
  PRINT ~the state we want is # %belt_ebg1_2%~
 
- APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ ~~~~~
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/106/transit+.d~ ~~~~~
  ADD_STATE_TRIGGER BELT %belt_ebg1_2% ~Global("D5GregsonExist","GLOBAL",0)~
   
 ~~~~~
@@ -596,7 +598,7 @@ END	//	end EBG1 #2
 
 ACTION_IF (MOD_IS_INSTALLED ~c#endlessbg1.tp2~ ~4~) BEGIN
 
-<<<<<<<< .../ar0110_remove_Sarevoks_sword.baf
+<<<<<<<< d5/ar0110_remove_Sarevoks_sword.baf
 /* Sarevok's Sword will be stolen after PC returns from Korlasz' Dungeon */
 IF
   GlobalGT("bd_plot","GLOBAL",1)
@@ -609,13 +611,13 @@ THEN
     Continue()
 END
 >>>>>>>>
- COPY ~.../ar0110_remove_Sarevoks_sword.baf~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~
- EXTEND_BOTTOM ~%NBaldursGate_DucalPalace_L3%.bcs~ ~weidu_external/%MOD_FOLDER%/compile/ar0110_remove_Sarevoks_sword.baf~ EVALUATE_BUFFER 
+ COPY ~d5/ar0110_remove_Sarevoks_sword.baf~ ~weidu_external/%MOD_FOLDER%/compile/106/ar0110_remove_Sarevoks_sword.baf~
+ EXTEND_BOTTOM ~%NBaldursGate_DucalPalace_L3%.bcs~ ~weidu_external/%MOD_FOLDER%/compile/106/ar0110_remove_Sarevoks_sword.baf~ EVALUATE_BUFFER 
 
  OUTER_SET belt_ebg1_113 = STATE_WHICH_SAYS 113 IN ~c#endlessbg1/translations/%s/dialogues.tra~ FROM ~BELT~
  PRINT ~and there is also # %belt_ebg1_113%~
 
- APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ ~~~~~
+ APPEND_OUTER ~weidu_external/%MOD_FOLDER%/compile/106/transit+.d~ ~~~~~
  ALTER_TRANS BELT // file name
   BEGIN %belt_ebg1_113% END // state number (can be more than one)
   BEGIN 0 END // transition number (can be more than one)
@@ -626,7 +628,7 @@ END	//	end EBG1 #4
 
 
 // compile the dialogues
-COMPILE ~weidu_external/%MOD_FOLDER%/compile/transit+.d~ EVALUATE_BUFFER
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/106/transit+.d~ EVALUATE_BUFFER
 
 
 // fix some lines
@@ -643,7 +645,7 @@ END
 
 // cleanup stuff...?
 
-<<<<<<<< d5/bd120+7.baf
+<<<<<<<< d5/bd120+.baf
 IF
 	Global("D5KorlaszDone","GLOBAL",1)
 	Dead("Sarevok")  // Sarevok
@@ -663,13 +665,17 @@ THEN
 		ActionOverride(Player1,LeaveAreaLUA("bd0103","",[215.396],SE))
 END
 >>>>>>>>
-COPY ~d5/bd120+7.baf~ ~weidu_external/%MOD_FOLDER%/compile/bd120+7.baf~
+COPY ~d5/bd120+.baf~ ~weidu_external/%MOD_FOLDER%/compile/106/bd120+.baf~
 
 ACTION_IF (FILE_EXISTS_IN_GAME ~bd0120.bcs~) BEGIN
-  EXTEND_TOP ~bd0120.bcs~ ~weidu_external/%MOD_FOLDER%/compile/bd120+7.baf~
+  EXTEND_TOP ~bd0120.bcs~ ~weidu_external/%MOD_FOLDER%/compile/106/bd120+.baf~
 END
 
 //___________________________________________________________________________________
 //
 
 END	//	end define function
+
+////////////////////
+////////////////////
+////////////////////
