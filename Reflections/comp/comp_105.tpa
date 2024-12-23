@@ -22,7 +22,7 @@ DEFINE_ACTION_FUNCTION keep_playing BEGIN
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@10200) @10501
+// ADD_JOURNAL TITLE (@10200) @10501
 
 // stuff from EBG1
 

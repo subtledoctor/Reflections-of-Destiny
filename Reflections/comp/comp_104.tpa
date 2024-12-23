@@ -31,7 +31,7 @@ DEFINE_ACTION_FUNCTION entar_accuse BEGIN
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@10200) @10435 @10415
+// ADD_JOURNAL TITLE (@10200) @10435 @10415
 
 // add a game check to record the last time Imoen is in the party
 

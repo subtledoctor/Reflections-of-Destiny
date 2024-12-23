@@ -4,8 +4,6 @@ DEFINE_ACTION_FUNCTION one_for_the_road BEGIN
 /*  
 TO DO:
 
-***** WRITE JOURNAL ENTRIES
-
 ***** add phantom sarevok
 
 - after killing Sarevok, dukes talk about Caelar
@@ -32,7 +30,7 @@ TO DO:
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@10800) @10801 @10802 @10803 @10805 @10807 @10808 @10809
+// ADD_JOURNAL TITLE (@10800) @10801 @10802 @10803 @10805 @10807 @10808 @10809
 
 // make spells for soul glow
 
@@ -130,7 +128,10 @@ END
 
 IF ~~ BEGIN d5bart3dq_3
   SAY @10813
-  IF ~~ REPLY @10812 DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) AddJournalEntry(@10803,QUEST)~ EXIT
+  IF ~~ REPLY @10812 
+    DO ~SetGlobal("D5DaustonQuest","GLOBAL",4) 
+    	AddJournalEntry(@10803,QUEST)~
+    EXIT
 END
 
 END
@@ -225,7 +226,10 @@ APPEND BART14
 
 IF ~~ BEGIN d5bart14dq_1
   SAY @10816
-  IF ~~ REPLY @10818 DO ~SetGlobal("D5DaustonQuest","GLOBAL",6) AddJournalEntry(@10805,QUEST)~ EXIT
+  IF ~~ REPLY @10818 
+    DO ~SetGlobal("D5DaustonQuest","GLOBAL",6) 
+    	AddJournalEntry(@10805,QUEST)~ 
+    EXIT
 END
 
 END
@@ -352,6 +356,7 @@ IF ~~ BEGIN d5ubmay1_14
   SAY @10843
   IF ~~ REPLY @10818 
     DO ~SetGlobal("D5DaustonQuest","GLOBAL",6)
+    	AddJournalEntry(@10805,QUEST)
     	SetGlobal("D5UBRefugeesMove","GLOBAL",3)
     	SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",4)~ EXIT
 END

@@ -7,9 +7,9 @@
 <link href="style/g3icon.ico" rel="icon" type="image/bmp" />
 </head>
 <body>
-<h1>SubtleMods: Reflections of Destiny, an SoD Remix Mod</h1>
+<h1>A BG Plot Mod with Main Character Energy!</h1>
 <div class="section">
-  <p><strong> Version 0.6 </strong><br />
+  <p><strong> Version 0.8 </strong><br />
   <strong> Languages:</strong> English</p>
   <p><strong>Author: <a href="http://forums.gibberlings3.net/index.php?showuser=6306">The Subtle Doctor</a></strong></p>
   <p><strong><a href="https://github.com/subtledoctor/Reflections">Home page</a></strong></p>
@@ -18,16 +18,15 @@
 </div>
 <h2>Overview</h2>
 <div class="section">
-  <p>This mod is designed to modify, improve, and sometimes move around various parts of the Siege of Dragonspear campaign - and the bits of BG1 just before it and bits of BG2 just after it. The first two components focus on the last chapter of the BG1 campaign, starting with Sarevok's coronation scene. In the base game you get teleported to the final encounter, and that's it - game over. Here, I add more interactions with various end-game NPCs, flesh out more nuanced relationships, and you time to finish up any outstanding quests. The narrative center of gravity for this section of the game becomes Korlasz' dungeon, brought forward from Siege of Dragonspear into BG1, <i>before</i> you fight Sarevok.</p> 
-  <p>Supporting that, mostly for giggles and a teeny-tiny hint of foreshadowing, the first component adds a cool new magic item to both BG1 and BG2, which lets you cast Simulacrum on anyone! Even Sarevok or Belhifet!</p>
-  <p>With those two seeds sown, future components will more directly alter parts of SoD itself. At least, that is the current plan.</p>
+  <p>This mod is designed to improve, modify, and sometimes move around various parts of the Baldur's Gate games in places where the main story is either not fully realized or just not well done. This mod contains a number of components, some of which make very large changes and some of which make very tiny changes, but all geared toward making the story of Gorion's Ward flow better from its origin in Candlekeep to its resolution (?) at the Throne of Bhaal.</p>
+  <p>Right now the mod contains two rather large components with major effects on the plots of BG1 and SoD; plus several very small components affecting BG1, SoD, and BG2. Given enough time and inspiration, I may add large component addressing issues with the BG2 and ToB plots as well. We shall see.</p>
+  <p>You will get the most out of this mod if you play with the EET mod putting all of the BG1, SoD, and BG2 campaigns into one game. That allows some of the components here to work, since some of them move content around among the different campaigns.</p>
 </div>
 <h2>Installation</h2>
 <div class="section">
   <p><strong>Windows:</strong><br />
     The mod archive should be extracted into your game folder from the archive (or just unzipped and then copied there). If properly extracted, you should have a "Reflections" folder and "setup-Reflections.exe" in your game folder. To install, simply double-click "setup-Reflections.exe" and follow the instructions on screen.</p>
-  <p>Run setup-might_and_guile.exe in your game folder to reinstall, uninstall or otherwise change components.</p>
-  <p><strong>Mac OS X:</strong><br />
+  <p><strong>MacOS:</strong><br />
     This mod is packaged and installed with WeiDU. To install, simply extract the contents of the mod into your game folder. If properly extracted, you should have a folder called "Reflections." I highly recommend using the "Mac Weidu Launcher" utility, made by me (!), which opens a menu of all mods in your game folder and lets you choose which one to install.</p>
 </div>
 <h2>Compatibility</h2>
@@ -35,49 +34,94 @@
   <p>This mod is meant to be installed on BGEE games with the Siege of Dragonspear expansion, or on BG2EE games with EET installed. You will have the best experience in EET.</p>
   <p>Reflections aims to be compatible with other popular mods. There are, however, a few compatibility issues of note:
   <ul>
-  	<li><b>EndlessBG1:</b> This mod addresses Imoen's presence in Baldur's Gate at the end of BG1 to explain her presence at the beginning of SoD/BG2, so you should not install EndlessBG1's component "Imoen and Duke Jannath."</li>
-  	<li><b>EndlessBG1:</b> This mod moves Korlasz' Dungeon from SoD into the BG1 campaign, <i>before</i> you fight Sarevok; EndlessBG1's "Korlasz' Dungeon in BG1" moves the dungeon into BG1 but <i>after</i> you fight Sarevok. These contradictory components may interfere with each other, and in this mod having the dungeon before the Sarevok fight is a plot point. So you should not install that component of EndlessBG1.</li>
-  	<li><b>EndlessBG1:</b> This mod had dialogue revolving around the fact that the Grand Dukes did not have access to the Undercity Temple of Bhaal and do not fully trust your account of it. So while you can install the EndlessBG1 "Flaming Fist after the Final Fight" component, it will contradict some of the dialogue you read.</li>
-  	<li><b>Transitions:</b> This mod has not been tested with Transitions, and is almost certainly incompatible in many ways. Do not install them together.</li>
+  	<li><b>EndlessBG1:</b> Component #100 of Reflections of Destiny addresses Imoen's presence in Baldur's Gate at the end of BG1 to explain her presence at the beginning of SoD/BG2, so you should not install EndlessBG1's component "Imoen and Duke Jannath."</li>
+  	<li><b>EndlessBG1:</b> "Korlasz' Dungeon in BG1" moves the dungeon into BG1 but keeps it in its normal place <i>after</i> you fight Sarevok. Component #100 of Reflections of Destiny moves Korlasz' Dungeon from SoD into the BG1 campaign, <i>before</i> you fight Sarevok. These components are both technically and conceptually incompatible.</li>
+  	<li><b>EndlessBG1:</b> "Flaming Fist after the Final Fight" component put Flaming Fist soldiers at the scene of your fight with Sarevok. Component #100 of Reflections of Destiny has dialogue about the fact that the Grand Dukes did not have access to the Undercity Temple of Bhaal and do not fully trust your account of the final fight. There is no technical incompatibility here, but this is a small conceptual incompatibility.</li>
+  	<li><b>Transitions:</b> Reflections of Destiny has not been tested with Transitions, and Component #100 is almost certainly incompatible with Transitions both technically and conceptually. Do not install them together.</li>
+  	<li><b>SoD Road to Discovery:</b> tracks various plot points from the unmodded SoD campaign, and is therefore almost certainly conceptually incompatible with Component #200 of Reflections of Destiny (which changes various details about Caelar Argent and her use of and relationship with the Bhaalspawn).</li>
+  	<li><b>Another Fine Hell:</b> #2 "Get the Hells Out" has specific ideas and dialogue abotu how the portal to Avernus is closed, which contradict Component #200 of Reflections of Destiny. There is no technical incompatibility here, but this is a fairly notable conceptual incompatibility.</li>
   </ul>
   <p><strong>Load Order:</strong><br />
     This mod should be installed fairly early. It should definitely be installed <b>after</b> EET, EndlessBG1, and The Calling. And it should be installed <b>before</b> EET_end.</p>
 </div>
 <h2>Contents</h2>
 <div class="section">
-  <h4 class="subheader">Component 50: </h4>
-  <div class="section">
-    <p><strong><em>BG2 Bonus Content!</em></strong></p>
-    <p>This component makes several SoD areas accessible in BG2, as long as you did not play SoD up to that point. So if you play and utilize component 200's option to skip the SoD campaign... or you use another mod to skip the SoD campaign... or you import a character from the end of BG1 into the BG2 campaign... or you simply start a new BG2 campaign - as long as your character has not been through SoD, then you will be able to play through these areas in chapter 2 of BG2. </p>
-      <p>Note, however, that this component will only install on games that have EET installed - your character must not have played SoD, however it is still necessary to have the SoD areas available in the game for the mod to send you there!</p>
-      <p>This is designed as a kind of easter egg, so I do not want to spoil where the SoD areas are on the BG2 map. Most should be fairly obvious when you pass through the Athkatla City Gates; one, however, is in a different place - search west of De'Arnise's Hold.</p>
-  </div>
   <h4 class="subheader">Component 100: </h4>
+  <div class="section">
+    <p><strong><em>The Future is Now</em></strong></p>
+      <p>The original Baldur's Gate game has a great story and does not suffer from the pacing problems of its sequel(s). That said, chapter 7 of the BG1 campaign is extremely abbreviated. After sneaking back into the city, you make your way to the Ducal Palace and interrupt Sarevok's coronation as a Grand Duke... and then you are teleported to the maze that takes you to the end-game fight, after which the game fades to black.</p>
+      <p>This component gives a LOT more breathing room after you stop Sarvok's coronation. You are successful mid-level adventurers at this point, and the mod sets you up as agents of the rulers of the city. First you get a very simple quest to track down information about where Sarevok retreated to - which takes you out into the streets of the city, where if you need to, you can handle any other business you have outstanding.</p>
+     <p> Then it moves the 'Korlasz' Crypt' dungeon forward from the Siege of Dragonspear campaign to this chapter, setting it up as a stop between you and your final confrontation with Sarevok. After handling this dungeon you will report back to the Dukes, but you can handle any outstanding quests or business in between.</p>
+     <p> Next you are tasked with finding (<b>finding!</b>) Sarevok and after that you can again take some time and handle other business on your way to report back once again to the Dukes.  </p>
+      <p>After Sarevok is handled, you will have a choice: help the Dukes begin to address the threat of the Shining Lady's Crusade to the north, or refuse to do so and, effectively, skip to the BG2 campaign. There is a small 'quest' added to handle the transition to BG2, using some assets from SoD. It is meant to make your capture by Irenicus and escape from his lair feel like it is still occurring in the BG1 campaign. It should add immediacy to the transition to BG2, rather than feeling like you stopped playing one game and started playing another one. (Assuming, of course, that you are playing EET.)</p>
+      <p>If you continue working for the Dukes, you will be sent on another quest to Beregost and other locations outside Baldur's Gate - during which time, again, you may also complete other quests and tasks. (This is a theme here, in case you didn't notice.) This will introduce some hints of what is to come later in the SoD campaign, and notably, it explains how Caelar Argent knows you are a Bhaalspawn. Finally, after this quest is complete, you will again have the choice to continue on into SoD, or skip it and instead continue to BG2.</p>
+      <p>Along the way, this component also handles Imoen's situation: you can take her with you through all these quests, or you can have left her behind way back at the walls of Candlekeep... either way, she will get where she needs to be for her part in what follows in SoD and/or BG2.</p>
+      <p>Through all this added content and time, there are many more dialogues which flesh out what is happening in the city, how you are perceived, and your relationship to the city's rulers. You will have an explicit choice to disclose your heritage to them, or to keep it concealed. This choice does not have any mechanical consequences (yet!) but provides a better sense of agency and more in-depth player interactions in a part of the game that, in its initial release, is shockingly sparse.</p>
+  </div>
+  <h4 class="subheader">Component 110: </h4>
   <div class="section">
     <p><strong><em>The Mirror Shard</em></strong></p>
     <p>This small component adds a new magic item in Durlag's Tower and in Irenicus' Dungeon in the BG2 campaign. This item is quite powerful: it allows you to cast Simulacrum on anyone - <i>anyone</i> - and create a friendly, 60%-strength clone of them for 10 rounds. The item can only be used a few times, however, so use it wisely!</p>
+    <p>In addition to just being a fun artifact, this is meant to provide a possible explanation for how Irenicus pulls off disgracing and kidnapping you if you choose the 'Skip SoD' option of component 100. (However, both components are independent, neither relis on the other in a technical sense.)</p>
   </div>
   <h4 class="subheader">Component 200: </h4>
   <div class="section">
-    <p><strong><em>Back to the Future</em></strong></p>
-      <p>This component is much more involved. First, it adds a plot to the end of the BG1 campaign that implicitly involves the Mirror Shard from component 100 and Melicamp's Netherese bracers. Installing component 100 is not required, but if you do you might have an inkling that other entities are making use of the Mirror Shard. You will get a bit more satisfaction out of this plot if you also install "The Calling" quest mod and the "Brandock" NPC mod.</p>
-      <p>Next, you are given a lot more breathing room in the last chapter of BG1. Instead of teleporting you to the Undercity Maze after you interrupt Sarevok's coronation, now the Grand Dukes will ask you to investigate where he may have gone. While you search for Sarevok, you can finish up other quests. This should work well with the excellent Black Hearts mod, which also gives you things to do in the last chapter of BG1.</p>
-      <p>Next, this mod brings Korlasz' Crypt forward from the Siege of Dragonspear campaign into the BG1 campaign. Instead of being a "Sarevok clean-up quest" as Beamdog set it up, this great dungeon now becomes an integral part of your search for Sarevok.</p>
-      <p>Next, once you find Sarevok and fight him, the BG1 campaign will no longer abruptly end. Instead you will report your success to the Grand Dukes - and they may not be as happy about your actions as you might think! This is where the game will finally move on to the Siege of Dragonspear campaign.</p>
-      <p>However, this also presents you with an option to <b>skip</b> Siege of Dragonspear, and stay in Baldur's Gate when the Coalition army marches north to meet Caelar Argent. This choice will proceed to the resolution of the Mirror Shard plot (again, only implicitly) and send you to the beginning of the Shadows of Amn campaign. The goal here is to make your capture by Irenicus and escape from his lair feel like it is still occurring in the BG1 campaign. It should add immediacy to the transition to BG2.</p>
-      <p>Through all this, there are many more dialogues in the end of BG1 which flesh out what is happening in the city, how you are perceived, and your relationship to the city's rulers. You will have an explicit choice to disclose your heritage to them, or to keep it concealed. This doesn't have any mechanical consequences (yet!) but provides a better sense of agency and more in-depth player interactions in a part of the game that, in its initial release, is shockingly sparse.</p>
+    <p><strong><em>Rewriting History</em></strong></p>
+    <p>This component modifies a large number of dialogues and cut scenes in SoD to change Caelar Argent's backstory and motivations. Caelar is Lawful Good, and Knight of the Order of the Aster, and in this telling her Crusade is a crusade against chaos - <b>specifically,</b> the chaos that will "follow in [the] wake" of the Bhaalspawn, as prophesied by Alaundo. Caelar is freaked out that a Bhaalspawn rose to the top leadership position in a city as large and influential as Baldur's Gate and almost started a major war. And there are scores of other Bhaalspawn out there. Caelar determines that the only way to prevent the foretold chaos is by raising an army and conquering the entire region, thereafter ruling it with a Lawful Good iron fist.</p>
+    <p>Caelar has a secret weapon in her campaign to avert fate: she is no normal mortal, but the descendent of a solar - basically, a god who dispenses with the need for worshippers. Caelar is therefore an aasimar, but, like an aasimar on steroids. Her solar ancestor was also a crusader against chaos. Caelar has been undergoing daily magical rituals with her trusted advisor, using the connection of her blood to connect the interplanar conduit in Dragonspear Castle to the location of her solar ancestor. Then, she plans to open it and recruit a celestial army to join her own crusade, and wipe away all opposition on the Sword Coast...</p>
+    <p>This component makes several changes that are observable in-game:<br />
+    <ul>
+  	  <li>Crusaders are not chaotic. So e.g. the dialogue of Takos the halfing inn owner, which described crusaders as Chaotic Neutral, is changed to describe them as Lawful Stupid.</li>
+      <li>Caelar is not seeking her uncle Aun, or the dead of the Dragonspear wars. Aun Argent is completely scrubbed from the game.</li>
+      <li>Caelar does not need Charname to open the portal under Dragonspear Castle. Undoing the portal's powerful seals is a slow process, but it can be done with her blood alone.</li>
+      <li>The mechanism for both opening and re-closing the portal is changed. The Coalition forces know damn well there is a portal to hell inside Caelar's fortress, and they have come prepared to deal with it if it should open - but, they need physical access to the portal to close it.</li>
+      <li>Therefore, Caelar does not need Charname alive and has no interest in negotiating for your safe surrender.</li>
+      <li>The Big Bad Evil Guy has slightly more nuanced goals than simply "open a gate and invade," and is seen to be a bit more of a long-term planner and more effective at tempting mortals to evil (he is an archdevil after all).</li>
+      <li>A tiny bit more involvement by Skie Silvershield, and hopefully a tiny bit better explanation for the suspicion about the end of her plot.</li>
+    </ul>
+    <p>Other than that, the game plays out very much like normal: Caelar is leading an incredibly dangerous force, with a goal that is inimical to the region's power structures, and she is based at the site of an incredibly dangerous interplanar construct. At various places the Coalition must beat back the crusaders, and then attack Dragonspear Castle itself. The end-game required more adjustment, mostly just adapting to the absence of Aun Argent and the fact that the portal has to be closed from the Prime Material side. Actual gameplay changes are minimal - a single minor battle is removed from the game (Belben) in order to make that section a bit more atmospheric. The biggest change is that the Parley scene between Caelar, Ashatiel, Hephernaan, Nederlok, Stonehand, and DeLancie at Deam Man's Pass is removed entirely. There is just no way to make that scene make sense.</p>
   </div>
-  <h4 class="subheader">Component 300: </h4>
+  <h4 class="subheader">Component 220: </h4>
   <div class="section">
-    <p><strong><em>The Clone Saga</em></strong></p>
-    <p>This component uses the Mirror Shard/clone plot that is the basis of the 'Skip SoD' option in component 200, and adds it to the <b>end</b> of SoD. The entire end-of-SoD plot involving the murder of Skie Silvershield and the trial of Charname is <b>removed</b>, and replaced with this version. Skie's death happens off-screen, not in a dream sequence; and there is no trial. Instead the events unfold more quickly and you find yourself outside Baldur's Gate under a cloud of suspicion, which goes unresolved. This should be a bit closer to how Charname's leaving Baldur's Gate was described in BG2.</p>
-    <p><strong>Note:</strong> this component should not be installed along with Another Fine Hell component 0. It can cause serious technical problems, and there is no reason to install both since the end of SoD can only play out according to one mod or the other. Choose one.</p>
+    <p><strong><em>Magical Realism</em></strong></p>
+    <p>This much smaller component makes several changes across SoD that should improved verisimilitude and convenience. As of now there are four changes:</p>
+    <p><b>1.</b> Charname is a somewhat famous figure, known to Caelar Argent and her top lieutenants, so the crusaders are more wary about you. You cannot expect to walk around Crusader encampments and fortified positions and just not be recognized. If you want to infiltrate Crusader areas (something the game asks you to do, like, a LOT), then you will need to keep Charname invisible or otherwise hidden. The rest of your party is not as well known and they can walk around asking questions.</p>
+    <p><b>2.</b> If you played through BG1 and never took on Skie Silvershield as a companion, or if you start a new SoD game directly, it is quite weird that Skie would approach you in the palace in the initial scenes of SoD, even sneaking into your bedroom and waking you up. This component removes those two interactions in the Ducal Palace. It leaves everything else related to Skie just as it already is: you can run into her at the Coast Way Forest, she is tagging along with the Coalition army trying to prove her worth, etc. She has a good storyline; this only changes that very first, very unnecessary, encounter with her.</p>
+    <p><b>3.</b> During the sequential battles in the Coalition Camp, Dosia the priest of Ilmater has the ability to rejuvenate your party as if you has had a full night's rest. But later, in Dragonspear Castle, after a major battle and when you are about to enter the final, extremely dangerous set of areas, she no longer offers that option. This component fixes that: you can get a free rest from Dosia in Dragonspear Castle before heading into the portal room with Bence.</p>
+    <p><b>4.</b> The troop numbers that Torsin DeLancie and General Stonehand discuss are a bit ridiculous. We are besieging a magical castle with only 350 soldiers? The dialogues is changed and the troop numbers roughly quadrupled. That's it, it's purely for flavor.</p>
   </div>
-  <h4 class="subheader">Component 400: </h4>
+  <h4 class="subheader">Component 230: </h4>
   <div class="section">
     <p><strong><em>Nothing to Fear but Feyr Itself</em></strong></p>
-    <p>This very small component changes the encounter with Elandro at Bridgefort. It is meant to hint at the possibility that Elandro is... <i>special</i>, in a familiar way. But, like the Mirror Shard component above, the mod will give you no more than hints.</p>
+    <p>This very small component changes the encounter with Elandro at Bridgefort. It is meant to hint at the possibility that Elandro is... <i>special</i>, in a familiar way. But, nothing is made explicit, you just get a hint.</p>
     <p>This component could make the Elandro encounter a bit more dangerous, depending on how you play things. So beware! Also it should give you a bit of a reward at the end, which you may find useful. This reward, again, is meant to hint at things to come. And is hopefully fun for players!</p>
+  </div>
+  <h4 class="subheader">Component 240: </h4>
+  <div class="section">
+    <p><strong><em>At the Precipice of Death</em></strong></p>
+    <p>This small component attempts to add a noticeable acknowledgement that SoD send the child of the god of murder into Kanaglym, where there is an open portal to the Fugue Plane. That should count for something, right?</p>
+    <p>While in the Kanaglym map, Charname will get a passive, automatic Control Undead ability that you can use to help in your assault on Kherriun. But note, the undead will only recognize and obey you for so long - they get a saving throw to overcome your control every two rounds, and the save gets easier each time. Each one can probably be controlled for about one turn... probably...</p>
+  </div>
+  <h4 class="subheader">Component 320: </h4>
+  <div class="section">
+    <p><strong><em>Imoen Can Die, by Jastey</em></strong></p>
+    <p>One longstanding issue with BG2 is that you run into Imoen at a time when the story really pushes you to take her into your party, but you might already have six people in your party. Or, given how many NPCs there are in the game (and how many mage/thieves, specifically) you just might not want to take Imoen to the end-game this run. It is understandable! But in the base game, the only way to do this is to leave Imoen alone in the depths of Spellhold - which is not only a dangerous dungeon, but is a magical dungeon that does not have stairs leading out! If she doesn't get out with you, she basically can't escape! (I know she can actually make her way to the Copper Coronet, but in the moment that does not seem possible and the whole thing is incredibly awkward.)</p>
+    <p>This component adds a dialogue branch with Imoen that has her die, right there. This absolves you of any implied responsibility to take her along in your party, <b>and</b> adds emotional weight to your drive to pursue Irenicus.</p>
+    <p>The dialogue branch is completely optional, so you can install this component and then continuously play the game the way it was originally designed. It just gives you the possibility of having things play out a different way.
+  </div>
+  <h4 class="subheader">Component 330: </h4>
+  <div class="section">
+    <p><strong><em>Wherever You Go, There You Are</em></strong></p>
+    <p>This component makes several SoD areas accessible in BG2, </b>as long as you did not play SoD up to that point.</b> This is fundamentally meant to complement component 100's option to skip the SoD campaign - if you do, some of the SoD areas and dungeons will appear in BG2 as independent encounters. So you will still get the benefit of those very well-designed areas and battles. 
+    While I designed this to support my own option in this mod, it should work just as well with other methods of skipping SoD as well - like, if you don't install component 100 and instead use another mod to skip the SoD campaign... or if you import a character from the end of BG1 into the BG2 campaign... or even if you just start a new BG2 campaign directly. As long as your character has not been through SoD, then you will be able to play through these areas in chapter 2 of BG2.</p>
+    <p>Note, however, that this component will only install on games that have EET installed - even though your character must not have <b>played</b> SoD, it is still necessary to have the SoD areas available in the game for the mod to send you there!</p>
+    <p>There are currently four areas added this way:<br />
+    &ndash; The Coast Way Forest<br />
+    &ndash; The Deepvein Dig Site<br />
+    &ndash; Bloodbark Grove<br />
+    &ndash; The Forest of Wyrms</p>
+    <p>This is designed as a kind of easter egg, so I do not want to spoil where the SoD areas are on the BG2 map. Most should be fairly obvious when you pass through the Athkatla City Gates; one, however, is in a different place - search west of De'Arnise's Hold.</p>
+    <p><b>NOTE:</b> with this component installed, you can also play through SoD, and then these areas will <i>not</i> be accessible in BG2, and everything will play out completely normally. And of course even if you have these accessible, there is no need to interact with them. Like the 'Imoen Can Die' component, this does not necessarily change anything, it just gives you the option to have things changed.</p>
   </div>
 </div>
 <h2>Contact Information</h2>

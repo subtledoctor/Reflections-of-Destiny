@@ -41,7 +41,7 @@ TO DO:
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@10200) @10601 @10650
+// ADD_JOURNAL TITLE (@10200) @10601 @10650
 
 <<<<<<<< .../c#st2sod.baf
 IF
@@ -368,7 +368,8 @@ IF ~~ BEGIN d5beltsd_14
   IF ~~ 
     DO ~SetGlobal("D5DaustonQuest","GLOBAL",1)
     	SetGlobal("BD_KICK_DAUSTON","GLOBAL",99)
-  		AddJournalEntry(@10601,QUEST_DONE)~
+  		AddJournalEntry(@10601,QUEST_DONE)
+  		AddJournalEntry(@10801,QUEST)~
   	EXIT
 END
 
@@ -387,7 +388,8 @@ IF WEIGHT #-1 ~Global("C#st_HeroCutScene","GLOBAL",1) Global("D5AltEndSoD","GLOB
   IF ~~ 
     DO ~SetGlobal("D5DaustonQuest","GLOBAL",1)
     	SetGlobal("BD_KICK_DAUSTON","GLOBAL",99)
-  		AddJournalEntry(@10601,QUEST_DONE)~
+  		AddJournalEntry(@10601,QUEST_DONE)
+  		AddJournalEntry(@10801,QUEST)~
   	EXIT
 END
 

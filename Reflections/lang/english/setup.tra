@@ -16,9 +16,9 @@
 @260  = ~Reflections of Destiny SoD: Surplus Scarcity~
 @290  = ~Reflections of Destiny SoD: The Clone Saga (ALPHA)~
 @300  = ~Reflections of Destiny BG2: something something fixing BG2 plot holes~
-@310  = ~Reflections of Destiny BG2: Wherever You Go There You Are~
-@320  = ~Reflections of Destiny BG2: Imoen Is Stone, by Jastey~
-@330  = ~Reflections of Destiny BG2: Imoen Can Die, by Jastey~
+@310  = ~Reflections of Destiny BG2: Imoen Is Stone, by Jastey~
+@320  = ~Reflections of Destiny BG2: Imoen Can Die, by Jastey~
+@330  = ~Reflections of Destiny BG2: Wherever You Go There You Are~
 @400  = ~Reflections of Destiny TOB: something something fixing ToB~
 //
 // *****
@@ -421,20 +421,28 @@ Refugees driven from their homes by the servants of Caelar Argent are heading to
 // use this for the extra quest after killing sarevok but before the big choice
 @10800  = ~Investigating the Crusade~
 @10801  = ~Investigating the Crusade
-yadda reports of the crusade making their way south~
+
+The dukes told me that Baldur's Gate faces a new potential threat: a warlord is raising an army to the north of the city, styling it as a 'crusade' of some sort. The leader is said to be a knight, Caelar Argent. I have been asked to track down Sir Dauston, who is related to her, to learn what we can of her background and motives. Sir Dauston was last known to be a frequent patron of the taverns in Beregost.~
 @10802  = ~~
 @10803  = ~Investigating the Crusade
-yadda dauston lives by the sea, and likes his liquor~
+
+It seems that Sir Dauston has not been seen in Beregost for some time. He apparently moved on to a seaside community. I should check any villages to the west, near the coast.~
 @10804  = ~~
 @10805  = ~Investigating the Crusade
-yadda search by the boats for someone sleeping~
+
+I have been informed that Sir Dauston is here in Ulgoth's Beard, but is not presently in the tavern. He is likely to be resting in a shaded spot near the beach, by the boats.~
 @10806  = ~~
 @10807  = ~Investigating the Crusade
-yadda found dauston, what he had to say is troubling~
+
+I spoke to Sir Dauston, after we were attacked by fighters from Caelar Argent's crusade who intended to abduct him. I convinced him to go to Baldur's Gate where the dukes can protect him. 
+
+What he had to say about Caelar Argent was troubling. It seems both he and she are aasimar, descended from a solar - one of the most powerful celestial beings. He said his background made him headstrong and overly self-righteous. His current state is the result of using drink to dull the urges of his blood. He suspects Caelar might be driven by similar urges.~
 @10808  = ~Investigating the Crusade
-yadda going to march north and face Caelar directly~
+
+The dukes have asked me to join the Coalition forces traveling north to confront Caelar Argent. Her actions and influence seem to be dangerous, and the Coalition can use the assistance of someone outside the normal chain of command.~
 @10809  = ~Investigating the Crusade
-yadda staying in the south~
+
+I will not be joining the Coalition army that goes north to confront Caelar Argent. I have business here in the south, like finding out what creature seems to have taken my visage when attacking Entar Silvershield.~
 @10810  = ~Sir Dauston, yes, I recall the chap. Nice fellow. As for where he is now, I cannot tell you. He has not been in here for a few weeks at least. Ask around the other taverns, someone might know.~
 @10811  = ~Yes, I recall good Sir Dauston. "The Knight of Cups," people called him. Liked his drink something fierce, but he was a good fellow. Never violent without cause, and always paid his bill. I heard he took the road north, not sure where to.~
 @10812  = ~Thank you.~
@@ -525,10 +533,306 @@ This shard is a piece of an immensely powerful Mirror of Opposition, now broken.
 ~
 //
 //
-@20001 = ~~
+@20000 = ~~
+@20001 = ~The Siege of Dragonspear~
+@20002 = ~The Siege of Dragonspear
+
+Caelar Argent turned evil!!! But she is dead now. I must take the Dragonspear vault key back to Faerun so that the Coalition can close the portal.~
+@20003 = ~The Siege of Dragonspear
+
+Caelar Argent resisted temptation and fought against Belhifet~
+@20004 = ~The Siege of Dragonspear
+
+Caelar Argent is staying on the planes. She gave me the vault key. I must get it back to Faerun at once, so that the Coalition can close the portal.~
+@20005 = ~~
+@20006 = ~~
+@20007 = ~~
+@20008 = ~~
+@20009 = ~~
+@20010 = ~~
+@20011 = ~My goals? Why, only to turn the tide of fate. A time of prophecy is upon us. This land is soon to be riven with chaos and strife. But I can prevent it.~
+@20012 = ~You know my name! You know where I come from. The Argents are a noble family, blessed long ago with an angel as our ancestor. The drive for justice flows in my veins! But, justice requires order.~
+@20013 = ~We live in dangerous times. Prophecy tells us that chaos is about to engulf the Sword Coast! The leaders of Waterdeep, Neverwinter, Baldur's Gate and Amn do not care! They care only for the flow of silver and gold into their coffers.~
+@20014 = ~Corruption has set in to these regimes - and corruption breeds chaos, and chaos brings death! In Baldur's Gate, a child of the dead Lord of Murder, Bhaal himself, was elevated to Grand Duke! He very nearly brought war to the entire region. The rulers of Baldur's Gate let that happen!~
+@20015 = ~Now more of Bhaal's Children are seeking power and death. We cannot let them succeed! Together, we can change the course of history! We can bring order to the land and make it inhospitable for the agents of murder and chaos!~
+@20016 = ~Follow me, and we will make this a land of justice and peace, where those who venerate death will have no place to hide! Follow me in this crusade, and we will fight the future itself!~
+@20017 = ~~
+@20018 = ~~
+@20019 = ~~
+@20020 = ~I'll tell you my story if it means you'll go away. We used to get some... unsavory types here. Everyone was always pretty well-behaved - this is where they get their grog, see? But then this pack of clinking crusaders passed through, and just couldn't leave well enough alone. Acted like they were the law, started a fight - and next thing I know, the whole place is ablaze!~
+@20021 = ~And so comes the hero of Baldur's Gate. Such as <PRO_HESHE> is. Many call you hero, but I know what you really are. There are few enough godspawn in Faerun - most are born of Bhaal. Am I right?~
+@20022 = ~Yes, you are. What of it? I am my own person.~
+@20023 = ~What I am is none of your business. What matters is that I am in the employ of the Grand Dukes.~
+@20024 = ~They call you hero but I have looked into your background.~
+@20025 = ~The first reports involve stirring up fights in bars and murdering rivals in the streets. You restored an iron mine for Amn, and destroyed the last functioning mine available to Baldur's Gate - in the process, desecrating an ancient dwarven gravesite. This bankrupted the local chapter of the Iron Throne... just as directors of other trading costers were being assassinated. You weakened the city, even as the drums of war grew louder.~
+@20026 = ~Okay that... is actually a pretty fair description of what happened. But that was Sarevok's doing! I put a stop to his schemes.~
+@20027 = ~~
+@20028 = ~~
+@20029 = ~You are kin to Sarevok. He who almost brought ruin to Baldur's Gate and Amn. I know what you are because unlike many, I have studied Alaundo's prophecy. Sarevok was but one of many Children of Bhaal! Their fate is set; their actions lead to chaos and death whether they mean it or not.~
+@20030 = ~Oh, I assure you, Sarevok knew exactly what he was doing, and it was not just about chaos and death. You have no idea what I really stopped.~
+@20031 = ~Some, perhaps. Maybe even most. But there are plenty of agents of evil out there. Zhents, Red Wizards, Dragon Cultists, Cyricists... what matters is our choice to oppose such people. I have proven myself - you cannot judge me based solely on blood.~
+@20032 = ~~
+@20033 = ~Judgment is immaterial. Sarevok's death is the spark that will ignite a new era of chaos on the Sword Coast. Alaundo did not hand down suppositions or predictions; he gave us prophecy! He saw fate! Hero you may be, but your approach is doomed regardless of intentions.~
+@20034 = ~You are reacting. "Adventuring." But you cannot avert what is to come by playing hero. Do you think fate can be changed so easily? No, it is beyond you. Your blood makes you the subject of prophecy - whereas I will be its master! I will BEND history to my will!~
+@20035 = ~You may know what I am, Caelar, but I know what you are. A zealot driven by the whisperings of your own blood. At least I don't give in to mine.~
+@20036 = ~What makes you think you can do this, where others cannot? This sounds like delusion to me.~
+@20037 = ~~
+@20038 = ~I have the power of the heavens within me. My line was blessed long ago by a Solar - an avenging angel ceaselessly fighting for good. I can bring to bear enough force to change the world. That is the only hope.~
+@20039 = ~What force will you bring to bear? Why are you, of all people, based at Dragonspear with its ill history?~
+@20040 = ~~
+@20041 = ~I will do what I must to subdue chaos. I will do what others cannot, or will not. The Grand Dukes let Sarevok take control of Baldur's Gate, however briefly. And now they send YOU as their champion. They have demonstrated their inability to contain the danger we face.~
+@20042 = ~Peace can only prevail if the Sword Coast is under my righteous authority. Go tell the Grand Dukes to submit to me. This transition can be bloodless. From Baldur's Gate, I will be able to marshal enough strength to bring the entire region under my control. Your Bhaal-kin will have no air to breathe, no chance to flourish. Countless lives will be saved.~
+@20043 = ~You see things in absolutes only. Nobody's path is set in stone.~
+@20044 = ~What, everything thing will be fine if we just crown you queen? Sorry, I've heard this one before.~
+@20045 = ~~
+@20046 = ~Only I see things as they really are! Consider, clerics of gods both good an evil are in both armies. The gods do not know the righteous path any more than most mortals. That is the effect of chaos! The only way through this time is with clarity, and a strong arm. Only I have both.~
+@20047 = ~Sarevok wanted war, and we narrowly averted it. And now, you have brought it upon us anyway! Even after his death, you are giving him what he wanted all along!~
+@20048 = ~~
+@20049 = ~~
+@20050 = ~This crossing is destroyed. My forces are already on the way to take Bridgefort and Boareskyr Bridge. If you truly value peace, stand down your troops and surrender yourself to me there. If not, I will march to Baldur's Gate and root out you and your kin by whatever means necessary. Order WILL prevail. It is the only way.~
+@20061 = ~More letters of condolence, my lady? Surely they can wait. It is time for your treatments.~
+@20062 = ~I will not argue this again, Hephernaan. The condolences are as important as anything else.~
+@20063 = ~Of course. But we have made much progress. Your celestial blood is positively singing out to its origin.~
+@20064 = ~Yes, I can feel it. I am stronger every day. And... you have been able to use it to contact my ancestor?~
+@20065 = ~Oh yes. The link is quite strong. Soon you will as well, and we will forge the alliance that can wipe away your opposition.~
+@20066 = ~Yes... yes. Then we will implement my peace across the land.~
+@20067 = ~~
+@20068 = ~~
+@20069 = ~~
+@20070 = ~~
+@20071 = ~The report about Boareskyr Bridge is troubling. I hoped this Bhaal-child was truly a hero, but the uncontrolled manifestation reinforces all my fears.~
+@20072 = ~The report about Boareskyr Bridge is troubling. I hoped this Bhaal-child was truly a hero, but the uncontrolled manifestation reinforces all my fears.~
+@20073 = ~I am not sure. Sometimes, apparently, blood such as ours calls out to its origin.~
+@20074 =~Caelar... do you really think Zariel will answer you? This is a dangerous gambit. But, if she joins us...~ 
+@20075 = ~It will shake both the heavens and the earth. Like us she is a crusader against chaos. She must join us. She will answer her kin!~
+@20076 = ~And the godspawn? <PRO_HESHE> must answer for what happened to my brother.~
+@20077 = ~You will do what you must. <PRO_HESHE> had a chance to be reasonable; now we are beyond that point. Hero or not, <PRO_HESHE> must be put down like the rest.~
+@20078 = ~~
+@20079 = ~~
+@20080 = ~~
+@20081 = ~...work proceeds, master. Each time we perform the ritual, we disentangle one of the threads in the knot that makes up the planar barrier. Its design is quite complex. If we move too fast, the feedback could kill Caelar. The perils of working with mortals, I am afraid. They are quite fragile.~
+@20082 = ~Perhaps if we had the Bhaal Child's blood as well...~
+@20083 = ~He escaped my agents, master. We are not sure how. Someone must have known of our approach and intercepted him. I suspect a plot by the Exile...~
+@20084 = ~I do not need help from that snake! I will take care of the Bhaalspawn myself!~
+@20085 = ~Of course, master.~
+@20086 = ~Hello, <CHARNAME>. I am afraid you have ventured too far. I thought our little supply station might attract you. Impossible for an army to utilize, but irresistible for an adventurer.~
+@20087 = ~I heard you. I know what you are planning. You are just using Caelar!~
+@20088 = ~Well, I'm here now, and soon you won't be!~
+@20089 = ~Yes, yes. And now you will take that knowledge to the next life. There is an army of crusaders above you and below you. You won't escape.~
+@20090 = ~We will see about that. Now I will end you. The horde of crusaders above and below you will ensure it.~
+@20091 = ~Come now, and feel true power! This is your end!~
+@20092 = ~No - the godspawn is useless for this. Bhaal is a memory, dead and mouldering in the Astral backwash. <CHARNAME>'s blood calls to nothing but the prophecy. You should have obtained the other Argent!~
+@20093 = ~You see plots everywhere. Never mind the Exile. He is a child chasing shadows. No such shadows will remain to sustain him once my fires burn across the land.~
+@20094 = ~Continue the work. Open the door. Subdue the godspawn, but be careful. They are a chaos agent. I am going to send Illaruel to secure the door once it is open.~
+@20095 = ~Youngling, you have much to learn about fighting chaos. If you think to handle the godspawn, then do so now! Turn around and face your task, and do not fail me!~
+@20096 = ~~
+@20097 = ~~
+@20098 = ~~
+@20099 = ~What! Who dares??~
+@20100 = ~~
+@20101 = ~He plays the pious, kindhearted priest, but he's trying to open a gate to the Nine Hells, the snake. I first saw Hephernaan when he came down here with that aasimar, what's her name—Caelar. You know what an aasimar is? Celestial-blooded, you could say. They need particular blood to open the gate, but Caelar's isn't strong enough to do it quickly. He has had to perform rituals with her every day to slowly pry the portal open.~
+@20102 = ~Hephernaan has bee frustrated. I saw him use that altar there to speak with some dark creature - possibly he is afraid of failing his master. I was trying to listen in, but he spotted me and bound me right quick. I've been trapped ever since.~
+@20103 = ~~
+@20104 = ~~
+@20105 = ~~
+@20106 = ~~
+@20107 = ~~
+@20108 = ~~
+@20109 = ~~
+@20110 = ~They are at the gates, Hephernaan. We must perform the summoning now! You said Zariel would answer my call!~
+@20111 = ~Goodbye Caelar, I go to meet my master. Feel free to follow me, if you can.~
+@20112 = ~Good job so far! But I am concerned - Caelar's lieutenants have been leading the fight out here, but she herself has been nowhere to be found. It is unlike her to lead from the rear.~
+@20113 = ~We need to get into the castle.~
+@20114 = ~I agree. Where is Phosse? Someone bring her here!~
+@20115 = ~I’m sorry, I was not entirely clear about the nature of the bridge we have built. We are the ones being summoned - to Avernus. Don’t worry though, we will not stay long. I will shortly reconvene with my true master, and then return to Faerun with every bit the army you hoped for.~
+@20116 = ~Foolish child. The godspawn are nothing. Candles, sputtering in a breeze. My liege is a hurricane! What do we care for Bhaal? We were ancient when Bhaal was a mewling babe, mortal as you. Bhaal seized power briefly, and inspired a few followers to murder. As if they would not have done so anyway! And now he is gone, soon to be forgotten. Pathetic!~
+@20117 = ~You want order? We will give you order. The children of Bhaal will be brought to heel, or exterminated. The chaos in their wake will be stamped out. Your entire world will be enslaved, made to serve our campaign against the old enemies, the TRUE chaos.~
+@20118 = ~It was meant to be, surely. Why else would this door be so conveniently placed here?~
+@20119 = ~They are not my concern. You would do well to convince them to join our cause, lest they be the first ones ground under our feet!~
+@20120 = ~Worms. They would serve better a reanimated shock troops - shame that our little gambit in Kanaglym was interrupted.~
+@20121 = ~Goodbye Caelar, I go to meet my master. Feel free to follow me, if you can.~
+@20122 = ~But, the Bhaal crisis -~
+@20123 = ~How could you? You betray all of the good men and women fighting and dying out there!~
+@20124 = ~~
+@20125 = ~I sense powerful alteration magic, tinged with evil. And... conjuration magic, as well? Gods - Corporal, I think the portal is behind this door!~
+@20126 = ~Well then, pray it has not been opened. What do you say, <CHARNAME>? Are you ready for this? Make sure you are equipped with every tool available. What awaits us may be worse than anything we have ever faced.~
+@20127 = ~~
+@20128 = ~~
+@20129 = ~~
+@20130 = ~Hephernaan... I will have your head! Crusaders, with me!~
+@20131 = ~Hold this room open!~
+@20132 = ~No! Stay out! I must see this through!~
+@20133 = ~Crusaders, with me! We must pursue Hephernaan!~
+@20134 = ~Not so fast! Where do you think you're going?~
+@20135 = ~Hephernaan... I will not let him get away with this!~
+@20136 = ~Caelar? What happened here?~
+@20137 = ~Don't you see?? She opened the portal to the Nine Hells! This must have been her plan all along!~
+@20138 = ~We feared this eventuality but we are prepared for it. Stay here and at all costs, hold this vault open! We must bring Torsin to the portal, he has the means to close it again!~
+@20139 = ~~
+@20140 = ~~
+@20141 = ~<CHARNAME>! Thank the gods you're here! I thought I should follow those crusaders to stop their plan but... they're already dying! The monsters here are really scary!~
+@20142 = ~There are cats that are invisible! I tried to stay hidden too, but I think some of the fiends could see me! A couple chased me. Other ones looked right at me... but didn't chase me? Why would they do that?~
+@20143 = ~I'm so scared! This place isn't natural! I think... I think I'm actually out of my depth.~
+@20144 = ~Okay Skie, calm down. This is bad, but the way to survive is to keep cool. Can you do that?~
+@20145 = ~Oh do you think that? Really? Skie, you've been out of your depth for weeks, it's about time you finally realized it.~
+@20146 = ~Okay. Yes. I think I can do that. I- I want to stay alive. Do you have a plan? What should we do?~
+@20147 = ~I need to follow Caelar. She has the vault key and we need to open the vault to let the Coalition close the portal. But someone needs to keep an eye on the portal. Can you do that for me? Stay hidden if you can. I'll be back and then we'll go home together.~
+@20148 = ~~
+@20149 = ~Hey! Didn't I just say that? Can you please just... help? Just tell me what to do, okay? Please?~
+@20150 = ~Well, I'm following Caelar. I assume she went to that big tower over there? I suggest you stay as close to the portal as you can, and try to avoid the fiends who will kill you and steal your soul. If you'r lucky, I'll be back soon and we'll close the portal from the other side.~
+@20151 = ~~
+@20152 = ~Okay. Yeah. I think I can do that. I'll scout this side of the portal! I'm good at scouting. Just, come back soon, okay?~
+@20153 = ~~
+@20154 = ~~
+@20155 = ~~
+@20156 = ~It has all gone wrong! Caelar has pushed forward, she thinks she can find... redemption, or power, chasing after Hephernaan. We have always been loyal to her, but look around us! How did it come to this? We never expected she would charge into darkness alone and unaided...~
+@20157 = ~I do no think anyone expected this day to turn out as it has.~
+@20158 = ~We should not be set against each other any longer. Please, help us stop Hephernaan and save Caelar. If that portal remains open, none of use will survive!~
+@20159 = ~~
+@20160 = ~You promised a celestial alliance, but now we are in Hell, surrounded by evil and naught but madness in your eyes!~
+@20161 = ~I'll not kill an innocent man. I've not fallen so far as that. But I must keep going. I must know whether there is any hope of finding my ancestor.~
+@20162 = ~Caelar, give me the vault key and come back with me! Hephernaan has lied to you, there is nothing for us here!~
+@20163 = ~What is this obsession of yours? What are you really after?~
+@20164 = ~I don't care about your family drama. I only care about getting the key to the vault. If I need to go through you to get it, so be it.~
+@20165 = ~Long ago, one of my forefathers was blessed by a union with Zariel, one of the most righteous and powerful solars in all the heavens. Since then by family has benefited from that union - we have tended to be strong, vigorous, charismatic. Natural leaders. The Order of the Aster to celebrate our good fortune and spread the blessings of Lathander to others.~
+@20166 = ~The very heavens are in our blood, you see? It does not diminish over generations. It is carried by mortals, but the power itself is beyond mortality. When I told you I could bend the path of fate, I was not being boastful! It is this blessing that makes me uniquely able to save the Sword Coast.~
+@20167 = ~But my ancestor, Zariel... she was lost, long ago. Some sages speculate she was imprisoned, others say fallen. Or maybe traveling the planes in some hidden guise. Wherever she is... inside me is a link to her! Hephernaan told me that certain rituals would penetrate the planar boundaries between us. If imprisoned, I could free her! If fallen, I could redeem her! With every application of his spells, I felt closer to her! The link was real, I tell you!~
+@20168 = ~But... when his work was completed the only path that was opened led here. To Avernus. Where the Dragonspear portal always led! The conduit should have moved! I need to understand why it did not!~
+@20169 = ~It doesn't matter!~
+@20170 = ~Caelar, I will not dissuade you from your mission. But do not put the Sword Coast at risk! Give me the vault key, let us close the portal, and... you can continue on your own path, wherever it leads.~
+@20171 = ~~
+@20172 = ~The Sword Coast may be lost to your chaos. Whatever your intent, you and Hephernaan's betrayal have defeated my plan. But I must go onward! I will pursue Hephernaan and wring the truth from him!~
+@20173 = ~The priority must be to close the portal!~
+@20174 = ~Just give me the key, damn it, I don't care what you do after that!~
+@20175 = ~~
+@20176 = ~If Zariel is here I must find her! The portal must remain open to allow for our return!~
+@20177 = ~You... you are right. My determination must not put any more innocents at risk. Very well, I will give you the vault key. Return to Dragonspear and close the portal! Do not wait for me. I will find my fate here on the planes.~
+@20178 = ~~
+@20179 = ~~
+@20180 = ~~
+@20181 = ~I know who you are, fiend! I have seen your likeness. You are Belhifet! What did you put Hephernaan up to? Where is Zariel?~
+@20182 = ~I am so glad you made it here, aasimar. Zariel is not here. But I may yet grant your desire, after a fashion.~
+@20183 = ~Now, without those bothersome gnats, let us speak.~
+@20184 = ~~
+@20185 = ~~
+@20186 = ~~
+@20187 = ~~
+@20188 = ~~
+@20189 = ~~
+@20190 = ~~
+@20191 = ~~
+@20192 = ~~
+@20193 = ~~
+@20194 = ~~
+@20195 = ~~
+@20196 = ~~
+@20197 = ~~
+@20198 = ~~
+@20199 = ~~
+@20200 = ~~
+@20201 = ~Caelar, enough! Did you really expect to find a solar here?~
+@20202 = ~He really is a treacherous weasel. Then again, he is a devil and his name is Thrix the Profane.~
+@20203 = ~The Profane One is the last thing you should be concerned about, fiend.~
+@20204 = ~I will deal with him in time. But first, let me welcome Caelar Argent. I am pleased that you made it this far. Your combination of arrogance and desperation is... delectable. Marred only by the stench of your celestial blood. But, we can fix that.~
+@20205 = ~Indeed, arrogance and desperation. Quite a delectable combination. Marred only by the stench of your celestial blood. But, we can fix that.~
+@20206 = ~Zariel is not here, child. You will not speak with her. In fact I have taken care to shield our doings from her perception, temporarily. Oh, what cruelty perspective can inflict upon us! Your heritage, stemming from a momentary tryst centuries ago - it is the most important thing in your tiny life. But Zariel? She is as a god. You are less than a speck of dust to her.~
+@20207 = ~On the other hand, some of us can appreciate details lost to such lofty perspective. This little godspawn, for instance, is quite interesting. Now that I see you with my own eyes, I see you are more than the runt of some fecund avatar. You have been... enhanced.~
+@20208 = ~With the right... modifications... you could be quite the weapon against the hated enemies. We could capture and utilize the souls of the generals of chaos, instead of merely discoporating their bodies. Oh, what interesting things occur when up-jumped gods frolic in the Prime!~
+@20209 = ~Hephernaan did what was necessary to open the door to your realm and bring you to me. No more, no less. It was a necessary deception, which we can now dispense with. That said, little Argent, what if I told you your goal is still within reach?~
+@20210 = ~Never mind that, Belhifet. Caelar, we need to g-~
+@20211 = ~~
+@20212 = ~~
+@20213 = ~~
+@20214 = ~~
+@20215 = ~You want to prevent the chaos represented by Bhaal's offspring? You want order? In truth, I want these things too. The forces of Law - MY forces of Law - can stamp out chaos in your Sword Coast. Serve as my lieutenant, and together we will bring order to your realm.~
+@20216 = ~The Bhaalspawn will be found and sent to the Blood War. I cannot enter the Prime - not yet - so I will name you regent of our dominion there. Sure you will be able to moderate my legions' excesses, should you desire. Consider it: everything you have strived for, all this time - will be achieved! It will be the greatest success of any in the Argent line! It might even make you truly worthy of Zariel's notice. You might be surprised at what attracts her notice these days...~
+@20217 = ~Nevertheless, your world is exposed. I will claim it, with or without you. This is not the deal you hoped to make, but it is the deal that is available to you. Success is still within your grasp! What is your alternative? Return in shame, and spend the rest of your days in chains? Rebel with this Bhaal child? I know your blood - failure and rebellion are not in your nature.~
+@20218 = ~The righteousness of Law drives you. And though we express it in different ways, it drives me as well. That flaming sword you wield, so like the one Zariel once bore... swear it to my service, and my army will be at your back when you return to the mortal realm. You will be a true crusader, just like your forebear...~
+@20219 = ~~
+@20220 = ~~
+@20221 = ~Caelar, no! He is evil, and still manipulating you! Maybe your crusade was a mistake, maybe Zariel can never be saved. But YOU can be redeemed! This moment, right now, is what defines heroes! Stand with me against Belhifet, and together we will close the portal and safeguard the residents of the Sword Coast!~
+@20222 = ~Caelar, law and order are not worth your soul. I know it must be difficult four you, but this is the time to rebel! Trust me when I tell you: you are not bound by your lineage. I am my own person and I do not let my father's influence control me!~
+@20223 = ~This is a disaster! Your crusade only led to this: a chance for the fiends of Avernus to overrun the Sword Coast. Whatever you feared from Bhaal's children is nothing compared to the evil you have unleashed today. Every death, every bit of devastation that arises from this - it is laid at your feet!~
+@20224 = ~Fool! You have been so deluded by the ravings of your blood that you could not use common sense! Now you have snared the entire region in a devil's trap! Your folly must end, for good, here and now!~
+@20225 = ~Bah! I should have known things would go awry when one of Bhaal's whelps became involved. "Chaos shall follow in their wake..." Alaundo spoke true. She was on the cusp of giving herself over to me, willingly! An Argent, in the service of Belhifet - do you know how long I have worked for this prize? If only to see the look on Zariel's face!~
+@20226 = ~Well. You have ruined my little game, and there can only be one consequence for that. Your souls will be my playthings for eternity. The argent will be raised as a death knight, but you, little godling, for you there is only oblivion. Come now, meet your doom!~
+@20227 = ~YES! I will grant you the power you need! Swear yourself to my service, and it shall be yours!~
+@20228 = ~What? Caelar, this is not the answer!~
+@20229 = ~~
+@20230 = ~Ha ha ha! Very well, the loss of one agent is worth having Zariel's spawn as my blackguard. Hephernaan, you have served me tolerably well. In the eons hence you may rise back through the ranks, and I will respect you all the more for it.~
+@20231 = ~I am here for Hephernaan! He will tell me where I need to go next. I am not surprised to find him cowering between the legs of a true devil.~
+@20232 = ~Enough, Belhifet! We are not interested in your Blood War! Hephernaan's treatments - the link was real! I FELT it!~
+@20233 = ~Quiet!~
+@20234 = ~What are you talking about, fiend?~
+@20235 = ~I- no- this is not what I wanted. I did not come all this way to lend aid to devils, to expose my world to the cruelty of the Nine Hells!~
+@20236 = ~I don't know what Alaundo's prophecy truly portends, but if you and I can stand firm here against Belhifet, there will be heroes to overcome any crisis sown by Bhaal. We may be mortals, but we lack for neither courage nor power. Are you with me?~
+@20237 = ~~
+@20238 = ~~
+@20239 = ~~
+@20240 = ~You... you are wrong. You must be wrong. You and your ilk are the cause of all of this! All I have endeavored to do was give people justice. You raised an army against me, pushed back time and again, amassed power of the god or murder to use against ME?~
+@20241 = ~I see clearly now: I am a crusader against chaos! That is all I have ever been! The Order of the Aster was founded for it - but has lacked the power to achieve its goals. No longer! with Belhifet behind me, the last remains of Bhaal will finally be extinguished. Then peace - MY peace - will reign!~
+@20242 = ~This has always been the answer. I see that now. I swear myself to you, Belhifet, on one condition: that you destroy Hephernaan for his treachery against me.~
+@20243 = ~~
+@20244 = ~Your arrogance is truly impressive, Caelar. I am pleased that you have made it this far.~
+@20245 = ~Whaaat?? No!~
+@20246 = ~~
+@20247 = ~~
+@20248 = ~~
+@20249 = ~~
+@20250 = ~~
+@20251 = ~Belhifet is gone. In his own place of power, our combined might overcame him. He will be reborn, no doubt, but it will be eons before can rise to a station high enough to bother mortals.~
+@20252 = ~I owe you a debt of gratitude. Not only for fighting by my side - but I almost gave in. I was on the cusp of betraying everything I ever held dear. And it seemed so right! He made it seem like betraying my soul for him was the only way to be true to myself.~
+@20253 = ~That you could believe in me still, could see past our opposition - it gave me the strength to resist his entreaties. Heavens know what evil might have been wrought if I agreed.~
+@20254 = ~So you don't mean to marshal this power for yourself? We were allies a moment ago, but if you still mean to conquer the Sword Coast, I will oppose you.~
+@20255 = ~The words of one who knows she is defeated. I hope you don't think to seize Belhifet's power and march fiends through the gate.~
+@20256 = ~~
+@20257 = ~No. My crusade is finished. But we should not tarry here. The portal remains open, the fiends of Avernus could find it and spill through. It will not happen quickly without Belhifet and Hephernaan to lead them; we should take advantage of this window of opportunity to close the conduit.~
+@20258 = ~Here: take the key to the Dragonspear Vault. I know the forces of Waterdeep have the means to close the portal again.~
+@20259 = ~~
+@20260 = ~~
+@20261 = ~Here we must part ways. I am not going back.~
+@20262 = ~You have been so driven, for so long. Would you really give up your crusade?~
+@20263 = ~~
+@20264 = ~Not really. I still think I had the right of it. The prophecy of Bhaal's children - of you - is incredibly dangerous for the Sword Coast. Many will suffer. You think you can avert that suffering, but you are not equipped to do so.~
+@20265 = ~But, if I succeeded? If I subdued the region and stamped out Bhaal's children, maybe with the help of fiendish power? Maybe it would be worse. There is no way to know - there is no prophecy detailing that future. So, I will let it go. You, on the other hand, are still bound to your fate. I almost feel sorry for you...~
+@20266 = ~Would you really prefer to brave the Hells than return to Dragonspear and face justice?~
+@20267 = ~I cannot allow you to stay here. You thanked me but you owe justice to many more back at Dragonspear Castle.~
+@20268 = ~You think I am going to just let you go? You are coming with me - if I have to drag your corpse with me and raise you to stand trial, so be it!~
+@20269 = ~We were effective fighting together against Belhifet, but you are a fool if you think you can take me against my will!~
+@20270 = ~With respect: what will you do? Chase me? I will simply lead you away, and you would have to leave the portal unguarded against invasion. Your whole world will be lost.~
+@20271 = ~It is your world too! Would you really risk that?~
+@20272 = ~~
+@20273 = ~Faerun is no longer my home. Maybe it never was. You have friends there, comrades, family. You are regarded as a hero. Go there. Close the portal. Be the hero. But I... I must still heed the calling of my blood. You claimed it can be ignored, but I have doubts.~
+@20274 = ~I will guard the portal from this side, while it is open. And then I will find Zariel. Hephernaan's rituals were a way of controlling me - truly fiendish magic - but they exploited a real connection It called me here for a reason. I must find out the truth.~
+@20275 = ~Very well, I guess. Good luck.~
+@20276 = ~After all this, you haven't changed. Good luck finding your way out of this literal hellhole.~
+@20277 = ~I met your cousin once. Dauston? He was like you - sort of. He said the calling of your blood is not real. Just an echo of the past.~
+@20278 = ~Maybe that is so. I do not know. But out here, everything is an echo of the past, a reflection of some story or other. Maybe this is where I belong. Certainly many have become Planewalkers for worse reasons than echoes of the past singing in their blood!~
+@20279 = ~Listen: the other children of Bhaal are awakening, just as you have. Scores of them. No matter your actions, most of them will give in to their dark urges. You averted Sarevok's war but I say again: you cannot avert the war to come. You are not like me - not a crusader.~
+@20280 = ~Bhaal's war will come, but maybe if there are enough heroes, its worst effects can be mitigated. Maybe that is the best we can hope for. Good fortune to you, in any event.~
+@20281 = ~Enter the portal! Go back to Faerun, and let the Waterdeep forces into the vault. They can close the conduit.~
+@20282 = ~~
+@20283 = ~~
+@20284 = ~Can we go home now? Please??~
+@20285 = ~If you have the vault key, we should go at once. We must ensure no more fiends get through.~
+@20286 = ~~
+@20287 = ~~
+@20288 = ~~
+@20289 = ~~
+@20290 = ~~
+@20291 = ~Uses Rod of Disjunction~
+@20292 = ~Now if you'll excuse me, I need to check on Skie. She seems extremely disturbed. Between you and me I will credit her for being brave - brave to the point of foolhardiness. But she was not made for excusions to the Hells.~
+@20293 = ~Caelar Argent is dead. Her advisor, Hephernaan, was secretly working for an archfiend. They have been defeated, but we must close the portal.~
+@20294 = ~The Crusade was secretly inspired and manipulated by an archfiend. They have been defeated. Now we must close the portal to Avernus.~
+@20295 = ~That will bind the portal shut temporarily. We will task a team of magic users to re-weave the seals that Caelar undid, in order to seal the portal permanently. In time, we must devise a way to dislodge the conduit behind the portal from its connection to Toril. But that is a task for another day. For now, we are safe.~
+@20296 = ~~
+@20297 = ~~
+@20298 = ~~
+@20299 = ~~
+@20300 = ~I need to get upstairs, away from this thing! I- I can't talk right now.~
 //
 //
-@22011 = ~You mean your two hundred fighters? Why, my eight hundred fighters, of course.~
+@22011 = ~You mean your two hundred soldiers? Why, my eight hundred soldiers, of course.~
 //
 //
 @23001 = ~Forgive us if we are disturbing you, my <PRO_LADYLORD>. My young colleague seems to be having some difficulty dealing with the stress of the situation. I am not sure how much he has been sleeping. Of course the situation does seem dire. But surely things are not as bad as he fears? Right? I confess, I begin to doubt myself...~ // thirri

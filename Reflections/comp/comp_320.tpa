@@ -1,23 +1,102 @@
 
-DEFINE_ACTION_FUNCTION imoen_is_stone BEGIN
+DEFINE_ACTION_FUNCTION imoen_can_die BEGIN
 
 /*
 
-Incorporate the Imoen is Stone mod
+Incorporate the Imoen Can Die mod
 
-Petrify Imoen in the Waukeen's Promenade cut scene; de-petrify her soon after
+Add a dialogue option with Imoen in the Spellhold Dungeon
 
-As far as Charname knows, she is in the same state as Branwen was - so chapter 2 time pressure is lessened
+One option has the ritual being too much for her, and she perishes
+
+This way you can take other party members instead, and not feel bad about it!
 
 */
 
 //___________________________________________________________________________________
 //
 
+ACTION_IF GAME_IS ~bgt~ THEN BEGIN
+    OUTER_SPRINT ~ENDOFBG1_2~ ~Global("ENDOFBG1","GLOBAL",2)~
+END
+
+ACTION_IF GAME_IS ~eet bg2ee~ THEN BEGIN
+    OUTER_SPRINT ~ENDOFBG1_2~ ~True()~
+END
+
+ACTION_IF (GAME_IS ~tob~ AND NOT GAME_IS ~bgt~) THEN BEGIN
+    OUTER_SPRINT ~ENDOFBG1_2~ ~True()~
+END
+
+// scripted death
+
+<<<<<<<< d5/c#icd001.baf
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneID(Player1)
+		MoveViewObject("IMOEN2",INSTANT)
+ActionOverride("IMOEN2",ApplySpell("IMOEN2",WIZARD_FINGER_OF_DEATH_IGNORE_RESISTANCE))
+		Wait(1)  
+		CreateVisualEffectObject("SPSTRENH","IMOEN2")
+		ActionOverride("IMOEN2",DestroySelf())
+		Wait(2)  
+		EndCutSceneMode()
+		ActionOverride(Player1,StartDialog("player1",Player1))
+END
+>>>>>>>>
+COPY ~d5/c#icd001.baf~ ~weidu_external/%MOD_FOLDER%/compile/330/c#icd001.baf~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/330/c#icd001.baf~
 
 
-// 
+// new dialogue and reactions in Spellhold
 
+<<<<<<<< d5/imoen_maze.d
+APPEND IMOEN2
+
+IF WEIGHT #-1
+~%ENDOFBG1_2%~ THEN imoen_can_die
+SAY @33001
+++ @33002 + 1 //Imoen's original first line
+++ @33003 + imoen_dies_01
+END
+
+IF ~~ THEN imoen_dies_01
+SAY @33004
+IF ~~ THEN DO ~SetGlobal("C#ICD_ImoenIsDead","GLOBAL",1)
+	ClearAllActions()
+	StartCutSceneMode()
+	StartCutScene("c#icd001")~ EXIT
+END
+
+END // end append 
+
+CHAIN
+IF WEIGHT #-1
+~Global("C#ICD_ImoenIsDead","GLOBAL",1)~ THEN Player1 imoen_dies_02
+~(You can do nothing but watch, as Imoen's body disintegrates into nothing.)~
+== BAERIE IF ~InParty("aerie") InMyArea("aerie") !StateCheck("aerie",CD_STATE_NOTVALID)~ THEN @33011
+== BJAHEIR IF ~InParty("JAHEIRA") InMyArea("JAHEIRA") !StateCheck("JAHEIRA",CD_STATE_NOTVALID)~ THEN @33012
+== BMINSC IF ~InParty("MINSC") InMyArea("MINSC") !StateCheck("MINSC",CD_STATE_NOTVALID) HasItem("MISC84","MINSC")~ THEN @33013
+== BMINSC IF ~InParty("MINSC") InMyArea("MINSC") !StateCheck("MINSC",CD_STATE_NOTVALID) !HasItem("MISC84","MINSC")~ THEN @33014
+== BKORGAN IF ~InParty("KORGAN") InMyArea("KORGAN") !StateCheck("KORGAN",CD_STATE_NOTVALID)~ THEN @33015
+== BEDWIN IF ~InParty("EDWIN") InMyArea("EDWIN") !StateCheck("EDWIN",CD_STATE_NOTVALID)~ THEN @33016
+== BHAERDA IF ~InParty("HAERDALIS") InMyArea("HAERDALIS") !StateCheck("HAERDALIS",CD_STATE_NOTVALID)~ THEN @33017
+== BNALIA IF ~InParty("nalia") InMyArea("nalia") !StateCheck("nalia",CD_STATE_NOTVALID)~ THEN @33018
+== BVALYGA IF ~InParty("valygar") InMyArea("valygar") !StateCheck("valygar",CD_STATE_NOTVALID)~ THEN @33019
+== BVICONI IF ~InParty("viconia") InMyArea("viconia") !StateCheck("viconia",CD_STATE_NOTVALID)~ THEN @33020
+== BMAZZY IF ~InParty("mazzy") InMyArea("mazzy") !StateCheck("mazzy",CD_STATE_NOTVALID)~ THEN @33021
+== BCERND IF ~InParty("cernd") InMyArea("cernd") !StateCheck("cernd",CD_STATE_NOTVALID)~ THEN @33022
+== BJAN IF ~InParty("jan") InMyArea("jan") !StateCheck("jan",CD_STATE_NOTVALID)~ THEN @33023
+== BANOMEN IF ~InParty("anomen") InMyArea("anomen") !StateCheck("anomen",CD_STATE_NOTVALID) Global("AnomenIsNotknight","GLOBAL",0)~ THEN @33024
+== BANOMEN IF ~InParty("anomen") InMyArea("anomen") !StateCheck("anomen",CD_STATE_NOTVALID) Global("AnomenIsNotknight","GLOBAL",1)~ THEN @33025
+== BKELDOR IF ~InParty("KELDORN") InMyArea("KELDORN") !StateCheck("KELDORN",CD_STATE_NOTVALID)~ THEN @33026
+END
+IF ~~ THEN DO ~SetGlobal("C#ICD_ImoenIsDead","GLOBAL",2)~ SOLVED_JOURNAL @33010 EXIT
+>>>>>>>>
+COPY ~d5/imoen_maze.d~ ~weidu_external/%MOD_FOLDER%/compile/330/imoen_maze.d~
+COMPILE ~weidu_external/%MOD_FOLDER%/compile/330/imoen_maze.d~ EVALUATE_BUFFER
 
 
 //___________________________________________________________________________________

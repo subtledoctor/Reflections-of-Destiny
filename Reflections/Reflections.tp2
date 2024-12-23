@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections~
 AUTHOR ~SubtleD~
 
-VERSION ~0.8.0~
+VERSION ~0.8.1~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/misc_functions.tpa~
@@ -79,6 +79,11 @@ INCLUDE ~%MOD_FOLDER%/comp/comp_106.tpa~	//	dukes post-sarevok
 INCLUDE ~%MOD_FOLDER%/comp/comp_107.tpa~	//	off-ramp to BG2
 INCLUDE ~%MOD_FOLDER%/comp/comp_108.tpa~	//	quest introducing the crusade
 
+// prep journal entries
+
+ADD_JOURNAL TITLE (@10200) @10234 @10235 @10321 @10322 @10323 @10435 @10415 @10501 @10601 @10650
+ADD_JOURNAL TITLE (@10800) @10801 @10803 @10805 @10807 @10808 @10809
+
 LAF kill_thalantyr END
 LAF delay_maze END
 LAF early_korlasz END
@@ -98,6 +103,19 @@ REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
 INCLUDE ~%MOD_FOLDER%/comp/comp_110.tpa~
 
 LAF mirror_shards END
+
+//___________________________________________________________________________________
+//
+/*
+BEGIN @150	//	bp in bg
+DESIGNATED 150
+LABEL ~D5_REFLECTIONS_BP_IN_BG~
+REQUIRE_PREDICATE (GAME_IS ~eet~) OR (GAME_INCLUDES ~sod~) ~ ~
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_150.tpa~
+
+LAF put_bp_in_bg END
+*/
 
 //___________________________________________________________________________________
 //
@@ -177,12 +195,24 @@ LAF clone_saga END
 
 //___________________________________________________________________________________
 //
-BEGIN @310	//	SoD content in BG2
-DESIGNATED 310
+BEGIN @320	//	imoen can die
+DESIGNATED 320
+LABEL ~D5_REFLECTIONS_IMOEN_CAN_DIE~
+REQUIRE_PREDICATE (GAME_IS ~bg2ee eet~) ~ ~
+// forbid if i4eva installed
+
+INCLUDE ~%MOD_FOLDER%/comp/comp_320.tpa~
+
+LAF imoen_can_die END
+
+//___________________________________________________________________________________
+//
+BEGIN @330	//	SoD content in BG2
+DESIGNATED 330
 LABEL ~D5_REFLECTIONS_SOD_CONTENT_SOA~
 REQUIRE_PREDICATE (GAME_IS ~eet~) ~ ~
 
-INCLUDE ~%MOD_FOLDER%/comp/comp_310.tpa~
+INCLUDE ~%MOD_FOLDER%/comp/comp_330.tpa~
 
 LAF reveal_small_teeth END
 LAF sod_remix_coldhearth_dungeon END
@@ -190,18 +220,6 @@ LAF sod_remix_coast_way_forest END
 LAF sod_remix_wyrm_forest END
 LAF sod_remix_bloodbark_grove END
 // LAF sod_remix_underground_river END
-
-//___________________________________________________________________________________
-//
-BEGIN @330	//	imoen can die
-DESIGNATED 330
-LABEL ~D5_REFLECTIONS_IMOEN_CAN_DIE~
-REQUIRE_PREDICATE (GAME_IS ~bg2ee eet~) ~ ~
-// forbid if i4eva installed
-
-INCLUDE ~%MOD_FOLDER%/comp/comp_330.tpa~
-
-LAF imoen_can_die END
 
 //___________________________________________________________________________________
 //

@@ -36,7 +36,7 @@ COPY_EXISTING ~liia.cre~ ~override~
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@10200) @10234 @10235
+// ADD_JOURNAL TITLE (@10200) @10234 @10235
 
 // add to Belt's dialogue
 

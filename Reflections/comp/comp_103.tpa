@@ -30,7 +30,7 @@ DEFINE_ACTION_FUNCTION early_korlasz BEGIN
 
 // prep journal entries
 
-ADD_JOURNAL TITLE (@10200) @10321 @10322 @10323
+// ADD_JOURNAL TITLE (@10200) @10321 @10322 @10323
 
 INCLUDE ~%MOD_FOLDER%/lib/get_response_strrefs.tph~
 
