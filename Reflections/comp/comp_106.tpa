@@ -651,9 +651,11 @@ END
 IF
 	Global("D5KorlaszDone","GLOBAL",1)
 	Dead("Sarevok")  // Sarevok
+	Global("D5StartSoD0120","BD0120",0)
 THEN
 	RESPONSE #100
-		SetGlobal("bd_Imoen_farewell","bd0120",2)
+		SetGlobal("D5StartSoD0120","BD0120",1)
+		SetGlobal("bd_Imoen_farewell","BD0120",2)
 		TakeObjectGoldGlobal("BD_TAKEN_GOLD","GLOBAL",Player1)
 		SetGlobal("BD_EXTRA_GOLD","GLOBAL",17)
 		SetGlobal("BD_SAFEHOUSE_DONE","GLOBAL",1)
@@ -665,6 +667,7 @@ THEN
 		ActionOverride(Player6,LeaveAreaLUA("bd0103","",[239.581],N))
 		ActionOverride(Player1,LeaveAreaLUAPanic("bd0103","",[215.396],SE))
 		ActionOverride(Player1,LeaveAreaLUA("bd0103","",[215.396],SE))
+		Continue()
 END
 >>>>>>>>
 COPY ~d5/bd120+.baf~ ~weidu_external/%MOD_FOLDER%/compile/106/bd120+.baf~
