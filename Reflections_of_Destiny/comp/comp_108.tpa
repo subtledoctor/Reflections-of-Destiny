@@ -733,6 +733,7 @@ IF
 THEN
 	RESPONSE #100
 		CutSceneId("D5DAUSTO")
+		SetGlobal("D5DaustonQuest","GLOBAL",12)
 		ActionOverride("d5cuvier",ForceSpellRES("d5solgl",Myself))
 		Wait(2)
 		ActionOverride(Player1,ApplySpellRES("d5cloup",Myself))

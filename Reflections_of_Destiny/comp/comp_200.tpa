@@ -1944,18 +1944,21 @@ END
 
 IF ~~ BEGIN d5caelar_e7
   SAY @20176
-  IF ~~ DO ~SetGlobal("bd_plot","global",530)
-  			StartCutSceneMode()
-  			StartCutSceneEx("bdcut51",FALSE)~
+  IF ~~ 
+    DO ~SetGlobal("bd_plot","global",530)
+  		StartCutSceneMode()
+  		StartCutSceneEx("bdcut51",FALSE)~
     EXIT
 END
 
 IF ~~ BEGIN d5caelar_e8
   SAY @20177
-  IF ~~ DO ~SetGlobal("bd_plot","global",530)
-  			SetGlobal("D5SkipBel","GLOBAL",1)
-  			GiveItemCreate("bdkey02",Player1,1,0,0)
-  			StartCutSceneEx("bdcut51",FALSE)~ // maybe make new cut scene for this...?
+  IF ~~ 
+    DO ~SetGlobal("bd_plot","global",530)
+  		SetGlobal("D5SkipBel","GLOBAL",1)
+  		GiveItemCreate("bdkey02",Player1,1,0,0)
+  		StartCutSceneMode()
+  		StartCutSceneEx("bdcut51",FALSE)~ // maybe make new cut scene for this...?
     EXIT
 END
 

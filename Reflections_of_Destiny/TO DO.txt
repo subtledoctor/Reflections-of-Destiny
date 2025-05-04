@@ -1,0 +1,121 @@
+
+TO DO Reflections
+
+for v4.3:
+
+*****
+- remove critical campaign choice from the Belt DLG
+- after killing Sarevok, dukes talk about Caelar
+ -- are they connected?
+ -- is it another Bhaalspawn?
+ -- what's her deal, anyway?
+- they give you an information-gathering quest
+ -- her uncle lives here... a wreck of a man, but maybe he has useful information
+ -- go talk to him
+ -- ...or say, sure, but I'll get to it when I get to it
+- quest: you find the Argent but there is a kidnapping attempt!
+ -- some dialogue with ringleader
+ -- you find out a bunch of refugees are being driven toward the city
+ -- *they* find out what you are (maybe it is discernable in your aura after killing Sarevok)
+ -- "things are accelerating faster than she feared! another Bhaalspawn in the upper echelons of the city's government!"
+ -- leader teleports away and you battle his minions
+- report back to the dukes, *then* have the critical choice
+
+- "use the crystal!" ...argent glows blue, charname glows purple-black
+ -- other party members glow as well? lighter? pink?
+ -- make a ghostly image of Sarevok appear
+ -- "do you see - ? it's not just one!" "how is that possible?" "it doesn't matter. I must report to Caelar. Subdue the godspawn. do what you can."
+
+*****
+- maybe, replace Korlasz' dungeon with cloned .ARE files?
+
+
+*****
+- if player skips SoD, move the Coldhearth dungeon to Small Teeth Pass @ 2060x12455
+  --- x2000x1405 to x2070y1270, x1930y1290 to x2015y1205
+ -- and enable this area on the map
+  --- OR to Umar's Cave, @ 1405x725
+ -- check skip variable, enable entrance on map
+ -- check initial dialogue for references to crusade
+ -- disable final recruitment dialogue
+  --- BDDEEP.DLG: change triggers 99-102 ~GlobalLT("Chapter","GLOBAL",10)~ to OR(2) with GlobalGT("Chapter","GLOBAL",10)
+  --- BDDEEP.DLG: ...wait... this may not need changing at all?? It's like it is already ready for this.
+  --- BDCOLDH.DLG: state 25 1st transition needs trigger
+  --- BDCOLDH.DLG: state 26 2nd/3rd/4th transitions need trigger
+  --- BDCOLDH.DLG: state 32 2nd transition needs trigger
+ -- disable recruit coldhearth dialogue
+
+*****
+- if player skips SoD, add entrance to Coast Way Forest from... SW edge of Umar Hills?
+ -- and disable Skie scene
+  --- ...already done!
+ -- and disable Rasaad
+  --- ...already done!
+ -- modify Ikros/Isabela dialogue
+  --- BDISABELA: rewrite state 50
+
+*****
+- if player skips SoD, add entrance to Forest of Wyrms from... SE or E edge of Small Teeth Pass?
+ -- remove crusaders from temple of cyric
+ -- remove talk about wardstone from Madele
+  --- 
+ -- remove talk about wardstone from Ziatar
+  ---
+ -- remove talk about wardstone from Akanna
+  ---
+ -- remove dialogue about recruitment or the crusade
+
+*****
+- if player skips SoD, add entrance to Bloodbark Grove from... SW edge of druid grove?
+ -- remove talk about soldiers from Onoroth
+  --- add trigger to state 0, 1st transition
+
+*****
+- if player skips SoD... move the umar witch into the SoD troll cave?
+ -- change mairyn's dlg to point you to SE of temple ruins map
+ -- remove orcs, add some conjured monsters in random troll cave map
+ -- add some conjured monsters to cave
+ -- have umar really be... a druid/mage???
+  --- would need to extensively rewrite her combat script... but could be cool!
+  --- maybe change her familiar to an animal of some sort
+
+*****
+- if player skips SoD, move underground river area to...beneath the bridge district?
+ -- change the crusaders to smugglers
+ -- remove the northwest exit and its guardians
+ -- kill the crusaders fighting against the drow
+ -- remove any druid dialogue relating to the crusade
+ -- remove crusader patrols
+ 
+
+for v5:
+
+*****
+- rewrite SoD plot
+ -- CA is descended from Zariel
+ -- CA has been told she will meet Zariel, that Zariel will help her subdue the Sword Coast
+  --- thinks Zariel wants to prevent the chaos of the Bhaalspawn
+ -- CA opens the gate thinking it will allow Zariel to come to the Prime and be redeemed
+  --- but of course Zariel does not give a crap, doesn't know or care that CA exists
+- how does CA open the portal? does she need something from Charname?
+ -- need to come up with something substantially better than blood
+  --- maybe it's she activates Sarevok's sword with Charname's blood?
+- tie in the trip to the castle basement?
+ -- it's a trap! 
+  --- which means whoever gives that quest is a traitor...!
+ -- they take something from Charname
+ -- something about Charname and Sarevok being entwined
+  --- S was the first to kill another Bhaalspawn; CN is the second
+  --- and Sarevok's death happened in a temple prepared by rituals
+  --- so CN somehow carries part of S's soul
+  --- because S wanted to take CN's 
+  
+CA thought Zariel would appear and assist her to take control; instead the portal is opened and CA gets sucked into Avernus.
+She makes demands that Belhifet introduce her to Zariel; he dispels her delusion. 
+Of course he very much wants to take over the Sword Coast, and he is able and willing to stamp out the Bhaalspawn. 
+He makes that offer to her: give her what she wants, just not the way she wants it. 
+But it WILL prevent chaos, and unnecessary death (only, Belhifet would be the arbiter of which deaths are 'necessary.')
+So she must make a choice: promise to serve, and attain her goal? Or rebel against him and let her efforts be wasted?
+This is a harder choice than it would seem - 
+Service and attainment of goals are in her nature, as is the rule of law.
+Rebellion, and failure, are completely alien to her.

@@ -1,7 +1,7 @@
-BACKUP ~weidu_external/backup/Reflections~
+BACKUP ~weidu_external/backup/Reflections_of_Destiny~
 AUTHOR ~SubtleD~
 
-VERSION ~0.9~
+VERSION ~0.9.1~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/misc_functions.tpa~
@@ -56,7 +56,7 @@ END
 LANGUAGE
   ~English~
   ~english~
-  ~Reflections/lang/english/setup.tra~
+  ~Reflections_of_Destiny/lang/english/setup.tra~
 
 
 //___________________________________________________________________________________
@@ -195,6 +195,7 @@ LAF clone_saga END
 
 //___________________________________________________________________________________
 //
+/*
 BEGIN @320	//	imoen can die
 DESIGNATED 320
 LABEL ~D5_REFLECTIONS_IMOEN_CAN_DIE~
@@ -204,6 +205,7 @@ REQUIRE_PREDICATE (GAME_IS ~bg2ee eet~) ~ ~
 INCLUDE ~%MOD_FOLDER%/comp/comp_320.tpa~
 
 LAF imoen_can_die END
+*/
 
 //___________________________________________________________________________________
 //
