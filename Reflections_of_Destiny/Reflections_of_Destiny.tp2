@@ -57,7 +57,10 @@ LANGUAGE
   ~English~
   ~english~
   ~Reflections_of_Destiny/lang/english/setup.tra~
-
+LANGUAGE
+  ~Simplified Chinese~ //translation: Lzw104522773
+  ~schinese~
+  ~Reflections_of_Destiny/lang/schinese/setup.tra~
 
 //___________________________________________________________________________________
 //
