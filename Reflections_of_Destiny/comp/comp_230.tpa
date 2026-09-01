@@ -100,11 +100,28 @@ THEN
 		ActionOverride(Player1,ForceSpellRES("SPIN103",Myself))
 		SetGlobal("bd_208_status","global",3)
 		Wait(1)
+		SetGlobal("D5FeyrIsHere","GLOBAL",1)
 		EndCutSceneMode()
 END
 >>>>>>>> 
 COPY ~d5/d5c208a.baf~ ~weidu_external/%MOD_FOLDER%/compile/230/d5c208a.baf~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/230/d5c208a.baf~
+
+
+make sure cut-scene ends...?
+
+<<<<<<<< d5/bd2000+.baf
+IF
+	Global("D5FeyrIsHere","GLOBAL",1)
+THEN
+	RESPONSE #100
+		Wait(2)
+		SetGlobal("D5FeyrIsHere","GLOBAL",2)
+		EndCutSceneMode()
+END
+>>>>>>>>
+COPY ~d5/bd2000+.baf~ ~weidu_external/%MOD_FOLDER%/compile/230/bd2000+.baf~
+EXTEND_TOP ~bd2000.BCS~ ~weidu_external/%MOD_FOLDER%/compile/230/bd2000+.baf~ EVALUATE_BUFFER
 
 
 // modify elandro's dialogue

@@ -441,12 +441,12 @@ COPY ~%MOD_FOLDER%/data/one_for_the_road/d5dausto.cre~ ~override~
 <<<<<<<< d5/d5daust.baf
 IF
 	AreaCheck("%bg1_area_prefix%1000") 
-	Global("D5DaustonQuest","GLOBAL",13)
+	Global("D5DaustonQuest","GLOBAL",14)
 	!ActuallyInCombat()
 	See(Player1)
 THEN
 	RESPONSE #100
-		SetGlobal("D5DaustonQuest","GLOBAL",14)
+		SetGlobal("D5DaustonQuest","GLOBAL",15)
 		SetSequence(1)
 		Wait(1)
 		StartDialogueNoSet(Player1)
@@ -521,7 +521,7 @@ IF ~Global("D5DaustonQuest","GLOBAL",6)~ BEGIN d5dausto_1
   IF ~~ REPLY @10867 DO ~SetGlobal("D5DaustonQuest","GLOBAL",7)~ EXIT 
 END
 
-IF ~Global("D5DaustonQuest","GLOBAL",14)~ BEGIN d5dausto_2
+IF ~Global("D5DaustonQuest","GLOBAL",15)~ BEGIN d5dausto_2
   SAY @10868
   IF ~~ REPLY @10869 GOTO d5dausto_3
   IF ~~ REPLY @10870 GOTO d5dausto_3
@@ -573,7 +573,7 @@ END
 
 IF ~~ BEGIN d5dausto_11
   SAY @10889
-  IF ~~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",15)~ EXIT 
+  IF ~~ DO ~SetGlobal("D5DaustonQuest","GLOBAL",16)~ EXIT 
 END
 >>>>>>>>
 COPY ~d5/d5dausto.d~ ~weidu_external/%MOD_FOLDER%/compile/108/d5dausto.d~
@@ -661,7 +661,7 @@ IF
 	Global("D5DaustonQuest","GLOBAL",10)
 THEN
 	RESPONSE #100
-		SetGlobal("D5DaustonQuest","GLOBAL",11)
+		SetGlobal("D5DaustonQuest","GLOBAL",12)
 		ClearAllActions()
 		StartCutSceneMode()
 		StartCutScene("D5CRCUT2")
@@ -684,7 +684,7 @@ THEN
 END
 
 IF
-	Global("D5DaustonQuest","GLOBAL",15)
+	Global("D5DaustonQuest","GLOBAL",16)
 	InMyArea("d5dausto")	
 THEN
 	RESPONSE #100
@@ -733,12 +733,13 @@ IF
 THEN
 	RESPONSE #100
 		CutSceneId("D5DAUSTO")
-		SetGlobal("D5DaustonQuest","GLOBAL",12)
+//		SetGlobal("D5DaustonQuest","GLOBAL",12)
 		ActionOverride("d5cuvier",ForceSpellRES("d5solgl",Myself))
 		Wait(2)
 		ActionOverride(Player1,ApplySpellRES("d5cloup",Myself))
 		Wait(7)
 		EndCutSceneMode()
+//		SetGlobal("D5DaustonQuest","GLOBAL",12)
 		ActionOverride("d5cuvier",StartDialogueNoSet(Player1))
 END
 >>>>>>>>

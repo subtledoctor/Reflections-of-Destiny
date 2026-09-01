@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections_of_Destiny~
 AUTHOR ~SubtleD~
 
-VERSION ~0.9.1~
+VERSION ~0.9.3~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/misc_functions.tpa~
@@ -84,7 +84,9 @@ INCLUDE ~%MOD_FOLDER%/comp/comp_108.tpa~	//	quest introducing the crusade
 ADD_JOURNAL TITLE (@10200) @10234 @10235 @10321 @10322 @10323 @10435 @10415 @10501 @10601 @10650
 ADD_JOURNAL TITLE (@10800) @10801 @10803 @10805 @10807 @10808 @10809
 
-LAF kill_thalantyr END
+ACTION_IF !(MOD_IS_INSTALLED ~thecalling.tp2~ ~0~) BEGIN
+  LAF kill_thalantyr END
+END
 LAF delay_maze END
 LAF early_korlasz END
 LAF entar_accuse END
