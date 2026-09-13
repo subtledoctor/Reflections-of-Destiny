@@ -108,7 +108,8 @@ COPY ~d5/d5c208a.baf~ ~weidu_external/%MOD_FOLDER%/compile/230/d5c208a.baf~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/230/d5c208a.baf~
 
 
-make sure cut-scene ends...?
+
+// make sure cut-scene ends...?
 
 <<<<<<<< d5/bd2000+.baf
 IF
