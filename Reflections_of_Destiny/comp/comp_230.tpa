@@ -97,18 +97,16 @@ THEN
 		CreateCreature("bdfeyr",[3210.980],NW)
 		CreateVisualEffectObject("spflesh3","bdfeyr")
 		PlaySound("eff_m10a")
-		ActionOverride(Player1,ForceSpellRES("SPIN103",Myself))
-		SetGlobal("bd_208_status","global",3)
-		Wait(1)
+		ForceSpellRES("SPIN103",Myself)
+		SetGlobal("bd_208_status","GLOBAL",3)
 		SetGlobal("D5FeyrIsHere","GLOBAL",1)
+		Wait(1)
 		EndCutSceneMode()
 END
 >>>>>>>> 
 COPY ~d5/d5c208a.baf~ ~weidu_external/%MOD_FOLDER%/compile/230/d5c208a.baf~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/230/d5c208a.baf~
 
-
-make sure cut-scene ends...?
 
 <<<<<<<< d5/bd2000+.baf
 IF

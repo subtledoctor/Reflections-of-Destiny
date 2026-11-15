@@ -118,7 +118,7 @@ I discovered a letter from Sarevok among Korlasz' things. It appears to have bee
 @10407  = ~Well, you should make sure you scour the crypt, it is our best lead at the moment. Korlasz is an important ally of Sarevok, she is sure to have some information.~
 @10408  = ~Liia is the history expert here, I will defer to her on this.~
 @10409  = ~Ah yes. The city's history is quite old. Older than the bricks of these buildings, older than Balduran. There have been rumors that the decaying remains of the original city still lie somewhere beneath us.~
-@10410  = ~Of course the rumors also say the old city is exceedingly dangerous. Who knows what evils might be buried down there? The truth is, as dukes of the city we have a responsibility to protect our citizens from dangers below. So, we were told that our predecessors magically warded any known passages. And, being unusable, they were mostly forgotten.~
+@10410  = ~Of course the rumors also say the old city is extremely dangerous. Who knows what evils might be buried down there? The truth is, as dukes of the city we have a responsibility to protect our citizens from dangers below. So, we were told that our predecessors magically warded any known passages. And, being unusable, they were mostly forgotten.~
 @10411  = ~I don't know what passage Sarevok found, or how he bypassed the wards. Maybe he found a route nobody ever knew about. I can only guess that he has found some source of power there - that could explain his extraordinary success in his schemes. In my lifetime, the only rumors I have heard of such things is of a blocked-off area in the thieves' guild, inaccessible even to its own members. That certainly conforms to the stories of those ancient warrens.~
 @10412  = ~We dare not send troops in force - Angelo was quite cruel in dealing with the guild, and it has created a volatile situation. I fear reprisals if we were to send Flaming Fist soldiers into the heart of their domain. Especially given the rumors from the north, it is important to promote unity and normalcy, not risk further strife. Better that an independent agent investigate the rumored passage. Here, I will apply a magical rune on your hand. Sort of a 'key to the city.' If you can find a way to the Undercity, this tattoo will allow you to traverse it.~
 @10413  = ~~
@@ -311,12 +311,12 @@ Refugees driven from their homes by the servants of Caelar Argent are heading to
 @10673  = ~Let us delay this conversation then, while I finish up my business. I will return.~
 @10674  = ~Very well. On our end we will continue to debrief Sir Dauston, but for the moment he will be secured in a safe location, protected from any further actions by agents of Caelar Argent. Tell me, what do you think of what he told you about her?~
 @10675  = ~He said she was descended from a solar. That would make her an aasimar.~
-@10676  = ~Yes. Aasimar are not unheard of, but with ancestry from a solar... that is exceedingly rare. Solars are practically gods in their own right. Stories of a solar interacting with mortals at all are exceedingly rare.~
+@10676  = ~Yes. Aasimar are not unheard of, but with ancestry from a solar... that is exceedingly rare. Solars are practically gods in their own right. Solars almost never interact with mortals.~
 @10677  = ~Sir Dauston said something about Caelar reenacting her ancestor's actions. Do you know what that could mean?~
-@10678  = ~No... it would of course depend on who that ancestor was. And it may have been so long ago that we would have no knowledge of the events. On the other hand, this at least sheds some light on why Caelar chooses to call her war effort a "crusade."~
+@10678  = ~No... it would of course depend on who that ancestor was. However, this at least sheds some light on why Caelar chooses to call her war effort a "crusade." Whatever is driving would seem to have an element of the divine.~
 @10679  = ~Could her cause truly be righteous? Is our oppositional stance the correct response? If she means well, why choose a stronghold over a portal to the Nine Hells? Could she be protecting it from some outside incursion? There are so many unanswered questions!~
 @10680  = ~You are trying to find logic in her actions. But Sir Dauston seemed to think that Caelar is delusional.~
-@10681  = ~That may well be the case. But in a way, it would be a much more concerning prospect. To have her power, her influence, an army at her back... if she has lost touch with reality, this crusade could be incredibly destructive. Reports tell us that many innocents have already suffered in the area under her sway. As here sphere of influence expands, such devastation would grow with it.~
+@10681  = ~That may well be the case. But in a way, it would be a much more concerning prospect. To have her power, her influence, an army at her back... if she has lost touch with reality, this crusade could be incredibly destructive. Reports tell us that many innocents have already suffered in the area under her sway. As her sphere of influence expands, such devastation would grow with it.~
 @10682  = ~Of course Sir Dauston himself may not be entirely reliable. His own mind is clearly touched, and thick with drink. I prefer not to assume the worst about Caelar.~
 @10683  = ~Ultimately, we must find out the truth. Preparations for the Flaming Fist's expedition are almost complete. We have been in touch with officials from Waterdeep and Daggerford. Our troops will rendezvous with theirs, and together we will confront the crusade.~
 @10684  = ~We would like you to join the Flaming Fist, and travel with them to Dragonspear Castle. I know you are not a soldier, and I do not expect you to be in the army's command structure. But the roads are dangerous, doubly so as the effects of the Crusade spread south. The forces will undoubtedly encounter situations that can best be handled by adventurers. And beyond that, you are a celebrity, a hero of the city, the slayer of Sarevok. You averted a war once; it would do people well to think that it might be averted again.~
@@ -332,6 +332,9 @@ Refugees driven from their homes by the servants of Caelar Argent are heading to
 @10694  = ~~
 @10695  = ~~
 @10696  = ~~
+@10697  = ~You return. What news of Sir Dauston? Did you find him? Was he able to shed any light on Caelar Argent's actions?~
+@10698  = ~We found him, in Ulgoth's Beard. But a group of Crusaders was there as well. They started a fight before we had a chance to speak with Sir Dauston, and in the chaos, he was killed.~
+@10699  = ~That is unfortunate - and alarming. That Caelar's agents are operating so close to Baldur's Gate, openly using violence! We have learned nothing about Caelar's intentions. But this incident suggests that opposing her army is the right approach.~
 //
 //
 @10701  = ~~
@@ -438,7 +441,7 @@ I will not be joining the Coalition army that goes north to confront Caelar Arge
 @10810  = ~Sir Dauston, yes, I recall the chap. Nice fellow. As for where he is now, I cannot tell you. He has not been in here for a few weeks at least. Ask around the other taverns, someone might know.~
 @10811  = ~Yes, I recall good Sir Dauston. "The Knight of Cups," people called him. Liked his drink something fierce, but he was a good fellow. Never violent without cause, and always paid his bill. I heard he took the road north, not sure where to.~
 @10812  = ~Thank you.~
-@10813  = ~Ah yes, "The Knight of Cups!" Good lad, that. He was a good customer, but I worried for his health. He has not been around these parts for some time. Said he wanted to live by the sea air, and left town. Mind you, I suspect that means he wanted to find a tavern by the sea, not just any old beach.~
+@10813  = ~Ah yes, "The Knight of Cups!" Good lad, that. He was a good customer, but I worried for his health. He has not been around these parts for some time. Said he wanted to live by the sea air, and left town. Mind you, I suspect that means he wanted to find a tavern by the sea, not just any old beach. Closest place around here that fits the bill would be Ulgoth's Beard, up north of the Gate.~
 @10814  = ~~
 @10815  = ~I am looking for a man - a paladin, I think. Named Sir Dauston.~
 @10816  = ~Ah yes, we know Sir Dauston well here. Showed up a few weeks ago and has been a reliable customer since. He is not here in the inn at the moment, which means he is probably recovering, er, resting, on the beach by the fishing boats. He likes to find himself a spot in the shade.~
@@ -449,7 +452,11 @@ I will not be joining the Coalition army that goes north to confront Caelar Arge
 @10821  = ~Phantom Figure~
 @10822  = ~Sir Dauston~
 @10823  = ~~
-@10824  = ~~
+@10824  = ~Investigating the Crusade
+
+I found Sir Dauston, but he perished in the fight against several Crusaders. 
+
+Before he died, one of the Crusaders used a magical item which exposed Sir Dauston as an Aasimar. Given the family link, we must presume that Caelar Argent is one as well. What that means as far as her motivations, however, is not clear.~
 @10825  = ~Hello everyone! If you could please stay calm and gather around, so I can speak -~
 @10826  = ~Now now, everyone stay calm. It will be a cold day in Avernus before Ulgoth's Beard lets those in need go hungry. We'll find space for everyone to spend the night, and warm food to feed you.~
 @10827  = ~However, come the morrow, you will need to be moving on. We are a small village and we lack the resources to support this many outsiders.~

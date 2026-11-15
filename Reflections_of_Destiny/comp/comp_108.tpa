@@ -256,21 +256,21 @@ COPY ~%MOD_FOLDER%/data/one_for_the_road/d5ubmay1.cre~ ~override~
 IF
 	AreaCheck("%bg1_area_prefix%1000")  // Ulgoth's Beard
 	GlobalGT("D5DaustonQuest","GLOBAL",0)
-	Global("D5UBRefugeeSpeech","%bg1_area_prefix%1000",0)
+	Global("D5UBRefugeeSpeech","GLOBAL",0)
 	See(Player1)
 THEN
 	RESPONSE #100
-		SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",1)
+		SetGlobal("D5UBRefugeeSpeech","GLOBAL",1)
 		StartDialogueNoSet(Player1)
 END	
 
 IF
 	AreaCheck("%bg1_area_prefix%1000")  // Ulgoth's Beard
-	Global("D5UBRefugeeSpeech","%bg1_area_prefix%1000",2)
+	Global("D5UBRefugeeSpeech","GLOBAL",2)
 	See(Player1)
 THEN
 	RESPONSE #100
-		SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",3)
+		SetGlobal("D5UBRefugeeSpeech","GLOBAL",3)
 		Wait(2)
 		StartDialogueNoSet(Player1)
 END	
@@ -284,7 +284,7 @@ COMPILE ~weidu_external/%MOD_FOLDER%/compile/108/d5ubmay1.baf~ EVALUATE_BUFFER
 <<<<<<<< d5/d5ubmay1.d
 BEGIN ~D5UBMAY1~
 
-IF ~Global("D5DaustonQuest","GLOBAL",5) GlobalLT("D5UBRefugeeSpeech","%bg1_area_prefix%1000",2)~ BEGIN d5ubmay1_1
+IF ~Global("D5DaustonQuest","GLOBAL",5) GlobalLT("D5UBRefugeeSpeech","GLOBAL",2)~ BEGIN d5ubmay1_1
   SAY @10825
   IF ~~ EXTERN BDREFGF2 d5refgf2_1
 END
@@ -311,10 +311,10 @@ END
 
 IF ~~ BEGIN d5ubmay1_6
   SAY @10830
-  IF ~~ DO ~SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",2)~ EXIT
+  IF ~~ DO ~SetGlobal("D5UBRefugeeSpeech","GLOBAL",2)~ EXIT
 END
 
-IF ~Global("D5UBRefugeeSpeech","%bg1_area_prefix%1000",3)~ BEGIN d5ubmay1_7
+IF ~Global("D5UBRefugeeSpeech","GLOBAL",3)~ BEGIN d5ubmay1_7
   SAY @10831
   IF ~~ REPLY ~What is going on?~ GOTO d5ubmay1_8
   IF ~~ REPLY ~What's with all these people?~ GOTO d5ubmay1_8
@@ -358,7 +358,7 @@ IF ~~ BEGIN d5ubmay1_14
     DO ~SetGlobal("D5DaustonQuest","GLOBAL",6)
     	AddJournalEntry(@10805,QUEST)
     	SetGlobal("D5UBRefugeesMove","GLOBAL",3)
-    	SetGlobal("D5UBRefugeeSpeech","%bg1_area_prefix%1000",4)~ EXIT
+    	SetGlobal("D5UBRefugeeSpeech","GLOBAL",4)~ EXIT
 END
 
 BEGIN ~BDREFGF2~
@@ -442,6 +442,7 @@ COPY ~%MOD_FOLDER%/data/one_for_the_road/d5dausto.cre~ ~override~
 IF
 	AreaCheck("%bg1_area_prefix%1000") 
 	Global("D5DaustonQuest","GLOBAL",14)
+	Global("D5DaustonDead","GLOBAL",0)
 	!ActuallyInCombat()
 	See(Player1)
 THEN
@@ -669,22 +670,37 @@ END
 
 IF
 	Global("D5DaustonQuest","GLOBAL",13)
+	Global("D5DaustonFight","GLOBAL",0)
 THEN
 	RESPONSE #100
-		SetGlobal("D5DaustonQuest","GLOBAL",14)
-		ActionOverride("d5cuvier",ForceSpellPoint([2900.300],WIZARD_DIMENSION_DOOR))
+		SetGlobal("D5DaustonFight","GLOBAL",1)
+		ActionOverride("d5cuvier",ForceSpellPoint([2900.300],WIZARD_DIMENSION_DOOR_DEPRECATED))  // SPWI402.SPL (Dimension Jump)
 		Wait(1)
-		ActionOverride("d5cuvier",DestroySelf())
 		ActionOverride("d5cru48",Enemy())
 		ActionOverride("d5cru41",Enemy())
 		ActionOverride("d5cru48",Enemy())
 		ActionOverride("d5cru52",Enemy())
 		ActionOverride("d5cru58",Enemy())
 		ActionOverride("d5cruaf5",Enemy())
+		ActionOverride("d5cuvier",DestroySelf())
+		Wait(2)
+		SetGlobal("D5DaustonQuest","GLOBAL",14)
+END
+
+IF
+	Global("D5DaustonQuest","GLOBAL",14)
+	Global("D5DaustonDead","GLOBAL",0)
+	Dead("D5DAUST")
+THEN
+	RESPONSE #100
+		SetGlobal("D5DaustonDead","GLOBAL",1)
+		SetGlobal("D5DaustonQuest","GLOBAL",20)
+		AddJournalEntry(@10824,QUEST)
 END
 
 IF
 	Global("D5DaustonQuest","GLOBAL",16)
+	Global("D5DaustonDead","GLOBAL",0)
 	InMyArea("d5dausto")	
 THEN
 	RESPONSE #100
@@ -786,55 +802,60 @@ EXTEND_TOP ~%bg1_area_prefix%0800.BCS~ ~weidu_external/%MOD_FOLDER%/compile/108/
 <<<<<<<< d5/final+.d
 APPEND BELT
 
-IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",15) Global("D5GregsonPalace","GLOBAL",0) ~ BEGIN d5beltdq_1
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",15) Global("D5GregsonPalace","GLOBAL",0) Global("D5DaustonDead","GLOBAL",0) ~ BEGIN d5beltdq_1
   SAY @10671
-  IF ~~ REPLY @10672 GOTO d5beltdq_2
+  IF ~~ REPLY @10672 GOTO d5beltdq_3
   IF ~~ REPLY @10673 EXIT
 END
 
-IF ~~ BEGIN d5beltdq_2
-  SAY @10674
-  IF ~~ REPLY @10675 GOTO d5beltdq_3
+IF WEIGHT #-1 ~GlobalGT("D5DaustonQuest","GLOBAL",15) Global("D5GregsonPalace","GLOBAL",0) Global("D5DaustonDead","GLOBAL",1) ~ BEGIN d5beltdq_2
+  SAY @10697
+  IF ~~ REPLY @10698 GOTO d5beltdq_13
 END
 
 IF ~~ BEGIN d5beltdq_3
-  SAY @10676
-  IF ~~ REPLY @10677 GOTO d5beltdq_4
+  SAY @10674
+  IF ~~ REPLY @10675 GOTO d5beltdq_4
 END
 
 IF ~~ BEGIN d5beltdq_4
-  SAY @10678
-  IF ~~ GOTO d5beltdq_5
+  SAY @10676
+  IF ~~ REPLY @10677 GOTO d5beltdq_5
 END
 
 IF ~~ BEGIN d5beltdq_5
-  SAY @10679
-  IF ~~ REPLY @10680 GOTO d5beltdq_6
+  SAY @10678
+  IF ~~ GOTO d5beltdq_6
 END
 
 IF ~~ BEGIN d5beltdq_6
-  SAY @10681
-  IF ~~ GOTO d5beltdq_7
+  SAY @10679
+  IF ~~ REPLY @10680 GOTO d5beltdq_7
 END
 
 IF ~~ BEGIN d5beltdq_7
-  SAY @10682
+  SAY @10681
   IF ~~ GOTO d5beltdq_8
 END
 
 IF ~~ BEGIN d5beltdq_8
-  SAY @10683
+  SAY @10682
   IF ~~ GOTO d5beltdq_9
 END
 
 IF ~~ BEGIN d5beltdq_9
-  SAY @10684
-  IF ~~ REPLY @10685 GOTO d5beltdq_10
-  IF ~~ REPLY @10686 GOTO d5beltdq_10
-  IF ~~ REPLY @10687 GOTO d5beltdq_11
+  SAY @10683
+  IF ~~ GOTO d5beltdq_10
 END
 
 IF ~~ BEGIN d5beltdq_10
+  SAY @10684
+  IF ~~ REPLY @10685 GOTO d5beltdq_11
+  IF ~~ REPLY @10686 GOTO d5beltdq_11
+  IF ~~ REPLY @10687 GOTO d5beltdq_12
+END
+
+IF ~~ BEGIN d5beltdq_11
   SAY @10688
   IF ~~ REPLY @10689
     DO ~AddJournalEntry(@10808,QUEST_DONE)
@@ -846,13 +867,18 @@ IF ~~ BEGIN d5beltdq_10
     EXIT
 END
 
-IF ~~ BEGIN d5beltdq_11
+IF ~~ BEGIN d5beltdq_12
   SAY @10690
   IF ~~ 
     DO ~SetGlobal("D5GregsonPalace","GLOBAL",1) 
     	SetGlobal("D5SkipSoD","GLOBAL",1) 
     	AddJournalEntry(@10809,QUEST_DONE)~ 
     EXIT // ...mirror clone cut scene
+END
+
+IF ~~ BEGIN d5beltdq_13
+  SAY @10699
+  IF ~~ GOTO d5beltdq_9
 END
 
 END

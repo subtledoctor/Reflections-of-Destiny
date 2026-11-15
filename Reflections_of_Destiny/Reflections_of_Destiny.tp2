@@ -1,7 +1,7 @@
 BACKUP ~weidu_external/backup/Reflections_of_Destiny~
 AUTHOR ~SubtleD~
 
-VERSION ~0.9.3~
+VERSION ~0.9.4~
 
 ALWAYS
   INCLUDE ~%MOD_FOLDER%/lib/misc_functions.tpa~
