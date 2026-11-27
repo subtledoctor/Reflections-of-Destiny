@@ -2204,14 +2204,20 @@ END
 COPY ~d5/d5belcae.d~ ~weidu_external/%MOD_FOLDER%/compile/200/d5belcae.d~
 COMPILE ~weidu_external/%MOD_FOLDER%/compile/200/d5belcae.d~ EVALUATE_BUFFER
 
-COPY_EXISTING ~bdcaelar.cre~ ~override~
-	ADD_CRE_ITEM ~bdkey02~ #1 #0 #0 ~IDENTIFIED~ ~INV~
-IF_EXISTS
-
+ACTION_FOR_EACH caelar IN ~bdcaelar~ ~bdcaela2~ ~bdcaela3~ BEGIN
+  COPY_EXISTING ~%caelar%.cre~ ~override~
+    ADD_CRE_ITEM ~bdkey02~ #1 #0 #0 ~IDENTIFIED~ ~INV~
+  IF_EXISTS
+END
 
 //___________________________________________________________________________________
 //
 // scrub aun argent from the game
+
+COPY_EXISTING ~bdaun.cre~ ~override~
+  SAY 0x08 ~Crusader Unk~
+  SAY 0x0c ~Crusader Unk~
+IF_EXISTS
 
 <<<<<<<< d5/d54700_1.baf
 IF
